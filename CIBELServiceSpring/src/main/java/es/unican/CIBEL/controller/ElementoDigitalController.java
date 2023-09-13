@@ -26,7 +26,7 @@ public class ElementoDigitalController {
 	private CategoriaService categoriaService;
 	
 	@GetMapping
-	public List<ElementoDigital> getDispositivosElementosDigitales(@RequestParam(value="categoria", required = false) String categoria) {
+	public List<ElementoDigital> getElementosDigitales(@RequestParam(value="categoria", required = false) String categoria) {
 		
 		List<ElementoDigital> elementos = new LinkedList<ElementoDigital>();
 		
