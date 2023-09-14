@@ -10,14 +10,14 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import java.util.HashMap;
 import java.util.Map;
 
-import es.unican.appriegospersonales.activities.perfil.tabs.TabDElementsView;
+import es.unican.appriegospersonales.activities.perfil.tabs.TabRisksView;
 import es.unican.appriegospersonales.activities.perfil.tabs.TabControlesView;
 import es.unican.appriesgospersonales.R;
 
 public class VPPerfilAdapter extends FragmentStateAdapter {
 
     public enum Tab {
-        APPS(0, R.string.perfil_tabApps),
+        RISKS(0, R.string.perfil_tabRiesgos),
         CONTROLS(1, R.string.perfil_tabControles);
         final int title;
         final int position;
@@ -51,8 +51,8 @@ public class VPPerfilAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int p) {
-        if (p == Tab.APPS.position) {
-            return new TabDElementsView();
+        if (p == Tab.RISKS.position) {
+            return new TabRisksView();
         } else if (p == Tab.CONTROLS.position) {
             return new TabControlesView();
         } else {

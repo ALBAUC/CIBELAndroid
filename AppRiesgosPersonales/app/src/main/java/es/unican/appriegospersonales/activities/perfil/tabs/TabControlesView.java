@@ -30,7 +30,7 @@ public class TabControlesView extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_perfil_controles, container, false);
-        controles_rv = layout.findViewById(R.id.controlesAplicados_rv);
+        controles_rv = layout.findViewById(R.id.itemsAplicados_rv);
 
         controles_rv.setLayoutManager(new LinearLayoutManager(getContext()));
         controles_rv.setAdapter(new RVControlesAdapter(getContext(), presenter.getControlesAnhadidos()));

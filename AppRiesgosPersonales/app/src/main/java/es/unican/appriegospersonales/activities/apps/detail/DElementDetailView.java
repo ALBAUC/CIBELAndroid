@@ -22,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import es.unican.appriegospersonales.activities.main.MainView;
-import es.unican.appriegospersonales.activities.perfil.tabs.TabDElementsView;
 import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.common.adapters.RVRiesgosAdapter;
 import es.unican.appriegospersonales.model.ElementoDigital;
@@ -79,16 +78,16 @@ public class DElementDetailView extends Fragment implements IDElementDetailContr
                     DividerItemDecoration.VERTICAL);
             appRiesgos_rv.addItemDecoration(dividerItemDecoration);
 
-            updateAppAddButton(presenter.isDElementAdded());
+            updateDElementAddButton(presenter.isDElementAdded());
             appAdd_bt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     presenter.onAddDElementClicked();
-                    updateAppAddButton(presenter.isDElementAdded());
-                    TabDElementsView tabDElementsView = (TabDElementsView) requireActivity().getSupportFragmentManager().findFragmentById(R.id.viewpager);
-                    if (tabDElementsView != null) {
-                        tabDElementsView.updateAppList(presenter.getPerfilDElements());
-                    }
+                    updateDElementAddButton(presenter.isDElementAdded());
+//                    TabRisksView tabRisksView = (TabRisksView) requireActivity().getSupportFragmentManager().findFragmentById(R.id.viewpager);
+//                    if (tabRisksView != null) {
+//                        tabRisksView.updateAppList(presenter.getPerfilDElements());
+//                    }
                 }
             });
         }
@@ -96,7 +95,7 @@ public class DElementDetailView extends Fragment implements IDElementDetailContr
         return layout;
     }
 
-    private void updateAppAddButton(boolean isAppAdded) {
+    private void updateDElementAddButton(boolean isAppAdded) {
         if (isAppAdded) {
             if (isDarkModeEnabled()) {
                 appAdd_bt.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.dark_background)));
@@ -105,7 +104,7 @@ public class DElementDetailView extends Fragment implements IDElementDetailContr
             }
 
             appAdd_bt.setTextColor(ContextCompat.getColor(getContext(), R.color.primary));
-            appAdd_bt.setText(R.string.app_detail_remove);
+            appAdd_bt.setText(R.string.dElement_detail_remove);
         } else {
             if (isDarkModeEnabled()) {
                 appAdd_bt.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
@@ -113,7 +112,7 @@ public class DElementDetailView extends Fragment implements IDElementDetailContr
                 appAdd_bt.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
             }
             appAdd_bt.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.primary)));
-            appAdd_bt.setText(R.string.app_detail_add);
+            appAdd_bt.setText(R.string.dElement_detail_add);
         }
     }
 

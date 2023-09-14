@@ -94,7 +94,7 @@ public class ControlDetailView extends Fragment implements IControlDetailContrac
             }
 
             controlAdd_bt.setTextColor(ContextCompat.getColor(getContext(), R.color.primary));
-            controlAdd_bt.setText(R.string.app_detail_remove);
+            controlAdd_bt.setText(R.string.dElement_detail_remove);
         } else {
             if (isDarkModeEnabled()) {
                 controlAdd_bt.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
@@ -102,7 +102,7 @@ public class ControlDetailView extends Fragment implements IControlDetailContrac
                 controlAdd_bt.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
             }
             controlAdd_bt.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.primary)));
-            controlAdd_bt.setText(R.string.app_detail_add);
+            controlAdd_bt.setText(R.string.dElement_detail_add);
         }
     }
 

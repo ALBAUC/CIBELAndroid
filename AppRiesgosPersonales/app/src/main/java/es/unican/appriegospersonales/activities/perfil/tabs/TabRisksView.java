@@ -11,44 +11,41 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.unican.appriegospersonales.common.MyApplication;
+import es.unican.appriegospersonales.common.adapters.RVControlesAdapter;
 import es.unican.appriegospersonales.common.adapters.RVDElementsPerfilAdapter;
+import es.unican.appriegospersonales.common.adapters.RVRiesgosAdapter;
 import es.unican.appriegospersonales.model.ElementoDigital;
 import es.unican.appriesgospersonales.R;
 
-public class TabDElementsView extends Fragment {
-    private TabDElementsPresenter presenter;
-    private RecyclerView apps_rv;
-    private RVDElementsPerfilAdapter appsAdapter;
+public class TabRisksView extends Fragment {
+    private TabRisksPresenter presenter;
+    private RecyclerView risks_rv;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new TabDElementsPresenter(this);
+        presenter = new TabRisksPresenter(this);
         presenter.init();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.fragment_perfil_apps, container, false);
-        apps_rv = layout.findViewById(R.id.appsUsadas_rv);
+        View layout = inflater.inflate(R.layout.fragment_perfil_controles, container, false);
+        risks_rv = layout.findViewById(R.id.itemsAplicados_rv);
 
-        apps_rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        appsAdapter = new RVDElementsPerfilAdapter(getContext(), presenter.getAppsAnhadidas());
-        apps_rv.setAdapter(appsAdapter);
+        risks_rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        risks_rv.setAdapter(new RVRiesgosAdapter(getContext(), new ArrayList<>(presenter.getRiesgosActuales())));
 
         DividerItemDecoration dividerA = new DividerItemDecoration(
-                apps_rv.getContext(),
+                risks_rv.getContext(),
                 DividerItemDecoration.VERTICAL);
-        apps_rv.addItemDecoration(dividerA);
+        risks_rv.addItemDecoration(dividerA);
         return layout;
-    }
-
-    public void updateAppList(List<ElementoDigital> elementsAnhadidas) {
-        appsAdapter.updateElementsList(elementsAnhadidas);
     }
 
     public MyApplication getMyApplication() {

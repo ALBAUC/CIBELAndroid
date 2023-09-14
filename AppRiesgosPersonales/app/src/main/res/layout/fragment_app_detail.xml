@@ -83,7 +83,7 @@
             android:layout_marginRight="24dp"
             android:layout_marginBottom="2dp"
             android:background="@drawable/button"
-            android:text="@string/app_detail_add"
+            android:text="@string/dElement_detail_add"
             android:textAllCaps="false" />
 
     </LinearLayout>
@@ -95,7 +95,7 @@
         android:paddingLeft="24dp"
         android:paddingTop="24dp"
         android:paddingRight="24dp"
-        android:text="@string/app_detail_riesgos_title"
+        android:text="@string/dElement_detail_riesgos_title"
         android:textSize="20sp"
         android:textStyle="bold"
         tools:text="Riesgos" />

@@ -57,7 +57,7 @@
             android:layout_marginLeft="5dp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="@string/appAdded"
+            android:text="@string/dElementAdded"
             android:textSize="12dp"
             tools:text="Añadida"/>
     </LinearLayout>
