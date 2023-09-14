@@ -10,7 +10,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import java.util.HashMap;
 import java.util.Map;
 
-import es.unican.appriegospersonales.activities.perfil.tabs.TabAppsView;
+import es.unican.appriegospersonales.activities.perfil.tabs.TabDElementsView;
 import es.unican.appriegospersonales.activities.perfil.tabs.TabControlesView;
 import es.unican.appriesgospersonales.R;
 
@@ -52,7 +52,7 @@ public class VPPerfilAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int p) {
         if (p == Tab.APPS.position) {
-            return new TabAppsView();
+            return new TabDElementsView();
         } else if (p == Tab.CONTROLS.position) {
             return new TabControlesView();
         } else {

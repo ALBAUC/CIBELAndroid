@@ -32,7 +32,7 @@ android {
 }
 
 greendao {
-    schemaVersion 12
+    schemaVersion 13
     daoPackage = "es.unican.appriegospersonales.repository.db"
 }
 

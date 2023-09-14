@@ -14,4 +14,4 @@ Ejecutar el JAR generado en target (servicio funcionando)
 
 En Android Studio ir a la clase repository/rest/AppWiseServiceConstants y cambiar el atributo API_URL con tu ip.
 
-Ya se podría ejecutar la aplicacion y esperar a que aparezca un mensaje diciendo que se han cargado 50 aplicaciones.
+Ya se podría ejecutar la aplicacion y esperar a que aparezca un mensaje diciendo que se han cargado 50 aplicaciones. (Si se ejecuta en el movil, tiene que estar conectado al mismo wifi que el ordenador)

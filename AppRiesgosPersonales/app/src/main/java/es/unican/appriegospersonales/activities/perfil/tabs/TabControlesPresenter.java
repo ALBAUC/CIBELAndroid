@@ -23,6 +23,6 @@ public class TabControlesPresenter {
     }
 
     public List<Control> getControlesAnhadidos() {
-        return perfil.getControlesAnhadidas();
+        return perfil.getControlesAnhadidos();
     }
 }

@@ -8,12 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
-import org.greenrobot.greendao.annotation.Transient;
 
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.ControlDao;
-import es.unican.appriegospersonales.repository.db.AplicacionDao;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
+import es.unican.appriegospersonales.repository.db.ElementoDigitalDao;
 
 @Entity
 public class Perfil {
@@ -21,10 +20,10 @@ public class Perfil {
     private Long id;
 
     @ToMany(referencedJoinProperty = "fk_perfil")
-    private List<Aplicacion> appsAnhadidas = new ArrayList<>();
+    private List<ElementoDigital> elementosDigitalesAnhadidos = new ArrayList<>();
 
     @ToMany(referencedJoinProperty = "fk_perfil")
-    private List<Control> controlesAnhadidas = new ArrayList<>();
+    private List<Control> controlesAnhadidos = new ArrayList<>();
 
     /** Used to resolve relations */
     @Generated(hash = 2040040024)
@@ -53,12 +52,12 @@ public class Perfil {
         return result;
     }
 
-    public void setAppsAnhadidas(List<Aplicacion> appsAnhadidas) {
-        this.appsAnhadidas = appsAnhadidas;
+    public void setElementosDigitalesAnhadidos(List<ElementoDigital> elementosDigitalesAnhadidos) {
+        this.elementosDigitalesAnhadidos = elementosDigitalesAnhadidos;
     }
 
-    public void setControlesAnhadidas(List<Control> controlesAnhadidas) {
-        this.controlesAnhadidas = controlesAnhadidas;
+    public void setControlesAnhadidos(List<Control> controlesAnhadidos) {
+        this.controlesAnhadidos = controlesAnhadidos;
     }
 
     public Long getId() {
@@ -73,58 +72,22 @@ public class Perfil {
      * To-many relationship, resolved on first access (and after reset).
      * Changes to to-many relations are not persisted, make changes to the target entity.
      */
-    @Generated(hash = 54441495)
-    public List<Aplicacion> getAppsAnhadidas() {
-        if (appsAnhadidas == null) {
-            final DaoSession daoSession = this.daoSession;
-            if (daoSession == null) {
-                throw new DaoException("Entity is detached from DAO context");
-            }
-            AplicacionDao targetDao = daoSession.getAplicacionDao();
-            List<Aplicacion> appsAnhadidasNew = targetDao
-                    ._queryPerfil_AppsAnhadidas(id);
-            synchronized (this) {
-                if (appsAnhadidas == null) {
-                    appsAnhadidas = appsAnhadidasNew;
-                }
-            }
-        }
-        return appsAnhadidas;
-    }
-
-    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
-    @Generated(hash = 1933475369)
-    public synchronized void resetAppsAnhadidas() {
-        appsAnhadidas = null;
-    }
-
-    /**
-     * To-many relationship, resolved on first access (and after reset).
-     * Changes to to-many relations are not persisted, make changes to the target entity.
-     */
-    @Generated(hash = 60956764)
-    public List<Control> getControlesAnhadidas() {
-        if (controlesAnhadidas == null) {
+    @Generated(hash = 18301824)
+    public List<Control> getControlesAnhadidos() {
+        if (controlesAnhadidos == null) {
             final DaoSession daoSession = this.daoSession;
             if (daoSession == null) {
                 throw new DaoException("Entity is detached from DAO context");
             }
             ControlDao targetDao = daoSession.getControlDao();
-            List<Control> controlesAnhadidasNew = targetDao
-                    ._queryPerfil_ControlesAnhadidas(id);
+            List<Control> controlesAnhadidosNew = targetDao._queryPerfil_ControlesAnhadidos(id);
             synchronized (this) {
-                if (controlesAnhadidas == null) {
-                    controlesAnhadidas = controlesAnhadidasNew;
+                if (controlesAnhadidos == null) {
+                    controlesAnhadidos = controlesAnhadidosNew;
                 }
             }
         }
-        return controlesAnhadidas;
-    }
-
-    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
-    @Generated(hash = 1399833704)
-    public synchronized void resetControlesAnhadidas() {
-        controlesAnhadidas = null;
+        return controlesAnhadidos;
     }
 
     /**
@@ -168,5 +131,40 @@ public class Perfil {
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getPerfilDao() : null;
+    }
+
+    /**
+     * To-many relationship, resolved on first access (and after reset).
+     * Changes to to-many relations are not persisted, make changes to the target entity.
+     */
+    @Generated(hash = 3856527)
+    public List<ElementoDigital> getElementosDigitalesAnhadidos() {
+        if (elementosDigitalesAnhadidos == null) {
+            final DaoSession daoSession = this.daoSession;
+            if (daoSession == null) {
+                throw new DaoException("Entity is detached from DAO context");
+            }
+            ElementoDigitalDao targetDao = daoSession.getElementoDigitalDao();
+            List<ElementoDigital> elementosDigitalesAnhadidosNew = targetDao
+                    ._queryPerfil_ElementosDigitalesAnhadidos(id);
+            synchronized (this) {
+                if (elementosDigitalesAnhadidos == null) {
+                    elementosDigitalesAnhadidos = elementosDigitalesAnhadidosNew;
+                }
+            }
+        }
+        return elementosDigitalesAnhadidos;
+    }
+
+    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
+    @Generated(hash = 1694548660)
+    public synchronized void resetElementosDigitalesAnhadidos() {
+        elementosDigitalesAnhadidos = null;
+    }
+
+    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
+    @Generated(hash = 1568778147)
+    public synchronized void resetControlesAnhadidos() {
+        controlesAnhadidos = null;
     }
 }

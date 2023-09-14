@@ -1,9 +1,5 @@
 package es.unican.appriegospersonales.activities.riesgos.detail;
 
-import static android.content.ContentValues.TAG;
-
-import android.util.Log;
-
 import java.util.List;
 
 import es.unican.appriegospersonales.model.Control;
@@ -47,6 +43,6 @@ public class RiesgoDetailPresenter implements  IRiesgoDetailContract.Presenter {
     @Override
     public List<Control> getPerfilControls() {
         Perfil perfil = Perfil.getInstance(perfilDao);
-        return perfil.getControlesAnhadidas();
+        return perfil.getControlesAnhadidos();
     }
 }

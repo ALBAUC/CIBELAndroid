@@ -12,11 +12,11 @@ public interface IMainContract {
 
     interface Presenter {
         /**
-         * Debe ser usado por la vista cuando se pulse el icono de "Apps" en el boton de
+         * Debe ser usado por la vista cuando se pulse el icono de "Home" en el boton de
          * navegacion inferior.
-         * Muestra el fragmento correspondiente a la pestaña "Apps".
+         * Muestra el fragmento correspondiente a la pestaña "Home".
          */
-        void onNavAppsClicked();
+        void onNavHomeClicked();
 
         /**
          * Debe ser usado por la vista cuando se pulse el icono de "Riesgos" en el boton de

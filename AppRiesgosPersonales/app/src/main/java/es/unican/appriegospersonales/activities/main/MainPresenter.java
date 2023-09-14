@@ -1,6 +1,6 @@
 package es.unican.appriegospersonales.activities.main;
 
-import es.unican.appriegospersonales.activities.apps.AppsView;
+import es.unican.appriegospersonales.activities.apps.HomeView;
 import es.unican.appriegospersonales.activities.controles.ControlesView;
 import es.unican.appriegospersonales.activities.perfil.PerfilView;
 import es.unican.appriegospersonales.activities.riesgos.RiesgosView;
@@ -15,8 +15,8 @@ public class MainPresenter implements IMainContract.Presenter {
     }
 
     @Override
-    public void onNavAppsClicked() {
-        view.showFragment(new AppsView(), R.string.bottom_nav_apps);
+    public void onNavHomeClicked() {
+        view.showFragment(new HomeView(), R.string.bottom_nav_home);
     }
 
     @Override

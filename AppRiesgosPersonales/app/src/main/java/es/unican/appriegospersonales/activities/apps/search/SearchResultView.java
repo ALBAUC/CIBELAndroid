@@ -22,11 +22,11 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import es.unican.appriegospersonales.activities.apps.detail.AppDetailView;
+import es.unican.appriegospersonales.activities.apps.detail.DElementDetailView;
 import es.unican.appriegospersonales.activities.main.MainView;
-import es.unican.appriegospersonales.common.adapters.RVAppsPerfilAdapter;
+import es.unican.appriegospersonales.common.adapters.RVDElementsPerfilAdapter;
 import es.unican.appriegospersonales.common.MyApplication;
-import es.unican.appriegospersonales.model.Aplicacion;
+import es.unican.appriegospersonales.model.ElementoDigital;
 import es.unican.appriesgospersonales.R;
 
 
@@ -60,7 +60,7 @@ public class SearchResultView extends Fragment implements ISearchResultContract.
 
         apps_rv.setLayoutManager(new LinearLayoutManager(getContext()));
         Bundle args = getArguments();
-        apps_rv.setAdapter(new RVAppsPerfilAdapter(getContext(), presenter.doSearch(args.getString(QUERY)), presenter.getPerfilApps()));
+        apps_rv.setAdapter(new RVDElementsPerfilAdapter(getContext(), presenter.doSearch(args.getString(QUERY)), presenter.getPerfilApps()));
 
         DividerItemDecoration dividerA = new DividerItemDecoration(
                 apps_rv.getContext(),
@@ -123,12 +123,12 @@ public class SearchResultView extends Fragment implements ISearchResultContract.
         if (data != null) {
             String intentData = data.toString();
             if (intentData.startsWith("app://")) {
-                String appName = intentData.substring(6);
-                Aplicacion aplicacion = presenter.getAppByName(appName);
-                if (aplicacion != null) {
+                String dElementName = intentData.substring(6);
+                ElementoDigital elementoDigital = presenter.getDElementByName(dElementName);
+                if (elementoDigital != null) {
                     FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                     fragmentManager.beginTransaction()
-                            .replace(R.id.container, AppDetailView.newInstance(aplicacion))
+                            .replace(R.id.container, DElementDetailView.newInstance(elementoDigital))
                             .setReorderingAllowed(true)
                             .addToBackStack("apps")
                             .commit();

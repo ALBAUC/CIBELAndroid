@@ -4,6 +4,7 @@ import java.util.List;
 
 import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.model.Aplicacion;
+import es.unican.appriegospersonales.model.ElementoDigital;
 
 public interface ISearchResultContract {
 
@@ -15,10 +16,10 @@ public interface ISearchResultContract {
 
         void init();
 
-        List<Aplicacion> doSearch(String query);
+        List<ElementoDigital> doSearch(String query);
 
-        Aplicacion getAppByName(String appName);
+        ElementoDigital getDElementByName(String appName);
 
-        List<Aplicacion> getPerfilApps();
+        List<ElementoDigital> getPerfilApps();
     }
 }

@@ -1,5 +1,6 @@
 package es.unican.appriegospersonales.model;
 
+import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -25,6 +26,7 @@ import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.RiesgoDao;
 import es.unican.appriegospersonales.repository.db.ControlDao;
 
+@SuppressLint("ParcelCreator")
 @Entity
 public class Control implements Parcelable {
     @SerializedName("id")

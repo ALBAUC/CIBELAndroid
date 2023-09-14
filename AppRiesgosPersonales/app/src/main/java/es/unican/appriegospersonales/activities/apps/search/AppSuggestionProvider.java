@@ -1,7 +1,5 @@
 package es.unican.appriegospersonales.activities.apps.search;
 
-import static android.content.ContentValues.TAG;
-
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.SearchRecentSuggestionsProvider;
@@ -10,7 +8,6 @@ import android.database.MatrixCursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.BaseColumns;
-import android.util.Log;
 
 import androidx.core.content.FileProvider;
 
@@ -21,22 +18,21 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.Normalizer;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.model.Aplicacion;
 import es.unican.appriegospersonales.model.Categoria;
-import es.unican.appriegospersonales.repository.db.AplicacionDao;
+import es.unican.appriegospersonales.model.ElementoDigital;
 import es.unican.appriegospersonales.repository.db.CategoriaDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
+import es.unican.appriegospersonales.repository.db.ElementoDigitalDao;
 
 public class AppSuggestionProvider extends SearchRecentSuggestionsProvider {
     public static final String AUTHORITY = "es.unican.appriegospersonales.activities.apps.search.AppSuggestionProvider";
     public static final int MODE = DATABASE_MODE_QUERIES;
 
-    private AplicacionDao aplicacionDao;
+    private ElementoDigitalDao elementoDigitalDao;
     private CategoriaDao categoriaDao;
 
     public AppSuggestionProvider() {
@@ -56,34 +52,34 @@ public class AppSuggestionProvider extends SearchRecentSuggestionsProvider {
         });
 
         DaoSession daoSession = ((MyApplication) getContext().getApplicationContext()).getDaoSession();
-        aplicacionDao = daoSession.getAplicacionDao();
+        elementoDigitalDao = daoSession.getElementoDigitalDao();
         categoriaDao = daoSession.getCategoriaDao();
 
-        List<Aplicacion> appSuggestions = new ArrayList<>();
+        List<ElementoDigital> dElementsSuggestions = new ArrayList<>();
         if (query != null){
-            appSuggestions = getAppSuggestions(query);
+            dElementsSuggestions = getdElementsSuggestions(query);
         }
 
         // Agregar las sugerencias al cursor
         int id = 0;
-        for (Aplicacion a : appSuggestions) {
-            String appName = a.getNombre();
+        for (ElementoDigital a : dElementsSuggestions) {
+            String dElementName = a.getNombre();
             String categoryName = a.getCategoria().getNombre();
-            String intentData = "app://" + appName;
+            String intentData = "app://" + dElementName;
             Bitmap iconBitmap = downloadIconBitmap(a.getIcono());
             cursor.addRow(new Object[]{
                     id++,
-                    appName,
+                    dElementName,
                     categoryName,
                     intentData,
-                    getBitmapUri(getContext(), iconBitmap, appName)
+                    getBitmapUri(getContext(), iconBitmap, dElementName)
             });
         }
 
         return cursor;
     }
 
-    private List<Aplicacion> getAppSuggestions(String query) {
+    private List<ElementoDigital> getdElementsSuggestions(String query) {
         String modifiedQuery = removeAccents(query.trim().toLowerCase());
 
         List<Categoria> categorias = categoriaDao.loadAll();
@@ -95,13 +91,13 @@ public class AppSuggestionProvider extends SearchRecentSuggestionsProvider {
             }
         }
 
-        List<Aplicacion> aplicaciones = aplicacionDao.queryBuilder()
+        List<ElementoDigital> dElements = elementoDigitalDao.queryBuilder()
                 .whereOr(
-                        AplicacionDao.Properties.Nombre.like("%" + modifiedQuery + "%"),
-                        AplicacionDao.Properties.Fk_categoria.in(categoriaIds)
+                        ElementoDigitalDao.Properties.Nombre.like("%" + modifiedQuery + "%"),
+                        ElementoDigitalDao.Properties.Fk_categoria.in(categoriaIds)
                 ).list();
 
-        return aplicaciones;
+        return dElements;
     }
 
     private String removeAccents(String input) {

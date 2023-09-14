@@ -48,19 +48,19 @@ public class ControlDetailPresenter implements IControlDetailContract.Presenter 
     @Override
     public Boolean isControlAdded() {
         Perfil p = perfilDao.load(perfil.getId());
-        return p.getControlesAnhadidas().contains(control);
+        return p.getControlesAnhadidos().contains(control);
     }
 
     @Override
     public void onAddControlClicked() {
         if (!isControlAdded()) {
             control.setFk_perfil(perfil.getId());
-            perfil.getControlesAnhadidas().add(control);
+            perfil.getControlesAnhadidos().add(control);
             controlDao.update(control);
             perfilDao.update(perfil);
         } else {
             control.setFk_perfil(null);
-            perfil.getControlesAnhadidas().remove(control);
+            perfil.getControlesAnhadidos().remove(control);
             controlDao.update(control);
             perfilDao.update(perfil);
         }

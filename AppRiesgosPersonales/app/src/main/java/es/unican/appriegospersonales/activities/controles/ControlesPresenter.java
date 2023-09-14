@@ -32,6 +32,6 @@ public class ControlesPresenter implements IControlesContract.Presenter {
     @Override
     public List<Control> getPerfilControls() {
         Perfil perfil = Perfil.getInstance(perfilDao);
-        return perfil.getControlesAnhadidas();
+        return perfil.getControlesAnhadidos();
     }
 }

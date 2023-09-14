@@ -5,6 +5,7 @@ import java.util.List;
 import es.unican.appriegospersonales.model.Aplicacion;
 import es.unican.appriegospersonales.model.Categoria;
 import es.unican.appriegospersonales.model.Control;
+import es.unican.appriegospersonales.model.ElementoDigital;
 import es.unican.appriegospersonales.model.Perfil;
 import es.unican.appriegospersonales.model.Riesgo;
 import es.unican.appriegospersonales.repository.db.DaoSession;
@@ -31,8 +32,8 @@ public class PerfilPresenter implements IPerfilContract.Presenter {
         int totalRiesgos = 0;
         int riesgosMitigados = 0;
 
-        for (Aplicacion aplicacion : perfil.getAppsAnhadidas()) {
-            Categoria categoria = aplicacion.getCategoria();
+        for (ElementoDigital elementoDigital : perfil.getElementosDigitalesAnhadidos()) {
+            Categoria categoria = elementoDigital.getCategoria();
             for (Riesgo riesgo : categoria.getRiesgos()) {
                 totalRiesgos++;
                 if (riesgoMitigadoEnPerfil(riesgo)) {
@@ -55,7 +56,7 @@ public class PerfilPresenter implements IPerfilContract.Presenter {
         int controlesMitigados = 0;
 
         for (Control control : controlesMitigantes) {
-            if (perfil.getControlesAnhadidas().contains(control)) {
+            if (perfil.getControlesAnhadidos().contains(control)) {
                 controlesMitigados++;
             }
         }

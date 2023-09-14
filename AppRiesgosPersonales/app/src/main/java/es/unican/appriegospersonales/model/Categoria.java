@@ -2,7 +2,6 @@ package es.unican.appriegospersonales.model;
 
 import androidx.annotation.NonNull;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.greenrobot.greendao.annotation.Entity;
@@ -16,12 +15,11 @@ import java.util.Objects;
 
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
-import org.greenrobot.greendao.annotation.Transient;
 
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.RiesgoDao;
 import es.unican.appriegospersonales.repository.db.CategoriaDao;
-import es.unican.appriegospersonales.repository.db.AplicacionDao;
+import es.unican.appriegospersonales.repository.db.ElementoDigitalDao;
 
 @Entity
 public class Categoria {
@@ -43,7 +41,7 @@ public class Categoria {
     private List<Riesgo> riesgos;
 
     @ToMany(referencedJoinProperty = "fk_categoria")
-    private List<Aplicacion> appsCat;
+    private List<ElementoDigital> elementsCat;
 
     /**
      * Used to resolve relations
@@ -89,8 +87,8 @@ public class Categoria {
         this.riesgos = riesgos;
     }
 
-    public void setAppsCat(List<Aplicacion> appsCat) {
-        this.appsCat = appsCat;
+    public void setElementsCat(List<ElementoDigital> elementsCat) {
+        this.elementsCat = elementsCat;
     }
 
     /**
@@ -195,29 +193,27 @@ public class Categoria {
      * To-many relationship, resolved on first access (and after reset).
      * Changes to to-many relations are not persisted, make changes to the target entity.
      */
-    @Generated(hash = 106772941)
-    public List<Aplicacion> getAppsCat() {
-        if (appsCat == null) {
+    @Generated(hash = 1803356079)
+    public List<ElementoDigital> getElementsCat() {
+        if (elementsCat == null) {
             final DaoSession daoSession = this.daoSession;
             if (daoSession == null) {
                 throw new DaoException("Entity is detached from DAO context");
             }
-            AplicacionDao targetDao = daoSession.getAplicacionDao();
-            List<Aplicacion> appsCatNew = targetDao._queryCategoria_AppsCat(idCategoria);
+            ElementoDigitalDao targetDao = daoSession.getElementoDigitalDao();
+            List<ElementoDigital> elementsCatNew = targetDao._queryCategoria_ElementsCat(idCategoria);
             synchronized (this) {
-                if (appsCat == null) {
-                    appsCat = appsCatNew;
+                if (elementsCat == null) {
+                    elementsCat = elementsCatNew;
                 }
             }
         }
-        return appsCat;
+        return elementsCat;
     }
 
-    /**
-     * Resets a to-many relationship, making the next get call to query for a fresh result.
-     */
-    @Generated(hash = 1740643743)
-    public synchronized void resetAppsCat() {
-        appsCat = null;
+    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
+    @Generated(hash = 1774734976)
+    public synchronized void resetElementsCat() {
+        elementsCat = null;
     }
 }

@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import es.unican.appriegospersonales.model.Aplicacion;
 import es.unican.appriegospersonales.model.Categoria;
+import es.unican.appriegospersonales.model.ElementoDigital;
 import es.unican.appriesgospersonales.R;
 
 /**
@@ -23,14 +23,14 @@ import es.unican.appriesgospersonales.R;
 public class RVCategoriaAdapter extends RecyclerView.Adapter<RVCategoriaAdapter.CategoriaViewHolder> {
     private Context context;
     private final List<Categoria> categorias;
-    private final List<Aplicacion> perfilApps;
+    private final List<ElementoDigital> perfilDElements;
     private final LayoutInflater inflater;
 
-    public RVCategoriaAdapter(Context context, List<Categoria> categorias, List<Aplicacion> perfilApps) {
+    public RVCategoriaAdapter(Context context, List<Categoria> categorias, List<ElementoDigital> perfilDElements) {
         this.categorias = categorias;
         this.context = context;
         this.inflater = LayoutInflater.from(context);
-        this.perfilApps = perfilApps;
+        this.perfilDElements = perfilDElements;
     }
 
     @NonNull
@@ -47,21 +47,21 @@ public class RVCategoriaAdapter extends RecyclerView.Adapter<RVCategoriaAdapter.
 
     @Override
     public void onBindViewHolder(CategoriaViewHolder holder, int position) {
-        holder.rvAplicaciones.setAdapter(new RVCategoriaAppsAdapter(context, categorias.get(position).getAppsCat(), perfilApps));
-        holder.rvAplicaciones.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        holder.rvAplicaciones.setHasFixedSize(true);
+        holder.rvDElements.setAdapter(new RVCategoriaDElementsAdapter(context, categorias.get(position).getElementsCat(), perfilDElements));
+        holder.rvDElements.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        holder.rvDElements.setHasFixedSize(true);
         holder.categoriaName_tv.setText(categorias.get(position).getNombre());
     }
 
     public class CategoriaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final TextView categoriaName_tv;
-        private final RecyclerView rvAplicaciones;
+        private final RecyclerView rvDElements;
 
         public CategoriaViewHolder(View itemView) {
             super(itemView);
             categoriaName_tv = itemView.findViewById(R.id.categoriaName_tv);
-            rvAplicaciones = itemView.findViewById(R.id.apps_rv);
+            rvDElements = itemView.findViewById(R.id.apps_rv);
             itemView.setOnClickListener(this);
         }
 

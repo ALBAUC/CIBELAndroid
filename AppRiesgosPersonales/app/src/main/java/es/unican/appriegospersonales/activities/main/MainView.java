@@ -9,15 +9,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.tabs.TabLayout;
 
-import java.util.List;
-
-import es.unican.appriegospersonales.activities.perfil.tabs.TabAppsView;
-import es.unican.appriegospersonales.model.Aplicacion;
 import es.unican.appriesgospersonales.R;
 
 public class MainView extends AppCompatActivity implements IMainContract.View {
@@ -112,7 +106,7 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
         switch (item.getItemId()) {
             case R.id.page_apps:
                 resetToolbar();
-                presenter.onNavAppsClicked();
+                presenter.onNavHomeClicked();
                 return true;
             case R.id.page_riesgos:
                 resetToolbar();
