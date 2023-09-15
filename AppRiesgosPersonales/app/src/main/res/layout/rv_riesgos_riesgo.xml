@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="8dp"
+    android:padding="4dp"
     android:layout_margin="8dp">
 
     <ImageView
@@ -20,7 +20,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_centerVertical="true"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/riesgoName_tv"
@@ -29,6 +29,14 @@
             android:textSize="18sp"
             android:inputType="textMultiLine"
             tools:text="Riesgo"/>
+
+        <TextView
+            android:id="@+id/riesgoControlesP_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:textSize="15sp"
+            tools:text="2/5 controles aplicados" />
 
     </LinearLayout>
 

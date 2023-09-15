@@ -39,7 +39,7 @@ public class TabRisksView extends Fragment {
         risks_rv = layout.findViewById(R.id.itemsAplicados_rv);
 
         risks_rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        risks_rv.setAdapter(new RVRiesgosAdapter(getContext(), new ArrayList<>(presenter.getRiesgosActuales())));
+        risks_rv.setAdapter(new RVRiesgosAdapter(getContext(), new ArrayList<>(presenter.getRiesgosActuales()), presenter.getPerfilControls()));
 
         DividerItemDecoration dividerA = new DividerItemDecoration(
                 risks_rv.getContext(),

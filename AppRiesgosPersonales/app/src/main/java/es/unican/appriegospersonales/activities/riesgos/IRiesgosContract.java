@@ -3,6 +3,7 @@ package es.unican.appriegospersonales.activities.riesgos;
 import java.util.List;
 
 import es.unican.appriegospersonales.common.MyApplication;
+import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.Riesgo;
 
 /**
@@ -23,6 +24,8 @@ public interface IRiesgosContract {
          * @return Todos los riesgos.
          */
         List<Riesgo> getRiesgos();
+
+        List<Control> getPerfilControls();
     }
 
     interface View {

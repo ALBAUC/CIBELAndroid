@@ -34,7 +34,7 @@ public class RiesgosView extends Fragment implements IRiesgosContract.View, Main
         View layout = inflater.inflate(R.layout.fragment_riesgos, container, false);
         riesgos_rv = layout.findViewById(R.id.riesgos_rv);
         riesgos_rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        riesgos_rv.setAdapter(new RVRiesgosAdapter(getContext(), presenter.getRiesgos()));
+        riesgos_rv.setAdapter(new RVRiesgosAdapter(getContext(), presenter.getRiesgos(), presenter.getPerfilControls()));
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
                 riesgos_rv.getContext(),

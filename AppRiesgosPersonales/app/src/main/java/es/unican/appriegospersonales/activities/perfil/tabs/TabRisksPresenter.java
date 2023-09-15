@@ -41,4 +41,8 @@ public class TabRisksPresenter {
         }
         return riesgosActuales;
     }
+
+    public List<Control> getPerfilControls() {
+        return perfil.getControlesAnhadidos();
+    }
 }
