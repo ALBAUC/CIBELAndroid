@@ -1,10 +1,19 @@
-Crear la base de datos del servicio en mysql: 
-create database appwise_db;
+mysql shell -> \connect root@localhost
 
-Para crear las tablas y meter los datos, coger el archivo TFGAlinaSolonaru\Docs\backup_appwise.sql y en mysql: 
-mysql -u root -p appwise_db < backup_appwise.sql
+Crear la base de datos del servicio en mysql: 
+create database cibel_db;
+
+Para crear las tablas y meter los datos, coger el archivo CIBEL/Docs/backup_cibel_db.sql, después creamos cmd en C:\Program Files\MySQL\MySQL Server 8.0\bin
+ 
+ponemos comando:
+
+mysql -u root -p cibel_db < backup_cibel_db.sql
 
 Deberian haberse creado las tablas y metido todos los datos (comprobar que en la tabla aplicacion haya 50 filas)
+
+use cibel_db;
+
+select * from aplicacion;
 
 Abrir el servicio en eclipse y cambiar contraseña de mysql (pon la tuya) en el archivo src/main/resources/application.properties
 
@@ -12,6 +21,12 @@ En la carpeta AppWiseServiceSpring: mvn clean package
 
 Ejecutar el JAR generado en target (servicio funcionando)
 
+java -jar CIBELService.jar
+
 En Android Studio ir a la clase repository/rest/AppWiseServiceConstants y cambiar el atributo API_URL con tu ip.
+
+IP local se puede ver en cmd con:
+
+ipconfig
 
 Ya se podría ejecutar la aplicacion y esperar a que aparezca un mensaje diciendo que se han cargado 50 aplicaciones. (Si se ejecuta en el movil, tiene que estar conectado al mismo wifi que el ordenador)
