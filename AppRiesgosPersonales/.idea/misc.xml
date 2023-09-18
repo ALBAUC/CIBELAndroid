@@ -18,9 +18,19 @@
         <entry key="..\:/ALBAUC/CIBEL/AppRiesgosPersonales/app/src/main/res/drawable/risk24.xml" value="0.241" />
         <entry key="..\:/ALBAUC/CIBEL/AppRiesgosPersonales/app/src/main/res/drawable/risk25.xml" value="0.241" />
         <entry key="..\:/ALBAUC/CIBEL/AppRiesgosPersonales/app/src/main/res/layout/fragment_app_detail.xml" value="0.25625" />
+        <entry key="..\:/ALBAUC/CIBEL/AppRiesgosPersonales/app/src/main/res/layout/fragment_apps.xml" value="0.12135416666666667" />
         <entry key="..\:/ALBAUC/CIBEL/AppRiesgosPersonales/app/src/main/res/layout/fragment_control_detail.xml" value="0.25625" />
+        <entry key="..\:/ALBAUC/CIBEL/AppRiesgosPersonales/app/src/main/res/layout/fragment_controles.xml" value="0.3309659090909091" />
+        <entry key="..\:/ALBAUC/CIBEL/AppRiesgosPersonales/app/src/main/res/layout/fragment_controles_apps.xml" value="0.12135416666666667" />
+        <entry key="..\:/ALBAUC/CIBEL/AppRiesgosPersonales/app/src/main/res/layout/fragment_controles_devices.xml" value="0.1203125" />
+        <entry key="..\:/ALBAUC/CIBEL/AppRiesgosPersonales/app/src/main/res/layout/fragment_home_apps.xml" value="0.1203125" />
+        <entry key="..\:/ALBAUC/CIBEL/AppRiesgosPersonales/app/src/main/res/layout/fragment_home_devices.xml" value="0.12135416666666667" />
         <entry key="..\:/ALBAUC/CIBEL/AppRiesgosPersonales/app/src/main/res/layout/fragment_perfil.xml" value="0.3453703703703704" />
+        <entry key="..\:/ALBAUC/CIBEL/AppRiesgosPersonales/app/src/main/res/layout/fragment_perfil_apps.xml" value="0.1278962001853568" />
         <entry key="..\:/ALBAUC/CIBEL/AppRiesgosPersonales/app/src/main/res/layout/fragment_perfil_controles.xml" value="0.34444444444444444" />
+        <entry key="..\:/ALBAUC/CIBEL/AppRiesgosPersonales/app/src/main/res/layout/fragment_riesgos.xml" value="0.25625" />
+        <entry key="..\:/ALBAUC/CIBEL/AppRiesgosPersonales/app/src/main/res/layout/fragment_riesgos_apps.xml" value="0.34444444444444444" />
+        <entry key="..\:/ALBAUC/CIBEL/AppRiesgosPersonales/app/src/main/res/layout/fragment_riesgos_devices.xml" value="0.3453703703703704" />
         <entry key="..\:/ALBAUC/CIBEL/AppRiesgosPersonales/app/src/main/res/layout/rv_apps_app.xml" value="0.25625" />
         <entry key="..\:/ALBAUC/CIBEL/AppRiesgosPersonales/app/src/main/res/layout/rv_controles_control.xml" value="0.36666666666666664" />
         <entry key="..\:/ALBAUC/CIBEL/AppRiesgosPersonales/app/src/main/res/layout/rv_controles_riesgo.xml" value="0.2" />

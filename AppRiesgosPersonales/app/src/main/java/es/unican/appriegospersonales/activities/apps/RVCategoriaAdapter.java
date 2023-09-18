@@ -13,8 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.model.Categoria;
 import es.unican.appriegospersonales.model.ElementoDigital;
+import es.unican.appriegospersonales.repository.CibelRepository;
+import es.unican.appriegospersonales.repository.ICibelRepository;
 import es.unican.appriesgospersonales.R;
 
 /**
@@ -25,12 +28,16 @@ public class RVCategoriaAdapter extends RecyclerView.Adapter<RVCategoriaAdapter.
     private final List<Categoria> categorias;
     private final List<ElementoDigital> perfilDElements;
     private final LayoutInflater inflater;
+    private ICibelRepository repository;
 
-    public RVCategoriaAdapter(Context context, List<Categoria> categorias, List<ElementoDigital> perfilDElements) {
+    public RVCategoriaAdapter(Context context, List<Categoria> categorias, List<ElementoDigital> perfilDElements, MyApplication myApplication) {
         this.categorias = categorias;
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.perfilDElements = perfilDElements;
+        if (repository == null) {
+            repository = new CibelRepository(myApplication);
+        }
     }
 
     @NonNull
@@ -47,7 +54,8 @@ public class RVCategoriaAdapter extends RecyclerView.Adapter<RVCategoriaAdapter.
 
     @Override
     public void onBindViewHolder(CategoriaViewHolder holder, int position) {
-        holder.rvDElements.setAdapter(new RVCategoriaDElementsAdapter(context, categorias.get(position).getElementsCat(), perfilDElements));
+        List<ElementoDigital> dElements = List.of(repository.getElementosDigitales(categorias.get(position).getNombre()));
+        holder.rvDElements.setAdapter(new RVCategoriaDElementsAdapter(context, dElements, perfilDElements));
         holder.rvDElements.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         holder.rvDElements.setHasFixedSize(true);
         holder.categoriaName_tv.setText(categorias.get(position).getNombre());

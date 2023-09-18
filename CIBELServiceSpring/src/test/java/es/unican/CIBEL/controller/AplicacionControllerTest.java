@@ -17,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 
 import es.unican.CIBEL.domain.Aplicacion;
 import es.unican.CIBEL.domain.Categoria;
-import es.unican.CIBEL.service.AplicacionService;
 import es.unican.CIBEL.service.CategoriaService;
 
 public class AplicacionControllerTest {

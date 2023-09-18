@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import es.unican.CIBEL.domain.Aplicacion;
 import es.unican.CIBEL.domain.Categoria;
 import es.unican.CIBEL.repository.AplicacionRepository;
-import es.unican.CIBEL.service.AplicacionService;
 import es.unican.CIBEL.service.CategoriaService;
 
 @SpringBootTest

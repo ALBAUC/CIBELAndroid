@@ -69,6 +69,12 @@ public class CibelRepository implements ICibelRepository {
         return response;
     }
 
+    @Override
+    public Aplicacion[] getAplicaciones(String categoria) {
+        Aplicacion[] response = CibelService.getAplicaciones(categoria);
+        return response;
+    }
+
     private void persistToDBElementosDigitales(ElementoDigital[] elementosDigitales) {
         if (elementosDigitales != null) {
             ElementoDigitalDao elementoDigitalDao = daoSession.getElementoDigitalDao();
@@ -130,9 +136,51 @@ public class CibelRepository implements ICibelRepository {
     }
 
     @Override
+    public void requestRiesgosDeApps(Callback<Riesgo[]> cb) {
+        CibelService.reguestRiesgosDeApps(new Callback<Riesgo[]>() {
+            @Override
+            public void onSuccess(Riesgo[] data) {
+                cb.onSuccess(data);
+            }
+
+            @Override
+            public void onFailure() {
+                cb.onFailure();
+            }
+        });
+    }
+
+    @Override
+    public void requestRiesgosDeDispositivos(Callback<Riesgo[]> cb) {
+        CibelService.requestRiesgosDeDispositivos(new Callback<Riesgo[]>() {
+            @Override
+            public void onSuccess(Riesgo[] data) {
+                cb.onSuccess(data);
+            }
+
+            @Override
+            public void onFailure() {
+                cb.onFailure();
+            }
+        });
+    }
+
+    @Override
     public Riesgo[] getRiesgos() {
         Riesgo[] response = CibelService.getRiesgos();
         persistToDBRiesgos(response);
+        return response;
+    }
+
+    @Override
+    public Riesgo[] getRiesgosDeApps() {
+        Riesgo[] response = CibelService.getRiesgosDeApps();
+        return response;
+    }
+
+    @Override
+    public Riesgo[] getRiesgosDeDispositivos() {
+        Riesgo[] response = CibelService.getRiesgosDeDispositivos();
         return response;
     }
 
@@ -200,6 +248,18 @@ public class CibelRepository implements ICibelRepository {
         return response;
     }
 
+    @Override
+    public Control[] getControlesDeApps() {
+        Control[] response = CibelService.getControlesDeApps();
+        return response;
+    }
+
+    @Override
+    public Control[] getControlesDeDispositivos() {
+        Control[] response = CibelService.getControlesDeDispositivos();
+        return response;
+    }
+
     private void persistToDBControles(Control[] controles) {
         if (controles != null) {
             ControlDao controlDao = daoSession.getControlDao();
@@ -252,6 +312,18 @@ public class CibelRepository implements ICibelRepository {
     public Categoria[] getCategorias() {
         Categoria[] response = CibelService.getCategorias();
         persistToDBCategorias(response);
+        return response;
+    }
+
+    @Override
+    public Categoria[] getCategoriasDeApps() {
+        Categoria[] response = CibelService.getCategoriasDeApps();
+        return response;
+    }
+
+    @Override
+    public Categoria[] getCategoriasDeDispositivos() {
+        Categoria[] response = CibelService.getCategoriasDeDispositivos();
         return response;
     }
 

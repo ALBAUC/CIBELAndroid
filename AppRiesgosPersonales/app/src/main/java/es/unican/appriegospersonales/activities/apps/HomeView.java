@@ -16,15 +16,21 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import es.unican.appriegospersonales.activities.apps.detail.DElementDetailView;
 import es.unican.appriegospersonales.activities.apps.search.SearchResultView;
 import es.unican.appriegospersonales.activities.main.MainView;
+import es.unican.appriegospersonales.activities.riesgos.VPRiesgosAdapter;
 import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.model.ElementoDigital;
 import es.unican.appriesgospersonales.R;
@@ -32,7 +38,7 @@ import es.unican.appriesgospersonales.R;
 public class HomeView extends Fragment implements IHomeContract.View, MainView.RefreshableFragment {
 
     private IHomeContract.Presenter presenter;
-    private RecyclerView categorias_rv;
+    private ViewPager2 homeVP;
     private SearchView searchView;
 
     @Override
@@ -46,16 +52,15 @@ public class HomeView extends Fragment implements IHomeContract.View, MainView.R
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View layoutApps = inflater.inflate(R.layout.fragment_apps, container, false);
-        categorias_rv = layoutApps.findViewById(R.id.categorias_rv);
-        categorias_rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        categorias_rv.setAdapter(new RVCategoriaAdapter(getContext(),
-                presenter.getCategorias(), presenter.getPerfilDElements()));
+        View layoutApps = inflater.inflate(R.layout.fragment_home, container, false);
+        homeVP = layoutApps.findViewById(R.id.home_vp);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                categorias_rv.getContext(),
-                DividerItemDecoration.VERTICAL);
-        categorias_rv.addItemDecoration(dividerItemDecoration);
+        homeVP.setAdapter(new VPHomeAdapter(((AppCompatActivity) getContext()).getSupportFragmentManager(), getLifecycle()));
+
+        TabLayout tabLayout = layoutApps.findViewById(R.id.home_tl);
+        new TabLayoutMediator(tabLayout, homeVP,
+                (tab, position) -> tab.setText(VPHomeAdapter.Tab.byPosition(position).getTitle())
+        ).attach();
 
         return layoutApps;
     }

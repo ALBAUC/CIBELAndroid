@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import es.unican.CIBEL.domain.Aplicacion;
 import es.unican.CIBEL.domain.DispositivoIot;
 import es.unican.CIBEL.domain.ElementoDigital;
-import es.unican.CIBEL.service.AplicacionService;
 import es.unican.CIBEL.service.CategoriaService;
-import es.unican.CIBEL.service.DispositivoIoTService;
 import es.unican.CIBEL.service.ElementoDigitalService;
 
 @RestController
@@ -25,12 +23,6 @@ public class ElementoDigitalController {
 	
 	@Autowired
 	private ElementoDigitalService elementosDService;
-	
-	@Autowired
-	private AplicacionService aplicacionService;
-	
-	@Autowired
-	private DispositivoIoTService dispositivosService;
 	
 	@Autowired
 	private CategoriaService categoriaService;
@@ -55,9 +47,9 @@ public class ElementoDigitalController {
 		List<Aplicacion> apps = new LinkedList<Aplicacion>();
 		
 		if (categoria != null) {
-			apps = aplicacionService.aplicacionesPorCategoria(categoriaService.buscaCategoriaPorNombre(categoria));
+			apps = elementosDService.aplicacionesPorCategoria(categoriaService.buscaCategoriaPorNombre(categoria));
 		} else {
-			apps = aplicacionService.aplicaciones();
+			apps = elementosDService.aplicaciones();
 		}
 		
 		return apps;
@@ -66,7 +58,7 @@ public class ElementoDigitalController {
 	@GetMapping("/apps/{nombre}")
 	public ResponseEntity<Aplicacion> getAplicacion(@PathVariable String nombre) {
 		ResponseEntity<Aplicacion> result;
-		Aplicacion app = aplicacionService.buscaAplicacion(nombre);
+		Aplicacion app = elementosDService.buscaAplicacion(nombre);
 		
 		if (app == null) {
 			result = ResponseEntity.notFound().build();
@@ -82,9 +74,9 @@ public class ElementoDigitalController {
 		List<DispositivoIot> disps = new LinkedList<DispositivoIot>();
 		
 		if (categoria != null) {
-			disps = dispositivosService.dispositivosPorCategoria(categoriaService.buscaCategoriaPorNombre(categoria));
+			disps = elementosDService.dispositivosPorCategoria(categoriaService.buscaCategoriaPorNombre(categoria));
 		} else {
-			disps = dispositivosService.dispositivos();
+			disps = elementosDService.dispositivos();
 		}
 		
 		return disps;
@@ -93,7 +85,7 @@ public class ElementoDigitalController {
 	@GetMapping("/dispositivos/{nombre}")
 	public ResponseEntity<DispositivoIot> getDispositivo(@PathVariable String nombre) {
 		ResponseEntity<DispositivoIot> result;
-		DispositivoIot disp = dispositivosService.buscaDispositivo(nombre);
+		DispositivoIot disp = elementosDService.buscaDispositivo(nombre);
 		
 		if (disp == null) {
 			result = ResponseEntity.notFound().build();

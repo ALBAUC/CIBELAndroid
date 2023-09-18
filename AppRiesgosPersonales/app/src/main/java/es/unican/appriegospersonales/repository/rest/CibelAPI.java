@@ -29,10 +29,16 @@ public interface CibelAPI {
     Call<DispositivoIoT[]> dispositivos(@Query("categoria") String categoria);
 
     @GET("elementosDigitales/dispositivos/{nombre}")
-    Call<Aplicacion> dispositivo(@Path("nombre") String nombre);
+    Call<DispositivoIoT> dispositivo(@Path("nombre") String nombre);
 
     @GET("riesgos")
     Call<Riesgo[]> riesgos();
+
+    @GET("riesgos/apps")
+    Call<Riesgo[]> riesgosDeApps();
+
+    @GET("riesgos/dispositivos")
+    Call<Riesgo[]> riesgosDeDispositivos();
 
     @GET("riesgos/{id}")
     Call<Riesgo> riesgo(@Path("id") Long id);
@@ -40,9 +46,21 @@ public interface CibelAPI {
     @GET("controles")
     Call<Control[]> controles();
 
+    @GET("controles/apps")
+    Call<Control[]> controlesDeApps();
+
+    @GET("controles/dispositivos")
+    Call<Control[]> controlesDeDispositivos();
+
     @GET("controles/{id}")
     Call<Control> control(@Path("id") Long id);
 
     @GET("categorias")
     Call<Categoria[]> categorias();
+
+    @GET("categorias/apps")
+    Call<Categoria[]> categoriasDeApps();
+
+    @GET("categorias/dispositivos")
+    Call<Categoria[]> categoriasDeDispositivos();
 }

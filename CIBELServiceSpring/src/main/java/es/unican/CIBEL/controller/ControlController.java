@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.unican.CIBEL.domain.Control;
+import es.unican.CIBEL.domain.ControlApp;
+import es.unican.CIBEL.domain.ControlDevice;
 import es.unican.CIBEL.service.ControlService;
 
 @RestController
@@ -22,6 +24,16 @@ public class ControlController {
 	@GetMapping
 	public List<Control> getControles() {
 		return controlService.controles();
+	}
+	
+	@GetMapping("/apps")
+	public List<ControlApp> getControlesDeApps() {
+		return controlService.controlesDeApps();
+	}
+	
+	@GetMapping("/dispositivos")
+	public List<ControlDevice> getControlesDeDispositivos() {
+		return controlService.controlesDeDispositivos();
 	}
 	
 	@GetMapping("/{id}")

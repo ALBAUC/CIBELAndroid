@@ -1,32 +1,26 @@
-mysql shell -> \connect root@localhost
+Abrir cmd en C:\Program Files\MySQL\MySQL Server 8.0\bin e iniciar sesión en mysql: [mysql -u root -p]
 
-Crear la base de datos del servicio en mysql: 
-create database cibel_db;
+Crear la base de datos del servicio en mysql: [create database cibel_db;]
 
-Para crear las tablas y meter los datos, coger el archivo CIBEL/Docs/backup_cibel_db.sql, después creamos cmd en C:\Program Files\MySQL\MySQL Server 8.0\bin
- 
-ponemos comando:
+Para crear las tablas y meter los datos:
+Coger el archivo CIBEL/Docs/backup_cibel_db.sql y pegarlo en C:\Program Files\MySQL\MySQL Server 8.0\bin
+Abrir cmd en C:\Program Files\MySQL\MySQL Server 8.0\bin
+Ejecutar comando: [mysql -u root -p cibel_db < backup_cibel_db.sql]
 
-mysql -u root -p cibel_db < backup_cibel_db.sql
-
-Deberian haberse creado las tablas y metido todos los datos (comprobar que en la tabla aplicacion haya 50 filas)
-
-use cibel_db;
-
-select * from aplicacion;
+Deberian haberse creado las tablas y metido todos los datos
+Comprobar que en la tabla elemento_digital haya 86 filas:
+[use cibel_db;]
+[select * from elemento_digital;]
 
 Abrir el servicio en eclipse y cambiar contraseña de mysql (pon la tuya) en el archivo src/main/resources/application.properties
 
-En la carpeta AppWiseServiceSpring: mvn clean package
+En la carpeta CIBELServiceSpring: mvn clean package
 
-Ejecutar el JAR generado en target (servicio funcionando)
+Ejecutar el JAR generado en target (servicio funcionando): [java -jar CIBELService.jar]
 
-java -jar CIBELService.jar
+En Android Studio ir a la clase repository/rest/CibelServiceConstants y cambiar el atributo API_URL con tu ip.
 
-En Android Studio ir a la clase repository/rest/AppWiseServiceConstants y cambiar el atributo API_URL con tu ip.
+La IP local se puede ver en cmd con: [ipconfig]
 
-IP local se puede ver en cmd con:
-
-ipconfig
-
-Ya se podría ejecutar la aplicacion y esperar a que aparezca un mensaje diciendo que se han cargado 50 aplicaciones. (Si se ejecuta en el movil, tiene que estar conectado al mismo wifi que el ordenador)
+Ya se podría ejecutar la aplicacion y esperar a que aparezca un mensaje diciendo que se han cargado 86 elementos. 
+(Si se ejecuta en el movil, tiene que estar conectado al mismo wifi que el ordenador)

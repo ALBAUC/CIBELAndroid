@@ -26,4 +26,6 @@
     <string name="nivelRiesgoBajo">Riesgo bajo</string>
     <string name="dElementAdded">Añadida</string>
     <string name="controlAdded">Aplicado</string>
+    <string name="riesgos_tabApps">Apps</string>
+    <string name="riesgos_tabDevices">Dispositivos IoT</string>
 </resources>

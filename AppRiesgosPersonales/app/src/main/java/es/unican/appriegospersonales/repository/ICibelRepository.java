@@ -33,6 +33,8 @@ public interface ICibelRepository {
      */
     ElementoDigital[] getElementosDigitales(String categoria);
 
+    Aplicacion[] getAplicaciones(String categoria);
+
     /**
      * Solicita una aplicacion de forma asincrona.
      * Una vez que la aplicacion ha sido recuperada de la fuente,
@@ -58,6 +60,10 @@ public interface ICibelRepository {
      */
     void requestRiesgos(Callback<Riesgo[]> cb);
 
+    void requestRiesgosDeApps(Callback<Riesgo[]> cb);
+
+    void requestRiesgosDeDispositivos(Callback<Riesgo[]> cb);
+
     /**
      * Solicita riesgos de forma sincrona.
      * Este metodo retorna una lista de riesgos directamente. Persiste los riesgos
@@ -66,6 +72,10 @@ public interface ICibelRepository {
      *          null si ocurre un error
      */
     Riesgo[] getRiesgos();
+
+    Riesgo[] getRiesgosDeApps();
+
+    Riesgo[] getRiesgosDeDispositivos();
 
     /**
      * Solicita un riesgo de forma asincrona.
@@ -101,6 +111,10 @@ public interface ICibelRepository {
      */
     Control[] getControles();
 
+    Control[] getControlesDeApps();
+
+    Control[] getControlesDeDispositivos();
+
     /**
      * Solicita un control de forma asincrona.
      * Una vez que el control ha sido recuperado de la fuente,
@@ -134,4 +148,8 @@ public interface ICibelRepository {
      *          null si ocurre un error
      */
     Categoria[] getCategorias();
+
+    Categoria[] getCategoriasDeApps();
+
+    Categoria[] getCategoriasDeDispositivos();
 }

@@ -5,11 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -20,7 +25,7 @@ import es.unican.appriesgospersonales.R;
 
 public class ControlesView extends Fragment implements IControlesContract.View, MainView.RefreshableFragment {
     private IControlesContract.Presenter presenter;
-    private RecyclerView controles_rv;
+    private ViewPager2 controlesVP;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstance) {
@@ -33,14 +38,14 @@ public class ControlesView extends Fragment implements IControlesContract.View, 
     public View onCreateView(LayoutInflater inflater, @androidx.annotation.Nullable ViewGroup container, @androidx.annotation.Nullable
             Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_controles, container, false);
-        controles_rv = layout.findViewById(R.id.controles_rv);
-        controles_rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        controles_rv.setAdapter(new RVControlesAdapter(getContext(), presenter.getControles(), presenter.getPerfilControls()));
+        controlesVP = layout.findViewById(R.id.controles_vp);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                controles_rv.getContext(),
-                DividerItemDecoration.VERTICAL);
-        controles_rv.addItemDecoration(dividerItemDecoration);
+        controlesVP.setAdapter(new VPControlesAdapter(((AppCompatActivity) getContext()).getSupportFragmentManager(), getLifecycle()));
+
+        TabLayout tabLayout = layout.findViewById(R.id.controles_tl);
+        new TabLayoutMediator(tabLayout, controlesVP,
+                (tab, position) -> tab.setText(VPControlesAdapter.Tab.byPosition(position).getTitle())
+        ).attach();
 
         return layout;
     }

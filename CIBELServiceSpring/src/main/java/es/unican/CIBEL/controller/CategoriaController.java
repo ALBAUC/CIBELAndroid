@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.unican.CIBEL.domain.Categoria;
+import es.unican.CIBEL.domain.CategoriaApp;
+import es.unican.CIBEL.domain.CategoriaDevice;
 import es.unican.CIBEL.service.CategoriaService;
 
 @RestController
@@ -20,5 +22,15 @@ public class CategoriaController {
 	@GetMapping
 	public List<Categoria> getCategorias() {
 		return categoriaService.categorias();
+	}
+	
+	@GetMapping("/apps")
+	public List<CategoriaApp> getCategoriasDeApps() {
+		return categoriaService.categoriasDeApps();
+	}
+	
+	@GetMapping("/dispositivos")
+	public List<CategoriaDevice> getCategoriasDeDispositivos() {
+		return categoriaService.categoriasDeDispositivos();
 	}
 }

@@ -48,7 +48,7 @@ public class HomePresenter implements IHomeContract.Presenter {
             repository = new CibelRepository(view.getMyApplication());
         }
 
-        doAsyncInit();
+        doSyncInit();
     }
 
     private void doAsyncInit() {

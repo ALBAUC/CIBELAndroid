@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.unican.CIBEL.domain.Riesgo;
+import es.unican.CIBEL.domain.RiesgoApp;
+import es.unican.CIBEL.domain.RiesgoDevice;
 import es.unican.CIBEL.service.RiesgoService;
 
 @RestController
@@ -22,6 +24,16 @@ public class RiesgoController {
 	@GetMapping
 	public List<Riesgo> getRiesgos() {
 		return riesgoService.riesgos();
+	}
+	
+	@GetMapping("/apps")
+	public List<RiesgoApp> getRiesgosDeApps() {
+		return riesgoService.riesgosDeApps();
+	}
+	
+	@GetMapping("/dispositivos")
+	public List<RiesgoDevice> getRiesgosDeDispositivos() {
+		return riesgoService.riesgosDeDispositivos();
 	}
 	
 	@GetMapping("/{id}")

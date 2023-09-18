@@ -77,6 +77,25 @@ public class CibelService {
         return  runnable.getResponse();
     }
 
+    public static Aplicacion[] getAplicaciones(String categoria) {
+        final Call<Aplicacion[]> call = getAPI().aplicaciones(categoria);
+
+        ExecutorService executor = Executors.newFixedThreadPool(1);
+        CallRunnable<Aplicacion[]> runnable = new CallRunnable<>(call);
+        executor.execute(runnable);
+
+        // Espera a que acaben las tareas en background
+        executor.shutdown();
+        try {
+            executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        // Si hubo algun problema, response es null
+        return  runnable.getResponse();
+    }
+
     /**
      * Descarga una aplicacion de la API REST de forma asincrona.
      * Ejecuta la llamada en un hilo en segundo plano y notifica el resultado a
@@ -123,6 +142,16 @@ public class CibelService {
         call.enqueue(new CallbackAdapter<>(cb));
     }
 
+    public static void reguestRiesgosDeApps(Callback<Riesgo[]> cb) {
+        final Call<Riesgo[]> call = getAPI().riesgosDeApps();
+        call.enqueue(new CallbackAdapter<>(cb));
+    }
+
+    public static void requestRiesgosDeDispositivos(Callback<Riesgo[]> cb) {
+        final Call<Riesgo[]> call = getAPI().riesgosDeDispositivos();
+        call.enqueue(new CallbackAdapter<>(cb));
+    }
+
     /**
      * Descarga los riesgos de la API REST de forma sincrona.
      * Bloquea el hilo actual hasta que se complete la llamada y se obtenga la respuesta.
@@ -130,6 +159,38 @@ public class CibelService {
      */
     public static Riesgo[] getRiesgos() {
         final Call<Riesgo[]> call = getAPI().riesgos();
+
+        ExecutorService executor = Executors.newFixedThreadPool(1);
+        CallRunnable<Riesgo[]> runnable = new CallRunnable<>(call);
+        executor.execute(runnable);
+
+        executor.shutdown();
+        try {
+            executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        return runnable.getResponse();
+    }
+
+    public static Riesgo[] getRiesgosDeApps() {
+        final Call<Riesgo[]> call = getAPI().riesgosDeApps();
+
+        ExecutorService executor = Executors.newFixedThreadPool(1);
+        CallRunnable<Riesgo[]> runnable = new CallRunnable<>(call);
+        executor.execute(runnable);
+
+        executor.shutdown();
+        try {
+            executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        return runnable.getResponse();
+    }
+
+    public static Riesgo[] getRiesgosDeDispositivos() {
+        final Call<Riesgo[]> call = getAPI().riesgosDeDispositivos();
 
         ExecutorService executor = Executors.newFixedThreadPool(1);
         CallRunnable<Riesgo[]> runnable = new CallRunnable<>(call);
@@ -211,6 +272,38 @@ public class CibelService {
         return runnable.getResponse();
     }
 
+    public static Control[] getControlesDeApps() {
+        final Call<Control[]> call = getAPI().controlesDeApps();
+
+        ExecutorService executor = Executors.newFixedThreadPool(1);
+        CallRunnable<Control[]> runnable = new CallRunnable<>(call);
+        executor.execute(runnable);
+
+        executor.shutdown();
+        try {
+            executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        return runnable.getResponse();
+    }
+
+    public static Control[] getControlesDeDispositivos() {
+        final Call<Control[]> call = getAPI().controlesDeDispositivos();
+
+        ExecutorService executor = Executors.newFixedThreadPool(1);
+        CallRunnable<Control[]> runnable = new CallRunnable<>(call);
+        executor.execute(runnable);
+
+        executor.shutdown();
+        try {
+            executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        return runnable.getResponse();
+    }
+
     /**
      * Descarga un control de la API REST de forma asincrona.
      * Ejecuta la llamada en un hilo en segundo plano y notifica el resultado a
@@ -264,6 +357,38 @@ public class CibelService {
      */
     public static Categoria[] getCategorias() {
         final Call<Categoria[]> call = getAPI().categorias();
+
+        ExecutorService executor = Executors.newFixedThreadPool(1);
+        CallRunnable<Categoria[]> runnable = new CallRunnable<>(call);
+        executor.execute(runnable);
+
+        executor.shutdown();
+        try {
+            executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        return runnable.getResponse();
+    }
+
+    public static Categoria[] getCategoriasDeApps() {
+        final Call<Categoria[]> call = getAPI().categoriasDeApps();
+
+        ExecutorService executor = Executors.newFixedThreadPool(1);
+        CallRunnable<Categoria[]> runnable = new CallRunnable<>(call);
+        executor.execute(runnable);
+
+        executor.shutdown();
+        try {
+            executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        return runnable.getResponse();
+    }
+
+    public static Categoria[] getCategoriasDeDispositivos() {
+        final Call<Categoria[]> call = getAPI().categoriasDeDispositivos();
 
         ExecutorService executor = Executors.newFixedThreadPool(1);
         CallRunnable<Categoria[]> runnable = new CallRunnable<>(call);
