@@ -2,6 +2,9 @@ plugins {
     id 'com.android.application'
     id 'org.greenrobot.greendao'
 }
+apply plugin: 'org.sonarqube'
+
+
 
 android {
     compileSdk 33
@@ -34,6 +37,21 @@ android {
 greendao {
     schemaVersion 13
     daoPackage = "es.unican.appriegospersonales.repository.db"
+}
+
+// added for sonar qube
+sonarqube {
+    properties {
+        property "sonar.projectName", "ContentResolver"
+        property "sonar.projectKey", "ContentResolver"
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.language", "java"
+        property "sonar.sources", "src/main/java"
+        property "sonar.java.sources", "src/main/java"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.login", "admin"
+        property "sonar.password", "root"
+    }
 }
 
 dependencies {
