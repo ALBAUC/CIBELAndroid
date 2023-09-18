@@ -19,6 +19,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class CibelService {
 
+    private CibelService() {
+    }
+
     private static CibelAPI api;
 
     private static CibelAPI getAPI() {

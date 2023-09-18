@@ -12,18 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import es.unican.appriegospersonales.common.MyApplication;
-import es.unican.appriegospersonales.common.adapters.RVControlesAdapter;
-import es.unican.appriegospersonales.common.adapters.RVDElementsPerfilAdapter;
 import es.unican.appriegospersonales.common.adapters.RVRiesgosAdapter;
-import es.unican.appriegospersonales.model.ElementoDigital;
 import es.unican.appriesgospersonales.R;
 
 public class TabRisksView extends Fragment {
     private TabRisksPresenter presenter;
-    private RecyclerView risks_rv;
+    private RecyclerView risksRV;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,15 +32,15 @@ public class TabRisksView extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_perfil_controles, container, false);
-        risks_rv = layout.findViewById(R.id.itemsAplicados_rv);
+        risksRV = layout.findViewById(R.id.itemsAplicados_rv);
 
-        risks_rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        risks_rv.setAdapter(new RVRiesgosAdapter(getContext(), new ArrayList<>(presenter.getRiesgosActuales()), presenter.getPerfilControls()));
+        risksRV.setLayoutManager(new LinearLayoutManager(getContext()));
+        risksRV.setAdapter(new RVRiesgosAdapter(getContext(), new ArrayList<>(presenter.getRiesgosActuales()), presenter.getPerfilControls()));
 
         DividerItemDecoration dividerA = new DividerItemDecoration(
-                risks_rv.getContext(),
+                risksRV.getContext(),
                 DividerItemDecoration.VERTICAL);
-        risks_rv.addItemDecoration(dividerA);
+        risksRV.addItemDecoration(dividerA);
         return layout;
     }
 

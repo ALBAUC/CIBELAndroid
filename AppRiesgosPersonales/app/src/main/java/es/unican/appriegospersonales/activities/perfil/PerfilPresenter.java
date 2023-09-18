@@ -48,7 +48,7 @@ public class PerfilPresenter implements IPerfilContract.Presenter {
 
         double porcentajeMitigado = (riesgosMitigados * 100.0) / totalRiesgos;
         int nivelRiesgo = 100 - (int) porcentajeMitigado;
-        return nivelRiesgo;
+        return nivelRiesgo ;
     }
 
     private boolean riesgoMitigadoEnPerfil(Riesgo riesgo) {

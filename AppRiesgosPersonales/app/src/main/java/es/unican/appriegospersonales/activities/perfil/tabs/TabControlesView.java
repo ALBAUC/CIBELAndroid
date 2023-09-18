@@ -17,7 +17,7 @@ import es.unican.appriesgospersonales.R;
 
 public class TabControlesView extends Fragment {
     private TabControlesPresenter presenter;
-    private RecyclerView controles_rv;
+    private RecyclerView controlesRV;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,15 +30,15 @@ public class TabControlesView extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_perfil_controles, container, false);
-        controles_rv = layout.findViewById(R.id.itemsAplicados_rv);
+        controlesRV = layout.findViewById(R.id.itemsAplicados_rv);
 
-        controles_rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        controles_rv.setAdapter(new RVControlesAdapter(getContext(), presenter.getControlesAnhadidos()));
+        controlesRV.setLayoutManager(new LinearLayoutManager(getContext()));
+        controlesRV.setAdapter(new RVControlesAdapter(getContext(), presenter.getControlesAnhadidos()));
 
         DividerItemDecoration dividerC = new DividerItemDecoration(
-                controles_rv.getContext(),
+                controlesRV.getContext(),
                 DividerItemDecoration.VERTICAL);
-        controles_rv.addItemDecoration(dividerC);
+        controlesRV.addItemDecoration(dividerC);
         return layout;
     }
 

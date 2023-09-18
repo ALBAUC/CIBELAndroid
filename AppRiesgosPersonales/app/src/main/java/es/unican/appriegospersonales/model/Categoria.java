@@ -103,8 +103,7 @@ public class Categoria {
                 throw new DaoException("Entity is detached from DAO context");
             }
             RiesgoDao targetDao = daoSession.getRiesgoDao();
-            List<Riesgo> riesgosNew = targetDao
-                    ._queryCategoria_Riesgos(idCategoria);
+            List<Riesgo> riesgosNew = targetDao._queryCategoria_Riesgos(idCategoria);
             synchronized (this) {
                 if (riesgos == null) {
                     riesgos = riesgosNew;

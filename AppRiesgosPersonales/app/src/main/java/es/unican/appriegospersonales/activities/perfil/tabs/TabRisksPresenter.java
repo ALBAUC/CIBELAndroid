@@ -13,7 +13,6 @@ import es.unican.appriegospersonales.repository.db.PerfilDao;
 
 public class TabRisksPresenter {
     private final TabRisksView view;
-    private PerfilDao perfilDao;
     private Perfil perfil;
 
     public TabRisksPresenter(TabRisksView view) {
@@ -22,7 +21,7 @@ public class TabRisksPresenter {
 
     public void init() {
         DaoSession daoSession = view.getMyApplication().getDaoSession();
-        perfilDao = daoSession.getPerfilDao();
+        PerfilDao perfilDao = daoSession.getPerfilDao();
         perfil = Perfil.getInstance(perfilDao);
     }
 

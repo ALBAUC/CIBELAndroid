@@ -9,7 +9,6 @@ import es.unican.appriegospersonales.repository.db.PerfilDao;
 
 public class TabControlesPresenter {
     private final TabControlesView view;
-    private PerfilDao perfilDao;
     private Perfil perfil;
 
     public TabControlesPresenter(TabControlesView view) {
@@ -18,7 +17,7 @@ public class TabControlesPresenter {
 
     public void init() {
         DaoSession daoSession = view.getMyApplication().getDaoSession();
-        perfilDao = daoSession.getPerfilDao();
+        PerfilDao perfilDao = daoSession.getPerfilDao();
         perfil = Perfil.getInstance(perfilDao);
     }
 

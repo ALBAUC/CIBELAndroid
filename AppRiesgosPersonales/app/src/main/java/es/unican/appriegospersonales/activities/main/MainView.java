@@ -30,18 +30,13 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
         setupBottomMenu(savedInstanceState);
 
         swipeRefreshLayout = findViewById(R.id.swiperefresh);
-        swipeRefreshLayout.setOnRefreshListener(
-            new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
-                    if (fragment instanceof RefreshableFragment) {
-                        ((RefreshableFragment) fragment).refreshData();
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-                }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
+            if (fragment instanceof RefreshableFragment) {
+                ((RefreshableFragment) fragment).refreshData();
+                swipeRefreshLayout.setRefreshing(false);
             }
-        );
+        });
     }
 
     /**
@@ -61,23 +56,21 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-            @Override
-            public void onBackStackChanged() {
-                int backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-                if (backStackEntryCount == 0) {
-                    // No hay fragmentos en la pila de retroceso, ocultar la flecha de retroceso
-                    if (getSupportActionBar() != null) {
-                        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                    }
-                } else {
-                    // Hay fragmentos en la pila de retroceso, mostrar la flecha de retroceso
-                    if (getSupportActionBar() != null) {
-                        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                    }
+        getSupportFragmentManager().addOnBackStackChangedListener(() -> {
+            int backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+            if (backStackEntryCount == 0) {
+                // No hay fragmentos en la pila de retroceso, ocultar la flecha de retroceso
+                if (getSupportActionBar() != null) {
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                }
+            } else {
+                // Hay fragmentos en la pila de retroceso, mostrar la flecha de retroceso
+                if (getSupportActionBar() != null) {
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 }
             }
         });
+
     }
 
     /**
@@ -103,27 +96,30 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
      *          IllegalArgumentException si ha ocurrido un error
      */
     private boolean onItemSelectedListener(MenuItem item) {
+        boolean handled = true; // Default to returning true
+
         switch (item.getItemId()) {
             case R.id.page_apps:
-                resetToolbar();
                 presenter.onNavHomeClicked();
-                return true;
+                break;
             case R.id.page_riesgos:
-                resetToolbar();
                 presenter.onNavRiesgosClicked();
-                return true;
+                break;
             case R.id.page_controles:
-                resetToolbar();
                 presenter.onNavControlesClicked();
-                return true;
+                break;
             case R.id.page_perfil:
-                resetToolbar();
                 presenter.onNavPerfilClicked();
-                return true;
+                break;
             default:
-                throw new IllegalArgumentException("Item not implemented: " + item.getItemId());
+                handled = false; // If the item is not implemented, return false
+                break;
         }
+
+        resetToolbar();
+        return handled;
     }
+
 
     private void resetToolbar() {
         if (getSupportActionBar() != null) {
