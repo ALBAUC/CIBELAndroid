@@ -88,4 +88,7 @@ dependencies {
     // Picasso (image downloading and caching library)
     implementation 'com.squareup.picasso:picasso:2.8'
 
+    // JSON y JSOUP (Leer y analizar JSON)
+    implementation 'org.json:json:20230618'
+    implementation 'org.jsoup:jsoup:1.16.1'
 }
