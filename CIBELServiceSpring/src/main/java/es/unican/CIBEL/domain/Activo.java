@@ -1,5 +1,6 @@
 package es.unican.CIBEL.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +12,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class ElementoDigital {
+public abstract class Activo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,12 +20,21 @@ public abstract class ElementoDigital {
 	
 	private String nombre;
 	
+	@Column(length = 500)
 	private String icono;
 	
 	@OneToOne
 	@JoinColumn(name="fk_categoria")
 	private Categoria categoria;
 	
+	public Activo() {}
+	
+	public Activo(String nombre, String icono, Categoria categoria) {
+		this.nombre = nombre;
+		this.icono = icono;
+		this.categoria = categoria;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}

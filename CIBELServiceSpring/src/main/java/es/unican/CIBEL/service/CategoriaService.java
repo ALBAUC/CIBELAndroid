@@ -5,11 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.unican.CIBEL.CIBELConstants;
 import es.unican.CIBEL.domain.Categoria;
-import es.unican.CIBEL.domain.CategoriaApp;
-import es.unican.CIBEL.domain.CategoriaDevice;
-import es.unican.CIBEL.repository.CategoriaAppRepository;
-import es.unican.CIBEL.repository.CategoriaDeviceRepository;
 import es.unican.CIBEL.repository.CategoriaRepository;
 
 @Service
@@ -18,22 +15,16 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository repository;
 	
-	@Autowired
-	private CategoriaAppRepository repositoryApps;
-	
-	@Autowired
-	private CategoriaDeviceRepository repositoryDevices;
-	
 	public List<Categoria> categorias() {
 		return repository.findAll();
 	}
 	
-	public List<CategoriaApp> categoriasDeApps() {
-		return repositoryApps.findAll();
+	public List<Categoria> categoriasDeApps() {
+		return repository.findAllByTipo(CIBELConstants.APP);
 	}
 	
-	public List<CategoriaDevice> categoriasDeDispositivos() {
-		return repositoryDevices.findAll();
+	public List<Categoria> categoriasDeDispositivos() {
+		return repository.findAllByTipo(CIBELConstants.DISPOSITIVO_IOT);
 	}
 	
 	public Categoria buscaCategoria(Long id) {

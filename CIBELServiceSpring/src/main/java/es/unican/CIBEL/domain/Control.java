@@ -1,20 +1,14 @@
 package es.unican.CIBEL.domain;
 
-import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.ManyToMany;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Control {
+public class Control {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,11 +16,18 @@ public abstract class Control {
 	
 	private String nombre;
 	
+	@Column(length = 2000)
 	private String descripcion;
 	
-	@ManyToMany(mappedBy = "controles")
-	@JsonBackReference
-	private List<Riesgo> mitigaRiesgos;
+	private String tipo;
+	
+	public Control() {}
+	
+	public Control(String nombre, String descripcion, String tipo) {
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.tipo = tipo;
+	}
 
 	public Long getId() {
 		return id;
@@ -51,12 +52,12 @@ public abstract class Control {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
-	public List<Riesgo> getMitigaRiesgos() {
-		return mitigaRiesgos;
+	
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setMitigaRiesgos(List<Riesgo> mitigaRiesgos) {
-		this.mitigaRiesgos = mitigaRiesgos;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 }

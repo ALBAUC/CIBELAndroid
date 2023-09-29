@@ -13,32 +13,32 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.unican.CIBEL.domain.Aplicacion;
 import es.unican.CIBEL.domain.DispositivoIot;
-import es.unican.CIBEL.domain.ElementoDigital;
+import es.unican.CIBEL.domain.Activo;
 import es.unican.CIBEL.service.CategoriaService;
-import es.unican.CIBEL.service.ElementoDigitalService;
+import es.unican.CIBEL.service.ActivoService;
 
 @RestController
-@RequestMapping("elementosDigitales")
-public class ElementoDigitalController {
+@RequestMapping("activos")
+public class ActivoController {
 	
 	@Autowired
-	private ElementoDigitalService elementosDService;
+	private ActivoService activosService;
 	
 	@Autowired
 	private CategoriaService categoriaService;
 	
 	@GetMapping
-	public List<ElementoDigital> getElementosDigitales(@RequestParam(value="categoria", required = false) String categoria) {
+	public List<Activo> getActivos(@RequestParam(value="categoria", required = false) String categoria) {
 		
-		List<ElementoDigital> elementos = new LinkedList<ElementoDigital>();
+		List<Activo> activos = new LinkedList<Activo>();
 		
 		if (categoria != null) {
-			elementos = elementosDService.elementosDigitalesPorCategoria(categoriaService.buscaCategoriaPorNombre(categoria));
+			activos = activosService.activosPorCategoria(categoriaService.buscaCategoriaPorNombre(categoria));
 		} else {
-			elementos = elementosDService.elementosDigitales();
+			activos = activosService.activos();
 		}
 		
-		return elementos;
+		return activos;
 	}
 	
 	@GetMapping("/apps")
@@ -47,9 +47,9 @@ public class ElementoDigitalController {
 		List<Aplicacion> apps = new LinkedList<Aplicacion>();
 		
 		if (categoria != null) {
-			apps = elementosDService.aplicacionesPorCategoria(categoriaService.buscaCategoriaPorNombre(categoria));
+			apps = activosService.aplicacionesPorCategoria(categoriaService.buscaCategoriaPorNombre(categoria));
 		} else {
-			apps = elementosDService.aplicaciones();
+			apps = activosService.aplicaciones();
 		}
 		
 		return apps;
@@ -58,7 +58,7 @@ public class ElementoDigitalController {
 	@GetMapping("/apps/{nombre}")
 	public ResponseEntity<Aplicacion> getAplicacion(@PathVariable String nombre) {
 		ResponseEntity<Aplicacion> result;
-		Aplicacion app = elementosDService.buscaAplicacion(nombre);
+		Aplicacion app = activosService.buscaAplicacion(nombre);
 		
 		if (app == null) {
 			result = ResponseEntity.notFound().build();
@@ -74,9 +74,9 @@ public class ElementoDigitalController {
 		List<DispositivoIot> disps = new LinkedList<DispositivoIot>();
 		
 		if (categoria != null) {
-			disps = elementosDService.dispositivosPorCategoria(categoriaService.buscaCategoriaPorNombre(categoria));
+			disps = activosService.dispositivosPorCategoria(categoriaService.buscaCategoriaPorNombre(categoria));
 		} else {
-			disps = elementosDService.dispositivos();
+			disps = activosService.dispositivos();
 		}
 		
 		return disps;
@@ -85,7 +85,7 @@ public class ElementoDigitalController {
 	@GetMapping("/dispositivos/{nombre}")
 	public ResponseEntity<DispositivoIot> getDispositivo(@PathVariable String nombre) {
 		ResponseEntity<DispositivoIot> result;
-		DispositivoIot disp = elementosDService.buscaDispositivo(nombre);
+		DispositivoIot disp = activosService.buscaDispositivo(nombre);
 		
 		if (disp == null) {
 			result = ResponseEntity.notFound().build();

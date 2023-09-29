@@ -1,22 +1,21 @@
 package es.unican.CIBEL.domain;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.JoinColumn;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Riesgo {
+public class Amenaza {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +23,10 @@ public abstract class Riesgo {
 	
 	private String nombre;
 	
+	@Column(length = 2000)
 	private String descripcion;
+	
+	private String tipo;
 	
 	@ManyToMany
 	@JoinTable(name = "control_x_riesgo",
@@ -33,6 +35,15 @@ public abstract class Riesgo {
 	@JsonManagedReference
 	private List<Control> controles;
 	
+	public Amenaza() {}
+	
+	public Amenaza(String nombre, String descripcion, String tipo) {
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.tipo = tipo;
+		this.controles = new LinkedList<Control>();
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -63,5 +74,13 @@ public abstract class Riesgo {
 	
 	public void setControles(List<Control> controles) {
 		this.controles = controles;
+	}
+	
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 }

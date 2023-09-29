@@ -8,16 +8,16 @@ import org.springframework.stereotype.Service;
 import es.unican.CIBEL.domain.Aplicacion;
 import es.unican.CIBEL.domain.Categoria;
 import es.unican.CIBEL.domain.DispositivoIot;
-import es.unican.CIBEL.domain.ElementoDigital;
+import es.unican.CIBEL.domain.Activo;
 import es.unican.CIBEL.repository.AplicacionRepository;
 import es.unican.CIBEL.repository.DispositivoIoTRepository;
-import es.unican.CIBEL.repository.ElementoDigitalRepository;
+import es.unican.CIBEL.repository.ActivoRepository;
 
 @Service
-public class ElementoDigitalService {
+public class ActivoService {
 	
 	@Autowired
-	private ElementoDigitalRepository repository;
+	private ActivoRepository repository;
 	
 	@Autowired
 	private DispositivoIoTRepository repositoryDevices;
@@ -25,15 +25,15 @@ public class ElementoDigitalService {
 	@Autowired
 	private AplicacionRepository repositoryApps;
 	
-	public List<ElementoDigital> elementosDigitales() {
+	public List<Activo> activos() {
 		return repository.findAll();
 	}
 	
-	public List<ElementoDigital> elementosDigitalesPorCategoria(Categoria categoria) {
+	public List<Activo> activosPorCategoria(Categoria categoria) {
 		return repository.findByCategoria(categoria);
 	}
 	
-	public ElementoDigital buscaElementoDigital(String nombre) {
+	public Activo buscaActivo(String nombre) {
 		return repository.findByNombre(nombre);
 	}
 	

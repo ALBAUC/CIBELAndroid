@@ -1,21 +1,19 @@
 package es.unican.CIBEL.domain;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import javax.persistence.JoinColumn;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Categoria {
+public class Categoria {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,12 +21,22 @@ public abstract class Categoria {
 	
 	private String nombre;
 	
-	@ManyToMany
-	@JoinTable(name = "categoria_x_riesgo",
-				joinColumns = @JoinColumn(name = "fk_categoria"),
-				inverseJoinColumns = @JoinColumn(name = "fk_riesgo"))
-	private List<Riesgo> riesgos;
+	private String tipo;
 	
+	@ManyToMany
+	@JoinTable(name = "categoria_x_control",
+				joinColumns = @JoinColumn(name = "fk_categoria"),
+				inverseJoinColumns = @JoinColumn(name = "fk_control"))
+	private List<Control> controles;
+	
+	public Categoria() {}
+	
+	public Categoria(String nombre, String tipo) {
+		this.nombre = nombre;
+		this.tipo = tipo;
+		this.controles = new LinkedList<Control>();
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -36,13 +44,13 @@ public abstract class Categoria {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	public List<Riesgo> getRiesgos() {
-		return riesgos;
+
+	public List<Control> getControles() {
+		return controles;
 	}
-	
-	public void setRiesgos(List<Riesgo> riesgos) {
-		this.riesgos = riesgos;
+
+	public void setControles(List<Control> controles) {
+		this.controles = controles;
 	}
 
 	public Long getId() {
@@ -51,5 +59,13 @@ public abstract class Categoria {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 }
