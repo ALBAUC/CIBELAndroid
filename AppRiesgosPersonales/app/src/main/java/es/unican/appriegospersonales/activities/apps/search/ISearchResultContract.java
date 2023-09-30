@@ -3,8 +3,7 @@ package es.unican.appriegospersonales.activities.apps.search;
 import java.util.List;
 
 import es.unican.appriegospersonales.common.MyApplication;
-import es.unican.appriegospersonales.model.Aplicacion;
-import es.unican.appriegospersonales.model.ElementoDigital;
+import es.unican.appriegospersonales.model.Activo;
 
 public interface ISearchResultContract {
 
@@ -16,10 +15,10 @@ public interface ISearchResultContract {
 
         void init();
 
-        List<ElementoDigital> doSearch(String query);
+        List<Activo> doSearch(String query);
 
-        ElementoDigital getDElementByName(String appName);
+        Activo getAssetByName(String appName);
 
-        List<ElementoDigital> getPerfilApps();
+        List<Activo> getPerfilAssets();
     }
 }

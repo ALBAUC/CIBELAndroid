@@ -4,19 +4,18 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.unican.appriegospersonales.model.Aplicacion;
+import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Categoria;
-import es.unican.appriegospersonales.model.ElementoDigital;
 import es.unican.appriegospersonales.model.Perfil;
+import es.unican.appriegospersonales.repository.db.ActivoDao;
 import es.unican.appriegospersonales.repository.db.CategoriaDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
-import es.unican.appriegospersonales.repository.db.ElementoDigitalDao;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
 
 public class SearchResultPresenter implements ISearchResultContract.Presenter {
 
     private final ISearchResultContract.View view;
-    private ElementoDigitalDao elementoDigitalDao;
+    private ActivoDao activoDao;
     private CategoriaDao categoriaDao;
     private PerfilDao perfilDao;
 
@@ -27,13 +26,13 @@ public class SearchResultPresenter implements ISearchResultContract.Presenter {
     @Override
     public void init() {
         DaoSession daoSession = view.getMyApplication().getDaoSession();
-        elementoDigitalDao = daoSession.getElementoDigitalDao();
+        activoDao = daoSession.getActivoDao();
         categoriaDao = daoSession.getCategoriaDao();
         perfilDao = daoSession.getPerfilDao();
     }
 
     @Override
-    public List<ElementoDigital> doSearch(String query) {
+    public List<Activo> doSearch(String query) {
         String modifiedQuery = "%" + removeAccents(query.trim().toLowerCase()) + "%";
 
         List<Categoria> categorias = categoriaDao.loadAll();
@@ -45,22 +44,22 @@ public class SearchResultPresenter implements ISearchResultContract.Presenter {
             }
         }
 
-        return elementoDigitalDao.queryBuilder()
+        return activoDao.queryBuilder()
                 .whereOr(
-                        ElementoDigitalDao.Properties.Nombre.like(modifiedQuery),
-                        ElementoDigitalDao.Properties.Fk_categoria.in(categoriaIds)
+                        ActivoDao.Properties.Nombre.like(modifiedQuery),
+                        ActivoDao.Properties.Fk_categoria.in(categoriaIds)
                 ).list();
     }
 
     @Override
-    public ElementoDigital getDElementByName(String appName) {
-        return elementoDigitalDao.queryBuilder().where(ElementoDigitalDao.Properties.Nombre.like(appName)).unique();
+    public Activo getAssetByName(String appName) {
+        return activoDao.queryBuilder().where(ActivoDao.Properties.Nombre.like(appName)).unique();
     }
 
     @Override
-    public List<ElementoDigital> getPerfilApps() {
+    public List<Activo> getPerfilAssets() {
         Perfil perfil = Perfil.getInstance(perfilDao);
-        return perfil.getElementosDigitalesAnhadidos();
+        return perfil.getActivosAnhadidos();
     }
 
     private String removeAccents(String input) {

@@ -1,25 +1,18 @@
 package es.unican.appriegospersonales.activities.riesgos.detail;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.content.res.Configuration;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import es.unican.appriegospersonales.common.MyApplication;
+import es.unican.appriegospersonales.model.Amenaza;
 import es.unican.appriegospersonales.model.Control;
 import es.unican.appriesgospersonales.R;
 

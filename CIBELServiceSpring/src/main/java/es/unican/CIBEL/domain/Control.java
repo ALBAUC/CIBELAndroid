@@ -1,6 +1,8 @@
 package es.unican.CIBEL.domain;
 
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -59,5 +61,23 @@ public class Control {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(descripcion, id, nombre, tipo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Control other = (Control) obj;
+		return Objects.equals(descripcion, other.descripcion) && Objects.equals(id, other.id)
+				&& Objects.equals(nombre, other.nombre) && Objects.equals(tipo, other.tipo);
 	}
 }

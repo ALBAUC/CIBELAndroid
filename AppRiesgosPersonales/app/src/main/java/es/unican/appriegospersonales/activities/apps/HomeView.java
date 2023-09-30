@@ -19,20 +19,16 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import es.unican.appriegospersonales.activities.apps.detail.DElementDetailView;
+import es.unican.appriegospersonales.activities.apps.detail.AssetDetailView;
 import es.unican.appriegospersonales.activities.apps.search.SearchResultView;
 import es.unican.appriegospersonales.activities.main.MainView;
-import es.unican.appriegospersonales.activities.riesgos.VPRiesgosAdapter;
 import es.unican.appriegospersonales.common.MyApplication;
-import es.unican.appriegospersonales.model.ElementoDigital;
+import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriesgospersonales.R;
 
 public class HomeView extends Fragment implements IHomeContract.View, MainView.RefreshableFragment {
@@ -109,11 +105,11 @@ public class HomeView extends Fragment implements IHomeContract.View, MainView.R
             String intentData = data.toString();
             if (intentData.startsWith("app://")) {
                 String appName = intentData.substring(6);
-                ElementoDigital elementoDigital = presenter.getDElementByName(appName);
-                if (elementoDigital != null) {
+                Activo activo = presenter.getAssetByName(appName);
+                if (activo != null) {
                     FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                     fragmentManager.beginTransaction()
-                            .replace(R.id.container, DElementDetailView.newInstance(elementoDigital))
+                            .replace(R.id.container, AssetDetailView.newInstance(activo))
                             .setReorderingAllowed(true)
                             .addToBackStack("apps")
                             .commit();

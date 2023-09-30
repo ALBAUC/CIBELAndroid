@@ -10,20 +10,19 @@ import java.util.List;
 import es.unican.appriegospersonales.common.Callback;
 import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.common.prefs.Prefs;
-import es.unican.appriegospersonales.model.Aplicacion;
+import es.unican.appriegospersonales.model.Activo;
+import es.unican.appriegospersonales.model.Amenaza;
 import es.unican.appriegospersonales.model.Categoria;
 import es.unican.appriegospersonales.model.Control;
-import es.unican.appriegospersonales.model.ElementoDigital;
-import es.unican.appriegospersonales.model.JoinCategoriasWithRiesgos;
-import es.unican.appriegospersonales.model.JoinRiesgosWithControles;
-import es.unican.appriegospersonales.model.Riesgo;
+import es.unican.appriegospersonales.model.JoinCategriasWithControles;
+import es.unican.appriegospersonales.model.JoinAmenazasWithControles;
+import es.unican.appriegospersonales.repository.db.ActivoDao;
+import es.unican.appriegospersonales.repository.db.AmenazaDao;
 import es.unican.appriegospersonales.repository.db.CategoriaDao;
 import es.unican.appriegospersonales.repository.db.ControlDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
-import es.unican.appriegospersonales.repository.db.ElementoDigitalDao;
-import es.unican.appriegospersonales.repository.db.JoinCategoriasWithRiesgosDao;
-import es.unican.appriegospersonales.repository.db.JoinRiesgosWithControlesDao;
-import es.unican.appriegospersonales.repository.db.RiesgoDao;
+import es.unican.appriegospersonales.repository.db.JoinAmenazasWithControlesDao;
+import es.unican.appriegospersonales.repository.db.JoinCategriasWithControlesDao;
 import es.unican.appriegospersonales.repository.rest.CibelService;
 
 /**
@@ -47,11 +46,11 @@ public class CibelRepository implements ICibelRepository {
     }
 
     @Override
-    public void requestElementosDigitales(Callback<ElementoDigital[]> cb, String categoria) {
-        CibelService.requestElementosDigitales(new Callback<ElementoDigital[]>() {
+    public void requestActivos(Callback<Activo[]> cb, String categoria) {
+        CibelService.requestActivos(new Callback<Activo[]>() {
             @Override
-            public void onSuccess(ElementoDigital[] data) {
-                persistToDBElementosDigitales(data);
+            public void onSuccess(Activo[] data) {
+                persistToDBActivos(data);
                 cb.onSuccess(data);
             }
 
@@ -63,36 +62,30 @@ public class CibelRepository implements ICibelRepository {
     }
 
     @Override
-    public ElementoDigital[] getElementosDigitales(String categoria) {
-        ElementoDigital[] response = CibelService.getElementosDigitales(categoria);
-        persistToDBElementosDigitales(response);
+    public Activo[] getActivos(String categoria) {
+        Activo[] response = CibelService.getActivos(categoria);
+        persistToDBActivos(response);
         return response;
     }
 
-    @Override
-    public Aplicacion[] getAplicaciones(String categoria) {
-        Aplicacion[] response = CibelService.getAplicaciones(categoria);
-        return response;
-    }
-
-    private void persistToDBElementosDigitales(ElementoDigital[] elementosDigitales) {
-        if (elementosDigitales != null) {
-            ElementoDigitalDao elementoDigitalDao = daoSession.getElementoDigitalDao();
+    private void persistToDBActivos(Activo[] activos) {
+        if (activos != null) {
+            ActivoDao activoDao = daoSession.getActivoDao();
             CategoriaDao categoriaDao = daoSession.getCategoriaDao();
-            for (ElementoDigital ele : elementosDigitales) {
-                ElementoDigital eleBD = elementoDigitalDao.load(ele.getIdElementoD());
-                if (eleBD == null) {
-                    // Nuevo elemento digital, se inserta en la bd
-                    Categoria cat = categoriaDao.load(ele.getCat().getIdCategoria());
-                    ele.setFk_categoria(cat.getIdCategoria());
-                    elementoDigitalDao.insert(ele);
+            for (Activo a : activos) {
+                Activo aBD = activoDao.load(a.getIdActivo());
+                if (aBD == null) {
+                    // Nuevo activo, se inserta en la bd
+                    Categoria cat = categoriaDao.load(a.getCat().getIdCategoria());
+                    a.setFk_categoria(cat.getIdCategoria());
+                    activoDao.insert(a);
                 } else {
                     // Ya estaba en la bd, lo actualizo
-                    Categoria cat = categoriaDao.load(ele.getCat().getIdCategoria());
-                    ele.setFk_categoria(cat.getIdCategoria());
-                    Long fk_perfil = eleBD.getFk_perfil();
-                    ele.setFk_perfil(fk_perfil);
-                    elementoDigitalDao.update(ele);
+                    Categoria cat = categoriaDao.load(a.getCat().getIdCategoria());
+                    a.setFk_categoria(cat.getIdCategoria());
+                    Long fk_perfil = aBD.getFk_perfil();
+                    a.setFk_perfil(fk_perfil);
+                    activoDao.update(a);
                 }
             }
             //Prefs.from(application).putInstant(KEY_LAST_SAVED_A, Instant.now());
@@ -100,31 +93,11 @@ public class CibelRepository implements ICibelRepository {
     }
 
     @Override
-    public void requestAplicacion(Callback<Aplicacion> cb, String nombre) {
-        CibelService.requestAplicacion(new Callback<Aplicacion>() {
+    public void requestAmenazas(Callback<Amenaza[]> cb) {
+        CibelService.requestAmenazas(new Callback<Amenaza[]>() {
             @Override
-            public void onSuccess(Aplicacion data) {
-                cb.onSuccess(data);
-            }
-
-            @Override
-            public void onFailure() {
-                cb.onFailure();
-            }
-        }, nombre);
-    }
-
-    @Override
-    public Aplicacion getAplicacion(String nombre) {
-        return CibelService.getAplicacion(nombre);
-    }
-
-    @Override
-    public void requestRiesgos(Callback<Riesgo[]> cb) {
-        CibelService.requestRiesgos(new Callback<Riesgo[]>() {
-            @Override
-            public void onSuccess(Riesgo[] data) {
-                persistToDBRiesgos(data);
+            public void onSuccess(Amenaza[] data) {
+                persistToDBAmenazas(data);
                 cb.onSuccess(data);
             }
 
@@ -136,10 +109,10 @@ public class CibelRepository implements ICibelRepository {
     }
 
     @Override
-    public void requestRiesgosDeApps(Callback<Riesgo[]> cb) {
-        CibelService.reguestRiesgosDeApps(new Callback<Riesgo[]>() {
+    public void requestAmenazasDeApps(Callback<Amenaza[]> cb) {
+        CibelService.requestAmenazasDeApps(new Callback<Amenaza[]>() {
             @Override
-            public void onSuccess(Riesgo[] data) {
+            public void onSuccess(Amenaza[] data) {
                 cb.onSuccess(data);
             }
 
@@ -151,10 +124,10 @@ public class CibelRepository implements ICibelRepository {
     }
 
     @Override
-    public void requestRiesgosDeDispositivos(Callback<Riesgo[]> cb) {
-        CibelService.requestRiesgosDeDispositivos(new Callback<Riesgo[]>() {
+    public void requestAmenazasDeDispositivos(Callback<Amenaza[]> cb) {
+        CibelService.requestAmenazasDeDispositivos(new Callback<Amenaza[]>() {
             @Override
-            public void onSuccess(Riesgo[] data) {
+            public void onSuccess(Amenaza[] data) {
                 cb.onSuccess(data);
             }
 
@@ -166,35 +139,36 @@ public class CibelRepository implements ICibelRepository {
     }
 
     @Override
-    public Riesgo[] getRiesgos() {
-        Riesgo[] response = CibelService.getRiesgos();
-        persistToDBRiesgos(response);
+    public Amenaza[] getAmenazas() {
+        Amenaza[] response = CibelService.getAmenazas();
+        persistToDBAmenazas(response);
         return response;
     }
 
     @Override
-    public Riesgo[] getRiesgosDeApps() {
-        Riesgo[] response = CibelService.getRiesgosDeApps();
+    public Amenaza[] getAmenazasDeApps() {
+        Amenaza[] response = CibelService.getAmenazasDeApps();
         return response;
     }
 
     @Override
-    public Riesgo[] getRiesgosDeDispositivos() {
-        Riesgo[] response = CibelService.getRiesgosDeDispositivos();
+    public Amenaza[] getAmenazasDeDispositivos() {
+        Amenaza[] response = CibelService.getAmenazasDeDispositivos();
         return response;
     }
 
-    private void persistToDBRiesgos(Riesgo[] riesgos) {
-        if (riesgos != null) {
-            RiesgoDao riesgoDao = daoSession.getRiesgoDao();
-            JoinRiesgosWithControlesDao rcDao = daoSession.getJoinRiesgosWithControlesDao();
-            for (Riesgo r : riesgos) {
-                if (riesgoDao.load(r.getIdRiesgo()) == null) {
-                    List<Control> controles = r.getControles();
-                    riesgoDao.insert(r);
+    private void persistToDBAmenazas(Amenaza[] amenazas) {
+        if (amenazas != null) {
+            AmenazaDao amenazaDao = daoSession.getAmenazaDao();
+            JoinAmenazasWithControlesDao rcDao = daoSession.getJoinAmenazasWithControlesDao();
+            for (Amenaza a : amenazas) {
+                if (amenazaDao.load(a.getIdAmenaza()) == null) {
+                    // Nueva amenaza, se inserta en la BBDD
+                    List<Control> controles = a.getControles();
+                    amenazaDao.insert(a);
                     for (Control c : controles) {
-                        JoinRiesgosWithControles rc = new JoinRiesgosWithControles();
-                        rc.setIdRiesgo(r.getIdRiesgo());
+                        JoinAmenazasWithControles rc = new JoinAmenazasWithControles();
+                        rc.setIdAmenaza(a.getIdAmenaza());
                         rc.setIdControl(c.getIdControl());
                         rcDao.insert(rc);
                     }
@@ -202,26 +176,6 @@ public class CibelRepository implements ICibelRepository {
             }
             //Prefs.from(application).putInstant(KEY_LAST_SAVED_R, Instant.now());
         }
-    }
-
-    @Override
-    public void requestRiesgo(Callback<Riesgo> cb, Long id) {
-        CibelService.requestRiesgo(new Callback<Riesgo>() {
-            @Override
-            public void onSuccess(Riesgo data) {
-                cb.onSuccess(data);
-            }
-
-            @Override
-            public void onFailure() {
-                cb.onFailure();
-            }
-        }, id);
-    }
-
-    @Override
-    public Riesgo getRiesgo(Long id) {
-        return CibelService.getRiesgo(id);
     }
 
     @Override
@@ -273,26 +227,6 @@ public class CibelRepository implements ICibelRepository {
     }
 
     @Override
-    public void requestControl(Callback<Control> cb, Long id) {
-        CibelService.requestControl(new Callback<Control>() {
-            @Override
-            public void onSuccess(Control data) {
-                cb.onSuccess(data);
-            }
-
-            @Override
-            public void onFailure() {
-                cb.onFailure();
-            }
-        }, id);
-    }
-
-    @Override
-    public Control getControl(Long id) {
-        return CibelService.getControl(id);
-    }
-
-    @Override
     public void requestCategorias(Callback<Categoria[]> cb) {
         CibelService.requestCategorias(new Callback<Categoria[]>() {
             @Override
@@ -330,15 +264,16 @@ public class CibelRepository implements ICibelRepository {
     private void persistToDBCategorias(Categoria[] categorias) {
         if (categorias != null) {
             CategoriaDao categoriaDao = daoSession.getCategoriaDao();
-            JoinCategoriasWithRiesgosDao crDao = daoSession.getJoinCategoriasWithRiesgosDao();
+            JoinCategriasWithControlesDao crDao = daoSession.getJoinCategriasWithControlesDao();
             for (Categoria c : categorias) {
                 if (categoriaDao.load(c.getIdCategoria()) == null) {
-                    List<Riesgo> riesgos = c.getRiesgos();
+                    // Nueva categoria, se inserta en la BBDD
+                    List<Control> controles = c.getControles();
                     categoriaDao.insert(c);
-                    for (Riesgo r : riesgos) {
-                        JoinCategoriasWithRiesgos cr = new JoinCategoriasWithRiesgos();
+                    for (Control r : controles) {
+                        JoinCategriasWithControles cr = new JoinCategriasWithControles();
                         cr.setIdCategoria(c.getIdCategoria());
-                        cr.setIdRiesgo(r.getIdRiesgo());
+                        cr.setIdControl(r.getIdControl());
                         crDao.insert(cr);
                     }
                 }

@@ -1,13 +1,13 @@
 package es.unican.appriegospersonales.activities.perfil;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
-import es.unican.appriegospersonales.model.Aplicacion;
+import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Categoria;
 import es.unican.appriegospersonales.model.Control;
-import es.unican.appriegospersonales.model.ElementoDigital;
 import es.unican.appriegospersonales.model.Perfil;
-import es.unican.appriegospersonales.model.Riesgo;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
 
@@ -29,40 +29,30 @@ public class PerfilPresenter implements IPerfilContract.Presenter {
 
     @Override
     public int getNivelRiesgo() {
-        int totalRiesgos = 0;
-        int riesgosMitigados = 0;
+        int totalControles = 0;
+        int controlesAplicados = 0;
 
-        for (ElementoDigital elementoDigital : perfil.getElementosDigitalesAnhadidos()) {
-            Categoria categoria = elementoDigital.getCategoria();
-            for (Riesgo riesgo : categoria.getRiesgos()) {
-                totalRiesgos++;
-                if (riesgoMitigadoEnPerfil(riesgo)) {
-                    riesgosMitigados++;
+        Set<Categoria> categoriasPerfil = new LinkedHashSet<>();
+        for (Activo a : perfil.getActivosAnhadidos()) {
+            categoriasPerfil.add(a.getCategoria());
+        }
+
+        for (Categoria c : categoriasPerfil){
+            for (Control control : c.getControles()) {
+                totalControles++;
+                if (perfil.getControlesAnhadidos().contains(control)) {
+                    controlesAplicados++;
                 }
             }
         }
 
-        if (totalRiesgos == 0) {
-            return 0; // No hay riesgos para evaluar, nivel de riesgo mínimo
+        if (totalControles == 0) {
+            return 0; // No hay controles que aplicar, nivel de riesgo mínimo
         }
 
-        double porcentajeMitigado = (riesgosMitigados * 100.0) / totalRiesgos;
+        double porcentajeMitigado = (controlesAplicados * 100.0) / totalControles;
         int nivelRiesgo = 100 - (int) porcentajeMitigado;
         return nivelRiesgo ;
-    }
-
-    private boolean riesgoMitigadoEnPerfil(Riesgo riesgo) {
-        List<Control> controlesMitigantes = riesgo.getControles();
-        int controlesMitigados = 0;
-
-        for (Control control : controlesMitigantes) {
-            if (perfil.getControlesAnhadidos().contains(control)) {
-                controlesMitigados++;
-            }
-        }
-
-        double porcentajeMitigado = (controlesMitigados * 100.0) / controlesMitigantes.size();
-        return porcentajeMitigado >= 50.0; // Riesgo se considera mitigado si está al menos al 50%
     }
 
 }

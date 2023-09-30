@@ -3,10 +3,9 @@ package es.unican.appriegospersonales.activities.controles.tabs;
 import java.util.Collections;
 import java.util.List;
 
-import es.unican.appriegospersonales.activities.riesgos.tabs.ITabRiesgosDevicesContract;
+import es.unican.appriegospersonales.model.Amenaza;
 import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.Perfil;
-import es.unican.appriegospersonales.model.Riesgo;
 import es.unican.appriegospersonales.repository.CibelRepository;
 import es.unican.appriegospersonales.repository.ICibelRepository;
 import es.unican.appriegospersonales.repository.db.DaoSession;

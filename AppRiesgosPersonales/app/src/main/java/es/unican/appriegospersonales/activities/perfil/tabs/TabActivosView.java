@@ -11,20 +11,18 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-
 import es.unican.appriegospersonales.common.MyApplication;
-import es.unican.appriegospersonales.common.adapters.RVRiesgosAdapter;
+import es.unican.appriegospersonales.common.adapters.RVActivosPerfilAdapter;
 import es.unican.appriesgospersonales.R;
 
-public class TabRisksView extends Fragment {
-    private TabRisksPresenter presenter;
+public class TabActivosView extends Fragment {
+    private TabActivosPresenter presenter;
     private RecyclerView risksRV;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new TabRisksPresenter(this);
+        presenter = new TabActivosPresenter(this);
         presenter.init();
     }
 
@@ -35,7 +33,7 @@ public class TabRisksView extends Fragment {
         risksRV = layout.findViewById(R.id.itemsAplicados_rv);
 
         risksRV.setLayoutManager(new LinearLayoutManager(getContext()));
-        risksRV.setAdapter(new RVRiesgosAdapter(getContext(), new ArrayList<>(presenter.getRiesgosActuales()), presenter.getPerfilControls()));
+        risksRV.setAdapter(new RVActivosPerfilAdapter(getContext(), presenter.getActivosAnhadidos()));
 
         DividerItemDecoration dividerA = new DividerItemDecoration(
                 risksRV.getContext(),

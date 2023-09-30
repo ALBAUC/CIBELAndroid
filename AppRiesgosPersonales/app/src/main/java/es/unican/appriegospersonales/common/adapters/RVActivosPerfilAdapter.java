@@ -16,29 +16,29 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import es.unican.appriegospersonales.activities.apps.detail.DElementDetailView;
-import es.unican.appriegospersonales.model.ElementoDigital;
+import es.unican.appriegospersonales.activities.apps.detail.AssetDetailView;
+import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriesgospersonales.R;
 
-public class RVDElementsPerfilAdapter extends RecyclerView.Adapter<RVDElementsPerfilAdapter.AppViewHolder> {
+public class RVActivosPerfilAdapter extends RecyclerView.Adapter<RVActivosPerfilAdapter.AppViewHolder> {
 
     private Context context;
-    private final List<ElementoDigital> elementosDigitales;
-    private final List<ElementoDigital> perfilDElements;
+    private final List<Activo> activos;
+    private final List<Activo> perfilActivos;
     private final LayoutInflater inflater;
 
-    public RVDElementsPerfilAdapter(Context context, List<ElementoDigital> elementosDigitales) {
-        this.elementosDigitales = elementosDigitales;
+    public RVActivosPerfilAdapter(Context context, List<Activo> activos) {
+        this.activos = activos;
         this.context = context;
         this.inflater = LayoutInflater.from(context);
-        this.perfilDElements = null;
+        this.perfilActivos = null;
     }
 
-    public RVDElementsPerfilAdapter(Context context, List<ElementoDigital> elementosDigitales, List<ElementoDigital> perfilDElements) {
-        this.elementosDigitales = elementosDigitales;
+    public RVActivosPerfilAdapter(Context context, List<Activo> activos, List<Activo> perfilActivos) {
+        this.activos = activos;
         this.context = context;
         this.inflater = LayoutInflater.from(context);
-        this.perfilDElements = perfilDElements;
+        this.perfilActivos = perfilActivos;
     }
 
     @NonNull
@@ -50,13 +50,13 @@ public class RVDElementsPerfilAdapter extends RecyclerView.Adapter<RVDElementsPe
 
     @Override
     public void onBindViewHolder(@NonNull AppViewHolder holder, int position) {
-        ElementoDigital dEle = elementosDigitales.get(position);
-        holder.elementoDigital = dEle;
+        Activo dEle = activos.get(position);
+        holder.activo = dEle;
         holder.appName_tv.setText(dEle.getNombre());
         holder.appCategory_tv.setText(dEle.getCategoria().getNombre());
         Picasso.get().load(dEle.getIcono()).into(holder.appIcon_iv);
 
-        if (perfilDElements != null && perfilDElements.contains(dEle)) {
+        if (perfilActivos != null && perfilActivos.contains(dEle)) {
             holder.infoAddedIcon_iv.setVisibility(View.VISIBLE);
         } else {
             holder.infoAddedIcon_iv.setVisibility(View.GONE);
@@ -65,12 +65,12 @@ public class RVDElementsPerfilAdapter extends RecyclerView.Adapter<RVDElementsPe
 
     @Override
     public int getItemCount() {
-        return elementosDigitales.size();
+        return activos.size();
     }
 
-    public void updateElementsList(List<ElementoDigital> updatedElements) {
-        elementosDigitales.clear();
-        elementosDigitales.addAll(updatedElements);
+    public void updateElementsList(List<Activo> updatedElements) {
+        activos.clear();
+        activos.addAll(updatedElements);
         notifyDataSetChanged();
     }
 
@@ -80,7 +80,7 @@ public class RVDElementsPerfilAdapter extends RecyclerView.Adapter<RVDElementsPe
         private final ImageView appIcon_iv;
         private final TextView appCategory_tv;
         private final ImageView infoAddedIcon_iv;
-        private ElementoDigital elementoDigital;
+        private Activo activo;
 
         public AppViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -96,7 +96,7 @@ public class RVDElementsPerfilAdapter extends RecyclerView.Adapter<RVDElementsPe
             FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .hide(fragmentManager.findFragmentById(R.id.container))
-                    .add(R.id.container, DElementDetailView.newInstance(elementoDigital))
+                    .add(R.id.container, AssetDetailView.newInstance(activo))
                     .setReorderingAllowed(true)
                     .addToBackStack("perfil")
                     .commit();

@@ -3,14 +3,14 @@ package es.unican.appriegospersonales.activities.riesgos;
 import java.util.List;
 
 import es.unican.appriegospersonales.common.MyApplication;
+import es.unican.appriegospersonales.model.Amenaza;
 import es.unican.appriegospersonales.model.Control;
-import es.unican.appriegospersonales.model.Riesgo;
 
 /**
  * Interfaz que define los métodos que deben ser implementados por el presentador y la vista
  * de la pestaña Riesgos.
  */
-public interface IRiesgosContract {
+public interface IAmenazasContract {
 
     interface Presenter {
         /**
@@ -23,7 +23,7 @@ public interface IRiesgosContract {
          * la base de datos.
          * @return Todos los riesgos.
          */
-        List<Riesgo> getRiesgos();
+        List<Amenaza> getAmenazas();
 
         List<Control> getPerfilControls();
     }

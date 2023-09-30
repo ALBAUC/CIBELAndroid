@@ -16,18 +16,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import es.unican.appriegospersonales.activities.main.MainView;
 import es.unican.appriegospersonales.common.MyApplication;
-import es.unican.appriegospersonales.model.Riesgo;
+import es.unican.appriegospersonales.model.Amenaza;
 import es.unican.appriesgospersonales.R;
 
-public class RiesgoDetailView extends Fragment implements IRiesgoDetailContract.View, MainView.RefreshableFragment {
+public class AmenazaDetailView extends Fragment implements IAmenazaDetailContract.View, MainView.RefreshableFragment {
 
     public static final String FRAGMENT_RIESGO = "riesgo";
-    private IRiesgoDetailContract.Presenter presenter;
+    private IAmenazaDetailContract.Presenter presenter;
 
-    public static RiesgoDetailView newInstance(Riesgo riesgo) {
-        RiesgoDetailView fragment = new RiesgoDetailView();
+    public static AmenazaDetailView newInstance(Amenaza amenaza) {
+        AmenazaDetailView fragment = new AmenazaDetailView();
         Bundle args = new Bundle();
-        args.putParcelable(FRAGMENT_RIESGO, riesgo);
+        args.putParcelable(FRAGMENT_RIESGO, amenaza);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,9 +45,9 @@ public class RiesgoDetailView extends Fragment implements IRiesgoDetailContract.
 
         Bundle args = getArguments();
         if (args != null) {
-            // Obtener el riesgo del fragmento que lanzo este fragmento
-            Riesgo riesgo = args.getParcelable(FRAGMENT_RIESGO);
-            presenter = new RiesgoDetailPresenter(riesgo, this);
+            // Obtener el amenaza del fragmento que lanzo este fragmento
+            Amenaza amenaza = args.getParcelable(FRAGMENT_RIESGO);
+            presenter = new AmenazaDetailPresenter(amenaza, this);
             presenter.init();
 
             // Link a los elementos de la vista
@@ -56,11 +56,11 @@ public class RiesgoDetailView extends Fragment implements IRiesgoDetailContract.
             RecyclerView riesgoDetail_controles_rv = layout.findViewById(R.id.riesgoDetail_controles_rv);
 
             // Asignar valores
-            riesgoName_tv.setText(presenter.getRiesgoName());
-            riesgoDesc_tv.setText(presenter.getRiesgoDesc());
+            riesgoName_tv.setText(presenter.getThreatName());
+            riesgoDesc_tv.setText(presenter.getThreatDesc());
 
             riesgoDetail_controles_rv.setLayoutManager(new LinearLayoutManager(getContext()));
-            riesgoDetail_controles_rv.setAdapter(new RVControlesRDAdapter(getContext(), presenter.getRiskControls(), presenter.getPerfilControls()));
+            riesgoDetail_controles_rv.setAdapter(new RVControlesRDAdapter(getContext(), presenter.getThreatControls(), presenter.getPerfilControls()));
 
             DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(riesgoDetail_controles_rv.getContext(),
                     DividerItemDecoration.VERTICAL);

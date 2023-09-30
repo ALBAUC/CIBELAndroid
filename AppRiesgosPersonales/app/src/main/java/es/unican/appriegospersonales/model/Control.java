@@ -18,12 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.greenrobot.greendao.annotation.Transient;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
-import org.greenrobot.greendao.annotation.Transient;
-
 import es.unican.appriegospersonales.repository.db.DaoSession;
-import es.unican.appriegospersonales.repository.db.RiesgoDao;
+import es.unican.appriegospersonales.repository.db.AmenazaDao;
 import es.unican.appriegospersonales.repository.db.ControlDao;
 
 @SuppressLint("ParcelCreator")
@@ -34,11 +33,11 @@ public class Control implements Parcelable {
     @Id
     private Long idControl;
 
-    @SerializedName("nombre")
     private String nombre;
 
-    @SerializedName("descripcion")
     private String descripcion;
+
+    private String tipo;
 
     @Transient
     private boolean expanded = false;
@@ -46,11 +45,11 @@ public class Control implements Parcelable {
     @Expose(deserialize = false)
     @ToMany
     @JoinEntity(
-            entity = JoinRiesgosWithControles.class,
+            entity = JoinAmenazasWithControles.class,
             sourceProperty = "idControl",
-            targetProperty = "idRiesgo"
+            targetProperty = "idAmenaza"
     )
-    private List<Riesgo> mitigaRiesgos;
+    private List<Amenaza> mitigaAmenazas;
 
     private Long fk_perfil;
 
@@ -64,14 +63,15 @@ public class Control implements Parcelable {
 
     public Control() {
         idControl = 0L;
-        mitigaRiesgos = new ArrayList<>();
+        mitigaAmenazas = new ArrayList<>();
     }
 
-    @Generated(hash = 612895255)
-    public Control(@NonNull Long idControl, String nombre, String descripcion, Long fk_perfil) {
+    @Generated(hash = 547181294)
+    public Control(@NonNull Long idControl, String nombre, String descripcion, String tipo, Long fk_perfil) {
         this.idControl = idControl;
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.tipo = tipo;
         this.fk_perfil = fk_perfil;
     }
 
@@ -100,8 +100,8 @@ public class Control implements Parcelable {
         this.descripcion = descripcion;
     }
 
-    public void setMitigaRiesgos(List<Riesgo> mitigaRiesgos) {
-        this.mitigaRiesgos = mitigaRiesgos;
+    public void setMitigaAmenazas(List<Amenaza> mitigaAmenazas) {
+        this.mitigaAmenazas = mitigaAmenazas;
     }
 
     public boolean isExpanded() {
@@ -112,33 +112,85 @@ public class Control implements Parcelable {
         this.expanded = expanded;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    @Override
+    public String toString() {
+        return "Control{" +
+                "nombre='" + nombre + '\'' +
+                '}';
+    }
+
+    public boolean getExpanded() {
+        return this.expanded;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeLong(idControl);
+        parcel.writeString(nombre);
+        parcel.writeString(descripcion);
+        parcel.writeList(mitigaAmenazas);
+    }
+
+    public Long getFk_perfil() {
+        return this.fk_perfil;
+    }
+
+    public void setFk_perfil(Long fk_perfil) {
+        this.fk_perfil = fk_perfil;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Control control = (Control) o;
+        return idControl.equals(control.idControl) && Objects.equals(nombre, control.nombre) && Objects.equals(descripcion, control.descripcion) && Objects.equals(tipo, control.tipo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idControl, nombre, descripcion, tipo);
+    }
+
     /**
      * To-many relationship, resolved on first access (and after reset).
      * Changes to to-many relations are not persisted, make changes to the target entity.
      */
-    @Generated(hash = 1409817531)
-    public List<Riesgo> getMitigaRiesgos() {
-        if (mitigaRiesgos == null) {
+    @Generated(hash = 762480350)
+    public List<Amenaza> getMitigaAmenazas() {
+        if (mitigaAmenazas == null) {
             final DaoSession daoSession = this.daoSession;
             if (daoSession == null) {
                 throw new DaoException("Entity is detached from DAO context");
             }
-            RiesgoDao targetDao = daoSession.getRiesgoDao();
-            List<Riesgo> mitigaRiesgosNew = targetDao
-                    ._queryControl_MitigaRiesgos(idControl);
+            AmenazaDao targetDao = daoSession.getAmenazaDao();
+            List<Amenaza> mitigaAmenazasNew = targetDao._queryControl_MitigaAmenazas(idControl);
             synchronized (this) {
-                if (mitigaRiesgos == null) {
-                    mitigaRiesgos = mitigaRiesgosNew;
+                if (mitigaAmenazas == null) {
+                    mitigaAmenazas = mitigaAmenazasNew;
                 }
             }
         }
-        return mitigaRiesgos;
+        return mitigaAmenazas;
     }
 
     /** Resets a to-many relationship, making the next get call to query for a fresh result. */
-    @Generated(hash = 1248176733)
-    public synchronized void resetMitigaRiesgos() {
-        mitigaRiesgos = null;
+    @Generated(hash = 962568000)
+    public synchronized void resetMitigaAmenazas() {
+        mitigaAmenazas = null;
     }
 
     /**
@@ -182,50 +234,5 @@ public class Control implements Parcelable {
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getControlDao() : null;
-    }
-
-    @Override
-    public String toString() {
-        return "Control{" +
-                "nombre='" + nombre + '\'' +
-                '}';
-    }
-
-    public boolean getExpanded() {
-        return this.expanded;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(@NonNull Parcel parcel, int i) {
-        parcel.writeLong(idControl);
-        parcel.writeString(nombre);
-        parcel.writeString(descripcion);
-        parcel.writeList(mitigaRiesgos);
-    }
-
-    public Long getFk_perfil() {
-        return this.fk_perfil;
-    }
-
-    public void setFk_perfil(Long fk_perfil) {
-        this.fk_perfil = fk_perfil;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Control)) return false;
-        Control control = (Control) o;
-        return idControl.equals(control.idControl) && nombre.equals(control.nombre) && descripcion.equals(control.descripcion);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idControl, nombre, descripcion);
     }
 }

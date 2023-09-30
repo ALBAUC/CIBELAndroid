@@ -2,17 +2,17 @@ package es.unican.appriegospersonales.activities.perfil.tabs;
 
 import java.util.List;
 
-import es.unican.appriegospersonales.model.Amenaza;
+import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.Perfil;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
 
-public class TabControlesPresenter {
-    private final TabControlesView view;
+public class TabActivosPresenter {
+    private final TabActivosView view;
     private Perfil perfil;
 
-    public TabControlesPresenter(TabControlesView view) {
+    public TabActivosPresenter(TabActivosView view) {
         this.view = view;
     }
 
@@ -22,7 +22,11 @@ public class TabControlesPresenter {
         perfil = Perfil.getInstance(perfilDao);
     }
 
-    public List<Control> getControlesAnhadidos() {
+    public List<Activo> getActivosAnhadidos() {
+        return perfil.getActivosAnhadidos();
+    }
+
+    public List<Control> getPerfilControls() {
         return perfil.getControlesAnhadidos();
     }
 }

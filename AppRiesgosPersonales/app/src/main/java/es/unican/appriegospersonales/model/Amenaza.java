@@ -1,5 +1,6 @@
 package es.unican.appriegospersonales.model;
 
+import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -16,20 +17,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.greenrobot.greendao.annotation.Transient;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
-import org.greenrobot.greendao.annotation.Transient;
-
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.ControlDao;
-import es.unican.appriegospersonales.repository.db.RiesgoDao;
+import es.unican.appriegospersonales.repository.db.AmenazaDao;
 
+@SuppressLint("ParcelCreator")
 @Entity
-public class Riesgo implements Parcelable {
+public class Amenaza implements Parcelable {
     @SerializedName("id")
     @NonNull
     @Id
-    private Long idRiesgo;
+    private Long idAmenaza;
 
     private String nombre;
 
@@ -37,11 +38,13 @@ public class Riesgo implements Parcelable {
 
     @ToMany
     @JoinEntity(
-            entity = JoinRiesgosWithControles.class,
-            sourceProperty = "idRiesgo",
+            entity = JoinAmenazasWithControles.class,
+            sourceProperty = "idAmenaza",
             targetProperty = "idControl"
     )
     private List<Control> controles;
+
+    private String tipo;
 
     @Transient
     private boolean expanded = false;
@@ -51,50 +54,29 @@ public class Riesgo implements Parcelable {
     private transient DaoSession daoSession;
 
     /** Used for active entity operations. */
-    @Generated(hash = 1038012363)
-    private transient RiesgoDao myDao;
+    @Generated(hash = 16682177)
+    private transient AmenazaDao myDao;
 
-    public Riesgo() {
-        idRiesgo = 0L;
+    public Amenaza() {
+        idAmenaza = 0L;
         controles = new ArrayList<>();
     }
 
-    @Generated(hash = 365859718)
-    public Riesgo(@NonNull Long idRiesgo, String nombre, String descripcion) {
-        this.idRiesgo = idRiesgo;
+    @Generated(hash = 543568064)
+    public Amenaza(@NonNull Long idAmenaza, String nombre, String descripcion, String tipo) {
+        this.idAmenaza = idAmenaza;
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.tipo = tipo;
     }
-
-    protected Riesgo(Parcel in) {
-        if (in.readByte() == 0) {
-            idRiesgo = null;
-        } else {
-            idRiesgo = in.readLong();
-        }
-        nombre = in.readString();
-        descripcion = in.readString();
-    }
-
-    public static final Creator<Riesgo> CREATOR = new Creator<Riesgo>() {
-        @Override
-        public Riesgo createFromParcel(Parcel in) {
-            return new Riesgo(in);
-        }
-
-        @Override
-        public Riesgo[] newArray(int size) {
-            return new Riesgo[size];
-        }
-    };
 
     @NonNull
-    public Long getIdRiesgo() {
-        return idRiesgo;
+    public Long getIdAmenaza() {
+        return idAmenaza;
     }
 
-    public void setIdRiesgo(@NonNull Long idRiesgo) {
-        this.idRiesgo = idRiesgo;
+    public void setIdAmenaza(@NonNull Long idAmenaza) {
+        this.idAmenaza = idAmenaza;
     }
 
     public String getNombre() {
@@ -125,11 +107,54 @@ public class Riesgo implements Parcelable {
         this.expanded = expanded;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Amenaza amenaza = (Amenaza) o;
+        return idAmenaza.equals(amenaza.idAmenaza) && Objects.equals(nombre, amenaza.nombre) && Objects.equals(descripcion, amenaza.descripcion) && Objects.equals(controles, amenaza.controles) && Objects.equals(tipo, amenaza.tipo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idAmenaza, nombre, descripcion, controles, tipo);
+    }
+
+    @Override
+    public String toString() {
+        return "Riesgo{" +
+                "idRiesgo=" + idAmenaza +
+                ", nombre='" + nombre + '\'' +
+                ", controles=" + controles +
+                '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeLong(idAmenaza);
+        parcel.writeString(nombre);
+        parcel.writeString(descripcion);
+        parcel.writeList(controles);
+    }
+
     /**
      * To-many relationship, resolved on first access (and after reset).
      * Changes to to-many relations are not persisted, make changes to the target entity.
      */
-    @Generated(hash = 771935241)
+    @Generated(hash = 1833291491)
     public List<Control> getControles() {
         if (controles == null) {
             final DaoSession daoSession = this.daoSession;
@@ -137,7 +162,7 @@ public class Riesgo implements Parcelable {
                 throw new DaoException("Entity is detached from DAO context");
             }
             ControlDao targetDao = daoSession.getControlDao();
-            List<Control> controlesNew = targetDao._queryRiesgo_Controles(idRiesgo);
+            List<Control> controlesNew = targetDao._queryAmenaza_Controles(idAmenaza);
             synchronized (this) {
                 if (controles == null) {
                     controles = controlesNew;
@@ -190,44 +215,10 @@ public class Riesgo implements Parcelable {
     }
 
     /** called by internal mechanisms, do not call yourself. */
-    @Generated(hash = 1964751526)
+    @Generated(hash = 446613322)
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
-        myDao = daoSession != null ? daoSession.getRiesgoDao() : null;
+        myDao = daoSession != null ? daoSession.getAmenazaDao() : null;
     }
 
-    @Override
-    public String toString() {
-        return "Riesgo{" +
-                "idRiesgo=" + idRiesgo +
-                ", nombre='" + nombre + '\'' +
-                ", controles=" + controles +
-                '}';
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(@NonNull Parcel parcel, int i) {
-        parcel.writeLong(idRiesgo);
-        parcel.writeString(nombre);
-        parcel.writeString(descripcion);
-        parcel.writeList(controles);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Riesgo)) return false;
-        Riesgo riesgo = (Riesgo) o;
-        return idRiesgo.equals(riesgo.idRiesgo) && nombre.equals(riesgo.nombre) && descripcion.equals(riesgo.descripcion) && controles.equals(riesgo.controles);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idRiesgo, nombre, descripcion, controles);
-    }
 }

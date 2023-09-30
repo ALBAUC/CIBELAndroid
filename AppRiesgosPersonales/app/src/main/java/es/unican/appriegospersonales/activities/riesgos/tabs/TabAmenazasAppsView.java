@@ -13,34 +13,33 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import es.unican.appriegospersonales.common.MyApplication;
-import es.unican.appriegospersonales.common.adapters.RVRiesgosAdapter;
+import es.unican.appriegospersonales.common.adapters.RVAmenazasAdapter;
 import es.unican.appriesgospersonales.R;
 
-public class TabRiesgosDevicesView extends Fragment implements ITabRiesgosDevicesContract.View {
-
-    private ITabRiesgosDevicesContract.Presenter presenter;
-    private RecyclerView riesgosDeicesRV;
+public class TabAmenazasAppsView extends Fragment implements ITabAmenazasAppsContract.View {
+    private ITabAmenazasAppsContract.Presenter presenter;
+    private RecyclerView amenazasAppsRV;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new TabRiesgosDevicesPresenter(this);
+        presenter = new TabAmenazasAppsPresenter(this);
         presenter.init();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.fragment_riesgos_devices, container, false);
-        riesgosDeicesRV = layout.findViewById(R.id.riesgosDevices_rv);
+        View layout = inflater.inflate(R.layout.fragment_riesgos_apps, container, false);
+        amenazasAppsRV = layout.findViewById(R.id.riesgosApps_rv);
 
-        riesgosDeicesRV.setLayoutManager(new LinearLayoutManager(getContext()));
-        riesgosDeicesRV.setAdapter(new RVRiesgosAdapter(getContext(), presenter.getRiesgosDevices(), presenter.getPerfilControls()));
+        amenazasAppsRV.setLayoutManager(new LinearLayoutManager(getContext()));
+        amenazasAppsRV.setAdapter(new RVAmenazasAdapter(getContext(), presenter.getAmenazasApps(), presenter.getPerfilControls()));
 
         DividerItemDecoration dividerC = new DividerItemDecoration(
-                riesgosDeicesRV.getContext(),
+                amenazasAppsRV.getContext(),
                 DividerItemDecoration.VERTICAL);
-        riesgosDeicesRV.addItemDecoration(dividerC);
+        amenazasAppsRV.addItemDecoration(dividerC);
         return layout;
     }
 

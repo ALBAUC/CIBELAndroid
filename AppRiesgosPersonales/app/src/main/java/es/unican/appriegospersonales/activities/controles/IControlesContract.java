@@ -3,6 +3,7 @@ package es.unican.appriegospersonales.activities.controles;
 import java.util.List;
 
 import es.unican.appriegospersonales.common.MyApplication;
+import es.unican.appriegospersonales.model.Amenaza;
 import es.unican.appriegospersonales.model.Control;
 
 /**

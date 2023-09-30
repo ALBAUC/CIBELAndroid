@@ -4,7 +4,7 @@ import java.util.List;
 
 import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.model.Categoria;
-import es.unican.appriegospersonales.model.ElementoDigital;
+import es.unican.appriegospersonales.model.Activo;
 
 public interface ITabHomeDevicesContract {
 
@@ -13,7 +13,7 @@ public interface ITabHomeDevicesContract {
 
         List<Categoria> getCategoriasDeDispositivos();
 
-        List<ElementoDigital> getPerfilDElements();
+        List<Activo> getPerfilDElements();
     }
 
     interface View {

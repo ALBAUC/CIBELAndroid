@@ -7,22 +7,22 @@ import android.util.Log;
 import java.util.List;
 
 import es.unican.appriegospersonales.common.Callback;
+import es.unican.appriegospersonales.model.Amenaza;
 import es.unican.appriegospersonales.model.Categoria;
+import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Control;
-import es.unican.appriegospersonales.model.ElementoDigital;
 import es.unican.appriegospersonales.model.Perfil;
-import es.unican.appriegospersonales.model.Riesgo;
 import es.unican.appriegospersonales.repository.CibelRepository;
 import es.unican.appriegospersonales.repository.ICibelRepository;
+import es.unican.appriegospersonales.repository.db.ActivoDao;
 import es.unican.appriegospersonales.repository.db.CategoriaDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
-import es.unican.appriegospersonales.repository.db.ElementoDigitalDao;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
 
 public class HomePresenter implements IHomeContract.Presenter {
 
     private final IHomeContract.View view;
-    private ElementoDigitalDao elementoDigitalDao;
+    private ActivoDao activoDao;
     private CategoriaDao categoriaDao;
     private PerfilDao perfilDao;
     private ICibelRepository repository;
@@ -40,7 +40,7 @@ public class HomePresenter implements IHomeContract.Presenter {
     @Override
     public void init() {
         DaoSession daoSession = view.getMyApplication().getDaoSession();
-        elementoDigitalDao = daoSession.getElementoDigitalDao();
+        activoDao = daoSession.getActivoDao();
         categoriaDao = daoSession.getCategoriaDao();
         perfilDao = daoSession.getPerfilDao();
 
@@ -55,16 +55,16 @@ public class HomePresenter implements IHomeContract.Presenter {
         repository.requestControles(new Callback<Control[]>() {
             @Override
             public void onSuccess(Control[] controles) {
-                repository.requestRiesgos(new Callback<Riesgo[]>() {
+                repository.requestAmenazas(new Callback<Amenaza[]>() {
                     @Override
-                    public void onSuccess(Riesgo[] riesgos) {
+                    public void onSuccess(Amenaza[] riesgos) {
                         repository.requestCategorias(new Callback<Categoria[]>() {
                             @Override
                             public void onSuccess(Categoria[] categorias) {
-                                repository.requestElementosDigitales(new Callback<ElementoDigital[]>() {
+                                repository.requestActivos(new Callback<Activo[]>() {
                                     @Override
-                                    public void onSuccess(ElementoDigital[] elementosDigitales) {
-                                        view.showLoadCorrect(elementosDigitales.length);
+                                    public void onSuccess(Activo[] activos) {
+                                        view.showLoadCorrect(activos.length);
                                     }
 
                                     @Override
@@ -89,7 +89,6 @@ public class HomePresenter implements IHomeContract.Presenter {
 
             @Override
             public void onFailure() {
-                Log.d(ContentValues.TAG, "Falla aqui");
                 view.showLoadError();
             }
         });
@@ -97,12 +96,12 @@ public class HomePresenter implements IHomeContract.Presenter {
 
     private void doSyncInit() {
         if (repository.getControles() == null ||
-                repository.getRiesgos() == null ||
+                repository.getAmenazas() == null ||
                 repository.getCategorias() == null ||
-                repository.getElementosDigitales(null) == null) {
+                repository.getActivos(null) == null) {
             view.showLoadError();
         } else {
-            view.showLoadCorrect((int) elementoDigitalDao.count());
+            view.showLoadCorrect((int) activoDao.count());
         }
     }
 
@@ -118,11 +117,11 @@ public class HomePresenter implements IHomeContract.Presenter {
     }
 
     @Override
-    public List<ElementoDigital> getPerfilDElements() {
-        List<ElementoDigital> result = null;
+    public List<Activo> getPerfilAssets() {
+        List<Activo> result = null;
         try {
             Perfil perfil = Perfil.getInstance(perfilDao);
-            result = perfil.getElementosDigitalesAnhadidos();
+            result = perfil.getActivosAnhadidos();
         } catch (SQLiteException e) {
             view.showLoadError();
         }
@@ -130,7 +129,7 @@ public class HomePresenter implements IHomeContract.Presenter {
     }
 
     @Override
-    public ElementoDigital getDElementByName(String appName) {
-        return elementoDigitalDao.queryBuilder().where(ElementoDigitalDao.Properties.Nombre.like(appName)).unique();
+    public Activo getAssetByName(String appName) {
+        return activoDao.queryBuilder().where(ActivoDao.Properties.Nombre.like(appName)).unique();
     }
 }

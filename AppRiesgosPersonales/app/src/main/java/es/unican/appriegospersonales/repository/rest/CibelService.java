@@ -5,11 +5,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import es.unican.appriegospersonales.common.Callback;
-import es.unican.appriegospersonales.model.Aplicacion;
+import es.unican.appriegospersonales.model.Amenaza;
 import es.unican.appriegospersonales.model.Categoria;
+import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Control;
-import es.unican.appriegospersonales.model.ElementoDigital;
-import es.unican.appriegospersonales.model.Riesgo;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -39,30 +38,30 @@ public class CibelService {
     public static final long TIMEOUT_SECONDS = 60L;
 
     /**
-     * Descarga los elementos digitales de la API REST de forma asincrona.
+     * Descarga los activos de la API REST de forma asincrona.
      * Ejecuta la llamada en un hilo en segundo plano y notifica el resultado a
      * través del Callback proporcionado.
      * @param cb el callback que procesa la respuesta de forma asincrona
-     * @param categoria se usa si se quiere que los elementos digitales se filtren por categoria,
+     * @param categoria se usa si se quiere que los activos se filtren por categoria,
      *                  sino dejarlo a NULL
      */
-    public static void requestElementosDigitales(Callback<ElementoDigital[]> cb, String categoria) {
-        final Call<ElementoDigital[]> call = getAPI().elementosDigitales(categoria);
+    public static void requestActivos(Callback<Activo[]> cb, String categoria) {
+        final Call<Activo[]> call = getAPI().activos(categoria);
         call.enqueue(new CallbackAdapter<>(cb));
     }
 
     /**
-     * Descarga los elementos digitales de la API REST de forma sincrona.
+     * Descarga los activos de la API REST de forma sincrona.
      * Bloquea el hilo actual hasta que se complete la llamada y se obtenga la respuesta.
-     * @param categoria se usa si se quiere que los elementos digitales se filtren por categoria,
+     * @param categoria se usa si se quiere que los activos se filtren por categoria,
      *                  sino dejarlo a NULL
-     * @return el objeto response que contiene los elementos digitales
+     * @return el objeto response que contiene los activos
      */
-    public static ElementoDigital[] getElementosDigitales(String categoria) {
-        final Call<ElementoDigital[]> call = getAPI().elementosDigitales(categoria);
+    public static Activo[] getActivos(String categoria) {
+        final Call<Activo[]> call = getAPI().activos(categoria);
 
         ExecutorService executor = Executors.newFixedThreadPool(1);
-        CallRunnable<ElementoDigital[]> runnable = new CallRunnable<>(call);
+        CallRunnable<Activo[]> runnable = new CallRunnable<>(call);
         executor.execute(runnable);
 
         // Espera a que acaben las tareas en background
@@ -74,60 +73,6 @@ public class CibelService {
         }
 
         // Si hubo algun problema, response es null
-        return  runnable.getResponse();
-    }
-
-    public static Aplicacion[] getAplicaciones(String categoria) {
-        final Call<Aplicacion[]> call = getAPI().aplicaciones(categoria);
-
-        ExecutorService executor = Executors.newFixedThreadPool(1);
-        CallRunnable<Aplicacion[]> runnable = new CallRunnable<>(call);
-        executor.execute(runnable);
-
-        // Espera a que acaben las tareas en background
-        executor.shutdown();
-        try {
-            executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        // Si hubo algun problema, response es null
-        return  runnable.getResponse();
-    }
-
-    /**
-     * Descarga una aplicacion de la API REST de forma asincrona.
-     * Ejecuta la llamada en un hilo en segundo plano y notifica el resultado a
-     * través del Callback proporcionado.
-     * @param cb el callback que procesa la respuesta de forma asincrona
-     * @param nombre de la aplicacion que se quiere descargar
-     */
-    public static void requestAplicacion(Callback<Aplicacion> cb, String nombre) {
-        final Call<Aplicacion> call = getAPI().aplicacion(nombre);
-        call.enqueue(new CallbackAdapter<>(cb));
-    }
-
-    /**
-     * Descarga una aplicacion de la API REST de forma sincrona.
-     * Bloquea el hilo actual hasta que se complete la llamada y se obtenga la respuesta.
-     * @param nombre de la aplicacion que se quiere descargar
-     * @return el objeto response que contiene la aplicacion
-     */
-    public static Aplicacion getAplicacion(String nombre) {
-        final Call<Aplicacion> call = getAPI().aplicacion(nombre);
-
-        ExecutorService executor = Executors.newFixedThreadPool(1);
-        CallRunnable<Aplicacion> runnable = new CallRunnable<>(call);
-        executor.execute(runnable);
-
-        executor.shutdown();
-        try {
-            executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
         return  runnable.getResponse();
     }
 
@@ -137,18 +82,18 @@ public class CibelService {
      * través del Callback proporcionado.
      * @param cb el callback que procesa la respuesta de forma asincrona
      */
-    public static void requestRiesgos(Callback<Riesgo[]> cb) {
-        final Call<Riesgo[]> call = getAPI().riesgos();
+    public static void requestAmenazas(Callback<Amenaza[]> cb) {
+        final Call<Amenaza[]> call = getAPI().riesgos();
         call.enqueue(new CallbackAdapter<>(cb));
     }
 
-    public static void reguestRiesgosDeApps(Callback<Riesgo[]> cb) {
-        final Call<Riesgo[]> call = getAPI().riesgosDeApps();
+    public static void requestAmenazasDeApps(Callback<Amenaza[]> cb) {
+        final Call<Amenaza[]> call = getAPI().riesgosDeApps();
         call.enqueue(new CallbackAdapter<>(cb));
     }
 
-    public static void requestRiesgosDeDispositivos(Callback<Riesgo[]> cb) {
-        final Call<Riesgo[]> call = getAPI().riesgosDeDispositivos();
+    public static void requestAmenazasDeDispositivos(Callback<Amenaza[]> cb) {
+        final Call<Amenaza[]> call = getAPI().riesgosDeDispositivos();
         call.enqueue(new CallbackAdapter<>(cb));
     }
 
@@ -157,11 +102,11 @@ public class CibelService {
      * Bloquea el hilo actual hasta que se complete la llamada y se obtenga la respuesta.
      * @return el objeto response que contiene las aplicaciones
      */
-    public static Riesgo[] getRiesgos() {
-        final Call<Riesgo[]> call = getAPI().riesgos();
+    public static Amenaza[] getAmenazas() {
+        final Call<Amenaza[]> call = getAPI().riesgos();
 
         ExecutorService executor = Executors.newFixedThreadPool(1);
-        CallRunnable<Riesgo[]> runnable = new CallRunnable<>(call);
+        CallRunnable<Amenaza[]> runnable = new CallRunnable<>(call);
         executor.execute(runnable);
 
         executor.shutdown();
@@ -173,11 +118,11 @@ public class CibelService {
         return runnable.getResponse();
     }
 
-    public static Riesgo[] getRiesgosDeApps() {
-        final Call<Riesgo[]> call = getAPI().riesgosDeApps();
+    public static Amenaza[] getAmenazasDeApps() {
+        final Call<Amenaza[]> call = getAPI().riesgosDeApps();
 
         ExecutorService executor = Executors.newFixedThreadPool(1);
-        CallRunnable<Riesgo[]> runnable = new CallRunnable<>(call);
+        CallRunnable<Amenaza[]> runnable = new CallRunnable<>(call);
         executor.execute(runnable);
 
         executor.shutdown();
@@ -189,11 +134,11 @@ public class CibelService {
         return runnable.getResponse();
     }
 
-    public static Riesgo[] getRiesgosDeDispositivos() {
-        final Call<Riesgo[]> call = getAPI().riesgosDeDispositivos();
+    public static Amenaza[] getAmenazasDeDispositivos() {
+        final Call<Amenaza[]> call = getAPI().riesgosDeDispositivos();
 
         ExecutorService executor = Executors.newFixedThreadPool(1);
-        CallRunnable<Riesgo[]> runnable = new CallRunnable<>(call);
+        CallRunnable<Amenaza[]> runnable = new CallRunnable<>(call);
         executor.execute(runnable);
 
         executor.shutdown();
@@ -203,41 +148,6 @@ public class CibelService {
             Thread.currentThread().interrupt();
         }
         return runnable.getResponse();
-    }
-
-    /**
-     * Descarga un riesgo de la API REST de forma asincrona.
-     * Ejecuta la llamada en un hilo en segundo plano y notifica el resultado a
-     * través del Callback proporcionado.
-     * @param cb el callback que procesa la respuesta de forma asincrona
-     * @param id del riesgo que se quiere descargar
-     */
-    public static void requestRiesgo(Callback<Riesgo> cb, Long id) {
-        final Call<Riesgo> call = getAPI().riesgo(id);
-        call.enqueue(new CallbackAdapter<>(cb));
-    }
-
-    /**
-     * Descarga un riesgo de la API REST de forma sincrona.
-     * Bloquea el hilo actual hasta que se complete la llamada y se obtenga la respuesta.
-     * @param id del riesgo que se quiere descargar
-     * @return el objeto response que contiene el riesgo
-     */
-    public static Riesgo getRiesgo(Long id) {
-        final Call<Riesgo> call = getAPI().riesgo(id);
-
-        ExecutorService executor = Executors.newFixedThreadPool(1);
-        CallRunnable<Riesgo> runnable = new CallRunnable<>(call);
-        executor.execute(runnable);
-
-        executor.shutdown();
-        try {
-            executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        return  runnable.getResponse();
     }
 
     /**
@@ -302,41 +212,6 @@ public class CibelService {
             Thread.currentThread().interrupt();
         }
         return runnable.getResponse();
-    }
-
-    /**
-     * Descarga un control de la API REST de forma asincrona.
-     * Ejecuta la llamada en un hilo en segundo plano y notifica el resultado a
-     * través del Callback proporcionado.
-     * @param cb el callback que procesa la respuesta de forma asincrona
-     * @param id del control que se quiere descargar
-     */
-    public static void requestControl(Callback<Control> cb, Long id) {
-        final Call<Control> call = getAPI().control(id);
-        call.enqueue(new CallbackAdapter<>(cb));
-    }
-
-    /**
-     * Descarga un control de la API REST de forma sincrona.
-     * Bloquea el hilo actual hasta que se complete la llamada y se obtenga la respuesta.
-     * @param id del control que se quiere descargar
-     * @return el objeto response que contiene el riesgo
-     */
-    public static Control getControl(Long id) {
-        final Call<Control> call = getAPI().control(id);
-
-        ExecutorService executor = Executors.newFixedThreadPool(1);
-        CallRunnable<Control> runnable = new CallRunnable<>(call);
-        executor.execute(runnable);
-
-        executor.shutdown();
-        try {
-            executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        return  runnable.getResponse();
     }
 
     /**

@@ -12,10 +12,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import es.unican.appriegospersonales.activities.riesgos.tabs.ITabRiesgosDevicesContract;
 import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.common.adapters.RVControlesAdapter;
-import es.unican.appriegospersonales.common.adapters.RVRiesgosAdapter;
 import es.unican.appriesgospersonales.R;
 
 public class TabControlesDevicesView extends Fragment implements ITabControlesDevicesContract.View {

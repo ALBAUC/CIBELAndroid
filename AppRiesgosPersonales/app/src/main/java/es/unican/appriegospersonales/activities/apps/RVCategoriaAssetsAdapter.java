@@ -16,17 +16,17 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import es.unican.appriegospersonales.activities.apps.detail.DElementDetailView;
-import es.unican.appriegospersonales.model.ElementoDigital;
+import es.unican.appriegospersonales.activities.apps.detail.AssetDetailView;
+import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriesgospersonales.R;
 
-public class RVCategoriaDElementsAdapter extends RecyclerView.Adapter<RVCategoriaDElementsAdapter.CategoriaDElementViewHolder> {
+public class RVCategoriaAssetsAdapter extends RecyclerView.Adapter<RVCategoriaAssetsAdapter.CategoriaDElementViewHolder> {
     private Context context;
-    private final List<ElementoDigital> dElements;
-    private final List<ElementoDigital> perfilDElements;
+    private final List<Activo> dElements;
+    private final List<Activo> perfilDElements;
     private final LayoutInflater inflater;
 
-    public RVCategoriaDElementsAdapter(Context context, List<ElementoDigital> data, List<ElementoDigital> perfilDElements) {
+    public RVCategoriaAssetsAdapter(Context context, List<Activo> data, List<Activo> perfilDElements) {
         this.context = context;
         this.dElements = data;
         this.perfilDElements = perfilDElements;
@@ -47,15 +47,15 @@ public class RVCategoriaDElementsAdapter extends RecyclerView.Adapter<RVCategori
 
     @Override
     public void onBindViewHolder(CategoriaDElementViewHolder holder, int position) {
-        ElementoDigital elementoDigital = dElements.get(position);
-        holder.elementoDigital = elementoDigital;
-        holder.dElementName_tv.setText(elementoDigital.getNombre());
-        Picasso.get().load(elementoDigital.getIcono())
+        Activo activo = dElements.get(position);
+        holder.activo = activo;
+        holder.dElementName_tv.setText(activo.getNombre());
+        Picasso.get().load(activo.getIcono())
                 .resize(600, 600)
                 .centerCrop()
                 .into(holder.dElementIcon_iv);
 
-        if (perfilDElements.contains(elementoDigital)) {
+        if (perfilDElements.contains(activo)) {
             holder.dElementAddedIcon_iv.setVisibility(View.VISIBLE);
             holder.dElementAddedInfo_tv.setVisibility(View.VISIBLE);
         } else {
@@ -70,7 +70,7 @@ public class RVCategoriaDElementsAdapter extends RecyclerView.Adapter<RVCategori
         private final TextView dElementName_tv;
         private final ImageView dElementAddedIcon_iv;
         private final TextView dElementAddedInfo_tv;
-        private ElementoDigital elementoDigital;
+        private Activo activo;
 
         public CategoriaDElementViewHolder(View itemView) {
             super(itemView);
@@ -86,7 +86,7 @@ public class RVCategoriaDElementsAdapter extends RecyclerView.Adapter<RVCategori
             AppCompatActivity activity = (AppCompatActivity) context;
             FragmentManager fragmentManager = activity.getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, DElementDetailView.newInstance(elementoDigital))
+                    .replace(R.id.container, AssetDetailView.newInstance(activo))
                     .setReorderingAllowed(true)
                     .addToBackStack("apps")
                     .commit();

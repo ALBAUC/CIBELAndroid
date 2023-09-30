@@ -3,15 +3,15 @@ package es.unican.appriegospersonales.activities.riesgos.tabs;
 import java.util.List;
 
 import es.unican.appriegospersonales.common.MyApplication;
+import es.unican.appriegospersonales.model.Amenaza;
 import es.unican.appriegospersonales.model.Control;
-import es.unican.appriegospersonales.model.Riesgo;
 
-public interface ITabRiesgosAppsContract {
+public interface ITabAmenazasAppsContract {
     interface Presenter {
 
         void init();
 
-        List<Riesgo> getRiesgosApps();
+        List<Amenaza> getAmenazasApps();
 
         List<Control> getPerfilControls();
     }

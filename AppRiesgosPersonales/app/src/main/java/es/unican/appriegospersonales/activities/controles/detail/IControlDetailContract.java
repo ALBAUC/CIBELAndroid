@@ -3,7 +3,7 @@ package es.unican.appriegospersonales.activities.controles.detail;
 import java.util.List;
 
 import es.unican.appriegospersonales.common.MyApplication;
-import es.unican.appriegospersonales.model.Riesgo;
+import es.unican.appriegospersonales.model.Amenaza;
 
 public interface IControlDetailContract {
     interface View {
@@ -17,7 +17,7 @@ public interface IControlDetailContract {
 
         String getCotrolDesc();
 
-        List<Riesgo> getControlRisks();
+        List<Amenaza> getControlThreats();
 
         void init();
 

@@ -2,6 +2,7 @@ package es.unican.CIBEL.domain;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -82,5 +83,24 @@ public class Amenaza {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(controles, descripcion, id, nombre, tipo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Amenaza other = (Amenaza) obj;
+		return Objects.equals(controles, other.controles) && Objects.equals(descripcion, other.descripcion)
+				&& Objects.equals(id, other.id) && Objects.equals(nombre, other.nombre)
+				&& Objects.equals(tipo, other.tipo);
 	}
 }

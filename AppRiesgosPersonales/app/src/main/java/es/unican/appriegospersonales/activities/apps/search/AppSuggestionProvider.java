@@ -21,18 +21,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.unican.appriegospersonales.common.MyApplication;
-import es.unican.appriegospersonales.model.Aplicacion;
+import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Categoria;
-import es.unican.appriegospersonales.model.ElementoDigital;
+import es.unican.appriegospersonales.repository.db.ActivoDao;
 import es.unican.appriegospersonales.repository.db.CategoriaDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
-import es.unican.appriegospersonales.repository.db.ElementoDigitalDao;
 
 public class AppSuggestionProvider extends SearchRecentSuggestionsProvider {
     public static final String AUTHORITY = "es.unican.appriegospersonales.activities.apps.search.AppSuggestionProvider";
     public static final int MODE = DATABASE_MODE_QUERIES;
 
-    private ElementoDigitalDao elementoDigitalDao;
+    private ActivoDao activoDao;
     private CategoriaDao categoriaDao;
 
     public AppSuggestionProvider() {
@@ -52,17 +51,17 @@ public class AppSuggestionProvider extends SearchRecentSuggestionsProvider {
         });
 
         DaoSession daoSession = ((MyApplication) getContext().getApplicationContext()).getDaoSession();
-        elementoDigitalDao = daoSession.getElementoDigitalDao();
+        activoDao = daoSession.getActivoDao();
         categoriaDao = daoSession.getCategoriaDao();
 
-        List<ElementoDigital> dElementsSuggestions = new ArrayList<>();
+        List<Activo> dElementsSuggestions = new ArrayList<>();
         if (query != null){
             dElementsSuggestions = getdElementsSuggestions(query);
         }
 
         // Agregar las sugerencias al cursor
         int id = 0;
-        for (ElementoDigital a : dElementsSuggestions) {
+        for (Activo a : dElementsSuggestions) {
             String dElementName = a.getNombre();
             String categoryName = a.getCategoria().getNombre();
             String intentData = "app://" + dElementName;
@@ -79,7 +78,7 @@ public class AppSuggestionProvider extends SearchRecentSuggestionsProvider {
         return cursor;
     }
 
-    private List<ElementoDigital> getdElementsSuggestions(String query) {
+    private List<Activo> getdElementsSuggestions(String query) {
         String modifiedQuery = removeAccents(query.trim().toLowerCase());
 
         List<Categoria> categorias = categoriaDao.loadAll();
@@ -91,10 +90,10 @@ public class AppSuggestionProvider extends SearchRecentSuggestionsProvider {
             }
         }
 
-        List<ElementoDigital> dElements = elementoDigitalDao.queryBuilder()
+        List<Activo> dElements = activoDao.queryBuilder()
                 .whereOr(
-                        ElementoDigitalDao.Properties.Nombre.like("%" + modifiedQuery + "%"),
-                        ElementoDigitalDao.Properties.Fk_categoria.in(categoriaIds)
+                        ActivoDao.Properties.Nombre.like("%" + modifiedQuery + "%"),
+                        ActivoDao.Properties.Fk_categoria.in(categoriaIds)
                 ).list();
 
         return dElements;

@@ -12,7 +12,6 @@ import java.util.Map;
 
 import es.unican.appriegospersonales.activities.controles.tabs.TabControlesAppsView;
 import es.unican.appriegospersonales.activities.controles.tabs.TabControlesDevicesView;
-import es.unican.appriegospersonales.activities.riesgos.VPRiesgosAdapter;
 import es.unican.appriesgospersonales.R;
 
 public class VPControlesAdapter extends FragmentStateAdapter {

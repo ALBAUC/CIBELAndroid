@@ -5,9 +5,8 @@ import android.database.sqlite.SQLiteException;
 import java.util.Collections;
 import java.util.List;
 
-import es.unican.appriegospersonales.model.Aplicacion;
+import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Categoria;
-import es.unican.appriegospersonales.model.ElementoDigital;
 import es.unican.appriegospersonales.model.Perfil;
 import es.unican.appriegospersonales.repository.CibelRepository;
 import es.unican.appriegospersonales.repository.ICibelRepository;
@@ -41,11 +40,11 @@ public class TabHomeAppsPresenter implements ITabHomeAppsContract.Presenter {
     }
 
     @Override
-    public List<ElementoDigital> getPerfilDElements() {
-        List<ElementoDigital> result = null;
+    public List<Activo> getPerfilDElements() {
+        List<Activo> result = null;
         try {
             Perfil perfil = Perfil.getInstance(perfilDao);
-            result = perfil.getElementosDigitalesAnhadidos();
+            result = perfil.getActivosAnhadidos();
         } catch (SQLiteException e) {
         }
         return result;

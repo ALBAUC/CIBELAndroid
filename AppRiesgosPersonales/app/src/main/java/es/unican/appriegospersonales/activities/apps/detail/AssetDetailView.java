@@ -23,20 +23,20 @@ import com.squareup.picasso.Picasso;
 
 import es.unican.appriegospersonales.activities.main.MainView;
 import es.unican.appriegospersonales.common.MyApplication;
-import es.unican.appriegospersonales.common.adapters.RVRiesgosAdapter;
-import es.unican.appriegospersonales.model.ElementoDigital;
+import es.unican.appriegospersonales.common.adapters.RVControlesAdapter;
+import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriesgospersonales.R;
 
-public class DElementDetailView extends Fragment implements IDElementDetailContract.View, MainView.RefreshableFragment {
+public class AssetDetailView extends Fragment implements IAssetDetailContract.View, MainView.RefreshableFragment {
 
     public static final String FRAGMENT_APP = "aplicacion";
-    private IDElementDetailContract.Presenter presenter;
+    private IAssetDetailContract.Presenter presenter;
     private Button appAdd_bt;
 
-    public static DElementDetailView newInstance(ElementoDigital elementoDigital) {
-        DElementDetailView fragment = new DElementDetailView();
+    public static AssetDetailView newInstance(Activo activo) {
+        AssetDetailView fragment = new AssetDetailView();
         Bundle args = new Bundle();
-        args.putParcelable(FRAGMENT_APP, elementoDigital);
+        args.putParcelable(FRAGMENT_APP, activo);
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,9 +54,9 @@ public class DElementDetailView extends Fragment implements IDElementDetailContr
 
         Bundle args = getArguments();
         if (args != null) {
-            // Obtener la elementoDigital del fragmento que lanzo este fragmento
-            ElementoDigital elementoDigital = args.getParcelable(FRAGMENT_APP);
-            presenter = new DElementDetailPresenter(elementoDigital, this);
+            // Obtener el activo del fragmento que lanzo este fragmento
+            Activo activo = args.getParcelable(FRAGMENT_APP);
+            presenter = new AssetDetailPresenter(activo, this);
             presenter.init();
 
             // Link a los elementos de la vista
@@ -67,23 +67,23 @@ public class DElementDetailView extends Fragment implements IDElementDetailContr
             appAdd_bt = layout.findViewById(R.id.appAdd_bt);
 
             // Asignar valores
-            Picasso.get().load(presenter.getDElementIcono()).into(appIcon_iv);
-            appName_tv.setText(presenter.getDElementName());
-            appCategory_tv.setText(presenter.getDElementCategory());
+            Picasso.get().load(presenter.getAssetIcon()).into(appIcon_iv);
+            appName_tv.setText(presenter.getAssetName());
+            appCategory_tv.setText(presenter.getAssetCategory());
 
             appRiesgos_rv.setLayoutManager(new LinearLayoutManager(getContext()));
-            appRiesgos_rv.setAdapter(new RVRiesgosAdapter(getContext(), presenter.getDElementRisks()));
+            appRiesgos_rv.setAdapter(new RVControlesAdapter(getContext(), presenter.getAssetControls(), presenter.getPerfilControls()));
 
             DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(appRiesgos_rv.getContext(),
                     DividerItemDecoration.VERTICAL);
             appRiesgos_rv.addItemDecoration(dividerItemDecoration);
 
-            updateDElementAddButton(presenter.isDElementAdded());
+            updateDElementAddButton(presenter.isAssetAdded());
             appAdd_bt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    presenter.onAddDElementClicked();
-                    updateDElementAddButton(presenter.isDElementAdded());
+                    presenter.onAddAssetClicked();
+                    updateDElementAddButton(presenter.isAssetAdded());
 //                    TabRisksView tabRisksView = (TabRisksView) requireActivity().getSupportFragmentManager().findFragmentById(R.id.viewpager);
 //                    if (tabRisksView != null) {
 //                        tabRisksView.updateAppList(presenter.getPerfilDElements());

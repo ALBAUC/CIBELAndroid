@@ -1,5 +1,7 @@
 package es.unican.CIBEL.domain;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -65,5 +67,28 @@ public abstract class Activo {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(categoria, icono, id, nombre);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Activo other = (Activo) obj;
+		return Objects.equals(categoria, other.categoria) && Objects.equals(icono, other.icono)
+				&& Objects.equals(id, other.id) && Objects.equals(nombre, other.nombre);
+	}
+
+	@Override
+	public String toString() {
+		return "Activo [id=" + id + ", nombre=" + nombre + ", icono=" + icono + ", categoria=" + categoria.getNombre() + "]";
 	}
 }

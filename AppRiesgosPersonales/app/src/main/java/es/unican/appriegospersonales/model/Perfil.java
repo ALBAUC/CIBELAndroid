@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
-
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.ControlDao;
+import es.unican.appriegospersonales.repository.db.ActivoDao;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
-import es.unican.appriegospersonales.repository.db.ElementoDigitalDao;
+
 
 @Entity
 public class Perfil {
@@ -20,7 +20,7 @@ public class Perfil {
     private Long id;
 
     @ToMany(referencedJoinProperty = "fk_perfil")
-    private List<ElementoDigital> elementosDigitalesAnhadidos = new ArrayList<>();
+    private List<Activo> activosAnhadidos = new ArrayList<>();
 
     @ToMany(referencedJoinProperty = "fk_perfil")
     private List<Control> controlesAnhadidos = new ArrayList<>();
@@ -52,12 +52,12 @@ public class Perfil {
         return result;
     }
 
-    public void setElementosDigitalesAnhadidos(List<ElementoDigital> elementosDigitalesAnhadidos) {
-        this.elementosDigitalesAnhadidos = elementosDigitalesAnhadidos;
-    }
-
     public void setControlesAnhadidos(List<Control> controlesAnhadidos) {
         this.controlesAnhadidos = controlesAnhadidos;
+    }
+
+    public void setActivosAnhadidos(List<Activo> activosAnhadidos) {
+        this.activosAnhadidos = activosAnhadidos;
     }
 
     public Long getId() {
@@ -72,6 +72,35 @@ public class Perfil {
      * To-many relationship, resolved on first access (and after reset).
      * Changes to to-many relations are not persisted, make changes to the target entity.
      */
+    @Generated(hash = 642359910)
+    public List<Activo> getActivosAnhadidos() {
+        if (activosAnhadidos == null) {
+            final DaoSession daoSession = this.daoSession;
+            if (daoSession == null) {
+                throw new DaoException("Entity is detached from DAO context");
+            }
+            ActivoDao targetDao = daoSession.getActivoDao();
+            List<Activo> activosAnhadidosNew = targetDao
+                    ._queryPerfil_ActivosAnhadidos(id);
+            synchronized (this) {
+                if (activosAnhadidos == null) {
+                    activosAnhadidos = activosAnhadidosNew;
+                }
+            }
+        }
+        return activosAnhadidos;
+    }
+
+    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
+    @Generated(hash = 1355837221)
+    public synchronized void resetActivosAnhadidos() {
+        activosAnhadidos = null;
+    }
+
+    /**
+     * To-many relationship, resolved on first access (and after reset).
+     * Changes to to-many relations are not persisted, make changes to the target entity.
+     */
     @Generated(hash = 18301824)
     public List<Control> getControlesAnhadidos() {
         if (controlesAnhadidos == null) {
@@ -80,7 +109,8 @@ public class Perfil {
                 throw new DaoException("Entity is detached from DAO context");
             }
             ControlDao targetDao = daoSession.getControlDao();
-            List<Control> controlesAnhadidosNew = targetDao._queryPerfil_ControlesAnhadidos(id);
+            List<Control> controlesAnhadidosNew = targetDao
+                    ._queryPerfil_ControlesAnhadidos(id);
             synchronized (this) {
                 if (controlesAnhadidos == null) {
                     controlesAnhadidos = controlesAnhadidosNew;
@@ -88,6 +118,12 @@ public class Perfil {
             }
         }
         return controlesAnhadidos;
+    }
+
+    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
+    @Generated(hash = 1568778147)
+    public synchronized void resetControlesAnhadidos() {
+        controlesAnhadidos = null;
     }
 
     /**
@@ -133,38 +169,4 @@ public class Perfil {
         myDao = daoSession != null ? daoSession.getPerfilDao() : null;
     }
 
-    /**
-     * To-many relationship, resolved on first access (and after reset).
-     * Changes to to-many relations are not persisted, make changes to the target entity.
-     */
-    @Generated(hash = 3856527)
-    public List<ElementoDigital> getElementosDigitalesAnhadidos() {
-        if (elementosDigitalesAnhadidos == null) {
-            final DaoSession daoSession = this.daoSession;
-            if (daoSession == null) {
-                throw new DaoException("Entity is detached from DAO context");
-            }
-            ElementoDigitalDao targetDao = daoSession.getElementoDigitalDao();
-            List<ElementoDigital> elementosDigitalesAnhadidosNew = targetDao
-                    ._queryPerfil_ElementosDigitalesAnhadidos(id);
-            synchronized (this) {
-                if (elementosDigitalesAnhadidos == null) {
-                    elementosDigitalesAnhadidos = elementosDigitalesAnhadidosNew;
-                }
-            }
-        }
-        return elementosDigitalesAnhadidos;
-    }
-
-    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
-    @Generated(hash = 1694548660)
-    public synchronized void resetElementosDigitalesAnhadidos() {
-        elementosDigitalesAnhadidos = null;
-    }
-
-    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
-    @Generated(hash = 1568778147)
-    public synchronized void resetControlesAnhadidos() {
-        controlesAnhadidos = null;
-    }
 }

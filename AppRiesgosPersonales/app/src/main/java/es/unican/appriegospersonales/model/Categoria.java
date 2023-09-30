@@ -12,14 +12,11 @@ import org.greenrobot.greendao.annotation.ToMany;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
-
 import es.unican.appriegospersonales.repository.db.DaoSession;
-import es.unican.appriegospersonales.repository.db.RiesgoDao;
+import es.unican.appriegospersonales.repository.db.ControlDao;
 import es.unican.appriegospersonales.repository.db.CategoriaDao;
-import es.unican.appriegospersonales.repository.db.ElementoDigitalDao;
 
 @Entity
 public class Categoria {
@@ -28,42 +25,36 @@ public class Categoria {
     @Id
     private Long idCategoria;
 
-    @SerializedName("nombre")
     private String nombre;
 
-    @SerializedName("riesgos")
+    private String tipo;
+
     @ToMany
     @JoinEntity(
-            entity = JoinCategoriasWithRiesgos.class,
+            entity = JoinCategriasWithControles.class,
             sourceProperty = "idCategoria",
-            targetProperty = "idRiesgo"
+            targetProperty = "idControl"
     )
-    private List<Riesgo> riesgos;
+    private List<Control> controles;
 
-    @ToMany(referencedJoinProperty = "fk_categoria")
-    private List<ElementoDigital> elementsCat;
-
-    /**
-     * Used to resolve relations
-     */
+    /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
-    /**
-     * Used for active entity operations.
-     */
+    /** Used for active entity operations. */
     @Generated(hash = 1170305099)
     private transient CategoriaDao myDao;
 
     public Categoria() {
         idCategoria = 0L;
-        riesgos = new ArrayList<>();
+        controles = new ArrayList<>();
     }
 
-    @Generated(hash = 1008510813)
-    public Categoria(@NonNull Long idCategoria, String nombre) {
+    @Generated(hash = 2079507152)
+    public Categoria(@NonNull Long idCategoria, String nombre, String tipo) {
         this.idCategoria = idCategoria;
         this.nombre = nombre;
+        this.tipo = tipo;
     }
 
     @NonNull
@@ -83,42 +74,66 @@ public class Categoria {
         this.nombre = nombre;
     }
 
-    public void setRiesgos(List<Riesgo> riesgos) {
-        this.riesgos = riesgos;
+    public void setControles(List<Control> controles) {
+        this.controles = controles;
     }
 
-    public void setElementsCat(List<ElementoDigital> elementsCat) {
-        this.elementsCat = elementsCat;
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Categoria)) return false;
+        Categoria categoria = (Categoria) o;
+        return idCategoria.equals(categoria.idCategoria) && nombre.equals(categoria.nombre) && controles.equals(categoria.controles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idCategoria, nombre, controles);
+    }
+
+    @Override
+    public String toString() {
+        return "Categoria{" +
+                "idCategoria=" + idCategoria +
+                ", nombre='" + nombre + '\'' +
+                ", controles=" + controles +
+                '}';
     }
 
     /**
      * To-many relationship, resolved on first access (and after reset).
      * Changes to to-many relations are not persisted, make changes to the target entity.
      */
-    @Generated(hash = 250290145)
-    public List<Riesgo> getRiesgos() {
-        if (riesgos == null) {
+    @Generated(hash = 1493170162)
+    public List<Control> getControles() {
+        if (controles == null) {
             final DaoSession daoSession = this.daoSession;
             if (daoSession == null) {
                 throw new DaoException("Entity is detached from DAO context");
             }
-            RiesgoDao targetDao = daoSession.getRiesgoDao();
-            List<Riesgo> riesgosNew = targetDao._queryCategoria_Riesgos(idCategoria);
+            ControlDao targetDao = daoSession.getControlDao();
+            List<Control> controlesNew = targetDao._queryCategoria_Controles(idCategoria);
             synchronized (this) {
-                if (riesgos == null) {
-                    riesgos = riesgosNew;
+                if (controles == null) {
+                    controles = controlesNew;
                 }
             }
         }
-        return riesgos;
+        return controles;
     }
 
-    /**
-     * Resets a to-many relationship, making the next get call to query for a fresh result.
-     */
-    @Generated(hash = 360708629)
-    public synchronized void resetRiesgos() {
-        riesgos = null;
+    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
+    @Generated(hash = 787308186)
+    public synchronized void resetControles() {
+        controles = null;
     }
 
     /**
@@ -157,62 +172,11 @@ public class Categoria {
         myDao.update(this);
     }
 
-    /**
-     * called by internal mechanisms, do not call yourself.
-     */
+    /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 829587735)
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getCategoriaDao() : null;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Categoria)) return false;
-        Categoria categoria = (Categoria) o;
-        return idCategoria.equals(categoria.idCategoria) && nombre.equals(categoria.nombre) && riesgos.equals(categoria.riesgos);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idCategoria, nombre, riesgos);
-    }
-
-    @Override
-    public String toString() {
-        return "Categoria{" +
-                "idCategoria=" + idCategoria +
-                ", nombre='" + nombre + '\'' +
-                ", riesgos=" + riesgos +
-                '}';
-    }
-
-    /**
-     * To-many relationship, resolved on first access (and after reset).
-     * Changes to to-many relations are not persisted, make changes to the target entity.
-     */
-    @Generated(hash = 1803356079)
-    public List<ElementoDigital> getElementsCat() {
-        if (elementsCat == null) {
-            final DaoSession daoSession = this.daoSession;
-            if (daoSession == null) {
-                throw new DaoException("Entity is detached from DAO context");
-            }
-            ElementoDigitalDao targetDao = daoSession.getElementoDigitalDao();
-            List<ElementoDigital> elementsCatNew = targetDao._queryCategoria_ElementsCat(idCategoria);
-            synchronized (this) {
-                if (elementsCat == null) {
-                    elementsCat = elementsCatNew;
-                }
-            }
-        }
-        return elementsCat;
-    }
-
-    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
-    @Generated(hash = 1774734976)
-    public synchronized void resetElementsCat() {
-        elementsCat = null;
-    }
 }

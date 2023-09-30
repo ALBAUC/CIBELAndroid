@@ -5,7 +5,7 @@ import java.util.List;
 import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.model.Control;
 
-public interface IRiesgoDetailContract {
+public interface IAmenazaDetailContract {
     interface View {
 
         MyApplication getMyApplication();
@@ -15,11 +15,11 @@ public interface IRiesgoDetailContract {
 
         void init();
 
-        String getRiesgoName();
+        String getThreatName();
 
-        String getRiesgoDesc();
+        String getThreatDesc();
 
-        List<Control> getRiskControls();
+        List<Control> getThreatControls();
 
         List<Control> getPerfilControls();
     }

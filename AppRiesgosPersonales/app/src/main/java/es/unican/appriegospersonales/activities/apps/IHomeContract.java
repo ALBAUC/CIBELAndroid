@@ -3,8 +3,8 @@ package es.unican.appriegospersonales.activities.apps;
 import java.util.List;
 
 import es.unican.appriegospersonales.common.MyApplication;
+import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Categoria;
-import es.unican.appriegospersonales.model.ElementoDigital;
 
 /**
  * Interfaz que define los métodos que deben ser implementados por el presentador y la vista
@@ -45,8 +45,8 @@ public interface IHomeContract {
          */
         List<Categoria> getCategorias();
 
-        List<ElementoDigital> getPerfilDElements();
+        List<Activo> getPerfilAssets();
 
-        ElementoDigital getDElementByName(String appName);
+        Activo getAssetByName(String appName);
     }
 }

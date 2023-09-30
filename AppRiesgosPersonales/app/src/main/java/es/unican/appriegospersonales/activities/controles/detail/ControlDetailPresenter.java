@@ -2,9 +2,9 @@ package es.unican.appriegospersonales.activities.controles.detail;
 
 import java.util.List;
 
+import es.unican.appriegospersonales.model.Amenaza;
 import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.Perfil;
-import es.unican.appriegospersonales.model.Riesgo;
 import es.unican.appriegospersonales.repository.db.ControlDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
@@ -41,8 +41,8 @@ public class ControlDetailPresenter implements IControlDetailContract.Presenter 
     }
 
     @Override
-    public List<Riesgo> getControlRisks() {
-        return control.getMitigaRiesgos();
+    public List<Amenaza> getControlThreats() {
+        return control.getMitigaAmenazas();
     }
 
     @Override

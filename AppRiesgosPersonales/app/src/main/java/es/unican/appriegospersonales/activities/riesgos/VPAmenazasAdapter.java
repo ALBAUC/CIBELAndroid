@@ -10,11 +10,11 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import java.util.HashMap;
 import java.util.Map;
 
-import es.unican.appriegospersonales.activities.riesgos.tabs.TabRiesgosAppsView;
-import es.unican.appriegospersonales.activities.riesgos.tabs.TabRiesgosDevicesView;
+import es.unican.appriegospersonales.activities.riesgos.tabs.TabAmenazasAppsView;
+import es.unican.appriegospersonales.activities.riesgos.tabs.TabAmenazasDevicesView;
 import es.unican.appriesgospersonales.R;
 
-public class VPRiesgosAdapter extends FragmentStateAdapter {
+public class VPAmenazasAdapter extends FragmentStateAdapter {
 
     public enum Tab {
         APPS(0, R.string.riesgos_tabApps),
@@ -44,7 +44,7 @@ public class VPRiesgosAdapter extends FragmentStateAdapter {
         }
     }
 
-    public VPRiesgosAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+    public VPAmenazasAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
     }
 
@@ -52,9 +52,9 @@ public class VPRiesgosAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         if (position == Tab.APPS.position) {
-            return new TabRiesgosAppsView();
+            return new TabAmenazasAppsView();
         } else if (position == Tab.DEVICES.position) {
-            return new TabRiesgosDevicesView();
+            return new TabAmenazasDevicesView();
         } else {
             throw new IllegalArgumentException("Unkown position " + position);
         }

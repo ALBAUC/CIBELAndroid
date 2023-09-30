@@ -17,24 +17,21 @@ import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.CategoriaDao;
-import es.unican.appriegospersonales.repository.db.ElementoDigitalDao;
+import es.unican.appriegospersonales.repository.db.ActivoDao;
 
 @SuppressLint("ParcelCreator")
 @Entity
-public class ElementoDigital implements Parcelable {
+public class Activo implements Parcelable {
 
     @SerializedName("id")
     @NonNull
     @Id
-    private Long idElementoD;
+    private Long idActivo;
 
-    @SerializedName("nombre")
     private String nombre;
 
-    @SerializedName("icono")
     private String icono;
 
-    @SerializedName("categoria")
     @ToOne(joinProperty = "fk_categoria")
     private Categoria categoria;
 
@@ -47,21 +44,21 @@ public class ElementoDigital implements Parcelable {
     private transient DaoSession daoSession;
 
     /** Used for active entity operations. */
-    @Generated(hash = 1810554219)
-    private transient ElementoDigitalDao myDao;
+    @Generated(hash = 1317875841)
+    private transient ActivoDao myDao;
 
-    @Generated(hash = 243399857)
-    public ElementoDigital(@NonNull Long idElementoD, String nombre, String icono,
+    @Generated(hash = 1862928815)
+    public Activo(@NonNull Long idActivo, String nombre, String icono,
             Long fk_categoria, Long fk_perfil) {
-        this.idElementoD = idElementoD;
+        this.idActivo = idActivo;
         this.nombre = nombre;
         this.icono = icono;
         this.fk_categoria = fk_categoria;
         this.fk_perfil = fk_perfil;
     }
 
-    @Generated(hash = 641862882)
-    public ElementoDigital() {
+    @Generated(hash = 315079783)
+    public Activo() {
     }
 
     @Generated(hash = 1426606615)
@@ -92,12 +89,12 @@ public class ElementoDigital implements Parcelable {
     }
 
     @NonNull
-    public Long getIdElementoD() {
-        return idElementoD;
+    public Long getIdActivo() {
+        return idActivo;
     }
 
-    public void setIdElementoD(@NonNull Long idElementoD) {
-        this.idElementoD = idElementoD;
+    public void setIdActivo(@NonNull Long idActivo) {
+        this.idActivo = idActivo;
     }
 
     public Categoria getCat() {
@@ -107,7 +104,7 @@ public class ElementoDigital implements Parcelable {
     @Override
     public String toString() {
         return "Aplicacion{" +
-                "idAplicacion=" + idElementoD +
+                "idAplicacion=" + idActivo +
                 ", nombre='" + nombre + '\'' +
                 ", icono='" + icono + '\'' +
                 ", categoria=" + categoria +
@@ -122,7 +119,7 @@ public class ElementoDigital implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
-        parcel.writeLong(idElementoD);
+        parcel.writeLong(idActivo);
         parcel.writeString(nombre);
         parcel.writeString(icono);
         parcel.writeValue(categoria);
@@ -139,14 +136,14 @@ public class ElementoDigital implements Parcelable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ElementoDigital)) return false;
-        ElementoDigital that = (ElementoDigital) o;
-        return idElementoD.equals(that.idElementoD);
+        if (!(o instanceof Activo)) return false;
+        Activo that = (Activo) o;
+        return idActivo.equals(that.idActivo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idElementoD);
+        return Objects.hash(idActivo);
     }
 
     /** To-one relationship, resolved on first access. */
@@ -216,9 +213,9 @@ public class ElementoDigital implements Parcelable {
     }
 
     /** called by internal mechanisms, do not call yourself. */
-    @Generated(hash = 1212598571)
+    @Generated(hash = 1926086416)
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
-        myDao = daoSession != null ? daoSession.getElementoDigitalDao() : null;
+        myDao = daoSession != null ? daoSession.getActivoDao() : null;
     }
 }

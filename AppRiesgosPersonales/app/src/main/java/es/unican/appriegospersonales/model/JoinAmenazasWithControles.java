@@ -5,21 +5,21 @@ import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
 
 @Entity
-public class JoinRiesgosWithControles {
+public class JoinAmenazasWithControles {
     @Id(autoincrement = true)
     private Long id;
-    private Long idRiesgo;
+    private Long idAmenaza;
     private Long idControl;
 
-    @Generated(hash = 248395386)
-    public JoinRiesgosWithControles(Long id, Long idRiesgo, Long idControl) {
+    @Generated(hash = 1614929054)
+    public JoinAmenazasWithControles(Long id, Long idAmenaza, Long idControl) {
         this.id = id;
-        this.idRiesgo = idRiesgo;
+        this.idAmenaza = idAmenaza;
         this.idControl = idControl;
     }
 
-    @Generated(hash = 1505888283)
-    public JoinRiesgosWithControles() {
+    @Generated(hash = 758728844)
+    public JoinAmenazasWithControles() {
     }
 
     public Long getId() {
@@ -30,12 +30,12 @@ public class JoinRiesgosWithControles {
         this.id = id;
     }
 
-    public Long getIdRiesgo() {
-        return idRiesgo;
+    public Long getIdAmenaza() {
+        return idAmenaza;
     }
 
-    public void setIdRiesgo(Long idRiesgo) {
-        this.idRiesgo = idRiesgo;
+    public void setIdAmenaza(Long idAmenaza) {
+        this.idAmenaza = idAmenaza;
     }
 
     public Long getIdControl() {

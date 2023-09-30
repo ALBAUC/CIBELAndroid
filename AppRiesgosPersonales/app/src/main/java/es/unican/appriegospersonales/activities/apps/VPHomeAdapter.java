@@ -12,9 +12,6 @@ import java.util.Map;
 
 import es.unican.appriegospersonales.activities.apps.tabs.TabHomeAppsView;
 import es.unican.appriegospersonales.activities.apps.tabs.TabHomeDevicesView;
-import es.unican.appriegospersonales.activities.riesgos.VPRiesgosAdapter;
-import es.unican.appriegospersonales.activities.riesgos.tabs.TabRiesgosAppsView;
-import es.unican.appriegospersonales.activities.riesgos.tabs.TabRiesgosDevicesView;
 import es.unican.appriesgospersonales.R;
 
 public class VPHomeAdapter extends FragmentStateAdapter {

@@ -66,7 +66,7 @@ public class ControlDetailView extends Fragment implements IControlDetailContrac
             controlDesc_tv.setText(presenter.getCotrolDesc());
 
             controlDetail_riesgos_rv.setLayoutManager(new LinearLayoutManager(getContext()));
-            controlDetail_riesgos_rv.setAdapter(new RVRiesgosCDAdapter(getContext(), presenter.getControlRisks()));
+            controlDetail_riesgos_rv.setAdapter(new RVAmenazasCDAdapter(getContext(), presenter.getControlThreats()));
 
             DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(controlDetail_riesgos_rv.getContext(),
                     DividerItemDecoration.VERTICAL);

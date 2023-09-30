@@ -3,7 +3,7 @@ package es.unican.appriegospersonales.activities.main;
 import es.unican.appriegospersonales.activities.apps.HomeView;
 import es.unican.appriegospersonales.activities.controles.ControlesView;
 import es.unican.appriegospersonales.activities.perfil.PerfilView;
-import es.unican.appriegospersonales.activities.riesgos.RiesgosView;
+import es.unican.appriegospersonales.activities.riesgos.AmenazasView;
 import es.unican.appriesgospersonales.R;
 
 public class MainPresenter implements IMainContract.Presenter {
@@ -21,7 +21,7 @@ public class MainPresenter implements IMainContract.Presenter {
 
     @Override
     public void onNavRiesgosClicked() {
-        view.showFragment(new RiesgosView(), R.string.bottom_nav_riesgos);
+        view.showFragment(new AmenazasView(), R.string.bottom_nav_riesgos);
     }
 
     @Override

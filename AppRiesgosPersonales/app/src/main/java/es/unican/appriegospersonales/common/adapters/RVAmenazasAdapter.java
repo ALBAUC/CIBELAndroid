@@ -15,27 +15,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import java.util.Objects;
 
-import es.unican.appriegospersonales.activities.riesgos.detail.RiesgoDetailView;
+import es.unican.appriegospersonales.activities.riesgos.detail.AmenazaDetailView;
+import es.unican.appriegospersonales.model.Amenaza;
 import es.unican.appriegospersonales.model.Control;
-import es.unican.appriegospersonales.model.Riesgo;
 import es.unican.appriesgospersonales.R;
 
-public class RVRiesgosAdapter extends RecyclerView.Adapter<RVRiesgosAdapter.RiesgoViewHolder> {
+public class RVAmenazasAdapter extends RecyclerView.Adapter<RVAmenazasAdapter.RiesgoViewHolder> {
 
     private final Context context;
-    private final List<Riesgo> riesgos;
+    private final List<Amenaza> amenazas;
     private final List<Control> perfilControls;
     private final LayoutInflater inflater;
 
-    public RVRiesgosAdapter(Context context, List<Riesgo> riesgos) {
-        this.riesgos = riesgos;
+    public RVAmenazasAdapter(Context context, List<Amenaza> amenazas) {
+        this.amenazas = amenazas;
         this.context = context;
         this.perfilControls = null;
         this.inflater = LayoutInflater.from(context);
     }
 
-    public RVRiesgosAdapter(Context context, List<Riesgo> riesgos, List<Control> perfilControls) {
-        this.riesgos = riesgos;
+    public RVAmenazasAdapter(Context context, List<Amenaza> amenazas, List<Control> perfilControls) {
+        this.amenazas = amenazas;
         this.context = context;
         this.perfilControls = perfilControls;
         this.inflater = LayoutInflater.from(context);
@@ -50,11 +50,11 @@ public class RVRiesgosAdapter extends RecyclerView.Adapter<RVRiesgosAdapter.Ries
 
     @Override
     public void onBindViewHolder(@NonNull RiesgoViewHolder holder, int position) {
-        Riesgo riesgo = riesgos.get(position);
-        holder.riesgo = riesgo;
-        holder.riesgoName_tv.setText(riesgo.getNombre());
+        Amenaza amenaza = amenazas.get(position);
+        holder.amenaza = amenaza;
+        holder.riesgoName_tv.setText(amenaza.getNombre());
         int iconoId = context.getResources().getIdentifier(
-                "risk" + riesgo.getIdRiesgo(),
+                "risk" + amenaza.getIdAmenaza(),
                 "drawable",
                 context.getPackageName());
         if (iconoId != 0) {
@@ -62,14 +62,14 @@ public class RVRiesgosAdapter extends RecyclerView.Adapter<RVRiesgosAdapter.Ries
         }
         int numControles = 0;
         if (perfilControls != null) {
-            for (Control c : riesgo.getControles()) {
+            for (Control c : amenaza.getControles()) {
                 if (perfilControls.contains(c)) {
                     numControles++;
                 }
             }
             holder.riesgoControlesP_tv.setVisibility(View.VISIBLE);
             holder.riesgoControlesP_tv.setText(
-                    numControles + "/" + riesgo.getControles().size() + " controles aplicados");
+                    numControles + "/" + amenaza.getControles().size() + " controles aplicados");
         } else {
             holder.riesgoControlesP_tv.setVisibility(View.GONE);
         }
@@ -77,7 +77,7 @@ public class RVRiesgosAdapter extends RecyclerView.Adapter<RVRiesgosAdapter.Ries
 
     @Override
     public int getItemCount() {
-        return riesgos.size();
+        return amenazas.size();
     }
 
     public class RiesgoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -85,7 +85,7 @@ public class RVRiesgosAdapter extends RecyclerView.Adapter<RVRiesgosAdapter.Ries
         private final TextView riesgoName_tv;
         private final ImageView riesgoIcon_iv;
         private final TextView riesgoControlesP_tv;
-        private Riesgo riesgo;
+        private Amenaza amenaza;
 
         public RiesgoViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -100,7 +100,7 @@ public class RVRiesgosAdapter extends RecyclerView.Adapter<RVRiesgosAdapter.Ries
             FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .hide(Objects.requireNonNull(fragmentManager.findFragmentById(R.id.container)))
-                    .add(R.id.container, RiesgoDetailView.newInstance(riesgo))
+                    .add(R.id.container, AmenazaDetailView.newInstance(amenaza))
                     .setReorderingAllowed(true)
                     .addToBackStack("riesgos")
                     .commit();
