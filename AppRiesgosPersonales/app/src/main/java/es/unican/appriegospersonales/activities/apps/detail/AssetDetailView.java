@@ -67,7 +67,10 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
             appAdd_bt = layout.findViewById(R.id.appAdd_bt);
 
             // Asignar valores
-            Picasso.get().load(presenter.getAssetIcon()).into(appIcon_iv);
+            Picasso.get().load(presenter.getAssetIcon())
+                    .resize(600, 600)
+                    .centerCrop()
+                    .into(appIcon_iv);
             appName_tv.setText(presenter.getAssetName());
             appCategory_tv.setText(presenter.getAssetCategory());
 
@@ -78,12 +81,12 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
                     DividerItemDecoration.VERTICAL);
             appRiesgos_rv.addItemDecoration(dividerItemDecoration);
 
-            updateDElementAddButton(presenter.isAssetAdded());
+            updateAssetAddButton(presenter.isAssetAdded());
             appAdd_bt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     presenter.onAddAssetClicked();
-                    updateDElementAddButton(presenter.isAssetAdded());
+                    updateAssetAddButton(presenter.isAssetAdded());
 //                    TabRisksView tabRisksView = (TabRisksView) requireActivity().getSupportFragmentManager().findFragmentById(R.id.viewpager);
 //                    if (tabRisksView != null) {
 //                        tabRisksView.updateAppList(presenter.getPerfilDElements());
@@ -95,7 +98,7 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
         return layout;
     }
 
-    private void updateDElementAddButton(boolean isAppAdded) {
+    private void updateAssetAddButton(boolean isAppAdded) {
         if (isAppAdded) {
             if (isDarkModeEnabled()) {
                 appAdd_bt.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.dark_background)));

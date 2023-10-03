@@ -13,7 +13,7 @@ public interface ITabHomeDevicesContract {
 
         List<Categoria> getCategoriasDeDispositivos();
 
-        List<Activo> getPerfilDElements();
+        List<Activo> getPerfilAssets();
     }
 
     interface View {

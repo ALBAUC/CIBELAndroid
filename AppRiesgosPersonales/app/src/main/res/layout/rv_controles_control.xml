@@ -19,7 +19,7 @@
         android:layout_toEndOf="@id/controlIcon_iv"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="14dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/controlName_tv"
@@ -29,15 +29,33 @@
             android:inputType="textMultiLine"
             tools:text="Control"/>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp">
+
         <ImageView
             android:id="@+id/controlAddedIcon_iv"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:layout_marginStart="8dp"
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
             android:src="@drawable/check_circle"
             style="@style/RecyclerIconStyle" />
+
+        <TextView
+            android:id="@+id/controlAddedInfo_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/dElementAdded"
+            android:textSize="12dp"
+            tools:text="Añadido"/>
+    </LinearLayout>
+
 
     </LinearLayout>
 

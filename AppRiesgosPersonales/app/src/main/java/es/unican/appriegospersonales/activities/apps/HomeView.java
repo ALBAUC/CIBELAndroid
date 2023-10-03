@@ -50,8 +50,7 @@ public class HomeView extends Fragment implements IHomeContract.View, MainView.R
                              @Nullable Bundle savedInstanceState) {
         View layoutApps = inflater.inflate(R.layout.fragment_home, container, false);
         homeVP = layoutApps.findViewById(R.id.home_vp);
-
-        homeVP.setAdapter(new VPHomeAdapter(((AppCompatActivity) getContext()).getSupportFragmentManager(), getLifecycle()));
+        homeVP.setAdapter(new VPHomeAdapter(getChildFragmentManager(), getLifecycle()));
 
         TabLayout tabLayout = layoutApps.findViewById(R.id.home_tl);
         new TabLayoutMediator(tabLayout, homeVP,

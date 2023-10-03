@@ -40,7 +40,7 @@ public class ControlesView extends Fragment implements IControlesContract.View, 
         View layout = inflater.inflate(R.layout.fragment_controles, container, false);
         controlesVP = layout.findViewById(R.id.controles_vp);
 
-        controlesVP.setAdapter(new VPControlesAdapter(((AppCompatActivity) getContext()).getSupportFragmentManager(), getLifecycle()));
+        controlesVP.setAdapter(new VPControlesAdapter(getChildFragmentManager(), getLifecycle()));
 
         TabLayout tabLayout = layout.findViewById(R.id.controles_tl);
         new TabLayoutMediator(tabLayout, controlesVP,

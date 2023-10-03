@@ -8,14 +8,16 @@ import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.Perfil;
 import es.unican.appriegospersonales.repository.CibelRepository;
 import es.unican.appriegospersonales.repository.ICibelRepository;
+import es.unican.appriegospersonales.repository.db.ControlDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
+import es.unican.appriegospersonales.repository.rest.CibelServiceConstants;
 
 public class TabControlesDevicesPresenter implements ITabControlesDevicesContract.Presenter {
 
     private final ITabControlesDevicesContract.View view;
     private PerfilDao perfilDao;
-    private ICibelRepository repository;
+    private ControlDao controlDao;
 
     public TabControlesDevicesPresenter(ITabControlesDevicesContract.View view) {
         this.view = view;
@@ -25,15 +27,13 @@ public class TabControlesDevicesPresenter implements ITabControlesDevicesContrac
     public void init() {
         DaoSession daoSession = view.getMyApplication().getDaoSession();
         perfilDao = daoSession.getPerfilDao();
-
-        if (repository == null) {
-            repository = new CibelRepository(view.getMyApplication());
-        }
+        controlDao = daoSession.getControlDao();
     }
 
     @Override
     public List<Control> getControlesDevices() {
-        List<Control> controlesDeDispositivos = List.of(repository.getControlesDeDispositivos());
+        List<Control> controlesDeDispositivos = controlDao.queryBuilder().where(ControlDao.Properties.Tipo
+                .like(CibelServiceConstants.DISPOSITIVO_IOT)).list();
         if (controlesDeDispositivos == null) controlesDeDispositivos = Collections.emptyList();
         return controlesDeDispositivos;
     }
@@ -42,6 +42,7 @@ public class TabControlesDevicesPresenter implements ITabControlesDevicesContrac
     @Override
     public List<Control> getPerfilControls() {
         Perfil perfil = Perfil.getInstance(perfilDao);
-        return perfil.getControlesAnhadidos();
+        List<Control> perfilControls = controlDao._queryPerfil_ControlesAnhadidos(perfil.getId());
+        return perfilControls;
     }
 }

@@ -1,6 +1,7 @@
 package es.unican.appriegospersonales.activities.apps;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +23,14 @@ import es.unican.appriesgospersonales.R;
 
 public class RVCategoriaAssetsAdapter extends RecyclerView.Adapter<RVCategoriaAssetsAdapter.CategoriaDElementViewHolder> {
     private Context context;
-    private final List<Activo> dElements;
-    private final List<Activo> perfilDElements;
+    private final List<Activo> activos;
+    private final List<Activo> perfilActivos;
     private final LayoutInflater inflater;
 
-    public RVCategoriaAssetsAdapter(Context context, List<Activo> data, List<Activo> perfilDElements) {
+    public RVCategoriaAssetsAdapter(Context context, List<Activo> data, List<Activo> perfilActivos) {
         this.context = context;
-        this.dElements = data;
-        this.perfilDElements = perfilDElements;
+        this.activos = data;
+        this.perfilActivos = perfilActivos;
         this.inflater = LayoutInflater.from(context);
     }
 
@@ -42,20 +43,19 @@ public class RVCategoriaAssetsAdapter extends RecyclerView.Adapter<RVCategoriaAs
 
     @Override
     public int getItemCount() {
-        return dElements.size();
+        return activos.size();
     }
 
     @Override
     public void onBindViewHolder(CategoriaDElementViewHolder holder, int position) {
-        Activo activo = dElements.get(position);
+        Activo activo = activos.get(position);
         holder.activo = activo;
         holder.dElementName_tv.setText(activo.getNombre());
         Picasso.get().load(activo.getIcono())
                 .resize(600, 600)
                 .centerCrop()
                 .into(holder.dElementIcon_iv);
-
-        if (perfilDElements.contains(activo)) {
+        if (perfilActivos.contains(activo)) {
             holder.dElementAddedIcon_iv.setVisibility(View.VISIBLE);
             holder.dElementAddedInfo_tv.setVisibility(View.VISIBLE);
         } else {
@@ -86,7 +86,8 @@ public class RVCategoriaAssetsAdapter extends RecyclerView.Adapter<RVCategoriaAs
             AppCompatActivity activity = (AppCompatActivity) context;
             FragmentManager fragmentManager = activity.getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, AssetDetailView.newInstance(activo))
+                    .hide(fragmentManager.findFragmentById(R.id.container))
+                    .add(R.id.container, AssetDetailView.newInstance(activo))
                     .setReorderingAllowed(true)
                     .addToBackStack("apps")
                     .commit();

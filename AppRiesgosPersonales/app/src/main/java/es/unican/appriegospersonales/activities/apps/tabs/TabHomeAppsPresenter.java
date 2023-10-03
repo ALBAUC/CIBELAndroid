@@ -10,13 +10,15 @@ import es.unican.appriegospersonales.model.Categoria;
 import es.unican.appriegospersonales.model.Perfil;
 import es.unican.appriegospersonales.repository.CibelRepository;
 import es.unican.appriegospersonales.repository.ICibelRepository;
+import es.unican.appriegospersonales.repository.db.CategoriaDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
+import es.unican.appriegospersonales.repository.rest.CibelServiceConstants;
 
 public class TabHomeAppsPresenter implements ITabHomeAppsContract.Presenter {
     private final ITabHomeAppsContract.View view;
     private PerfilDao perfilDao;
-    private ICibelRepository repository;
+    private CategoriaDao categoriaDao;
 
     public TabHomeAppsPresenter(ITabHomeAppsContract.View view) {
         this.view = view;
@@ -26,15 +28,13 @@ public class TabHomeAppsPresenter implements ITabHomeAppsContract.Presenter {
     public void init() {
         DaoSession daoSession = view.getMyApplication().getDaoSession();
         perfilDao = daoSession.getPerfilDao();
-
-        if (repository == null) {
-            repository = new CibelRepository(view.getMyApplication());
-        }
+        categoriaDao = daoSession.getCategoriaDao();
     }
 
     @Override
     public List<Categoria> getCategoriasDeApps() {
-        List<Categoria> categoriasDeApps = List.of(repository.getCategoriasDeApps());
+        List<Categoria> categoriasDeApps = categoriaDao.queryBuilder().where(CategoriaDao.Properties.Tipo
+                .like(CibelServiceConstants.APP)).list();
         if (categoriasDeApps == null) categoriasDeApps = Collections.emptyList();
         return categoriasDeApps;
     }

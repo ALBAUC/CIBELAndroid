@@ -41,7 +41,7 @@ public class PerfilView extends Fragment implements IPerfilContract.View, MainVi
         nivelRiesgo_cv = layout.findViewById(R.id.nivelRiesgo_cv);
         nivelRiesgo_tv = layout.findViewById(R.id.nivelRiesgo_tv);
 
-        viewPager.setAdapter(new VPPerfilAdapter(((AppCompatActivity) getContext()).getSupportFragmentManager(), getLifecycle()));
+        viewPager.setAdapter(new VPPerfilAdapter(getChildFragmentManager(), getLifecycle()));
 
         TabLayout tabLayout = layout.findViewById(R.id.tab_layout);
         new TabLayoutMediator(tabLayout, viewPager,

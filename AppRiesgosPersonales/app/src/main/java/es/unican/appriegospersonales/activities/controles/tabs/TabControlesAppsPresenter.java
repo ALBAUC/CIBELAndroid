@@ -11,12 +11,13 @@ import es.unican.appriegospersonales.repository.ICibelRepository;
 import es.unican.appriegospersonales.repository.db.ControlDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
+import es.unican.appriegospersonales.repository.rest.CibelServiceConstants;
 
 public class TabControlesAppsPresenter implements ITabControlesAppsContract.Presenter {
 
     private final ITabControlesAppsContract.View view;
     private PerfilDao perfilDao;
-    private ICibelRepository repository;
+    private ControlDao controlDao;
 
     public TabControlesAppsPresenter(ITabControlesAppsContract.View view) {
         this.view = view;
@@ -26,15 +27,13 @@ public class TabControlesAppsPresenter implements ITabControlesAppsContract.Pres
     public void init() {
         DaoSession daoSession = view.getMyApplication().getDaoSession();
         perfilDao = daoSession.getPerfilDao();
-
-        if (repository == null) {
-            repository = new CibelRepository(view.getMyApplication());
-        }
+        controlDao = daoSession.getControlDao();
     }
 
     @Override
     public List<Control> getControlesApps() {
-        List<Control> controlesDeApps = List.of(repository.getControlesDeApps());
+        List<Control> controlesDeApps = controlDao.queryBuilder().where(ControlDao.Properties.Tipo
+                .like(CibelServiceConstants.APP)).list();
         if (controlesDeApps == null) controlesDeApps = Collections.emptyList();
         return controlesDeApps;
     }

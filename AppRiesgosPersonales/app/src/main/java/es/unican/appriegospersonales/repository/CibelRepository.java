@@ -16,6 +16,7 @@ import es.unican.appriegospersonales.model.Categoria;
 import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.JoinCategriasWithControles;
 import es.unican.appriegospersonales.model.JoinAmenazasWithControles;
+import es.unican.appriegospersonales.model.Perfil;
 import es.unican.appriegospersonales.repository.db.ActivoDao;
 import es.unican.appriegospersonales.repository.db.AmenazaDao;
 import es.unican.appriegospersonales.repository.db.CategoriaDao;
@@ -23,6 +24,7 @@ import es.unican.appriegospersonales.repository.db.ControlDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.JoinAmenazasWithControlesDao;
 import es.unican.appriegospersonales.repository.db.JoinCategriasWithControlesDao;
+import es.unican.appriegospersonales.repository.db.PerfilDao;
 import es.unican.appriegospersonales.repository.rest.CibelService;
 
 /**
@@ -32,8 +34,8 @@ import es.unican.appriegospersonales.repository.rest.CibelService;
  */
 public class CibelRepository implements ICibelRepository {
 
-    private static final String KEY_LAST_SAVED_A = "KEY_LAST_SAVED_A";
-    private static final String KEY_LAST_SAVED_R = "KEY_LAST_SAVED_R";
+    public static final String KEY_LAST_SAVED_A = "KEY_LAST_SAVED_A";
+    private static final String KEY_LAST_SAVED_T = "KEY_LAST_SAVED_T";
     private static final String KEY_LAST_SAVED_C = "KEY_LAST_SAVED_C";
     private static final String KEY_LAST_SAVED_CA = "KEY_LAST_SAVED_CA";
 
@@ -72,6 +74,7 @@ public class CibelRepository implements ICibelRepository {
         if (activos != null) {
             ActivoDao activoDao = daoSession.getActivoDao();
             CategoriaDao categoriaDao = daoSession.getCategoriaDao();
+            PerfilDao perfilDao = daoSession.getPerfilDao();
             for (Activo a : activos) {
                 Activo aBD = activoDao.load(a.getIdActivo());
                 if (aBD == null) {
@@ -79,16 +82,21 @@ public class CibelRepository implements ICibelRepository {
                     Categoria cat = categoriaDao.load(a.getCat().getIdCategoria());
                     a.setFk_categoria(cat.getIdCategoria());
                     activoDao.insert(a);
-                } else {
-                    // Ya estaba en la bd, lo actualizo
-                    Categoria cat = categoriaDao.load(a.getCat().getIdCategoria());
-                    a.setFk_categoria(cat.getIdCategoria());
-                    Long fk_perfil = aBD.getFk_perfil();
-                    a.setFk_perfil(fk_perfil);
+                    // Caso de ejemplo: se insertan directamente al perfil
+                    Perfil perfil = Perfil.getInstance(perfilDao);
+                    a.setFk_perfil(perfil.getId());
+                    perfil.getActivosAnhadidos().add(a);
                     activoDao.update(a);
+                    perfilDao.update(perfil);
+                } else if (!aBD.equals(a)) {
+                    // Ya estaba en la bd, se actualiza
+                    aBD.setNombre(a.getNombre());
+                    aBD.setIcono(a.getIcono());
+                    aBD.setFk_categoria(a.getCat().getIdCategoria());
+                    activoDao.update(aBD);
                 }
             }
-            //Prefs.from(application).putInstant(KEY_LAST_SAVED_A, Instant.now());
+            Prefs.from(application).putInstant(KEY_LAST_SAVED_A, Instant.now());
         }
     }
 
@@ -165,16 +173,16 @@ public class CibelRepository implements ICibelRepository {
                 if (amenazaDao.load(a.getIdAmenaza()) == null) {
                     // Nueva amenaza, se inserta en la BBDD
                     List<Control> controles = a.getControles();
-                    amenazaDao.insert(a);
                     for (Control c : controles) {
                         JoinAmenazasWithControles rc = new JoinAmenazasWithControles();
                         rc.setIdAmenaza(a.getIdAmenaza());
                         rc.setIdControl(c.getIdControl());
                         rcDao.insert(rc);
                     }
+                    amenazaDao.insert(a);
                 }
             }
-            //Prefs.from(application).putInstant(KEY_LAST_SAVED_R, Instant.now());
+            Prefs.from(application).putInstant(KEY_LAST_SAVED_T, Instant.now());
         }
     }
 
@@ -222,7 +230,7 @@ public class CibelRepository implements ICibelRepository {
                     controlDao.insert(c);
                 }
             }
-            //Prefs.from(application).putInstant(KEY_LAST_SAVED_C, Instant.now());
+            Prefs.from(application).putInstant(KEY_LAST_SAVED_C, Instant.now());
         }
     }
 
@@ -278,7 +286,7 @@ public class CibelRepository implements ICibelRepository {
                     }
                 }
             }
-            //Prefs.from(application).putInstant(KEY_LAST_SAVED_CA, Instant.now());
+            Prefs.from(application).putInstant(KEY_LAST_SAVED_CA, Instant.now());
         }
     }
 
@@ -289,7 +297,7 @@ public class CibelRepository implements ICibelRepository {
      * @return true si los recursos guardados en la BD son antiguos a la
      * cantidad específicada de minutos
      */
-    private boolean lastDownloadOlderThan(int minutes, String resourceName) {
+    public boolean lastDownloadOlderThan(int minutes, String resourceName) {
         Instant lastDownloaded = Prefs.from(application).getInstant(resourceName);
         if (lastDownloaded == null) {
             return true;

@@ -103,12 +103,13 @@ public class Activo implements Parcelable {
 
     @Override
     public String toString() {
-        return "Aplicacion{" +
-                "idAplicacion=" + idActivo +
+        return "Activo{" +
+                "idActivo=" + idActivo +
                 ", nombre='" + nombre + '\'' +
                 ", icono='" + icono + '\'' +
                 ", categoria=" + categoria +
                 ", fk_categoria=" + fk_categoria +
+                ", fk_perfil=" + fk_perfil +
                 '}';
     }
 
@@ -136,14 +137,14 @@ public class Activo implements Parcelable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Activo)) return false;
-        Activo that = (Activo) o;
-        return idActivo.equals(that.idActivo);
+        if (o == null || getClass() != o.getClass()) return false;
+        Activo activo = (Activo) o;
+        return idActivo.equals(activo.idActivo) && Objects.equals(nombre, activo.nombre) && Objects.equals(icono, activo.icono);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idActivo);
+        return Objects.hash(idActivo, nombre, icono);
     }
 
     /** To-one relationship, resolved on first access. */

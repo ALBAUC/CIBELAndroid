@@ -30,8 +30,8 @@ public class Amenaza {
 	private String tipo;
 	
 	@ManyToMany
-	@JoinTable(name = "control_x_riesgo",
-				joinColumns = @JoinColumn(name = "fk_riesgo"),
+	@JoinTable(name = "control_x_amenaza",
+				joinColumns = @JoinColumn(name = "fk_amenaza"),
 				inverseJoinColumns = @JoinColumn(name = "fk_control"))
 	@JsonManagedReference
 	private List<Control> controles;

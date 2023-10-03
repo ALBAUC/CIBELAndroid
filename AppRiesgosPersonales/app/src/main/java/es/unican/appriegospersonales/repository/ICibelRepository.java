@@ -101,4 +101,6 @@ public interface ICibelRepository {
     Categoria[] getCategoriasDeApps();
 
     Categoria[] getCategoriasDeDispositivos();
+
+    boolean lastDownloadOlderThan(int minutes, String resourceName);
 }

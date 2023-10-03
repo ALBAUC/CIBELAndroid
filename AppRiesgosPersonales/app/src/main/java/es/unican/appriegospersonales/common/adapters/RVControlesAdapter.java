@@ -1,6 +1,7 @@
 package es.unican.appriegospersonales.common.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,8 +62,10 @@ public class RVControlesAdapter extends RecyclerView.Adapter<RVControlesAdapter.
 
         if (perfilControls != null && perfilControls.contains(control)) {
             holder.controlAddedIcon_iv.setVisibility(View.VISIBLE);
+            holder.controlAddedInfo_tv.setVisibility(View.VISIBLE);
         } else {
             holder.controlAddedIcon_iv.setVisibility(View.GONE);
+            holder.controlAddedInfo_tv.setVisibility(View.GONE);
         }
     }
 
@@ -76,6 +79,7 @@ public class RVControlesAdapter extends RecyclerView.Adapter<RVControlesAdapter.
         private final TextView controlName_tv;
         private final ImageView controlIcon_iv;
         private final ImageView controlAddedIcon_iv;
+        private final TextView controlAddedInfo_tv;
         private Control control;
 
         public ControlViewHolder(@NonNull View itemView) {
@@ -83,6 +87,7 @@ public class RVControlesAdapter extends RecyclerView.Adapter<RVControlesAdapter.
             controlName_tv = itemView.findViewById(R.id.controlName_tv);
             controlIcon_iv = itemView.findViewById(R.id.controlIcon_iv);
             controlAddedIcon_iv = itemView.findViewById(R.id.controlAddedIcon_iv);
+            controlAddedInfo_tv = itemView.findViewById(R.id.controlAddedInfo_tv);
             itemView.setOnClickListener(this);
         }
 

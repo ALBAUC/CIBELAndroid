@@ -123,7 +123,7 @@ public class Control implements Parcelable {
     @Override
     public String toString() {
         return "Control{" +
-                "nombre='" + nombre + '\'' +
+                "idControl=" + idControl +
                 '}';
     }
 

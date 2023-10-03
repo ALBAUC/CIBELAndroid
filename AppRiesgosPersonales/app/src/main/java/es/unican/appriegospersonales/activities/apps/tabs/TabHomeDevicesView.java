@@ -35,7 +35,7 @@ public class TabHomeDevicesView extends Fragment implements ITabHomeDevicesContr
         categoriasDevicesRV = layout.findViewById(R.id.categoriasDevices_rv);
 
         categoriasDevicesRV.setLayoutManager(new LinearLayoutManager(getContext()));
-        categoriasDevicesRV.setAdapter(new RVCategoriaAdapter(getContext(), presenter.getCategoriasDeDispositivos(), presenter.getPerfilDElements(), getMyApplication()));
+        categoriasDevicesRV.setAdapter(new RVCategoriaAdapter(getContext(), presenter.getCategoriasDeDispositivos(), presenter.getPerfilAssets(), getMyApplication()));
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
                 categoriasDevicesRV.getContext(),

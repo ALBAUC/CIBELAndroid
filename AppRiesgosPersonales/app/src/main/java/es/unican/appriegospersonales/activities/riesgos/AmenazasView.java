@@ -35,7 +35,7 @@ public class AmenazasView extends Fragment implements IAmenazasContract.View, Ma
         View layout = inflater.inflate(R.layout.fragment_riesgos, container, false);
         riesgosVP = layout.findViewById(R.id.riesgos_vp);
 
-        riesgosVP.setAdapter(new VPAmenazasAdapter(((AppCompatActivity) getContext()).getSupportFragmentManager(), getLifecycle()));
+        riesgosVP.setAdapter(new VPAmenazasAdapter(getChildFragmentManager(), getLifecycle()));
 
         TabLayout tabLayout = layout.findViewById(R.id.riesgos_tl);
         new TabLayoutMediator(tabLayout, riesgosVP,

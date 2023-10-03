@@ -3,6 +3,7 @@ package es.unican.appriegospersonales.activities.controles.detail;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;

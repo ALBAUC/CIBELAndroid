@@ -43,12 +43,11 @@ public class HomePresenter implements IHomeContract.Presenter {
         activoDao = daoSession.getActivoDao();
         categoriaDao = daoSession.getCategoriaDao();
         perfilDao = daoSession.getPerfilDao();
+        repository = new CibelRepository(view.getMyApplication());
 
-        if (repository == null) {
-            repository = new CibelRepository(view.getMyApplication());
+        if (repository.lastDownloadOlderThan(30, CibelRepository.KEY_LAST_SAVED_A)) {
+            doSyncInit();
         }
-
-        doSyncInit();
     }
 
     private void doAsyncInit() {

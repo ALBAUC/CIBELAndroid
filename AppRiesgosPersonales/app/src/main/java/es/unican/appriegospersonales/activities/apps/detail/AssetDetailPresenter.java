@@ -6,6 +6,7 @@ import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.Perfil;
 import es.unican.appriegospersonales.repository.db.ActivoDao;
+import es.unican.appriegospersonales.repository.db.ControlDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
 
@@ -14,6 +15,7 @@ public class AssetDetailPresenter implements IAssetDetailContract.Presenter {
     private final IAssetDetailContract.View view;
     private ActivoDao activoDao;
     private PerfilDao perfilDao;
+    private ControlDao controlDao;
     private Activo activo;
     private Perfil perfil;
 
@@ -27,6 +29,7 @@ public class AssetDetailPresenter implements IAssetDetailContract.Presenter {
         DaoSession daoSession = view.getMyApplication().getDaoSession();
         activoDao = daoSession.getActivoDao();
         perfilDao = daoSession.getPerfilDao();
+        controlDao = daoSession.getControlDao();
         perfil = Perfil.getInstance(perfilDao);
     }
 
@@ -67,16 +70,18 @@ public class AssetDetailPresenter implements IAssetDetailContract.Presenter {
 
     @Override
     public boolean isAssetAdded() {
-        return perfil.getActivosAnhadidos().contains(activo);
+        return getPerfilAssets().contains(activo);
     }
 
     @Override
     public List<Activo> getPerfilAssets() {
-        return perfil.getActivosAnhadidos();
+        List<Activo> perfilAssets = activoDao._queryPerfil_ActivosAnhadidos(perfil.getId());
+        return perfilAssets;
     }
 
     @Override
     public List<Control> getPerfilControls() {
-        return perfil.getControlesAnhadidos();
+        List<Control> perfilControls = controlDao._queryPerfil_ControlesAnhadidos(perfil.getId());
+        return perfilControls;
     }
 }

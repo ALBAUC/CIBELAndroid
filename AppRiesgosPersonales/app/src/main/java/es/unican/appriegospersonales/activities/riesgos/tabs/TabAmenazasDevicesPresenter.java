@@ -8,13 +8,17 @@ import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.Perfil;
 import es.unican.appriegospersonales.repository.CibelRepository;
 import es.unican.appriegospersonales.repository.ICibelRepository;
+import es.unican.appriegospersonales.repository.db.AmenazaDao;
+import es.unican.appriegospersonales.repository.db.ControlDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
+import es.unican.appriegospersonales.repository.rest.CibelServiceConstants;
 
 public class TabAmenazasDevicesPresenter implements  ITabAmenazasDevicesContract.Presenter {
     private final ITabAmenazasDevicesContract.View view;
     private PerfilDao perfilDao;
-    private ICibelRepository repository;
+    private AmenazaDao amenazaDao;
+    private ControlDao controlDao;
 
     public TabAmenazasDevicesPresenter(ITabAmenazasDevicesContract.View view) {
         this.view = view;
@@ -24,15 +28,14 @@ public class TabAmenazasDevicesPresenter implements  ITabAmenazasDevicesContract
     public void init() {
         DaoSession daoSession = view.getMyApplication().getDaoSession();
         perfilDao = daoSession.getPerfilDao();
-
-        if (repository == null) {
-            repository = new CibelRepository(view.getMyApplication());
-        }
+        amenazaDao = daoSession.getAmenazaDao();
+        controlDao = daoSession.getControlDao();
     }
 
     @Override
     public List<Amenaza> getAmenazasDevices() {
-        List<Amenaza> amenazasDeDispositivos = List.of(repository.getAmenazasDeDispositivos());
+        List<Amenaza> amenazasDeDispositivos = amenazaDao.queryBuilder().where(AmenazaDao.Properties.Tipo
+                .like(CibelServiceConstants.DISPOSITIVO_IOT)).list();
         if (amenazasDeDispositivos == null) amenazasDeDispositivos = Collections.emptyList();
         return amenazasDeDispositivos;
     }
@@ -40,6 +43,7 @@ public class TabAmenazasDevicesPresenter implements  ITabAmenazasDevicesContract
     @Override
     public List<Control> getPerfilControls() {
         Perfil perfil = Perfil.getInstance(perfilDao);
-        return perfil.getControlesAnhadidos();
+        List<Control> perfilControls = controlDao._queryPerfil_ControlesAnhadidos(perfil.getId());
+        return perfilControls;
     }
 }

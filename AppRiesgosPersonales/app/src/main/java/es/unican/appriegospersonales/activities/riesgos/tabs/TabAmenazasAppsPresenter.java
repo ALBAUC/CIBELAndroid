@@ -8,13 +8,15 @@ import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.Perfil;
 import es.unican.appriegospersonales.repository.CibelRepository;
 import es.unican.appriegospersonales.repository.ICibelRepository;
+import es.unican.appriegospersonales.repository.db.AmenazaDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
+import es.unican.appriegospersonales.repository.rest.CibelServiceConstants;
 
 public class TabAmenazasAppsPresenter implements ITabAmenazasAppsContract.Presenter {
     private final ITabAmenazasAppsContract.View view;
     private PerfilDao perfilDao;
-    private ICibelRepository repository;
+    private AmenazaDao amenazaDao;
 
     public TabAmenazasAppsPresenter(ITabAmenazasAppsContract.View view) {
         this.view = view;
@@ -24,15 +26,13 @@ public class TabAmenazasAppsPresenter implements ITabAmenazasAppsContract.Presen
     public void init() {
         DaoSession daoSession = view.getMyApplication().getDaoSession();
         perfilDao = daoSession.getPerfilDao();
-
-        if (repository == null) {
-            repository = new CibelRepository(view.getMyApplication());
-        }
+        amenazaDao = daoSession.getAmenazaDao();
     }
 
     @Override
     public List<Amenaza> getAmenazasApps() {
-        List<Amenaza> amenazasDeApps = List.of(repository.getAmenazasDeApps());
+        List<Amenaza> amenazasDeApps = amenazaDao.queryBuilder().where(AmenazaDao.Properties.Tipo
+                .like(CibelServiceConstants.APP)).list();
         if (amenazasDeApps == null) amenazasDeApps = Collections.emptyList();
         return amenazasDeApps;
     }

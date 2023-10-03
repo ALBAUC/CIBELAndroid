@@ -17,7 +17,7 @@ import es.unican.appriesgospersonales.R;
 public class VPPerfilAdapter extends FragmentStateAdapter {
 
     public enum Tab {
-        RISKS(0, R.string.perfil_tabRiesgos),
+        ASSETS(0, R.string.perfil_tabActivos),
         CONTROLS(1, R.string.perfil_tabControles);
         final int title;
         final int position;
@@ -51,7 +51,7 @@ public class VPPerfilAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int p) {
-        if (p == Tab.RISKS.position) {
+        if (p == Tab.ASSETS.position) {
             return new TabActivosView();
         } else if (p == Tab.CONTROLS.position) {
             return new TabControlesView();

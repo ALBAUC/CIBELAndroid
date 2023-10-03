@@ -2,8 +2,8 @@
     <string name="app_name">CIBEL</string>
 
     <string name="bottom_nav_home">HOME</string>
-    <string name="bottom_nav_riesgos">RIESGOS</string>
-    <string name="bottom_nav_controles">CONTROLES</string>
+    <string name="bottom_nav_riesgos">AMENAZAS</string>
+    <string name="bottom_nav_controles">BUENAS PRÁCTICAS</string>
     <string name="bottom_nav_perfil">PERFIL</string>
 
     <string name="search_hint">Buscar aplicaciones o dispositivos</string>
@@ -11,20 +11,21 @@
     <string name="loadCorrect">Se han cargado %d elementos</string>
     <string name="loadError">Ha ocurrido un error al acceder a los datos</string>
 
-    <string name="dElement_detail_riesgos_title">Riesgos</string>
-    <string name="riesgos_detail_controles_title">Controles para mitigarlo</string>
-    <string name="controles_detail_riesgos_title">Riesgos que mitiga</string>
+    <string name="dElement_detail_riesgos_title">Buenas prácticas</string>
+    <string name="riesgos_detail_controles_title">Buenas prácticas para mitigarlo</string>
+    <string name="controles_detail_riesgos_title">Amenazas que mitiga</string>
 
     <string name="dElement_detail_add">Añadir</string>
     <string name="dElement_detail_remove">Eliminar</string>
 
-    <string name="perfil_tabRiesgos">Riesgos actuales</string>
-    <string name="perfil_tabControles">Controles aplicados</string>
+    <string name="perfil_tabRiesgos">Amenazas actuales</string>
+    <string name="perfil_tabActivos">Smart Home</string>
+    <string name="perfil_tabControles">Buenas prácticas</string>
 
     <string name="nivelRiesgoAlto">Riesgo alto</string>
     <string name="nivelRiesgoMedio">Riesgo medio</string>
     <string name="nivelRiesgoBajo">Riesgo bajo</string>
-    <string name="dElementAdded">Añadida</string>
+    <string name="dElementAdded">Añadido</string>
     <string name="controlAdded">Aplicado</string>
     <string name="riesgos_tabApps">Apps</string>
     <string name="riesgos_tabDevices">Dispositivos IoT</string>

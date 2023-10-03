@@ -21,8 +21,8 @@ public class VPHomeAdapter extends FragmentStateAdapter {
     }
 
     public enum Tab {
-        APPS(0, R.string.riesgos_tabApps),
-        DEVICES(1, R.string.riesgos_tabDevices);
+        APPS(1, R.string.riesgos_tabApps),
+        DEVICES(0, R.string.riesgos_tabDevices);
         final int title;
         final int position;
 

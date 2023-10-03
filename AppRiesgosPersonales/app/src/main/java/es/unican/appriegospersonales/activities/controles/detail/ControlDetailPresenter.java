@@ -1,10 +1,13 @@
 package es.unican.appriegospersonales.activities.controles.detail;
 
+import android.util.Log;
+
 import java.util.List;
 
 import es.unican.appriegospersonales.model.Amenaza;
 import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.Perfil;
+import es.unican.appriegospersonales.repository.db.AmenazaDao;
 import es.unican.appriegospersonales.repository.db.ControlDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
@@ -14,6 +17,7 @@ public class ControlDetailPresenter implements IControlDetailContract.Presenter 
     private final IControlDetailContract.View view;
     private ControlDao controlDao;
     private PerfilDao perfilDao;
+    private AmenazaDao amenazaDao;
     private Control control;
     private Perfil perfil;
 
@@ -27,6 +31,7 @@ public class ControlDetailPresenter implements IControlDetailContract.Presenter 
         DaoSession daoSession = view.getMyApplication().getDaoSession();
         controlDao = daoSession.getControlDao();
         perfilDao = daoSession.getPerfilDao();
+        amenazaDao = daoSession.getAmenazaDao();
         perfil = Perfil.getInstance(perfilDao);
     }
 
@@ -42,7 +47,8 @@ public class ControlDetailPresenter implements IControlDetailContract.Presenter 
 
     @Override
     public List<Amenaza> getControlThreats() {
-        return control.getMitigaAmenazas();
+        List<Amenaza> controlThreats = amenazaDao._queryControl_MitigaAmenazas(control.getIdControl());
+        return controlThreats;
     }
 
     @Override
