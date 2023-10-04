@@ -5,7 +5,7 @@ Crear la base de datos del servicio en mysql: [create database cibel_db;]
 Para crear las tablas y meter los datos:
 Coger el archivo CIBEL/Docs/backup_cibel_db.sql y pegarlo en C:\Program Files\MySQL\MySQL Server 8.0\bin
 Abrir cmd en C:\Program Files\MySQL\MySQL Server 8.0\bin
-Ejecutar comando: [mysql -u root -p cibel_db < backup.sql]
+Ejecutar comando: [mysql -u root -p cibel_db < backup_cibel_db.sql]
 
 Deberian haberse creado las tablas y metido todos los datos
 Comprobar que haya datos en cualquier tabla;
