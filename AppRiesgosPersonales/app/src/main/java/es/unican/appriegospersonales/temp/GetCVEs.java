@@ -34,18 +34,37 @@ public class GetCVEs {
                 for (int i = 0; i < vulnerabilities.length(); i++) {
                     JSONObject vulnerability = vulnerabilities.getJSONObject(i);
                     JSONObject cve = vulnerability.getJSONObject("cve");
+
+                    //CVE de la vulnerabilidad
                     String cve_id = cve.getString("id");
 
                     // Inicializa las variables con "NULL" en caso de que falten métricas
+
+                    //Se refiere a la vía usada para explotar la vulnerabilidad (Por ejemplo por red)
                     String accessVector = "NULL";
+
+                    //Se refiere a la dificultad que tiene explotar la vulnerabilidad
                     String accessComplexity = "NULL";
+
+                    //Impacto que tiene en la confidencialidad si se explota la vulnerabilidad
                     String confidentialityImpact = "NULL";
+
+                    //Impacto que tiene en la integridad si se explota la vulnerabilidad
                     String integrityImpact = "NULL";
+
+                    //Impacto que tiene en la disponibilidad si se explota la vulnerabilidad
                     String availabilityImpact = "NULL";
+
+                    //Puntuación de 0 a 10 dada a la vulnerabilidad por su peligro
                     String base_score = "NULL";
+
+                    //Nivel de severidad de la vulnerabilidad (Bajo, medio o alto)
                     String base_severity = "NULL";
+
                     String exploitability_score = "NULL";
                     String impact_score = "NULL";
+
+                    //Descripcion de la vulnerabilidad
                     String second_description = "NULL";
 
                     // Verifica si hay al menos dos descripciones antes de acceder al segundo elemento
