@@ -9,10 +9,22 @@ import org.jsoup.Jsoup;
 import java.io.IOException;
 
 public class GetCVEs {
-    public GetCVEs() {
+    public GetCVEs(String modelo) {
         try {
             // Especifica el modelo o aplicación que deseas analizar
-            String modelo = "Google Maps";
+            //modelo = "iPhone 12" // Movil
+            //modelo = "TP-LINK ARCHER C50" // Router
+            //modelo = "amazon echo dot" // Asistente
+            //modelo = "HP OfficeJet Pro" // Impresora
+            //modelo = "Lenovo ThinkPad T440s" //Ordenador
+            //modelo = "Playstation 3" //Consola, para la 5 no hay
+            //modelo = "Samsung Smart TV X10P" // Smart TV
+            //modelo = "Pebble Smartwatch" // Smartwatch
+            //modelo = "Radio Thermostat CT80" // Termostato Class 2
+            //modelo = "TPLink Tapo L530" // Bombilla Class 1
+            //modelo = "Samsung Galaxy S5" // Android Viejo
+            //modelo = "iPhone 13" // Movil Moderno
+
 
             // Construye la URL de la API NVD que contiene información de vulnerabilidades
             String url = "https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch=" + modelo;
@@ -106,7 +118,4 @@ public class GetCVEs {
         }
     }
 
-    public static void main(String[] args) {
-        new GetCVEs();
-    }
 }
