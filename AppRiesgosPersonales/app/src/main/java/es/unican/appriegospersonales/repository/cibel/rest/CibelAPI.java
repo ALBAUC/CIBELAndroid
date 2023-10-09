@@ -1,4 +1,4 @@
-package es.unican.appriegospersonales.repository.rest;
+package es.unican.appriegospersonales.repository.cibel.rest;
 
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Amenaza;

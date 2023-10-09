@@ -5,6 +5,7 @@
     <string name="bottom_nav_riesgos">AMENAZAS</string>
     <string name="bottom_nav_controles">BUENAS PRÁCTICAS</string>
     <string name="bottom_nav_perfil">PERFIL</string>
+    <string name="bottom_nav_smart_home">SMART HOME</string>
 
     <string name="search_hint">Buscar aplicaciones o dispositivos</string>
 
@@ -29,4 +30,5 @@
     <string name="controlAdded">Aplicado</string>
     <string name="riesgos_tabApps">Apps</string>
     <string name="riesgos_tabDevices">Dispositivos IoT</string>
+
 </resources>

@@ -19,4 +19,9 @@
     <color name="riesgoMedio">#F6B85D</color>
     <color name="riesgoBajo">#ADD67C</color>
 
+    <color name="criticalV">#8C65D2</color>
+    <color name="highV">#EA645A</color>
+    <color name="mediumV">#ECA63E</color>
+    <color name="lowV">#A0D267</color>
+
 </resources>

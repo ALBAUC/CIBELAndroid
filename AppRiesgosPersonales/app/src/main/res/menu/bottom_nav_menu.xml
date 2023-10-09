@@ -16,4 +16,8 @@
         android:id="@+id/page_perfil"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="@string/bottom_nav_perfil"/>
+    <item
+        android:id="@+id/page_smart_home"
+        android:icon="@drawable/baseline_smart_toy_24"
+        android:title="@string/bottom_nav_smart_home"/>
 </menu>

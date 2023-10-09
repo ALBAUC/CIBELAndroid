@@ -1,13 +1,9 @@
-package es.unican.appriegospersonales.repository.rest;
+package es.unican.appriegospersonales.repository.common;
 
 import android.util.Log;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 
-import okhttp3.ResponseBody;
-import okio.Buffer;
-import okio.BufferedSource;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -18,7 +14,7 @@ import retrofit2.Response;
  * Este thread en background ejecutara este runnable.
  * @param <T> el tipo de la respuesta
  */
-class CallRunnable<T> implements Runnable {
+public class CallRunnable<T> implements Runnable {
     private final Call<T> call;
     private T response = null;
 
@@ -30,7 +26,7 @@ class CallRunnable<T> implements Runnable {
         this.response = response;
     }
 
-    CallRunnable(Call<T> call) {
+    public CallRunnable(Call<T> call) {
         this.call = call;
     }
 

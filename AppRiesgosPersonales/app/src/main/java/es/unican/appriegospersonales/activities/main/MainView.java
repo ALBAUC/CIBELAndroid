@@ -111,6 +111,9 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
             case R.id.page_perfil:
                 presenter.onNavPerfilClicked();
                 break;
+            case R.id.page_smart_home:
+                presenter.onNavSmartHomeClicked();
+                break;
             default:
                 handled = false; // If the item is not implemented, return false
                 break;

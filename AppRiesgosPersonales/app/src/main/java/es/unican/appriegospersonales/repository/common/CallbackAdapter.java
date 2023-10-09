@@ -1,4 +1,4 @@
-package es.unican.appriegospersonales.repository.rest;
+package es.unican.appriegospersonales.repository.common;
 
 import es.unican.appriegospersonales.common.Callback;
 import retrofit2.Call;
@@ -8,7 +8,7 @@ import retrofit2.Response;
  * Esta clase adapta un Callback de Retrofit a nuestro Callback personalizado.
  * @param <T>
  */
-class CallbackAdapter<T> implements retrofit2.Callback<T> {
+public class CallbackAdapter<T> implements retrofit2.Callback<T> {
     private final Callback<T> cb;
 
     public CallbackAdapter(Callback<T> cb) {

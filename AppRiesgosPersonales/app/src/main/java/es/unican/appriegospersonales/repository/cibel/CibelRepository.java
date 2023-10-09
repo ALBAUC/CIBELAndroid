@@ -1,4 +1,4 @@
-package es.unican.appriegospersonales.repository;
+package es.unican.appriegospersonales.repository.cibel;
 
 import android.content.ContentValues;
 import android.util.Log;
@@ -25,7 +25,7 @@ import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.JoinAmenazasWithControlesDao;
 import es.unican.appriegospersonales.repository.db.JoinCategriasWithControlesDao;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
-import es.unican.appriegospersonales.repository.rest.CibelService;
+import es.unican.appriegospersonales.repository.cibel.rest.CibelService;
 
 /**
  * Implementacion de un repositorio de los recursos de AppWiseService.

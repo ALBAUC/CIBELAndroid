@@ -6,12 +6,10 @@ import java.util.List;
 import es.unican.appriegospersonales.model.Amenaza;
 import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.Perfil;
-import es.unican.appriegospersonales.repository.CibelRepository;
-import es.unican.appriegospersonales.repository.ICibelRepository;
 import es.unican.appriegospersonales.repository.db.AmenazaDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
-import es.unican.appriegospersonales.repository.rest.CibelServiceConstants;
+import es.unican.appriegospersonales.repository.cibel.rest.CibelServiceConstants;
 
 public class TabAmenazasAppsPresenter implements ITabAmenazasAppsContract.Presenter {
     private final ITabAmenazasAppsContract.View view;

@@ -1,4 +1,4 @@
-package es.unican.appriegospersonales.repository.rest;
+package es.unican.appriegospersonales.repository.cibel.rest;
 
 public class CibelServiceConstants {
 

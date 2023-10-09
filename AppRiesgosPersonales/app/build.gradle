@@ -33,7 +33,7 @@ android {
 }
 
 greendao {
-    schemaVersion 14
+    schemaVersion 15
     daoPackage = "es.unican.appriegospersonales.repository.db"
 }
 
@@ -62,6 +62,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.0'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation "org.mockito:mockito-core:3.+"

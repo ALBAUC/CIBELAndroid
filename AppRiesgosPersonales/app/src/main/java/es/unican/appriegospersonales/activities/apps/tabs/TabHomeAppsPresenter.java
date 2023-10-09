@@ -8,12 +8,10 @@ import java.util.List;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Categoria;
 import es.unican.appriegospersonales.model.Perfil;
-import es.unican.appriegospersonales.repository.CibelRepository;
-import es.unican.appriegospersonales.repository.ICibelRepository;
 import es.unican.appriegospersonales.repository.db.CategoriaDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
-import es.unican.appriegospersonales.repository.rest.CibelServiceConstants;
+import es.unican.appriegospersonales.repository.cibel.rest.CibelServiceConstants;
 
 public class TabHomeAppsPresenter implements ITabHomeAppsContract.Presenter {
     private final ITabHomeAppsContract.View view;

@@ -4,6 +4,7 @@ import es.unican.appriegospersonales.activities.apps.HomeView;
 import es.unican.appriegospersonales.activities.controles.ControlesView;
 import es.unican.appriegospersonales.activities.perfil.PerfilView;
 import es.unican.appriegospersonales.activities.riesgos.AmenazasView;
+import es.unican.appriegospersonales.activities.smarthome.SmartHomeView;
 import es.unican.appriesgospersonales.R;
 
 public class MainPresenter implements IMainContract.Presenter {
@@ -32,6 +33,11 @@ public class MainPresenter implements IMainContract.Presenter {
     @Override
     public void onNavPerfilClicked() {
         view.showFragment(new PerfilView(), R.string.bottom_nav_perfil);
+    }
+
+    @Override
+    public void onNavSmartHomeClicked() {
+        view.showFragment(new SmartHomeView(), R.string.bottom_nav_smart_home);
     }
 
 }

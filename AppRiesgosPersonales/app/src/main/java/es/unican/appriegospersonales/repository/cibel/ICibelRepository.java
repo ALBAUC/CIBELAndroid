@@ -1,4 +1,4 @@
-package es.unican.appriegospersonales.repository;
+package es.unican.appriegospersonales.repository.cibel;
 
 import es.unican.appriegospersonales.common.Callback;
 import es.unican.appriegospersonales.model.Activo;

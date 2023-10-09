@@ -1,4 +1,4 @@
-package es.unican.appriegospersonales.repository.rest;
+package es.unican.appriegospersonales.repository.cibel.rest;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -9,6 +9,8 @@ import es.unican.appriegospersonales.model.Amenaza;
 import es.unican.appriegospersonales.model.Categoria;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Control;
+import es.unican.appriegospersonales.repository.common.CallRunnable;
+import es.unican.appriegospersonales.repository.common.CallbackAdapter;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

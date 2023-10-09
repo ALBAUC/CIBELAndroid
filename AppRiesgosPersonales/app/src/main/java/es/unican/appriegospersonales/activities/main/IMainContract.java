@@ -38,6 +38,8 @@ public interface IMainContract {
          * Muestra el fragmento correspondiente a la pestaña "Perfil".
          */
         void onNavPerfilClicked();
+
+        void onNavSmartHomeClicked();
     }
 
     interface View {

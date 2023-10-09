@@ -15,6 +15,7 @@ import org.greenrobot.greendao.annotation.ToOne;
 import java.util.Objects;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
+
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.CategoriaDao;
 import es.unican.appriegospersonales.repository.db.ActivoDao;

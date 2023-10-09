@@ -1,8 +1,6 @@
 package es.unican.appriegospersonales.activities.apps;
 
-import android.content.ContentValues;
 import android.database.sqlite.SQLiteException;
-import android.util.Log;
 
 import java.util.List;
 
@@ -12,8 +10,8 @@ import es.unican.appriegospersonales.model.Categoria;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.Perfil;
-import es.unican.appriegospersonales.repository.CibelRepository;
-import es.unican.appriegospersonales.repository.ICibelRepository;
+import es.unican.appriegospersonales.repository.cibel.CibelRepository;
+import es.unican.appriegospersonales.repository.cibel.ICibelRepository;
 import es.unican.appriegospersonales.repository.db.ActivoDao;
 import es.unican.appriegospersonales.repository.db.CategoriaDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
