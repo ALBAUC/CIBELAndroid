@@ -19,7 +19,7 @@ import es.unican.appriegospersonales.repository.db.ControlDao;
 import es.unican.appriegospersonales.repository.db.CategoriaDao;
 
 @Entity
-public class Categoria {
+public class Tipo {
     @SerializedName("id")
     @NonNull
     @Id
@@ -45,13 +45,13 @@ public class Categoria {
     @Generated(hash = 1170305099)
     private transient CategoriaDao myDao;
 
-    public Categoria() {
+    public Tipo() {
         idCategoria = 0L;
         controles = new ArrayList<>();
     }
 
     @Generated(hash = 2079507152)
-    public Categoria(@NonNull Long idCategoria, String nombre, String tipo) {
+    public Tipo(@NonNull Long idCategoria, String nombre, String tipo) {
         this.idCategoria = idCategoria;
         this.nombre = nombre;
         this.tipo = tipo;
@@ -89,9 +89,9 @@ public class Categoria {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Categoria)) return false;
-        Categoria categoria = (Categoria) o;
-        return idCategoria.equals(categoria.idCategoria) && nombre.equals(categoria.nombre) && controles.equals(categoria.controles);
+        if (!(o instanceof Tipo)) return false;
+        Tipo tipo = (Tipo) o;
+        return idCategoria.equals(tipo.idCategoria) && nombre.equals(tipo.nombre) && controles.equals(tipo.controles);
     }
 
     @Override

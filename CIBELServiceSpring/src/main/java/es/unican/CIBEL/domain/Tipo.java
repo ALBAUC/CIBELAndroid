@@ -1,16 +1,14 @@
 package es.unican.CIBEL.domain;
 
-
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Control {
+public class Tipo {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,14 +16,10 @@ public class Control {
 	
 	private String nombre;
 	
-	@Column(length = 2000)
-	private String descripcion;
-	
-	public Control() {}
-	
-	public Control(String nombre, String descripcion) {
+	public Tipo() {}
+
+	public Tipo(String nombre) {
 		this.nombre = nombre;
-		this.descripcion = descripcion;
 	}
 
 	public Long getId() {
@@ -44,17 +38,9 @@ public class Control {
 		this.nombre = nombre;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(descripcion, id, nombre);
+		return Objects.hash(id, nombre);
 	}
 
 	@Override
@@ -65,8 +51,8 @@ public class Control {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Control other = (Control) obj;
-		return Objects.equals(descripcion, other.descripcion) && Objects.equals(id, other.id)
-				&& Objects.equals(nombre, other.nombre);
+		Tipo other = (Tipo) obj;
+		return Objects.equals(id, other.id) && Objects.equals(nombre, other.nombre);
 	}
+
 }

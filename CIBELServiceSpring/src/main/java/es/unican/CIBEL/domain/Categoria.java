@@ -21,9 +21,6 @@ public class Categoria {
 	private Long id;
 	
 	private String nombre;
-	
-	private String tipo;
-	
 	@ManyToMany
 	@JoinTable(name = "categoria_x_control",
 				joinColumns = @JoinColumn(name = "fk_categoria"),
@@ -32,9 +29,8 @@ public class Categoria {
 	
 	public Categoria() {}
 	
-	public Categoria(String nombre, String tipo) {
+	public Categoria(String nombre) {
 		this.nombre = nombre;
-		this.tipo = tipo;
 		this.controles = new LinkedList<Control>();
 	}
 
@@ -61,18 +57,9 @@ public class Categoria {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(controles, id, nombre, tipo);
+		return Objects.hash(controles, id, nombre);
 	}
 
 	@Override
@@ -85,6 +72,6 @@ public class Categoria {
 			return false;
 		Categoria other = (Categoria) obj;
 		return Objects.equals(controles, other.controles) && Objects.equals(id, other.id)
-				&& Objects.equals(nombre, other.nombre) && Objects.equals(tipo, other.tipo);
+				&& Objects.equals(nombre, other.nombre);
 	}
 }

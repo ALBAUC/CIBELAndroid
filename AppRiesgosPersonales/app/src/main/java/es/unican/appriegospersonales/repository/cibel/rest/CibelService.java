@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import es.unican.appriegospersonales.common.Callback;
 import es.unican.appriegospersonales.model.Amenaza;
-import es.unican.appriegospersonales.model.Categoria;
+import es.unican.appriegospersonales.model.Tipo;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.repository.common.CallRunnable;
@@ -222,8 +222,8 @@ public class CibelService {
      * través del Callback proporcionado.
      * @param cb el callback que procesa la respuesta de forma asincrona
      */
-    public static void requestCategorias(Callback<Categoria[]> cb) {
-        final Call<Categoria[]> call = getAPI().categorias();
+    public static void requestCategorias(Callback<Tipo[]> cb) {
+        final Call<Tipo[]> call = getAPI().tipos();
         call.enqueue(new CallbackAdapter<>(cb));
     }
 
@@ -232,11 +232,11 @@ public class CibelService {
      * Bloquea el hilo actual hasta que se complete la llamada y se obtenga la respuesta.
      * @return el objeto response que contiene las aplicaciones
      */
-    public static Categoria[] getCategorias() {
-        final Call<Categoria[]> call = getAPI().categorias();
+    public static Tipo[] getCategorias() {
+        final Call<Tipo[]> call = getAPI().tipos();
 
         ExecutorService executor = Executors.newFixedThreadPool(1);
-        CallRunnable<Categoria[]> runnable = new CallRunnable<>(call);
+        CallRunnable<Tipo[]> runnable = new CallRunnable<>(call);
         executor.execute(runnable);
 
         executor.shutdown();
@@ -248,11 +248,11 @@ public class CibelService {
         return runnable.getResponse();
     }
 
-    public static Categoria[] getCategoriasDeApps() {
-        final Call<Categoria[]> call = getAPI().categoriasDeApps();
+    public static Tipo[] getCategoriasDeApps() {
+        final Call<Tipo[]> call = getAPI().categoriasDeApps();
 
         ExecutorService executor = Executors.newFixedThreadPool(1);
-        CallRunnable<Categoria[]> runnable = new CallRunnable<>(call);
+        CallRunnable<Tipo[]> runnable = new CallRunnable<>(call);
         executor.execute(runnable);
 
         executor.shutdown();
@@ -264,11 +264,11 @@ public class CibelService {
         return runnable.getResponse();
     }
 
-    public static Categoria[] getCategoriasDeDispositivos() {
-        final Call<Categoria[]> call = getAPI().categoriasDeDispositivos();
+    public static Tipo[] getCategoriasDeDispositivos() {
+        final Call<Tipo[]> call = getAPI().categoriasDeDispositivos();
 
         ExecutorService executor = Executors.newFixedThreadPool(1);
-        CallRunnable<Categoria[]> runnable = new CallRunnable<>(call);
+        CallRunnable<Tipo[]> runnable = new CallRunnable<>(call);
         executor.execute(runnable);
 
         executor.shutdown();

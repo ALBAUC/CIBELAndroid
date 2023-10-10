@@ -27,8 +27,6 @@ public class Amenaza {
 	@Column(length = 2000)
 	private String descripcion;
 	
-	private String tipo;
-	
 	@ManyToMany
 	@JoinTable(name = "control_x_amenaza",
 				joinColumns = @JoinColumn(name = "fk_amenaza"),
@@ -38,10 +36,9 @@ public class Amenaza {
 	
 	public Amenaza() {}
 	
-	public Amenaza(String nombre, String descripcion, String tipo) {
+	public Amenaza(String nombre, String descripcion) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
-		this.tipo = tipo;
 		this.controles = new LinkedList<Control>();
 	}
 
@@ -76,18 +73,10 @@ public class Amenaza {
 	public void setControles(List<Control> controles) {
 		this.controles = controles;
 	}
-	
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(controles, descripcion, id, nombre, tipo);
+		return Objects.hash(controles, descripcion, id, nombre);
 	}
 
 	@Override
@@ -100,7 +89,6 @@ public class Amenaza {
 			return false;
 		Amenaza other = (Amenaza) obj;
 		return Objects.equals(controles, other.controles) && Objects.equals(descripcion, other.descripcion)
-				&& Objects.equals(id, other.id) && Objects.equals(nombre, other.nombre)
-				&& Objects.equals(tipo, other.tipo);
+				&& Objects.equals(id, other.id) && Objects.equals(nombre, other.nombre);
 	}
 }

@@ -1,23 +1,5 @@
 package es.unican.CIBEL.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
-import es.unican.CIBEL.domain.Aplicacion;
-import es.unican.CIBEL.domain.Categoria;
-import es.unican.CIBEL.service.CategoriaService;
 
 public class AplicacionControllerTest {
 	

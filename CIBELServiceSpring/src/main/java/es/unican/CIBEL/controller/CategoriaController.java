@@ -21,14 +21,4 @@ public class CategoriaController {
 	public List<Categoria> getCategorias() {
 		return categoriaService.categorias();
 	}
-	
-	@GetMapping("/apps")
-	public List<Categoria> getCategoriasDeApps() {
-		return categoriaService.categoriasDeApps();
-	}
-	
-	@GetMapping("/dispositivos")
-	public List<Categoria> getCategoriasDeDispositivos() {
-		return categoriaService.categoriasDeDispositivos();
-	}
 }

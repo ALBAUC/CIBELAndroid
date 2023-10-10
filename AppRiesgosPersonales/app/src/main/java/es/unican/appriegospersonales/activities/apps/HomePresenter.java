@@ -6,7 +6,7 @@ import java.util.List;
 
 import es.unican.appriegospersonales.common.Callback;
 import es.unican.appriegospersonales.model.Amenaza;
-import es.unican.appriegospersonales.model.Categoria;
+import es.unican.appriegospersonales.model.Tipo;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.Perfil;
@@ -55,9 +55,9 @@ public class HomePresenter implements IHomeContract.Presenter {
                 repository.requestAmenazas(new Callback<Amenaza[]>() {
                     @Override
                     public void onSuccess(Amenaza[] riesgos) {
-                        repository.requestCategorias(new Callback<Categoria[]>() {
+                        repository.requestCategorias(new Callback<Tipo[]>() {
                             @Override
-                            public void onSuccess(Categoria[] categorias) {
+                            public void onSuccess(Tipo[] tipos) {
                                 repository.requestActivos(new Callback<Activo[]>() {
                                     @Override
                                     public void onSuccess(Activo[] activos) {
@@ -103,8 +103,8 @@ public class HomePresenter implements IHomeContract.Presenter {
     }
 
     @Override
-    public List<Categoria> getCategorias() {
-        List<Categoria> result = null;
+    public List<Tipo> getCategorias() {
+        List<Tipo> result = null;
         try {
             result = categoriaDao.loadAll();
         } catch (SQLiteException e) {

@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Activo {
+public class Activo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,12 +29,17 @@ public abstract class Activo {
 	@JoinColumn(name="fk_categoria")
 	private Categoria categoria;
 	
+	@OneToOne
+	@JoinColumn(name ="fk_tipo")
+	private Tipo tipo;
+	
 	public Activo() {}
 	
-	public Activo(String nombre, String icono, Categoria categoria) {
+	public Activo(String nombre, String icono, Categoria categoria, Tipo tipo) {
 		this.nombre = nombre;
 		this.icono = icono;
 		this.categoria = categoria;
+		this.tipo = tipo;
 	}
 
 	public String getNombre() {
@@ -69,9 +74,17 @@ public abstract class Activo {
 		this.id = id;
 	}
 
+	public Tipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(categoria, icono, id, nombre);
+		return Objects.hash(categoria, icono, id, nombre, tipo);
 	}
 
 	@Override
@@ -84,7 +97,8 @@ public abstract class Activo {
 			return false;
 		Activo other = (Activo) obj;
 		return Objects.equals(categoria, other.categoria) && Objects.equals(icono, other.icono)
-				&& Objects.equals(id, other.id) && Objects.equals(nombre, other.nombre);
+				&& Objects.equals(id, other.id) && Objects.equals(nombre, other.nombre)
+				&& Objects.equals(tipo, other.tipo);
 	}
 
 	@Override

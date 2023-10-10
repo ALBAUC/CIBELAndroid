@@ -34,7 +34,7 @@ public class Activo implements Parcelable {
     private String icono;
 
     @ToOne(joinProperty = "fk_categoria")
-    private Categoria categoria;
+    private Tipo tipo;
 
     private Long fk_categoria;
 
@@ -98,8 +98,8 @@ public class Activo implements Parcelable {
         this.idActivo = idActivo;
     }
 
-    public Categoria getCat() {
-        return categoria;
+    public Tipo getCat() {
+        return tipo;
     }
 
     @Override
@@ -108,7 +108,7 @@ public class Activo implements Parcelable {
                 "idActivo=" + idActivo +
                 ", nombre='" + nombre + '\'' +
                 ", icono='" + icono + '\'' +
-                ", categoria=" + categoria +
+                ", categoria=" + tipo +
                 ", fk_categoria=" + fk_categoria +
                 ", fk_perfil=" + fk_perfil +
                 '}';
@@ -124,7 +124,7 @@ public class Activo implements Parcelable {
         parcel.writeLong(idActivo);
         parcel.writeString(nombre);
         parcel.writeString(icono);
-        parcel.writeValue(categoria);
+        parcel.writeValue(tipo);
     }
 
     public Long getFk_perfil() {
@@ -150,7 +150,7 @@ public class Activo implements Parcelable {
 
     /** To-one relationship, resolved on first access. */
     @Generated(hash = 2068634405)
-    public Categoria getCategoria() {
+    public Tipo getCategoria() {
         Long __key = this.fk_categoria;
         if (categoria__resolvedKey == null
                 || !categoria__resolvedKey.equals(__key)) {
@@ -159,21 +159,21 @@ public class Activo implements Parcelable {
                 throw new DaoException("Entity is detached from DAO context");
             }
             CategoriaDao targetDao = daoSession.getCategoriaDao();
-            Categoria categoriaNew = targetDao.load(__key);
+            Tipo tipoNew = targetDao.load(__key);
             synchronized (this) {
-                categoria = categoriaNew;
+                tipo = tipoNew;
                 categoria__resolvedKey = __key;
             }
         }
-        return categoria;
+        return tipo;
     }
 
     /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 1420510056)
-    public void setCategoria(Categoria categoria) {
+    public void setCategoria(Tipo tipo) {
         synchronized (this) {
-            this.categoria = categoria;
-            fk_categoria = categoria == null ? null : categoria.getIdCategoria();
+            this.tipo = tipo;
+            fk_categoria = tipo == null ? null : tipo.getIdCategoria();
             categoria__resolvedKey = fk_categoria;
         }
     }

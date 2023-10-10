@@ -21,14 +21,4 @@ public class AmenazaController {
 	public List<Amenaza> getAmenazas() {
 		return amenazaService.amenazas();
 	}
-	
-	@GetMapping("/apps")
-	public List<Amenaza> getAmenazasDeApps() {
-		return amenazaService.amenazasDeApps();
-	}
-	
-	@GetMapping("/dispositivos")
-	public List<Amenaza> getAmenazasDeDispositivos() {
-		return amenazaService.amenazasDeDispositivos();
-	}
 }

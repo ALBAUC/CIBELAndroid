@@ -3,7 +3,7 @@ package es.unican.appriegospersonales.activities.apps.tabs;
 import java.util.List;
 
 import es.unican.appriegospersonales.common.MyApplication;
-import es.unican.appriegospersonales.model.Categoria;
+import es.unican.appriegospersonales.model.Tipo;
 import es.unican.appriegospersonales.model.Activo;
 
 public interface ITabHomeAppsContract {
@@ -11,7 +11,7 @@ public interface ITabHomeAppsContract {
     interface Presenter {
         void init();
 
-        List<Categoria> getCategoriasDeApps();
+        List<Tipo> getCategoriasDeApps();
 
         List<Activo> getPerfilDElements();
     }

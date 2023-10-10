@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import es.unican.appriegospersonales.model.Activo;
-import es.unican.appriegospersonales.model.Categoria;
+import es.unican.appriegospersonales.model.Tipo;
 import es.unican.appriegospersonales.model.Perfil;
 import es.unican.appriegospersonales.repository.db.CategoriaDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
@@ -30,8 +30,8 @@ public class TabHomeAppsPresenter implements ITabHomeAppsContract.Presenter {
     }
 
     @Override
-    public List<Categoria> getCategoriasDeApps() {
-        List<Categoria> categoriasDeApps = categoriaDao.queryBuilder().where(CategoriaDao.Properties.Tipo
+    public List<Tipo> getCategoriasDeApps() {
+        List<Tipo> categoriasDeApps = categoriaDao.queryBuilder().where(CategoriaDao.Properties.Tipo
                 .like(CibelServiceConstants.APP)).list();
         if (categoriasDeApps == null) categoriasDeApps = Collections.emptyList();
         return categoriasDeApps;

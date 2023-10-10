@@ -3,7 +3,7 @@ package es.unican.appriegospersonales.repository.cibel;
 import es.unican.appriegospersonales.common.Callback;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Amenaza;
-import es.unican.appriegospersonales.model.Categoria;
+import es.unican.appriegospersonales.model.Tipo;
 import es.unican.appriegospersonales.model.Control;
 
 /**
@@ -87,7 +87,7 @@ public interface ICibelRepository {
      * en la base de datos local.
      * @param cb callback que procesa la respuesta de forma asíncrona
      */
-    void requestCategorias(Callback<Categoria[]> cb);
+    void requestCategorias(Callback<Tipo[]> cb);
 
     /**
      * Solicita categorias de forma sincrona.
@@ -96,11 +96,11 @@ public interface ICibelRepository {
      * @return la lista de categorias
      *          null si ocurre un error
      */
-    Categoria[] getCategorias();
+    Tipo[] getCategorias();
 
-    Categoria[] getCategoriasDeApps();
+    Tipo[] getCategoriasDeApps();
 
-    Categoria[] getCategoriasDeDispositivos();
+    Tipo[] getCategoriasDeDispositivos();
 
     boolean lastDownloadOlderThan(int minutes, String resourceName);
 }

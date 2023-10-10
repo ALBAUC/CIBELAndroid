@@ -7,18 +7,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.unican.CIBEL.domain.Control;
-import es.unican.CIBEL.service.ControlService;
+import es.unican.CIBEL.domain.Tipo;
+import es.unican.CIBEL.service.TipoService;
 
 @RestController
-@RequestMapping("/controles")
-public class ControlController {
+@RequestMapping("/tipos")
+public class TipoController {
 	
 	@Autowired
-	private ControlService controlService;
+	private TipoService tipoService;
 	
 	@GetMapping
-	public List<Control> getControles() {
-		return controlService.controles();
+	public List<Tipo> getTipos() {
+		return tipoService.tipos();
 	}
+
 }

@@ -5,24 +5,25 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import es.unican.CIBEL.domain.Categoria;
-import es.unican.CIBEL.repository.CategoriaRepository;
+import es.unican.CIBEL.domain.Tipo;
+import es.unican.CIBEL.repository.TipoRepository;
 
 @Service
-public class CategoriaService {
+public class TipoService {
 	
 	@Autowired
-	private CategoriaRepository repository;
+	private TipoRepository repository;
 	
-	public List<Categoria> categorias() {
+	public List<Tipo> tipos() {
 		return repository.findAll();
 	}
 	
-	public Categoria buscaCategoria(Long id) {
+	public Tipo buscaTipo(Long id) {
 		return repository.findById(id).orElse(null);
 	}
 	
-	public Categoria buscaCategoriaPorNombre(String nombre) {
+	public Tipo buscaTipoPorNombre(String nombre) {
 		return repository.findByNombre(nombre);
 	}
+
 }

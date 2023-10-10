@@ -12,7 +12,7 @@ import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.common.prefs.Prefs;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Amenaza;
-import es.unican.appriegospersonales.model.Categoria;
+import es.unican.appriegospersonales.model.Tipo;
 import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.JoinCategriasWithControles;
 import es.unican.appriegospersonales.model.JoinAmenazasWithControles;
@@ -79,7 +79,7 @@ public class CibelRepository implements ICibelRepository {
                 Activo aBD = activoDao.load(a.getIdActivo());
                 if (aBD == null) {
                     // Nuevo activo, se inserta en la bd
-                    Categoria cat = categoriaDao.load(a.getCat().getIdCategoria());
+                    Tipo cat = categoriaDao.load(a.getCat().getIdCategoria());
                     a.setFk_categoria(cat.getIdCategoria());
                     activoDao.insert(a);
                     // Caso de ejemplo: se insertan directamente al perfil
@@ -235,10 +235,10 @@ public class CibelRepository implements ICibelRepository {
     }
 
     @Override
-    public void requestCategorias(Callback<Categoria[]> cb) {
-        CibelService.requestCategorias(new Callback<Categoria[]>() {
+    public void requestCategorias(Callback<Tipo[]> cb) {
+        CibelService.requestCategorias(new Callback<Tipo[]>() {
             @Override
-            public void onSuccess(Categoria[] data) {
+            public void onSuccess(Tipo[] data) {
                 persistToDBCategorias(data);
                 cb.onSuccess(data);
             }
@@ -251,29 +251,29 @@ public class CibelRepository implements ICibelRepository {
     }
 
     @Override
-    public Categoria[] getCategorias() {
-        Categoria[] response = CibelService.getCategorias();
+    public Tipo[] getCategorias() {
+        Tipo[] response = CibelService.getCategorias();
         persistToDBCategorias(response);
         return response;
     }
 
     @Override
-    public Categoria[] getCategoriasDeApps() {
-        Categoria[] response = CibelService.getCategoriasDeApps();
+    public Tipo[] getCategoriasDeApps() {
+        Tipo[] response = CibelService.getCategoriasDeApps();
         return response;
     }
 
     @Override
-    public Categoria[] getCategoriasDeDispositivos() {
-        Categoria[] response = CibelService.getCategoriasDeDispositivos();
+    public Tipo[] getCategoriasDeDispositivos() {
+        Tipo[] response = CibelService.getCategoriasDeDispositivos();
         return response;
     }
 
-    private void persistToDBCategorias(Categoria[] categorias) {
-        if (categorias != null) {
+    private void persistToDBCategorias(Tipo[] tipos) {
+        if (tipos != null) {
             CategoriaDao categoriaDao = daoSession.getCategoriaDao();
             JoinCategriasWithControlesDao crDao = daoSession.getJoinCategriasWithControlesDao();
-            for (Categoria c : categorias) {
+            for (Tipo c : tipos) {
                 if (categoriaDao.load(c.getIdCategoria()) == null) {
                     // Nueva categoria, se inserta en la BBDD
                     List<Control> controles = c.getControles();

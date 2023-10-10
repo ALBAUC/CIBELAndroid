@@ -4,7 +4,7 @@ import java.util.List;
 
 import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.model.Activo;
-import es.unican.appriegospersonales.model.Categoria;
+import es.unican.appriegospersonales.model.Tipo;
 
 /**
  * Interfaz que define los métodos que deben ser implementados por el presentador y la vista
@@ -43,7 +43,7 @@ public interface IHomeContract {
          * la base de datos.
          * @return Todas las categorias.
          */
-        List<Categoria> getCategorias();
+        List<Tipo> getCategorias();
 
         List<Activo> getPerfilAssets();
 

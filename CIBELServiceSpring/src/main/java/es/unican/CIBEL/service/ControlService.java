@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import es.unican.CIBEL.CIBELConstants;
 import es.unican.CIBEL.domain.Control;
 import es.unican.CIBEL.repository.ControlRepository;
 
@@ -17,14 +16,6 @@ public class ControlService {
 	
 	public List<Control> controles() {
 		return repository.findAll();
-	}
-	
-	public List<Control> controlesDeApps() {
-		return repository.findAllByTipo(CIBELConstants.APP);
-	}
-	
-	public List<Control> controlesDeDispositivos() {
-		return repository.findAllByTipo(CIBELConstants.DISPOSITIVO_IOT);
 	}
 	
 	public Control buscaControl(Long id) {

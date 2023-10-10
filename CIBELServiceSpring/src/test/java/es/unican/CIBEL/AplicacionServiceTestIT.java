@@ -1,21 +1,8 @@
 package es.unican.CIBEL;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.Collections;
-import java.util.List;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import es.unican.CIBEL.domain.Aplicacion;
-import es.unican.CIBEL.domain.Categoria;
-import es.unican.CIBEL.repository.AplicacionRepository;
-import es.unican.CIBEL.service.CategoriaService;
 
 @SpringBootTest
 @Transactional
