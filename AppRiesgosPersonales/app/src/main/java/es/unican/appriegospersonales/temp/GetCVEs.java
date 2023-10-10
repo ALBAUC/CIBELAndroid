@@ -12,19 +12,92 @@ public class GetCVEs {
     public GetCVEs(String modelo) {
         try {
             // Especifica el modelo o aplicación que deseas analizar
-            //modelo = "iPhone 12" // Movil
-            //modelo = "TP-LINK ARCHER C50" // Router
-            //modelo = "amazon echo dot" // Asistente
-            //modelo = "HP OfficeJet Pro" // Impresora
-            //modelo = "Lenovo ThinkPad T440s" //Ordenador
+            
+            //Tablets
+            //modelo = "Xiaomi Mi Pad 4"
+            //modelo = "Dell Latitude 7202"
+            
+            //Consolas
             //modelo = "Playstation 3" //Consola, para la 5 no hay
-            //modelo = "Samsung Smart TV X10P" // Smart TV
+            //modelo = "Microsoft Xbox 360"
+            
+            //Impresoras
+            //modelo = "HP OfficeJet Pro" // Impresora
+            //modelo = "Brother MFC-9970CDW"
+            
+            //Relojes Inteligentes
             //modelo = "Pebble Smartwatch" // Smartwatch
-            //modelo = "Radio Thermostat CT80" // Termostato Class 2
-            //modelo = "TPLink Tapo L530" // Bombilla Class 1
-            //modelo = "Samsung Galaxy S5" // Android Viejo
+            //modelo = "Apple Watch Ultra"
+            
+            //Ordenadores
+            //modelo = "Lenovo ThinkPad T440s" //Ordenador
+            //modelo = "Apple Mac Mini"
+            
+            //Smartphones
+            //modelo = "iPhone 12" // Movil
             //modelo = "iPhone 13" // Movil Moderno
-
+            //modelo = "Samsung Galaxy S5" // Android Viejo
+            //modelo = "Huawei Mate 20"
+            
+            //Smart TVs
+            //modelo = "Samsung Smart TV X10P" // Smart TV
+            //modelo = "TCL Android Smart TV V8-R851T02-LF1"
+            
+            
+            //Altavoces Inteligentes
+            //modelo = "Amazon Echo Dot" // Asistente
+            //modelo = "Google Home"
+            //modelo = "JBL Go 2"
+            
+            //Auriculares inteligentes
+            //modelo = "SONY Wireless Headphones WF-1000X"
+            //modelo = "JBL TUNE500BT"
+            
+            //Iluminacion inteligente
+            //modelo = "TPLink Tapo L530" // Bombilla Class 1
+            //modelo = "Philips Smart Wi-Fi Wiz Connected"
+            
+            
+            //Termostatos inteligentes
+            //modelo = "Radio Thermostat CT80" // Termostato Class 2
+            //modelo = "Radio Thermostat CT50"
+            
+            //Routers
+            //modelo = "TP-LINK ARCHER C50" // Router
+            //modelo = "Alcatel-Lucent CellPipe 7130"
+            //modelo = "Huawei HG8247"
+            
+            //Repetidores o amplificadores
+            //modelo = "Ayision Ays-WR01"
+            //modelo = "Intelbras NPLUG"
+            
+            //Camaras de seguridad ip
+            //modelo = "TP-Link Tapo C200"
+            //modelo = "Geutebruck G-Cam/EFD-2250"
+            //modelo = "ADC-V522IR"
+            
+            //Alarmas y timbres inteligentes
+            //modelo = "ABUS Secvest FUAA50000"
+            //modelo = "Chuango 433 MHz burglar-alarm"
+            
+            
+            //Cerraduras inteligentes
+            //modelo = "Tinxy Door Lock" //Cerradura
+            //modelo = "Nokelock Smart padlock O1" //Candado
+            
+            //Detectores y sensores
+            //modelo = "FLIR AX8"
+            //modelo = "Tollgrade SmartGrid LightHouse Sensor"
+            
+            //Electrodomesticos inteligentes
+            //modelo = "Dongguan Diqee Diqee360" //Robot aspiradora
+            //modelo = "Jisiwei i3"  //Aspiradora
+            //modelo = "Rittal Chiller SK 3232-Series" //Aire acondicionado
+            
+            //Otros
+            //modelo = "Sophos Cyberoam" //Firewall
+            //modelo = "Finjan Vital Security Appliance 5100" //Firewall
+            //modelo = "Innominate mGuard Smart HW" //Enrutador
 
             // Construye la URL de la API NVD que contiene información de vulnerabilidades
             String url = "https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch=" + modelo;
