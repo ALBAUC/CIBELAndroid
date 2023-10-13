@@ -15,6 +15,7 @@
     <string name="dElement_detail_riesgos_title">Buenas prácticas</string>
     <string name="riesgos_detail_controles_title">Buenas prácticas para mitigarlo</string>
     <string name="controles_detail_riesgos_title">Amenazas que mitiga</string>
+    <string name="asset_detail_cves_title">Vulnerabilidades</string>
 
     <string name="dElement_detail_add">Añadir</string>
     <string name="dElement_detail_remove">Eliminar</string>
@@ -24,6 +25,7 @@
     <string name="perfil_tabControles">Buenas prácticas</string>
     <string name="perfil_numDispositivos">Nº dispositivos</string>
     <string name="perfil_numVulnerabilidades">Nº vulnerabilidades</string>
+    <string name="perfil_severity">Gravedad de las vulnerabilidades</string>
 
     <string name="nivelRiesgoAlto">Riesgo alto</string>
     <string name="nivelRiesgoMedio">Riesgo medio</string>
@@ -37,6 +39,7 @@
     <string name="severity_medium">MEDIUM</string>
     <string name="severity_high">HIGH</string>
     <string name="severity_critical">CRITICAL</string>
-    <string name="perfil_severity">Gravedad de las vulnerabilidades</string>
+
+
 
 </resources>

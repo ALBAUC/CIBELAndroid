@@ -3,11 +3,21 @@ package es.unican.appriegospersonales.model;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Transient;
 
 import java.util.Objects;
 
 @Entity
 public class Vulnerabilidad {
+
+    @Transient
+    public static final String SEVERITY_L = "LOW";
+    @Transient
+    public static final String SEVERITY_M = "MEDIUM";
+    @Transient
+    public static final String SEVERITY_H = "HIGH";
+    @Transient
+    public static final String SEVERITY_C = "CRITICAL";
 
     @Id
     private String idCVE;

@@ -5,6 +5,7 @@ import java.util.List;
 import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Control;
+import es.unican.appriegospersonales.model.Vulnerabilidad;
 
 /**
  * Interfaz que define los métodos que deben ser implementados por el presentador y la vista
@@ -26,7 +27,7 @@ public interface IAssetDetailContract {
 
         String getAssetName();
 
-        String getAssetCategory();
+        String getAssetType();
 
         void onAddAssetClicked();
 
@@ -35,5 +36,7 @@ public interface IAssetDetailContract {
         List<Activo> getPerfilAssets();
 
         List<Control> getPerfilControls();
+
+        List<Vulnerabilidad> getAssetCves();
     }
 }

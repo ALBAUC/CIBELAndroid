@@ -63,7 +63,7 @@
                     android:inputType="textMultiLine"
                     android:textColor="@color/primary"
                     android:textSize="15sp"
-                    tools:text="Categoria" />
+                    tools:text="Tipo" />
 
             </LinearLayout>
         </LinearLayout>
@@ -90,18 +90,18 @@
 
     <TextView
         android:id="@+id/infoRiesgos_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="24dp"
         android:paddingTop="24dp"
         android:paddingRight="24dp"
-        android:text="@string/dElement_detail_riesgos_title"
+        android:text="@string/asset_detail_cves_title"
         android:textSize="20sp"
         android:textStyle="bold"
-        tools:text="Buenas prácticas" />
+        tools:text="Vulnerabilidades" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/appDetail_riesgos_rv"
+        android:id="@+id/assetDetail_cves_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

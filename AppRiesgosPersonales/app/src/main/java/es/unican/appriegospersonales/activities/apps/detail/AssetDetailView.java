@@ -1,5 +1,6 @@
 package es.unican.appriegospersonales.activities.apps.detail;
 
+import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -23,7 +24,6 @@ import com.squareup.picasso.Picasso;
 
 import es.unican.appriegospersonales.activities.main.MainView;
 import es.unican.appriegospersonales.common.MyApplication;
-import es.unican.appriegospersonales.common.adapters.RVControlesAdapter;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriesgospersonales.R;
 
@@ -50,7 +50,7 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.fragment_element_detail, container, false);
+        View layout = inflater.inflate(R.layout.fragment_asset_detail, container, false);
 
         Bundle args = getArguments();
         if (args != null) {
@@ -60,26 +60,26 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
             presenter.init();
 
             // Link a los elementos de la vista
-            ImageView appIcon_iv = layout.findViewById(R.id.appDetailIcon_iv);
-            TextView appName_tv = layout.findViewById(R.id.appDetailName_tv);
-            TextView appCategory_tv = layout.findViewById(R.id.appDetailCategory_tv);
-            RecyclerView appRiesgos_rv = layout.findViewById(R.id.appDetail_riesgos_rv);
+            ImageView assetIcon_iv = layout.findViewById(R.id.appDetailIcon_iv);
+            TextView assetName_tv = layout.findViewById(R.id.appDetailName_tv);
+            TextView assetType_tv = layout.findViewById(R.id.appDetailCategory_tv);
+            @SuppressLint({"MissingInflatedId", "LocalSuppress"}) RecyclerView assetCves_rv = layout.findViewById(R.id.assetDetail_cves_rv);
             appAdd_bt = layout.findViewById(R.id.appAdd_bt);
 
             // Asignar valores
             Picasso.get().load(presenter.getAssetIcon())
                     .resize(600, 600)
                     .centerCrop()
-                    .into(appIcon_iv);
-            appName_tv.setText(presenter.getAssetName());
-            appCategory_tv.setText(presenter.getAssetCategory());
+                    .into(assetIcon_iv);
+            assetName_tv.setText(presenter.getAssetName());
+            assetType_tv.setText(presenter.getAssetType());
 
-            appRiesgos_rv.setLayoutManager(new LinearLayoutManager(getContext()));
-            appRiesgos_rv.setAdapter(new RVControlesAdapter(getContext(), presenter.getAssetControls(), presenter.getPerfilControls()));
+            assetCves_rv.setLayoutManager(new LinearLayoutManager(getContext()));
+            assetCves_rv.setAdapter(new RVCvesAdapter(getContext(), presenter.getAssetCves()));
 
-            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(appRiesgos_rv.getContext(),
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(assetCves_rv.getContext(),
                     DividerItemDecoration.VERTICAL);
-            appRiesgos_rv.addItemDecoration(dividerItemDecoration);
+            assetCves_rv.addItemDecoration(dividerItemDecoration);
 
             updateAssetAddButton(presenter.isAssetAdded());
             appAdd_bt.setOnClickListener(new View.OnClickListener() {

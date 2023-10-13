@@ -87,19 +87,10 @@ public class RVActivosPerfilAdapter extends RecyclerView.Adapter<RVActivosPerfil
         } else {
             holder.infoAddedIcon_iv.setVisibility(View.GONE);
         }
-
-//        if (perfilActivos == null) {
-//            holder.riesgoIcon_iv.setVisibility(View.VISIBLE);
-//            // Asignar el color según el índice de riesgo
-//            holder.riesgoIcon_iv.setColorFilter(getColorFromIndiceRiesgo(activo.calcularIndiceRiesgo()));
-//        } else {
-//            holder.riesgoIcon_iv.setVisibility(View.GONE);
-//        }
     }
 
     private int getColorFromIndiceRiesgo(int indice) {
         int colorResId;
-
         switch (indice) {
             case 0:
                 colorResId = R.color.lowV;
@@ -117,7 +108,6 @@ public class RVActivosPerfilAdapter extends RecyclerView.Adapter<RVActivosPerfil
                 colorResId = R.color.black; // Si el índice no está en el rango, se usa el color por defecto
                 break;
         }
-
         return ContextCompat.getColor(context, colorResId);
     }
 

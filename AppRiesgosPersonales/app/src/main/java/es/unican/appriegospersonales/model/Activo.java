@@ -336,13 +336,13 @@ public class Activo implements Parcelable {
             int factorSeveridad = 0;
 
             // Asigna un valor a la severidad
-            if (severidad.equals("CRITICAL")) {
+            if (severidad.equals(Vulnerabilidad.SEVERITY_C)) {
                 factorSeveridad = 3;  // Asigna el mayor valor
-            } else if (severidad.equals("HIGH")) {
+            } else if (severidad.equals(Vulnerabilidad.SEVERITY_H)) {
                 factorSeveridad = 2;
-            } else if (severidad.equals("MEDIUM")) {
+            } else if (severidad.equals(Vulnerabilidad.SEVERITY_M)) {
                 factorSeveridad = 1;
-            } else if (severidad.equals("LOW")) {
+            } else if (severidad.equals(Vulnerabilidad.SEVERITY_L)) {
                 factorSeveridad = 0;  // Asigna el menor valor
             }
 

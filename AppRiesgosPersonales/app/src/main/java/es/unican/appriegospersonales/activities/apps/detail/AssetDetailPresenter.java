@@ -5,10 +5,12 @@ import java.util.List;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.Perfil;
+import es.unican.appriegospersonales.model.Vulnerabilidad;
 import es.unican.appriegospersonales.repository.db.ActivoDao;
 import es.unican.appriegospersonales.repository.db.ControlDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
+import es.unican.appriegospersonales.repository.db.VulnerabilidadDao;
 
 public class AssetDetailPresenter implements IAssetDetailContract.Presenter {
 
@@ -16,6 +18,7 @@ public class AssetDetailPresenter implements IAssetDetailContract.Presenter {
     private ActivoDao activoDao;
     private PerfilDao perfilDao;
     private ControlDao controlDao;
+    private VulnerabilidadDao vulnerabilidadDao;
     private Activo activo;
     private Perfil perfil;
 
@@ -30,6 +33,7 @@ public class AssetDetailPresenter implements IAssetDetailContract.Presenter {
         activoDao = daoSession.getActivoDao();
         perfilDao = daoSession.getPerfilDao();
         controlDao = daoSession.getControlDao();
+        vulnerabilidadDao = daoSession.getVulnerabilidadDao();
         perfil = Perfil.getInstance(perfilDao);
     }
 
@@ -49,8 +53,8 @@ public class AssetDetailPresenter implements IAssetDetailContract.Presenter {
     }
 
     @Override
-    public String getAssetCategory() {
-        return activo.getCategoria().getNombre();
+    public String getAssetType() {
+        return activo.getTipo().getNombre();
     }
 
     @Override
@@ -83,5 +87,11 @@ public class AssetDetailPresenter implements IAssetDetailContract.Presenter {
     public List<Control> getPerfilControls() {
         List<Control> perfilControls = controlDao._queryPerfil_ControlesAnhadidos(perfil.getId());
         return perfilControls;
+    }
+
+    @Override
+    public List<Vulnerabilidad> getAssetCves() {
+        List<Vulnerabilidad> assetCves = vulnerabilidadDao._queryActivo_Vulnerabilidades(activo.getIdActivo());
+        return assetCves;
     }
 }
