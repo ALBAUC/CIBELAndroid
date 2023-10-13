@@ -4,6 +4,8 @@ import java.util.List;
 
 public class CVE {
 
+    private String id;
+
     private List<DescripcionCVE> descriptions;
 
     private Metricas metrics;
@@ -22,6 +24,14 @@ public class CVE {
 
     public void setMetrics(Metricas metrics) {
         this.metrics = metrics;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override

@@ -1,23 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/page_apps"
+        android:id="@+id/page_home"
         android:icon="@drawable/ic_baseline_home_24"
         android:title="@string/bottom_nav_home" />
     <item
-        android:id="@+id/page_riesgos"
-        android:icon="@drawable/ic_baseline_app_blocking_24"
-        android:title="@string/bottom_nav_riesgos" />
-    <item
-        android:id="@+id/page_controles"
-        android:icon="@drawable/ic_baseline_app_shortcut_24"
-        android:title="@string/bottom_nav_controles" />
-    <item
-        android:id="@+id/page_perfil"
+        android:id="@+id/page_smart_home"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="@string/bottom_nav_perfil"/>
-    <item
-        android:id="@+id/page_smart_home"
-        android:icon="@drawable/baseline_smart_toy_24"
-        android:title="@string/bottom_nav_smart_home"/>
 </menu>

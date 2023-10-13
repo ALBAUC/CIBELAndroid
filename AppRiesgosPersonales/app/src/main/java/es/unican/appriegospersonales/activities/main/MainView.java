@@ -83,7 +83,7 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
 
         // Mostrar fragment inicial al cargar la pantalla
         if (savedInstanceState == null) {
-            bottomNavigationView.setSelectedItemId(R.id.page_apps);
+            bottomNavigationView.setSelectedItemId(R.id.page_home);
         } else {
             bottomNavigationView.setSelectedItemId(savedInstanceState.getInt(SELECTION));
         }
@@ -99,17 +99,8 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
         boolean handled = true; // Default to returning true
 
         switch (item.getItemId()) {
-            case R.id.page_apps:
+            case R.id.page_home:
                 presenter.onNavHomeClicked();
-                break;
-            case R.id.page_riesgos:
-                presenter.onNavRiesgosClicked();
-                break;
-            case R.id.page_controles:
-                presenter.onNavControlesClicked();
-                break;
-            case R.id.page_perfil:
-                presenter.onNavPerfilClicked();
                 break;
             case R.id.page_smart_home:
                 presenter.onNavSmartHomeClicked();

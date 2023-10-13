@@ -6,22 +6,25 @@ import java.util.List;
 
 import es.unican.appriegospersonales.common.Callback;
 import es.unican.appriegospersonales.model.Amenaza;
-import es.unican.appriegospersonales.model.Tipo;
+import es.unican.appriegospersonales.model.Categoria;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.Perfil;
+import es.unican.appriegospersonales.model.Tipo;
 import es.unican.appriegospersonales.repository.cibel.CibelRepository;
 import es.unican.appriegospersonales.repository.cibel.ICibelRepository;
 import es.unican.appriegospersonales.repository.db.ActivoDao;
 import es.unican.appriegospersonales.repository.db.CategoriaDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
+import es.unican.appriegospersonales.repository.db.TipoDao;
 
 public class HomePresenter implements IHomeContract.Presenter {
 
     private final IHomeContract.View view;
     private ActivoDao activoDao;
     private CategoriaDao categoriaDao;
+    private TipoDao tipoDao;
     private PerfilDao perfilDao;
     private ICibelRepository repository;
 
@@ -40,6 +43,7 @@ public class HomePresenter implements IHomeContract.Presenter {
         DaoSession daoSession = view.getMyApplication().getDaoSession();
         activoDao = daoSession.getActivoDao();
         categoriaDao = daoSession.getCategoriaDao();
+        tipoDao = daoSession.getTipoDao();
         perfilDao = daoSession.getPerfilDao();
         repository = new CibelRepository(view.getMyApplication());
 
@@ -55,20 +59,30 @@ public class HomePresenter implements IHomeContract.Presenter {
                 repository.requestAmenazas(new Callback<Amenaza[]>() {
                     @Override
                     public void onSuccess(Amenaza[] riesgos) {
-                        repository.requestCategorias(new Callback<Tipo[]>() {
+                        repository.requestCategorias(new Callback<Categoria[]>() {
                             @Override
-                            public void onSuccess(Tipo[] tipos) {
-                                repository.requestActivos(new Callback<Activo[]>() {
+                            public void onSuccess(Categoria[] categorias) {
+                                repository.requestTipos(new Callback<Tipo[]>() {
                                     @Override
-                                    public void onSuccess(Activo[] activos) {
-                                        view.showLoadCorrect(activos.length);
+                                    public void onSuccess(Tipo[] data) {
+                                        repository.requestActivos(new Callback<Activo[]>() {
+                                            @Override
+                                            public void onSuccess(Activo[] activos) {
+                                                view.showLoadCorrect(activos.length);
+                                            }
+
+                                            @Override
+                                            public void onFailure() {
+                                                view.showLoadError();
+                                            }
+                                        }, null);
                                     }
 
                                     @Override
                                     public void onFailure() {
-                                        view.showLoadError();
+
                                     }
-                                }, null);
+                                });
                             }
                             @Override
                             public void onFailure() {
@@ -95,6 +109,7 @@ public class HomePresenter implements IHomeContract.Presenter {
         if (repository.getControles() == null ||
                 repository.getAmenazas() == null ||
                 repository.getCategorias() == null ||
+                repository.getTipos() == null||
                 repository.getActivos(null) == null) {
             view.showLoadError();
         } else {
@@ -103,14 +118,8 @@ public class HomePresenter implements IHomeContract.Presenter {
     }
 
     @Override
-    public List<Tipo> getCategorias() {
-        List<Tipo> result = null;
-        try {
-            result = categoriaDao.loadAll();
-        } catch (SQLiteException e) {
-            view.showLoadError();
-        }
-        return result;
+    public List<Categoria> getCategorias() {
+        return categoriaDao.loadAll();
     }
 
     @Override
@@ -118,9 +127,8 @@ public class HomePresenter implements IHomeContract.Presenter {
         List<Activo> result = null;
         try {
             Perfil perfil = Perfil.getInstance(perfilDao);
-            result = perfil.getActivosAnhadidos();
+            result = activoDao._queryPerfil_ActivosAnhadidos(perfil.getId());
         } catch (SQLiteException e) {
-            view.showLoadError();
         }
         return result;
     }
@@ -128,5 +136,10 @@ public class HomePresenter implements IHomeContract.Presenter {
     @Override
     public Activo getAssetByName(String appName) {
         return activoDao.queryBuilder().where(ActivoDao.Properties.Nombre.like(appName)).unique();
+    }
+
+    @Override
+    public List<Tipo> getTipos() {
+        return tipoDao.loadAll();
     }
 }

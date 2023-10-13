@@ -6,15 +6,8 @@
     android:orientation="vertical"
     tools:context="es.unican.appriegospersonales.activities.controles.ControlesView">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/controles_tl"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/controlesDevices_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabGravity="fill"
-        app:tabMode="fixed" />
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/controles_vp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 </LinearLayout>

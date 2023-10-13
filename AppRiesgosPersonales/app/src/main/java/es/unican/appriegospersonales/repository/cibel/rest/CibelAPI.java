@@ -2,8 +2,9 @@ package es.unican.appriegospersonales.repository.cibel.rest;
 
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Amenaza;
-import es.unican.appriegospersonales.model.Tipo;
+import es.unican.appriegospersonales.model.Categoria;
 import es.unican.appriegospersonales.model.Control;
+import es.unican.appriegospersonales.model.Tipo;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -21,6 +22,9 @@ public interface CibelAPI {
 
     @GET("controles")
     Call<Control[]> controles();
+
+    @GET("categorias")
+    Call<Categoria[]> categorias();
 
     @GET("tipos")
     Call<Tipo[]> tipos();

@@ -3,9 +3,7 @@ package es.unican.appriegospersonales.model.nist;
 
 public class DataCVSS {
 
-    private String accessVector;
-
-    private String accessComplexity;
+    private String baseSeverity;
 
     private String confidentialityImpact;
 
@@ -15,20 +13,12 @@ public class DataCVSS {
 
     private double baseScore;
 
-    public String getAccessVector() {
-        return accessVector;
+    public String getBaseSeverity() {
+        return baseSeverity;
     }
 
-    public void setAccessVector(String accessVector) {
-        this.accessVector = accessVector;
-    }
-
-    public String getAccessComplexity() {
-        return accessComplexity;
-    }
-
-    public void setAccessComplexity(String accessComplexity) {
-        this.accessComplexity = accessComplexity;
+    public void setBaseSeverity(String baseSeverity) {
+        this.baseSeverity = baseSeverity;
     }
 
     public String getConfidentialityImpact() {
@@ -66,8 +56,7 @@ public class DataCVSS {
     @Override
     public String toString() {
         return "DataCVSS{" +
-                "accessVector='" + accessVector + '\'' +
-                ", accessComplexity='" + accessComplexity + '\'' +
+                "baseSeverity='" + baseSeverity + '\'' +
                 ", confidentialityImpact='" + confidentialityImpact + '\'' +
                 ", integrityImpact='" + integrityImpact + '\'' +
                 ", availabilityImpact='" + availabilityImpact + '\'' +

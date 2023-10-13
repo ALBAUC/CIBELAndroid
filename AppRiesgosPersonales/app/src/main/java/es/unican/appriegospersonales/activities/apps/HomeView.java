@@ -1,5 +1,6 @@
 package es.unican.appriegospersonales.activities.apps;
 
+import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -16,13 +17,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.viewpager2.widget.ViewPager2;
-
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import es.unican.appriegospersonales.activities.apps.detail.AssetDetailView;
 import es.unican.appriegospersonales.activities.apps.search.SearchResultView;
@@ -34,7 +33,7 @@ import es.unican.appriesgospersonales.R;
 public class HomeView extends Fragment implements IHomeContract.View, MainView.RefreshableFragment {
 
     private IHomeContract.Presenter presenter;
-    private ViewPager2 homeVP;
+    private RecyclerView categoriasDevicesRV;
     private SearchView searchView;
 
     @Override
@@ -45,19 +44,22 @@ public class HomeView extends Fragment implements IHomeContract.View, MainView.R
         setHasOptionsMenu(true);
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View layoutApps = inflater.inflate(R.layout.fragment_home, container, false);
-        homeVP = layoutApps.findViewById(R.id.home_vp);
-        homeVP.setAdapter(new VPHomeAdapter(getChildFragmentManager(), getLifecycle()));
+        View layout = inflater.inflate(R.layout.fragment_home, container, false);
+        categoriasDevicesRV = layout.findViewById(R.id.categoriasDevices_rv);
 
-        TabLayout tabLayout = layoutApps.findViewById(R.id.home_tl);
-        new TabLayoutMediator(tabLayout, homeVP,
-                (tab, position) -> tab.setText(VPHomeAdapter.Tab.byPosition(position).getTitle())
-        ).attach();
+        categoriasDevicesRV.setLayoutManager(new LinearLayoutManager(getContext()));
+        categoriasDevicesRV.setAdapter(new RVTiposAdapter(getContext(), presenter.getTipos(), presenter.getPerfilAssets(), getMyApplication()));
 
-        return layoutApps;
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                categoriasDevicesRV.getContext(),
+                DividerItemDecoration.VERTICAL);
+        categoriasDevicesRV.addItemDecoration(dividerItemDecoration);
+
+        return layout;
     }
 
     @Override

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.unican.CIBEL.domain.Activo;
-import es.unican.CIBEL.service.CategoriaService;
+import es.unican.CIBEL.service.TipoService;
 import es.unican.CIBEL.service.ActivoService;
 
 @RestController
@@ -23,15 +23,15 @@ public class ActivoController {
 	private ActivoService activosService;
 	
 	@Autowired
-	private CategoriaService categoriaService;
+	private TipoService tipoService;
 	
 	@GetMapping
-	public List<Activo> getActivos(@RequestParam(value="categoria", required = false) String categoria) {
+	public List<Activo> getActivos(@RequestParam(value = "tipo", required = false) String tipo) {
 		
 		List<Activo> activos = new LinkedList<Activo>();
 		
-		if (categoria != null) {
-			activos = activosService.activosPorCategoria(categoriaService.buscaCategoriaPorNombre(categoria));
+		if (tipo != null) {
+			activos = activosService.activosPorTipo(tipoService.buscaTipoPorNombre(tipo));
 		} else {
 			activos = activosService.activos();
 		}

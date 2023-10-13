@@ -3,13 +3,16 @@ package es.unican.appriegospersonales.activities.smarthome;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -17,6 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -54,13 +59,24 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
         devicesRV = layout.findViewById(R.id.devicesPerfil_rv);
 
         devicesRV.setLayoutManager(new LinearLayoutManager(getContext()));
-        devicesRV.setAdapter(new RVActivosPerfilAdapter(getContext(), presenter.getActivosPerfil()));
+        devicesRV.setAdapter(new RVActivosPerfilAdapter(getContext(), presenter.getActivosPerfilOrdenadosPorRiesgo(), getMyApplication()));
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
                 devicesRV.getContext(),
                 DividerItemDecoration.VERTICAL);
         devicesRV.addItemDecoration(dividerItemDecoration);
 
+        setUpPieChart();
+
+        TextView numDevicesTV = layout.findViewById(R.id.numDevices_tv);
+        numDevicesTV.setText(String.valueOf(presenter.getActivosPerfil().size()));
+        TextView numVulnerabilitiesTV = layout.findViewById(R.id.numVulnerabilities_tv);
+        numVulnerabilitiesTV.setText(String.valueOf(presenter.getVulnerabilidadesPerfil().size()));
+
+        return layout;
+    }
+
+    private void setUpPieChart() {
         PieDataSet pieDataSet = new PieDataSet(presenter.getEntries(), "");
         pieDataSet.setValueFormatter(new IValueFormatter() {
             @Override
@@ -74,10 +90,16 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
         pieDataSet.setSliceSpace(4f);
         pieDataSet.setValueTextColor(Color.WHITE);
         pieDataSet.setValueTextSize(12f);
+
         cvesPC.getDescription().setEnabled(false);
         cvesPC.setDrawEntryLabels(false);
-        return layout;
+        Legend legend = cvesPC.getLegend();
+        legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART_CENTER);
+        legend.setTextSize(12f);
+        legend.setForm(Legend.LegendForm.CIRCLE);
+        legend.setEnabled(true);
     }
+
 
     private ArrayList<Integer> getColorEntries() {
         ArrayList<Integer> colors = new ArrayList<>();
@@ -99,5 +121,10 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
     @Override
     public MyApplication getMyApplication() {
         return (MyApplication) requireActivity().getApplication();
+    }
+
+    @Override
+    public String getStringFromRes(@StringRes int resourceId) {
+        return getContext().getString(resourceId);
     }
 }

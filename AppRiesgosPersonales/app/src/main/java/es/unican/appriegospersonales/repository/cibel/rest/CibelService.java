@@ -6,9 +6,10 @@ import java.util.concurrent.TimeUnit;
 
 import es.unican.appriegospersonales.common.Callback;
 import es.unican.appriegospersonales.model.Amenaza;
-import es.unican.appriegospersonales.model.Tipo;
+import es.unican.appriegospersonales.model.Categoria;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Control;
+import es.unican.appriegospersonales.model.Tipo;
 import es.unican.appriegospersonales.repository.common.CallRunnable;
 import es.unican.appriegospersonales.repository.common.CallbackAdapter;
 import retrofit2.Call;
@@ -89,16 +90,6 @@ public class CibelService {
         call.enqueue(new CallbackAdapter<>(cb));
     }
 
-    public static void requestAmenazasDeApps(Callback<Amenaza[]> cb) {
-        final Call<Amenaza[]> call = getAPI().riesgosDeApps();
-        call.enqueue(new CallbackAdapter<>(cb));
-    }
-
-    public static void requestAmenazasDeDispositivos(Callback<Amenaza[]> cb) {
-        final Call<Amenaza[]> call = getAPI().riesgosDeDispositivos();
-        call.enqueue(new CallbackAdapter<>(cb));
-    }
-
     /**
      * Descarga los riesgos de la API REST de forma sincrona.
      * Bloquea el hilo actual hasta que se complete la llamada y se obtenga la respuesta.
@@ -106,38 +97,6 @@ public class CibelService {
      */
     public static Amenaza[] getAmenazas() {
         final Call<Amenaza[]> call = getAPI().riesgos();
-
-        ExecutorService executor = Executors.newFixedThreadPool(1);
-        CallRunnable<Amenaza[]> runnable = new CallRunnable<>(call);
-        executor.execute(runnable);
-
-        executor.shutdown();
-        try {
-            executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        return runnable.getResponse();
-    }
-
-    public static Amenaza[] getAmenazasDeApps() {
-        final Call<Amenaza[]> call = getAPI().riesgosDeApps();
-
-        ExecutorService executor = Executors.newFixedThreadPool(1);
-        CallRunnable<Amenaza[]> runnable = new CallRunnable<>(call);
-        executor.execute(runnable);
-
-        executor.shutdown();
-        try {
-            executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        return runnable.getResponse();
-    }
-
-    public static Amenaza[] getAmenazasDeDispositivos() {
-        final Call<Amenaza[]> call = getAPI().riesgosDeDispositivos();
 
         ExecutorService executor = Executors.newFixedThreadPool(1);
         CallRunnable<Amenaza[]> runnable = new CallRunnable<>(call);
@@ -184,46 +143,14 @@ public class CibelService {
         return runnable.getResponse();
     }
 
-    public static Control[] getControlesDeApps() {
-        final Call<Control[]> call = getAPI().controlesDeApps();
-
-        ExecutorService executor = Executors.newFixedThreadPool(1);
-        CallRunnable<Control[]> runnable = new CallRunnable<>(call);
-        executor.execute(runnable);
-
-        executor.shutdown();
-        try {
-            executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        return runnable.getResponse();
-    }
-
-    public static Control[] getControlesDeDispositivos() {
-        final Call<Control[]> call = getAPI().controlesDeDispositivos();
-
-        ExecutorService executor = Executors.newFixedThreadPool(1);
-        CallRunnable<Control[]> runnable = new CallRunnable<>(call);
-        executor.execute(runnable);
-
-        executor.shutdown();
-        try {
-            executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        return runnable.getResponse();
-    }
-
     /**
      * Descarga las categorias de la API REST de forma sincrona.
      * Ejecuta la llamada en un hilo en segundo plano y notifica el resultado a
      * través del Callback proporcionado.
      * @param cb el callback que procesa la respuesta de forma asincrona
      */
-    public static void requestCategorias(Callback<Tipo[]> cb) {
-        final Call<Tipo[]> call = getAPI().tipos();
+    public static void requestCategorias(Callback<Categoria[]> cb) {
+        final Call<Categoria[]> call = getAPI().categorias();
         call.enqueue(new CallbackAdapter<>(cb));
     }
 
@@ -232,40 +159,29 @@ public class CibelService {
      * Bloquea el hilo actual hasta que se complete la llamada y se obtenga la respuesta.
      * @return el objeto response que contiene las aplicaciones
      */
-    public static Tipo[] getCategorias() {
+    public static Categoria[] getCategorias() {
+        final Call<Categoria[]> call = getAPI().categorias();
+
+        ExecutorService executor = Executors.newFixedThreadPool(1);
+        CallRunnable<Categoria[]> runnable = new CallRunnable<>(call);
+        executor.execute(runnable);
+
+        executor.shutdown();
+        try {
+            executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        return runnable.getResponse();
+    }
+
+    public static void requestTipos(Callback<Tipo[]> cb) {
         final Call<Tipo[]> call = getAPI().tipos();
-
-        ExecutorService executor = Executors.newFixedThreadPool(1);
-        CallRunnable<Tipo[]> runnable = new CallRunnable<>(call);
-        executor.execute(runnable);
-
-        executor.shutdown();
-        try {
-            executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        return runnable.getResponse();
+        call.enqueue(new CallbackAdapter<>(cb));
     }
 
-    public static Tipo[] getCategoriasDeApps() {
-        final Call<Tipo[]> call = getAPI().categoriasDeApps();
-
-        ExecutorService executor = Executors.newFixedThreadPool(1);
-        CallRunnable<Tipo[]> runnable = new CallRunnable<>(call);
-        executor.execute(runnable);
-
-        executor.shutdown();
-        try {
-            executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        return runnable.getResponse();
-    }
-
-    public static Tipo[] getCategoriasDeDispositivos() {
-        final Call<Tipo[]> call = getAPI().categoriasDeDispositivos();
+    public static Tipo[] getTipos() {
+        final Call<Tipo[]> call = getAPI().tipos();
 
         ExecutorService executor = Executors.newFixedThreadPool(1);
         CallRunnable<Tipo[]> runnable = new CallRunnable<>(call);

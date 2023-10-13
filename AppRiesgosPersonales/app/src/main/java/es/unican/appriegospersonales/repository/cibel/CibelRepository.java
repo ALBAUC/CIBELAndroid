@@ -12,11 +12,12 @@ import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.common.prefs.Prefs;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Amenaza;
-import es.unican.appriegospersonales.model.Tipo;
+import es.unican.appriegospersonales.model.Categoria;
 import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.JoinCategriasWithControles;
 import es.unican.appriegospersonales.model.JoinAmenazasWithControles;
 import es.unican.appriegospersonales.model.Perfil;
+import es.unican.appriegospersonales.model.Tipo;
 import es.unican.appriegospersonales.repository.db.ActivoDao;
 import es.unican.appriegospersonales.repository.db.AmenazaDao;
 import es.unican.appriegospersonales.repository.db.CategoriaDao;
@@ -26,6 +27,7 @@ import es.unican.appriegospersonales.repository.db.JoinAmenazasWithControlesDao;
 import es.unican.appriegospersonales.repository.db.JoinCategriasWithControlesDao;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
 import es.unican.appriegospersonales.repository.cibel.rest.CibelService;
+import es.unican.appriegospersonales.repository.db.TipoDao;
 
 /**
  * Implementacion de un repositorio de los recursos de AppWiseService.
@@ -48,7 +50,7 @@ public class CibelRepository implements ICibelRepository {
     }
 
     @Override
-    public void requestActivos(Callback<Activo[]> cb, String categoria) {
+    public void requestActivos(Callback<Activo[]> cb, String tipo) {
         CibelService.requestActivos(new Callback<Activo[]>() {
             @Override
             public void onSuccess(Activo[] data) {
@@ -60,12 +62,12 @@ public class CibelRepository implements ICibelRepository {
             public void onFailure() {
                 cb.onFailure();
             }
-        }, categoria);
+        }, tipo);
     }
 
     @Override
-    public Activo[] getActivos(String categoria) {
-        Activo[] response = CibelService.getActivos(categoria);
+    public Activo[] getActivos(String tipo) {
+        Activo[] response = CibelService.getActivos(tipo);
         persistToDBActivos(response);
         return response;
     }
@@ -74,25 +76,22 @@ public class CibelRepository implements ICibelRepository {
         if (activos != null) {
             ActivoDao activoDao = daoSession.getActivoDao();
             CategoriaDao categoriaDao = daoSession.getCategoriaDao();
-            PerfilDao perfilDao = daoSession.getPerfilDao();
+            TipoDao tipoDao = daoSession.getTipoDao();
             for (Activo a : activos) {
                 Activo aBD = activoDao.load(a.getIdActivo());
                 if (aBD == null) {
                     // Nuevo activo, se inserta en la bd
-                    Tipo cat = categoriaDao.load(a.getCat().getIdCategoria());
+                    Categoria cat = categoriaDao.load(a.getCategoriaTrampa().getIdCategoria());
                     a.setFk_categoria(cat.getIdCategoria());
+                    Tipo t = tipoDao.load(a.getTipoTrampa().getIdTipo());
+                    a.setFk_tipo(t.getIdTipo());
                     activoDao.insert(a);
-                    // Caso de ejemplo: se insertan directamente al perfil
-                    Perfil perfil = Perfil.getInstance(perfilDao);
-                    a.setFk_perfil(perfil.getId());
-                    perfil.getActivosAnhadidos().add(a);
-                    activoDao.update(a);
-                    perfilDao.update(perfil);
                 } else if (!aBD.equals(a)) {
                     // Ya estaba en la bd, se actualiza
                     aBD.setNombre(a.getNombre());
                     aBD.setIcono(a.getIcono());
-                    aBD.setFk_categoria(a.getCat().getIdCategoria());
+                    aBD.setFk_categoria(a.getCategoriaTrampa().getIdCategoria());
+                    aBD.setFk_tipo(a.getTipoTrampa().getIdTipo());
                     activoDao.update(aBD);
                 }
             }
@@ -117,51 +116,9 @@ public class CibelRepository implements ICibelRepository {
     }
 
     @Override
-    public void requestAmenazasDeApps(Callback<Amenaza[]> cb) {
-        CibelService.requestAmenazasDeApps(new Callback<Amenaza[]>() {
-            @Override
-            public void onSuccess(Amenaza[] data) {
-                cb.onSuccess(data);
-            }
-
-            @Override
-            public void onFailure() {
-                cb.onFailure();
-            }
-        });
-    }
-
-    @Override
-    public void requestAmenazasDeDispositivos(Callback<Amenaza[]> cb) {
-        CibelService.requestAmenazasDeDispositivos(new Callback<Amenaza[]>() {
-            @Override
-            public void onSuccess(Amenaza[] data) {
-                cb.onSuccess(data);
-            }
-
-            @Override
-            public void onFailure() {
-                cb.onFailure();
-            }
-        });
-    }
-
-    @Override
     public Amenaza[] getAmenazas() {
         Amenaza[] response = CibelService.getAmenazas();
         persistToDBAmenazas(response);
-        return response;
-    }
-
-    @Override
-    public Amenaza[] getAmenazasDeApps() {
-        Amenaza[] response = CibelService.getAmenazasDeApps();
-        return response;
-    }
-
-    @Override
-    public Amenaza[] getAmenazasDeDispositivos() {
-        Amenaza[] response = CibelService.getAmenazasDeDispositivos();
         return response;
     }
 
@@ -210,18 +167,6 @@ public class CibelRepository implements ICibelRepository {
         return response;
     }
 
-    @Override
-    public Control[] getControlesDeApps() {
-        Control[] response = CibelService.getControlesDeApps();
-        return response;
-    }
-
-    @Override
-    public Control[] getControlesDeDispositivos() {
-        Control[] response = CibelService.getControlesDeDispositivos();
-        return response;
-    }
-
     private void persistToDBControles(Control[] controles) {
         if (controles != null) {
             ControlDao controlDao = daoSession.getControlDao();
@@ -235,10 +180,10 @@ public class CibelRepository implements ICibelRepository {
     }
 
     @Override
-    public void requestCategorias(Callback<Tipo[]> cb) {
-        CibelService.requestCategorias(new Callback<Tipo[]>() {
+    public void requestCategorias(Callback<Categoria[]> cb) {
+        CibelService.requestCategorias(new Callback<Categoria[]>() {
             @Override
-            public void onSuccess(Tipo[] data) {
+            public void onSuccess(Categoria[] data) {
                 persistToDBCategorias(data);
                 cb.onSuccess(data);
             }
@@ -251,29 +196,17 @@ public class CibelRepository implements ICibelRepository {
     }
 
     @Override
-    public Tipo[] getCategorias() {
-        Tipo[] response = CibelService.getCategorias();
+    public Categoria[] getCategorias() {
+        Categoria[] response = CibelService.getCategorias();
         persistToDBCategorias(response);
         return response;
     }
 
-    @Override
-    public Tipo[] getCategoriasDeApps() {
-        Tipo[] response = CibelService.getCategoriasDeApps();
-        return response;
-    }
-
-    @Override
-    public Tipo[] getCategoriasDeDispositivos() {
-        Tipo[] response = CibelService.getCategoriasDeDispositivos();
-        return response;
-    }
-
-    private void persistToDBCategorias(Tipo[] tipos) {
-        if (tipos != null) {
+    private void persistToDBCategorias(Categoria[] categorias) {
+        if (categorias != null) {
             CategoriaDao categoriaDao = daoSession.getCategoriaDao();
             JoinCategriasWithControlesDao crDao = daoSession.getJoinCategriasWithControlesDao();
-            for (Tipo c : tipos) {
+            for (Categoria c : categorias) {
                 if (categoriaDao.load(c.getIdCategoria()) == null) {
                     // Nueva categoria, se inserta en la BBDD
                     List<Control> controles = c.getControles();
@@ -288,6 +221,40 @@ public class CibelRepository implements ICibelRepository {
             }
             Prefs.from(application).putInstant(KEY_LAST_SAVED_CA, Instant.now());
         }
+    }
+
+    private void persistToDBTipos(Tipo[] tipos) {
+        if (tipos != null) {
+            TipoDao tipoDao = daoSession.getTipoDao();
+            for (Tipo t : tipos) {
+                if (tipoDao.load(t.getIdTipo()) == null) {
+                    tipoDao.insert(t);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void requestTipos(Callback<Tipo[]> cb) {
+        CibelService.requestTipos(new Callback<Tipo[]>() {
+            @Override
+            public void onSuccess(Tipo[] data) {
+                persistToDBTipos(data);
+                cb.onSuccess(data);
+            }
+
+            @Override
+            public void onFailure() {
+                cb.onFailure();
+            }
+        });
+    }
+
+    @Override
+    public Tipo[] getTipos() {
+        Tipo[] response = CibelService.getTipos();
+        persistToDBTipos(response);
+        return response;
     }
 
     /**

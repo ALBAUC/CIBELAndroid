@@ -22,7 +22,7 @@ import java.util.List;
 
 import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.model.Activo;
-import es.unican.appriegospersonales.model.Tipo;
+import es.unican.appriegospersonales.model.Categoria;
 import es.unican.appriegospersonales.repository.db.ActivoDao;
 import es.unican.appriegospersonales.repository.db.CategoriaDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
@@ -81,9 +81,9 @@ public class AppSuggestionProvider extends SearchRecentSuggestionsProvider {
     private List<Activo> getdElementsSuggestions(String query) {
         String modifiedQuery = removeAccents(query.trim().toLowerCase());
 
-        List<Tipo> tipos = categoriaDao.loadAll();
+        List<Categoria> categorias = categoriaDao.loadAll();
         List<Long> categoriaIds = new ArrayList<>();
-        for (Tipo c : tipos) {
+        for (Categoria c : categorias) {
             String nombre = removeAccents(c.getNombre().trim().toLowerCase());
             if (nombre.contains(modifiedQuery)) {
                 categoriaIds.add(c.getIdCategoria());

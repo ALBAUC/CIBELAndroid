@@ -6,17 +6,10 @@
     android:orientation="vertical"
     tools:context="es.unican.appriegospersonales.activities.riesgos.AmenazasView">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/riesgos_tl"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/riesgosDevices_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabGravity="fill"
-        app:tabMode="fixed" />
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/riesgos_vp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
 

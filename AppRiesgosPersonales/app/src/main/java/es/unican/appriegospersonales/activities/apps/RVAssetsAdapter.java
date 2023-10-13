@@ -1,7 +1,6 @@
 package es.unican.appriegospersonales.activities.apps;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +20,13 @@ import es.unican.appriegospersonales.activities.apps.detail.AssetDetailView;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriesgospersonales.R;
 
-public class RVCategoriaAssetsAdapter extends RecyclerView.Adapter<RVCategoriaAssetsAdapter.CategoriaDElementViewHolder> {
+public class RVAssetsAdapter extends RecyclerView.Adapter<RVAssetsAdapter.AssetViewHolder> {
     private Context context;
     private final List<Activo> activos;
     private final List<Activo> perfilActivos;
     private final LayoutInflater inflater;
 
-    public RVCategoriaAssetsAdapter(Context context, List<Activo> data, List<Activo> perfilActivos) {
+    public RVAssetsAdapter(Context context, List<Activo> data, List<Activo> perfilActivos) {
         this.context = context;
         this.activos = data;
         this.perfilActivos = perfilActivos;
@@ -36,9 +35,9 @@ public class RVCategoriaAssetsAdapter extends RecyclerView.Adapter<RVCategoriaAs
 
     @NonNull
     @Override
-    public CategoriaDElementViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AssetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.rv_apps_app, parent, false);
-        return new CategoriaDElementViewHolder(view);
+        return new AssetViewHolder(view);
     }
 
     @Override
@@ -47,37 +46,37 @@ public class RVCategoriaAssetsAdapter extends RecyclerView.Adapter<RVCategoriaAs
     }
 
     @Override
-    public void onBindViewHolder(CategoriaDElementViewHolder holder, int position) {
+    public void onBindViewHolder(AssetViewHolder holder, int position) {
         Activo activo = activos.get(position);
         holder.activo = activo;
-        holder.dElementName_tv.setText(activo.getNombre());
+        holder.assetName_tv.setText(activo.getNombre());
         Picasso.get().load(activo.getIcono())
                 .resize(600, 600)
                 .centerCrop()
-                .into(holder.dElementIcon_iv);
+                .into(holder.assetIcon_iv);
         if (perfilActivos.contains(activo)) {
-            holder.dElementAddedIcon_iv.setVisibility(View.VISIBLE);
-            holder.dElementAddedInfo_tv.setVisibility(View.VISIBLE);
+            holder.assetAddedIcon_iv.setVisibility(View.VISIBLE);
+            holder.assetAddedInfo_tv.setVisibility(View.VISIBLE);
         } else {
-            holder.dElementAddedIcon_iv.setVisibility(View.GONE);
-            holder.dElementAddedInfo_tv.setVisibility(View.GONE);
+            holder.assetAddedIcon_iv.setVisibility(View.GONE);
+            holder.assetAddedInfo_tv.setVisibility(View.GONE);
         }
     }
 
-    public class CategoriaDElementViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class AssetViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final ImageView dElementIcon_iv;
-        private final TextView dElementName_tv;
-        private final ImageView dElementAddedIcon_iv;
-        private final TextView dElementAddedInfo_tv;
+        private final ImageView assetIcon_iv;
+        private final TextView assetName_tv;
+        private final ImageView assetAddedIcon_iv;
+        private final TextView assetAddedInfo_tv;
         private Activo activo;
 
-        public CategoriaDElementViewHolder(View itemView) {
+        public AssetViewHolder(View itemView) {
             super(itemView);
-            dElementName_tv = itemView.findViewById(R.id.appName_tv);
-            dElementIcon_iv = itemView.findViewById(R.id.appIcon_iv);
-            dElementAddedIcon_iv = itemView.findViewById(R.id.appAddedIcon_iv);
-            dElementAddedInfo_tv = itemView.findViewById(R.id.appAddedInfo_tv);
+            assetName_tv = itemView.findViewById(R.id.appName_tv);
+            assetIcon_iv = itemView.findViewById(R.id.appIcon_iv);
+            assetAddedIcon_iv = itemView.findViewById(R.id.appAddedIcon_iv);
+            assetAddedInfo_tv = itemView.findViewById(R.id.appAddedInfo_tv);
             itemView.setOnClickListener(this);
         }
 

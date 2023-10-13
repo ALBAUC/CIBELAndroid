@@ -60,7 +60,7 @@ public class SearchResultView extends Fragment implements ISearchResultContract.
 
         apps_rv.setLayoutManager(new LinearLayoutManager(getContext()));
         Bundle args = getArguments();
-        apps_rv.setAdapter(new RVActivosPerfilAdapter(getContext(), presenter.doSearch(args.getString(QUERY)), presenter.getPerfilAssets()));
+        apps_rv.setAdapter(new RVActivosPerfilAdapter(getContext(), presenter.doSearch(args.getString(QUERY)), presenter.getPerfilAssets(), getMyApplication()));
 
         DividerItemDecoration dividerA = new DividerItemDecoration(
                 apps_rv.getContext(),

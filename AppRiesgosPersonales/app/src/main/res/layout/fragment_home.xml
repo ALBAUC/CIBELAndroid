@@ -6,15 +6,8 @@
     android:orientation="vertical"
     tools:context="es.unican.appriegospersonales.activities.apps.HomeView">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/home_tl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabGravity="fill"
-        app:tabMode="fixed" />
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/home_vp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categoriasDevices_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

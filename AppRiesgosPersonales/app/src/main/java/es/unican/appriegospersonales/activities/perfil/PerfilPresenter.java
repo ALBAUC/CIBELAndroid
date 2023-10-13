@@ -4,7 +4,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import es.unican.appriegospersonales.model.Activo;
-import es.unican.appriegospersonales.model.Tipo;
+import es.unican.appriegospersonales.model.Categoria;
 import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.Perfil;
 import es.unican.appriegospersonales.repository.db.DaoSession;
@@ -31,12 +31,12 @@ public class PerfilPresenter implements IPerfilContract.Presenter {
         int totalControles = 0;
         int controlesAplicados = 0;
 
-        Set<Tipo> categoriasPerfil = new LinkedHashSet<>();
+        Set<Categoria> categoriasPerfil = new LinkedHashSet<>();
         for (Activo a : perfil.getActivosAnhadidos()) {
             categoriasPerfil.add(a.getCategoria());
         }
 
-        for (Tipo c : categoriasPerfil){
+        for (Categoria c : categoriasPerfil){
             for (Control control : c.getControles()) {
                 totalControles++;
                 if (perfil.getControlesAnhadidos().contains(control)) {

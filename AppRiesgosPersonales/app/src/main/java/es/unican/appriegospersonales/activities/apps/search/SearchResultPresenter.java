@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.unican.appriegospersonales.model.Activo;
-import es.unican.appriegospersonales.model.Tipo;
+import es.unican.appriegospersonales.model.Categoria;
 import es.unican.appriegospersonales.model.Perfil;
 import es.unican.appriegospersonales.repository.db.ActivoDao;
 import es.unican.appriegospersonales.repository.db.CategoriaDao;
@@ -35,9 +35,9 @@ public class SearchResultPresenter implements ISearchResultContract.Presenter {
     public List<Activo> doSearch(String query) {
         String modifiedQuery = "%" + removeAccents(query.trim().toLowerCase()) + "%";
 
-        List<Tipo> tipos = categoriaDao.loadAll();
+        List<Categoria> categorias = categoriaDao.loadAll();
         List<Long> categoriaIds = new ArrayList<>();
-        for (Tipo c : tipos) {
+        for (Categoria c : categorias) {
             String nombre = removeAccents(c.getNombre().trim().toLowerCase());
             if (nombre.contains(removeAccents(query.trim().toLowerCase()))) {
                 categoriaIds.add(c.getIdCategoria());
@@ -59,7 +59,8 @@ public class SearchResultPresenter implements ISearchResultContract.Presenter {
     @Override
     public List<Activo> getPerfilAssets() {
         Perfil perfil = Perfil.getInstance(perfilDao);
-        return perfil.getActivosAnhadidos();
+        List<Activo> perfilAssets = activoDao._queryPerfil_ActivosAnhadidos(perfil.getId());
+        return perfilAssets;
     }
 
     private String removeAccents(String input) {

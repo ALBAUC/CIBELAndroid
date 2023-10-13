@@ -23,14 +23,14 @@ import es.unican.appriesgospersonales.R;
 /**
  * Crea y actualiza las vistas que representan cada fila de la lista de categorias.
  */
-public class RVCategoriaAdapter extends RecyclerView.Adapter<RVCategoriaAdapter.CategoriaViewHolder> {
+public class RVTiposAdapter extends RecyclerView.Adapter<RVTiposAdapter.TipoViewHolder> {
     private Context context;
     private final List<Tipo> tipos;
     private final List<Activo> perfilActivos;
     private final LayoutInflater inflater;
     private ActivoDao activoDao;
 
-    public RVCategoriaAdapter(Context context, List<Tipo> tipos, List<Activo> perfilActivos, MyApplication myApplication) {
+    public RVTiposAdapter(Context context, List<Tipo> tipos, List<Activo> perfilActivos, MyApplication myApplication) {
         this.tipos = tipos;
         this.context = context;
         this.inflater = LayoutInflater.from(context);
@@ -41,9 +41,9 @@ public class RVCategoriaAdapter extends RecyclerView.Adapter<RVCategoriaAdapter.
 
     @NonNull
     @Override
-    public CategoriaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TipoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.rv_apps_categoria, parent, false);
-        return new CategoriaViewHolder(view);
+        return new TipoViewHolder(view);
     }
 
     @Override
@@ -52,30 +52,30 @@ public class RVCategoriaAdapter extends RecyclerView.Adapter<RVCategoriaAdapter.
     }
 
     @Override
-    public void onBindViewHolder(CategoriaViewHolder holder, int position) {
-        List<Activo> activos = activoDao.queryBuilder().where(ActivoDao.Properties.Fk_categoria
-                .like(tipos.get(position).getIdCategoria().toString())).list();
-        holder.rvActivos.setAdapter(new RVCategoriaAssetsAdapter(context, activos, perfilActivos));
+    public void onBindViewHolder(TipoViewHolder holder, int position) {
+        List<Activo> activos = activoDao.queryBuilder().where(ActivoDao.Properties.Fk_tipo
+                .like(tipos.get(position).getIdTipo().toString())).list();
+        holder.rvActivos.setAdapter(new RVAssetsAdapter(context, activos, perfilActivos));
         holder.rvActivos.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         holder.rvActivos.setHasFixedSize(true);
-        holder.categoriaName_tv.setText(tipos.get(position).getNombre());
+        holder.tipoName_tv.setText(tipos.get(position).getNombre());
     }
 
-    public class CategoriaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class TipoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final TextView categoriaName_tv;
+        private final TextView tipoName_tv;
         private final RecyclerView rvActivos;
 
-        public CategoriaViewHolder(View itemView) {
+        public TipoViewHolder(View itemView) {
             super(itemView);
-            categoriaName_tv = itemView.findViewById(R.id.categoriaName_tv);
+            tipoName_tv = itemView.findViewById(R.id.categoriaName_tv);
             rvActivos = itemView.findViewById(R.id.apps_rv);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(view.getContext(), categoriaName_tv.getText(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(view.getContext(), tipoName_tv.getText(), Toast.LENGTH_SHORT).show();
         }
     }
 }

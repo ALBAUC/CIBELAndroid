@@ -22,6 +22,8 @@
     <string name="perfil_tabRiesgos">Amenazas actuales</string>
     <string name="perfil_tabActivos">Smart Home</string>
     <string name="perfil_tabControles">Buenas prácticas</string>
+    <string name="perfil_numDispositivos">Nº dispositivos</string>
+    <string name="perfil_numVulnerabilidades">Nº vulnerabilidades</string>
 
     <string name="nivelRiesgoAlto">Riesgo alto</string>
     <string name="nivelRiesgoMedio">Riesgo medio</string>
@@ -30,5 +32,11 @@
     <string name="controlAdded">Aplicado</string>
     <string name="riesgos_tabApps">Apps</string>
     <string name="riesgos_tabDevices">Dispositivos IoT</string>
+
+    <string name="severity_low">LOW</string>
+    <string name="severity_medium">MEDIUM</string>
+    <string name="severity_high">HIGH</string>
+    <string name="severity_critical">CRITICAL</string>
+    <string name="perfil_severity">Gravedad de las vulnerabilidades</string>
 
 </resources>

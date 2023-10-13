@@ -37,8 +37,6 @@ public class Control implements Parcelable {
 
     private String descripcion;
 
-    private String tipo;
-
     @Transient
     private boolean expanded = false;
 
@@ -61,63 +59,16 @@ public class Control implements Parcelable {
     @Generated(hash = 695321196)
     private transient ControlDao myDao;
 
-    public Control() {
-        idControl = 0L;
-        mitigaAmenazas = new ArrayList<>();
-    }
-
-    @Generated(hash = 547181294)
-    public Control(@NonNull Long idControl, String nombre, String descripcion, String tipo, Long fk_perfil) {
+    @Generated(hash = 612895255)
+    public Control(@NonNull Long idControl, String nombre, String descripcion, Long fk_perfil) {
         this.idControl = idControl;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.tipo = tipo;
         this.fk_perfil = fk_perfil;
     }
 
-    @NonNull
-    public Long getIdControl() {
-        return idControl;
-    }
-
-    public void setIdControl(@NonNull Long idControl) {
-        this.idControl = idControl;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public void setMitigaAmenazas(List<Amenaza> mitigaAmenazas) {
-        this.mitigaAmenazas = mitigaAmenazas;
-    }
-
-    public boolean isExpanded() {
-        return expanded;
-    }
-
-    public void setExpanded(boolean expanded) {
-        this.expanded = expanded;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    @Generated(hash = 35957735)
+    public Control() {
     }
 
     @Override
@@ -125,10 +76,6 @@ public class Control implements Parcelable {
         return "Control{" +
                 "idControl=" + idControl +
                 '}';
-    }
-
-    public boolean getExpanded() {
-        return this.expanded;
     }
 
     @Override
@@ -144,6 +91,43 @@ public class Control implements Parcelable {
         parcel.writeList(mitigaAmenazas);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Control control = (Control) o;
+        return idControl.equals(control.idControl) && Objects.equals(nombre, control.nombre) && Objects.equals(descripcion, control.descripcion) && Objects.equals(mitigaAmenazas, control.mitigaAmenazas);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idControl, nombre, descripcion, mitigaAmenazas);
+    }
+
+    public Long getIdControl() {
+        return this.idControl;
+    }
+
+    public void setIdControl(Long idControl) {
+        this.idControl = idControl;
+    }
+
+    public String getNombre() {
+        return this.nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return this.descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     public Long getFk_perfil() {
         return this.fk_perfil;
     }
@@ -152,17 +136,16 @@ public class Control implements Parcelable {
         this.fk_perfil = fk_perfil;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Control control = (Control) o;
-        return idControl.equals(control.idControl) && Objects.equals(nombre, control.nombre) && Objects.equals(descripcion, control.descripcion) && Objects.equals(tipo, control.tipo);
+    public boolean isExpanded() {
+        return expanded;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(idControl, nombre, descripcion, tipo);
+    public void setExpanded(boolean expanded) {
+        this.expanded = expanded;
+    }
+
+    public void setMitigaAmenazas(List<Amenaza> mitigaAmenazas) {
+        this.mitigaAmenazas = mitigaAmenazas;
     }
 
     /**

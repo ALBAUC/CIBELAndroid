@@ -3,8 +3,9 @@ package es.unican.appriegospersonales.repository.cibel;
 import es.unican.appriegospersonales.common.Callback;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Amenaza;
-import es.unican.appriegospersonales.model.Tipo;
+import es.unican.appriegospersonales.model.Categoria;
 import es.unican.appriegospersonales.model.Control;
+import es.unican.appriegospersonales.model.Tipo;
 
 /**
  * Un Repository para acceder a los recursos de CIBELService
@@ -17,20 +18,20 @@ public interface ICibelRepository {
      * el callback indicado es llamado. Persiste los activos
      * en la base de datos local.
      * @param cb callback que procesa la respuesta de forma asíncrona
-     * @param categoria se utiliza para filtrar los activos por categoría
+     * @param tipo se utiliza para filtrar los activos por categoría
      *                  (opcional, se puede dejar a null)
      */
-    void requestActivos(Callback<Activo[]> cb, String categoria);
+    void requestActivos(Callback<Activo[]> cb, String tipo);
 
     /**
      * Solicita elementos digitales de forma sincrona.
      * Este metodo retorna una lista de elementos digitales directamente. Persiste los
      * elementos digitales en la base de datos local.
-     * @param categoria
+     * @param tipo
      * @return la lista de elementos digitales
      *          null si ocurre un error
      */
-    Activo[] getActivos(String categoria);
+    Activo[] getActivos(String tipo);
 
     /**
      * Solicita riesgos de forma asincrona.
@@ -41,10 +42,6 @@ public interface ICibelRepository {
      */
     void requestAmenazas(Callback<Amenaza[]> cb);
 
-    void requestAmenazasDeApps(Callback<Amenaza[]> cb);
-
-    void requestAmenazasDeDispositivos(Callback<Amenaza[]> cb);
-
     /**
      * Solicita riesgos de forma sincrona.
      * Este metodo retorna una lista de riesgos directamente. Persiste los riesgos
@@ -53,10 +50,6 @@ public interface ICibelRepository {
      *          null si ocurre un error
      */
     Amenaza[] getAmenazas();
-
-    Amenaza[] getAmenazasDeApps();
-
-    Amenaza[] getAmenazasDeDispositivos();
 
     /**
      * Solicita controles de forma asincrona.
@@ -76,10 +69,6 @@ public interface ICibelRepository {
      */
     Control[] getControles();
 
-    Control[] getControlesDeApps();
-
-    Control[] getControlesDeDispositivos();
-
     /**
      * Solicita categorias de forma asincrona.
      * Una vez que las categorias han sido recuperadas de la fuente,
@@ -87,7 +76,7 @@ public interface ICibelRepository {
      * en la base de datos local.
      * @param cb callback que procesa la respuesta de forma asíncrona
      */
-    void requestCategorias(Callback<Tipo[]> cb);
+    void requestCategorias(Callback<Categoria[]> cb);
 
     /**
      * Solicita categorias de forma sincrona.
@@ -96,11 +85,11 @@ public interface ICibelRepository {
      * @return la lista de categorias
      *          null si ocurre un error
      */
-    Tipo[] getCategorias();
+    Categoria[] getCategorias();
 
-    Tipo[] getCategoriasDeApps();
+    void requestTipos(Callback<Tipo[]> cb);
 
-    Tipo[] getCategoriasDeDispositivos();
+    Tipo[] getTipos();
 
     boolean lastDownloadOlderThan(int minutes, String resourceName);
 }

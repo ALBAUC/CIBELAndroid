@@ -33,7 +33,7 @@ public class TabActivosView extends Fragment {
         risksRV = layout.findViewById(R.id.itemsAplicados_rv);
 
         risksRV.setLayoutManager(new LinearLayoutManager(getContext()));
-        risksRV.setAdapter(new RVActivosPerfilAdapter(getContext(), presenter.getActivosAnhadidos()));
+        risksRV.setAdapter(new RVActivosPerfilAdapter(getContext(), presenter.getActivosAnhadidos(), getMyApplication()));
 
         DividerItemDecoration dividerA = new DividerItemDecoration(
                 risksRV.getContext(),

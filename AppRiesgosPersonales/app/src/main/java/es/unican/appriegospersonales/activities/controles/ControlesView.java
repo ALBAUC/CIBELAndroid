@@ -1,5 +1,6 @@
 package es.unican.appriegospersonales.activities.controles;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +26,7 @@ import es.unican.appriesgospersonales.R;
 
 public class ControlesView extends Fragment implements IControlesContract.View, MainView.RefreshableFragment {
     private IControlesContract.Presenter presenter;
-    private ViewPager2 controlesVP;
+    private RecyclerView controlesDevicesRV;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstance) {
@@ -34,18 +35,20 @@ public class ControlesView extends Fragment implements IControlesContract.View, 
         presenter.init();
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, @androidx.annotation.Nullable ViewGroup container, @androidx.annotation.Nullable
             Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_controles, container, false);
-        controlesVP = layout.findViewById(R.id.controles_vp);
+        controlesDevicesRV = layout.findViewById(R.id.controlesDevices_rv);
 
-        controlesVP.setAdapter(new VPControlesAdapter(getChildFragmentManager(), getLifecycle()));
+        controlesDevicesRV.setLayoutManager(new LinearLayoutManager(getContext()));
+        controlesDevicesRV.setAdapter(new RVControlesAdapter(getContext(), presenter.getControles(), presenter.getPerfilControls()));
 
-        TabLayout tabLayout = layout.findViewById(R.id.controles_tl);
-        new TabLayoutMediator(tabLayout, controlesVP,
-                (tab, position) -> tab.setText(VPControlesAdapter.Tab.byPosition(position).getTitle())
-        ).attach();
+        DividerItemDecoration dividerC = new DividerItemDecoration(
+                controlesDevicesRV.getContext(),
+                DividerItemDecoration.VERTICAL);
+        controlesDevicesRV.addItemDecoration(dividerC);
 
         return layout;
     }
