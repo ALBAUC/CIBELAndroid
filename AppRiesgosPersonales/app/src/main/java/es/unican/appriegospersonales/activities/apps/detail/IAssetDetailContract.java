@@ -1,5 +1,9 @@
 package es.unican.appriegospersonales.activities.apps.detail;
 
+import androidx.annotation.StringRes;
+
+import com.github.mikephil.charting.data.PieEntry;
+
 import java.util.List;
 
 import es.unican.appriegospersonales.common.MyApplication;
@@ -15,6 +19,8 @@ public interface IAssetDetailContract {
     interface  View {
 
         MyApplication getMyApplication();
+
+        String getStringFromRes(@StringRes int resourceId);
     }
 
     interface Presenter {
@@ -40,5 +46,7 @@ public interface IAssetDetailContract {
         List<Vulnerabilidad> getAssetCves();
 
         List<Vulnerabilidad> getAssetCvesOrdenadorPorFecha();
+
+        List<PieEntry> getEntries();
     }
 }

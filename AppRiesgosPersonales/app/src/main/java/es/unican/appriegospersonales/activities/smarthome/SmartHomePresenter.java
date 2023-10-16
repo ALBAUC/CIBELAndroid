@@ -29,7 +29,6 @@ public class SmartHomePresenter implements ISmartHomeContract.Presenter {
     private final ISmartHomeContract.View view;
     private Perfil perfil;
     private ActivoDao activoDao;
-    private INistRepository repository;
     private VulnerabilidadDao vulnerabilidadDao;
 
     public SmartHomePresenter(ISmartHomeContract.View view) {
@@ -42,11 +41,6 @@ public class SmartHomePresenter implements ISmartHomeContract.Presenter {
         PerfilDao perfilDao = daoSession.getPerfilDao();
         perfil = Perfil.getInstance(perfilDao);
         activoDao = daoSession.getActivoDao();
-        repository = new NistRepository(view.getMyApplication());
-        for (Activo a : getActivosPerfil()) {
-            //Log.d("SmartHomePresenter", a.getNombre());
-            repository.getVulnerabilidades(a.getNombre());
-        }
         vulnerabilidadDao = daoSession.getVulnerabilidadDao();
     }
 

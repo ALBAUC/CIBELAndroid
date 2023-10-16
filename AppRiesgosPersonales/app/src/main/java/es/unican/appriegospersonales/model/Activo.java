@@ -45,7 +45,7 @@ public class Activo implements Parcelable {
 
     private long fk_categoria;
 
-    private long fk_perfil;
+    private Long fk_perfil;
 
     @ToOne(joinProperty = "fk_tipo")
     private Tipo tipo;
@@ -67,8 +67,8 @@ public class Activo implements Parcelable {
     @Generated(hash = 1317875841)
     private transient ActivoDao myDao;
 
-    @Generated(hash = 1195228474)
-    public Activo(@NonNull Long idActivo, String nombre, String icono, long fk_categoria, long fk_perfil, long fk_tipo) {
+    @Generated(hash = 446666093)
+    public Activo(@NonNull Long idActivo, String nombre, String icono, long fk_categoria, Long fk_perfil, long fk_tipo) {
         this.idActivo = idActivo;
         this.nombre = nombre;
         this.icono = icono;

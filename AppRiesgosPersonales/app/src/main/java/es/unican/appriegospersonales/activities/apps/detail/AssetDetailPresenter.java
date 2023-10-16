@@ -1,5 +1,8 @@
 package es.unican.appriegospersonales.activities.apps.detail;
 
+import com.github.mikephil.charting.data.PieEntry;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -13,6 +16,7 @@ import es.unican.appriegospersonales.repository.db.ControlDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
 import es.unican.appriegospersonales.repository.db.VulnerabilidadDao;
+import es.unican.appriesgospersonales.R;
 
 public class AssetDetailPresenter implements IAssetDetailContract.Presenter {
 
@@ -123,5 +127,33 @@ public class AssetDetailPresenter implements IAssetDetailContract.Presenter {
         });
 
         return assetCves;
+    }
+
+    @Override
+    public List<PieEntry> getEntries() {
+        int numCritical = 0;
+        int numHigh = 0;
+        int numMedium = 0;
+        int numLow = 0;
+            for (Vulnerabilidad v : getAssetCves()) {
+                String baseSeverity = v.getBaseSeverity();
+                if (baseSeverity != null) {
+                    if (baseSeverity.equals(view.getStringFromRes(R.string.severity_critical))) {
+                        numCritical++;
+                    } else if (baseSeverity.equals(view.getStringFromRes(R.string.severity_high))) {
+                        numHigh++;
+                    } else if (baseSeverity.equals(view.getStringFromRes(R.string.severity_medium))) {
+                        numMedium++;
+                    } else if (baseSeverity.equals(view.getStringFromRes(R.string.severity_low))) {
+                        numLow++;
+                    }
+                }
+            }
+        ArrayList pieEntries = new ArrayList();
+        pieEntries.add(new PieEntry(numCritical, view.getStringFromRes(R.string.severity_critical)));
+        pieEntries.add(new PieEntry(numHigh, view.getStringFromRes(R.string.severity_high)));
+        pieEntries.add(new PieEntry(numMedium, view.getStringFromRes(R.string.severity_medium)));
+        pieEntries.add(new PieEntry(numLow, view.getStringFromRes(R.string.severity_low)));
+        return pieEntries;
     }
 }

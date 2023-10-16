@@ -51,5 +51,7 @@ public interface IHomeContract {
         Activo getAssetByName(String appName);
 
         List<Tipo> getTipos();
+
+        List<Activo> getAllActivos();
     }
 }

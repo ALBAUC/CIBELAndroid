@@ -81,7 +81,11 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
         pieDataSet.setValueFormatter(new IValueFormatter() {
             @Override
             public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-                return String.valueOf((int) value);
+                if (value == 0) {
+                    return "";
+                } else {
+                    return String.valueOf((int) value);
+                }
             }
         });
         PieData pieData = new PieData(pieDataSet);
@@ -93,8 +97,17 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
 
         cvesPC.getDescription().setEnabled(false);
         cvesPC.setDrawEntryLabels(false);
+        cvesPC.setRotationEnabled(false);
+
         Legend legend = cvesPC.getLegend();
-        legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART_CENTER);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
+        legend.setOrientation(Legend.LegendOrientation.VERTICAL);
+        legend.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);
+        legend.setXEntrySpace(7f);// X axis spacing
+        legend.setYEntrySpace(5f); // Y axis spacing
+        legend.setYOffset(0f);  // Offset of the legend y
+        legend.setXOffset(20f);  // Offset of legend x
         legend.setTextSize(12f);
         legend.setForm(Legend.LegendForm.CIRCLE);
         legend.setEnabled(true);

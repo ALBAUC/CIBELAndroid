@@ -18,6 +18,8 @@ import es.unican.appriegospersonales.repository.db.CategoriaDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
 import es.unican.appriegospersonales.repository.db.TipoDao;
+import es.unican.appriegospersonales.repository.nist.INistRepository;
+import es.unican.appriegospersonales.repository.nist.NistRepository;
 
 public class HomePresenter implements IHomeContract.Presenter {
 
@@ -26,16 +28,18 @@ public class HomePresenter implements IHomeContract.Presenter {
     private CategoriaDao categoriaDao;
     private TipoDao tipoDao;
     private PerfilDao perfilDao;
-    private ICibelRepository repository;
+    private ICibelRepository cibelRepository;
+    private INistRepository nistRepository;
+    private Perfil perfil;
 
     public HomePresenter(IHomeContract.View view) {
         this.view = view;
     }
 
     // Para tests
-    public HomePresenter(IHomeContract.View view, ICibelRepository repository) {
+    public HomePresenter(IHomeContract.View view, ICibelRepository cibelRepository) {
         this.view = view;
-        this.repository = repository;
+        this.cibelRepository = cibelRepository;
     }
 
     @Override
@@ -45,27 +49,33 @@ public class HomePresenter implements IHomeContract.Presenter {
         categoriaDao = daoSession.getCategoriaDao();
         tipoDao = daoSession.getTipoDao();
         perfilDao = daoSession.getPerfilDao();
-        repository = new CibelRepository(view.getMyApplication());
+        perfil = Perfil.getInstance(perfilDao);
 
-        if (repository.lastDownloadOlderThan(30, CibelRepository.KEY_LAST_SAVED_A)) {
+        cibelRepository = new CibelRepository(view.getMyApplication());
+        if (cibelRepository.lastDownloadOlderThan(30, CibelRepository.KEY_LAST_SAVED_A)) {
             doSyncInit();
+        }
+
+        nistRepository = new NistRepository(view.getMyApplication());
+        for (Activo a : getAllActivos()) {
+            nistRepository.getVulnerabilidades(a.getNombre());
         }
     }
 
     private void doAsyncInit() {
-        repository.requestControles(new Callback<Control[]>() {
+        cibelRepository.requestControles(new Callback<Control[]>() {
             @Override
             public void onSuccess(Control[] controles) {
-                repository.requestAmenazas(new Callback<Amenaza[]>() {
+                cibelRepository.requestAmenazas(new Callback<Amenaza[]>() {
                     @Override
                     public void onSuccess(Amenaza[] riesgos) {
-                        repository.requestCategorias(new Callback<Categoria[]>() {
+                        cibelRepository.requestCategorias(new Callback<Categoria[]>() {
                             @Override
                             public void onSuccess(Categoria[] categorias) {
-                                repository.requestTipos(new Callback<Tipo[]>() {
+                                cibelRepository.requestTipos(new Callback<Tipo[]>() {
                                     @Override
                                     public void onSuccess(Tipo[] data) {
-                                        repository.requestActivos(new Callback<Activo[]>() {
+                                        cibelRepository.requestActivos(new Callback<Activo[]>() {
                                             @Override
                                             public void onSuccess(Activo[] activos) {
                                                 view.showLoadCorrect(activos.length);
@@ -106,11 +116,11 @@ public class HomePresenter implements IHomeContract.Presenter {
     }
 
     private void doSyncInit() {
-        if (repository.getControles() == null ||
-                repository.getAmenazas() == null ||
-                repository.getCategorias() == null ||
-                repository.getTipos() == null||
-                repository.getActivos(null) == null) {
+        if (cibelRepository.getControles() == null ||
+                cibelRepository.getAmenazas() == null ||
+                cibelRepository.getCategorias() == null ||
+                cibelRepository.getTipos() == null||
+                cibelRepository.getActivos(null) == null) {
             view.showLoadError();
         } else {
             view.showLoadCorrect((int) activoDao.count());
@@ -123,10 +133,14 @@ public class HomePresenter implements IHomeContract.Presenter {
     }
 
     @Override
+    public List<Activo> getAllActivos() {
+        return activoDao.loadAll();
+    }
+
+    @Override
     public List<Activo> getPerfilAssets() {
         List<Activo> result = null;
         try {
-            Perfil perfil = Perfil.getInstance(perfilDao);
             result = activoDao._queryPerfil_ActivosAnhadidos(perfil.getId());
         } catch (SQLiteException e) {
         }
