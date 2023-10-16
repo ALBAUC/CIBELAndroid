@@ -1,5 +1,7 @@
 package es.unican.appriegospersonales.activities.apps.detail;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import es.unican.appriegospersonales.model.Activo;
@@ -92,6 +94,34 @@ public class AssetDetailPresenter implements IAssetDetailContract.Presenter {
     @Override
     public List<Vulnerabilidad> getAssetCves() {
         List<Vulnerabilidad> assetCves = vulnerabilidadDao._queryActivo_Vulnerabilidades(activo.getIdActivo());
+        return assetCves;
+    }
+
+    @Override
+    public List<Vulnerabilidad> getAssetCvesOrdenadorPorFecha() {
+        List<Vulnerabilidad> assetCves = getAssetCves();
+        Collections.sort(assetCves, new Comparator<Vulnerabilidad>() {
+            @Override
+            public int compare(Vulnerabilidad cve1, Vulnerabilidad cve2) {
+                // Extraer los años y los identificadores
+                String[] parts1 = cve1.getIdCVE().split("-");
+                String[] parts2 = cve2.getIdCVE().split("-");
+
+                int year1 = Integer.parseInt(parts1[1]);
+                int year2 = Integer.parseInt(parts2[1]);
+
+                int id1 = Integer.parseInt(parts1[2]);
+                int id2 = Integer.parseInt(parts2[2]);
+
+                // Comparar primero por año, y luego por identificador dentro del mismo año
+                if (year1 != year2) {
+                    return Integer.compare(year2, year1);
+                } else {
+                    return Integer.compare(id2, id1);
+                }
+            }
+        });
+
         return assetCves;
     }
 }

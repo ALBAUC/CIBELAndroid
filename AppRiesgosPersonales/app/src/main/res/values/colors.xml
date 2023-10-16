@@ -23,5 +23,6 @@
     <color name="highV">#EA645A</color>
     <color name="mediumV">#ECA63E</color>
     <color name="lowV">#A0D267</color>
+    <color name="noneI">#C7C4C4</color>
 
 </resources>

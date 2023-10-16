@@ -65,8 +65,8 @@ public class SmartHomePresenter implements ISmartHomeContract.Presenter {
             @Override
             public int compare(Activo activo1, Activo activo2) {
                 // Obtener el índice de riesgo para cada activo
-                int riesgo1 = activo1.calcularIndiceRiesgo();
-                int riesgo2 = activo2.calcularIndiceRiesgo();
+                int riesgo1 = activo1.calcularTotalRiesgo();
+                int riesgo2 = activo2.calcularTotalRiesgo();
 
                 // Comparar los índices de riesgo
                 return Integer.compare(riesgo2, riesgo1);

@@ -8,11 +8,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import es.unican.appriegospersonales.activities.apps.detail.cve.CveDetailView;
 import es.unican.appriegospersonales.model.Vulnerabilidad;
 import es.unican.appriesgospersonales.R;
 
@@ -40,29 +43,7 @@ public class RVCvesAdapter extends RecyclerView.Adapter<RVCvesAdapter.CveViewHol
         Vulnerabilidad vulnerabilidad = vulnerabilidades.get(position);
         holder.vulnerabilidad = vulnerabilidad;
         holder.cveIdTV.setText(vulnerabilidad.getIdCVE());
-        holder.cveSeverityIV.setColorFilter(getColorFromSeverity(vulnerabilidad.getBaseSeverity()));
-    }
-
-    private int getColorFromSeverity(String baseSeverity) {
-        int colorResId;
-        switch (baseSeverity) {
-            case Vulnerabilidad.SEVERITY_L:
-                colorResId = R.color.lowV;
-                break;
-            case Vulnerabilidad.SEVERITY_M:
-                colorResId = R.color.mediumV;
-                break;
-            case Vulnerabilidad.SEVERITY_H:
-                colorResId = R.color.highV;
-                break;
-            case Vulnerabilidad.SEVERITY_C:
-                colorResId = R.color.criticalV;
-                break;
-            default:
-                colorResId = R.color.black; // Si el índice no está en el rango, se usa el color por defecto
-                break;
-        }
-        return ContextCompat.getColor(context, colorResId);
+        holder.cveSeverityIV.setColorFilter(ContextCompat.getColor(context, vulnerabilidad.getColorFromSeverity()));
     }
 
     @Override
@@ -85,7 +66,13 @@ public class RVCvesAdapter extends RecyclerView.Adapter<RVCvesAdapter.CveViewHol
 
         @Override
         public void onClick(View view) {
-
+            FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .hide(fragmentManager.findFragmentById(R.id.container))
+                    .add(R.id.container, CveDetailView.newInstance(vulnerabilidad))
+                    .setReorderingAllowed(true)
+                    .addToBackStack("cves")
+                    .commit();
         }
     }
 }

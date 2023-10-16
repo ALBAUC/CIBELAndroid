@@ -63,7 +63,7 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
             ImageView assetIcon_iv = layout.findViewById(R.id.appDetailIcon_iv);
             TextView assetName_tv = layout.findViewById(R.id.appDetailName_tv);
             TextView assetType_tv = layout.findViewById(R.id.appDetailCategory_tv);
-            @SuppressLint({"MissingInflatedId", "LocalSuppress"}) RecyclerView assetCves_rv = layout.findViewById(R.id.assetDetail_cves_rv);
+            RecyclerView assetCves_rv = layout.findViewById(R.id.assetDetail_cves_rv);
             appAdd_bt = layout.findViewById(R.id.appAdd_bt);
 
             // Asignar valores
@@ -75,7 +75,7 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
             assetType_tv.setText(presenter.getAssetType());
 
             assetCves_rv.setLayoutManager(new LinearLayoutManager(getContext()));
-            assetCves_rv.setAdapter(new RVCvesAdapter(getContext(), presenter.getAssetCves()));
+            assetCves_rv.setAdapter(new RVCvesAdapter(getContext(), presenter.getAssetCvesOrdenadorPorFecha()));
 
             DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(assetCves_rv.getContext(),
                     DividerItemDecoration.VERTICAL);

@@ -3,6 +3,7 @@ package es.unican.appriegospersonales.model;
 import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -327,8 +328,22 @@ public class Activo implements Parcelable {
     }
 
     public int calcularIndiceRiesgo() {
+        int totalRiesgo = calcularTotalRiesgo();
+        int indiceRiesgo = 0;
+
+        if (totalRiesgo >= 9) {
+            indiceRiesgo = 3;
+        } else if (totalRiesgo >= 5) {
+            indiceRiesgo = 2;
+        } else if (totalRiesgo >= 2) {
+            indiceRiesgo = 1;
+        }
+
+        return indiceRiesgo;
+    }
+
+    public int calcularTotalRiesgo() {
         List<Vulnerabilidad> vulnerabilidades = getVulnerabilidades();
-        int numVulnerabilidades = vulnerabilidades.size();
         int totalRiesgo = 0;
 
         for (Vulnerabilidad v : vulnerabilidades) {
@@ -348,11 +363,6 @@ public class Activo implements Parcelable {
 
             totalRiesgo += factorSeveridad;
         }
-
-        // Consideramos un índice de 0 a 3
-        // Si el número de vulnerabilidades es 0, el índice de riesgo debe ser 0
-        int indiceRiesgo = (numVulnerabilidades > 0) ? (totalRiesgo * 3) / (numVulnerabilidades * 3) : 0;
-
-        return Math.min(indiceRiesgo, 3);
+        return totalRiesgo;
     }
 }

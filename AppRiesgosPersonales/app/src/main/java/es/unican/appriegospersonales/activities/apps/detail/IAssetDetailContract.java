@@ -38,5 +38,7 @@ public interface IAssetDetailContract {
         List<Control> getPerfilControls();
 
         List<Vulnerabilidad> getAssetCves();
+
+        List<Vulnerabilidad> getAssetCvesOrdenadorPorFecha();
     }
 }
