@@ -198,23 +198,28 @@ public class Vulnerabilidad implements Parcelable {
         return colorResId;
     }
 
-    public int getColorFromBaseScore() {
-        double baseScore = getBaseScore();
-        int colorResId;
-
-        if (baseScore >= 0 && baseScore <= 4.5) {
-            colorResId = R.color.lowV;
-        } else if (baseScore > 4.5 && baseScore <= 7) {
-            colorResId = R.color.mediumV;
-        } else if (baseScore > 7 && baseScore <= 8.5) {
-            colorResId = R.color.highV;
-        } else if (baseScore > 8.5 && baseScore <= 10) {
-            colorResId = R.color.criticalV;
-        } else {
-            colorResId = R.color.black;
+    public int mapImpact(String impact) {
+        int result;
+        switch (impact) {
+            case Vulnerabilidad.IMPACT_N:
+                result = 0;
+                break;
+            case Vulnerabilidad.IMPACT_L:
+                result = 1;
+                break;
+            case Vulnerabilidad.IMPACT_P:
+                result = 2;
+                break;
+            case Vulnerabilidad.IMPACT_H:
+                result = 3;
+                break;
+            case Vulnerabilidad.IMPACT_C:
+                result = 4;
+                break;
+            default:
+                result = 0;
+                break;
         }
-
-        return colorResId;
+        return result;
     }
-
 }

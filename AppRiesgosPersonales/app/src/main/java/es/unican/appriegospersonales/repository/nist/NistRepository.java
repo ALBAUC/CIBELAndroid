@@ -44,7 +44,6 @@ public class NistRepository implements INistRepository {
                     (ActivoDao.Properties.Nombre.like(modelo)).unique();
             VulnerabilidadDao vulnerabilidadDao = daoSession.getVulnerabilidadDao();
             JoinActivosWithVulnerabilidadesDao avDao = daoSession.getJoinActivosWithVulnerabilidadesDao();
-            //Log.d("Nistrepository", modelo + " -> " + resultCVES.toString());
 
             // Borrar las vulnerabilidades del dispositivo
             List<JoinActivosWithVulnerabilidades> activoVul = avDao.queryBuilder().where(JoinActivosWithVulnerabilidadesDao.Properties.ActivoId.like(a.getIdActivo().toString())).list();

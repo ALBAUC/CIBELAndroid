@@ -46,4 +46,9 @@ public class CveDetailPresenter implements ICveDetailContract.Presenter {
     public String getCveAvailability() {
         return vulnerabilidad.getAvailabilityImpact();
     }
+
+    @Override
+    public int mapImpact(String impact) {
+        return vulnerabilidad.mapImpact(impact);
+    }
 }

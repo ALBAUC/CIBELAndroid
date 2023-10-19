@@ -218,7 +218,7 @@ public class CveDetailView extends Fragment implements  ICveDetailContract.View,
         ArrayList<BarEntry> entries = new ArrayList<>();
         // Aquí mapea tus valores discretos a un rango de 0 a 4
         // Ejemplo: Si impact es "NONE", asigna 0. Si es "LOW", asigna 1, y así sucesivamente.
-        int mappedValue = mapImpact(impact);
+        int mappedValue = presenter.mapImpact(impact);
 
         entries.add(new BarEntry(0f, mappedValue));
 
@@ -235,32 +235,6 @@ public class CveDetailView extends Fragment implements  ICveDetailContract.View,
 
         chart.setData(data);
         chart.invalidate();
-    }
-
-    // Función para mapear los valores discretos a un rango de 0 a 4
-    private int mapImpact(String impact) {
-        int result;
-        switch (impact) {
-            case Vulnerabilidad.IMPACT_N:
-                result = 0;
-                break;
-            case Vulnerabilidad.IMPACT_L:
-                result = 1;
-                break;
-            case Vulnerabilidad.IMPACT_P:
-                result = 2;
-                break;
-            case Vulnerabilidad.IMPACT_H:
-                result = 3;
-                break;
-            case Vulnerabilidad.IMPACT_C:
-                result = 4;
-                break;
-            default:
-                result = 0;
-                break;
-        }
-        return result;
     }
 
     @Override

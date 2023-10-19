@@ -22,5 +22,7 @@ public interface ICveDetailContract {
         String getCveIntegrity();
 
         String getCveAvailability();
+
+        int mapImpact(String impact);
     }
 }
