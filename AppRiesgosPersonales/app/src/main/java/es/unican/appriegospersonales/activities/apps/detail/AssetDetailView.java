@@ -135,6 +135,8 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
         cvePC.getDescription().setEnabled(false);
         cvePC.setDrawEntryLabels(false);
         cvePC.setRotationEnabled(false);
+        cvePC.setTouchEnabled(false);
+        cvePC.setDragDecelerationFrictionCoef(0.95f);
 
         Legend legend = cvePC.getLegend();
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);

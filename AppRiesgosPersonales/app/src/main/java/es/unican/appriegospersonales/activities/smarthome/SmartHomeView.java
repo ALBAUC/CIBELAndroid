@@ -98,6 +98,8 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
         cvesPC.getDescription().setEnabled(false);
         cvesPC.setDrawEntryLabels(false);
         cvesPC.setRotationEnabled(false);
+        cvesPC.setTouchEnabled(false);
+        cvesPC.setDragDecelerationFrictionCoef(0.95f);
 
         Legend legend = cvesPC.getLegend();
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);

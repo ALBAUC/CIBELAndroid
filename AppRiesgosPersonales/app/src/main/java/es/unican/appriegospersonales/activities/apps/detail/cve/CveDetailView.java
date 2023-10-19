@@ -154,6 +154,9 @@ public class CveDetailView extends Fragment implements  ICveDetailContract.View,
         baseScoreHBC.getLegend().setEnabled(false);
         baseScoreHBC.setPinchZoom(false);
         baseScoreHBC.setDrawValueAboveBar(false);
+        baseScoreHBC.setTouchEnabled(false);
+        baseScoreHBC.setDragEnabled(false);
+        baseScoreHBC.setScaleEnabled(false);
 
         XAxis xAxis = baseScoreHBC.getXAxis();
         xAxis.setEnabled(false);
@@ -197,6 +200,9 @@ public class CveDetailView extends Fragment implements  ICveDetailContract.View,
         chart.getLegend().setEnabled(false);
         chart.setPinchZoom(false);
         chart.setDrawValueAboveBar(false);
+        chart.setTouchEnabled(false);
+        chart.setDragEnabled(false);
+        chart.setScaleEnabled(false);
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setEnabled(false);

@@ -65,6 +65,9 @@ public class RVCvesAdapter extends RecyclerView.Adapter<RVCvesAdapter.CveViewHol
         holder.impactoHBC.getLegend().setEnabled(false);
         holder.impactoHBC.setPinchZoom(false);
         holder.impactoHBC.setDrawValueAboveBar(false);
+        holder.impactoHBC.setTouchEnabled(false);
+        holder.impactoHBC.setDragEnabled(false);
+        holder.impactoHBC.setScaleEnabled(false);
 
         ArrayList<BarEntry> entries = new ArrayList<>();
         String confImpact = vulnerabilidad.getConfidentialityImpact();
