@@ -145,8 +145,8 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
         legend.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);
         legend.setXEntrySpace(7f);// X axis spacing
         legend.setYEntrySpace(5f); // Y axis spacing
-        legend.setYOffset(0f);  // Offset of the legend y
-        legend.setXOffset(20f);  // Offset of legend x
+        legend.setYOffset(-8f);  // Offset of the legend y
+        legend.setXOffset(28f);  // Offset of legend x
         legend.setTextSize(12f);
         legend.setForm(Legend.LegendForm.CIRCLE);
         legend.setEnabled(true);
@@ -201,11 +201,6 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
     @Override
     public MyApplication getMyApplication() {
         return (MyApplication) requireActivity().getApplication();
-    }
-
-    @Override
-    public String getStringFromRes(@StringRes int resourceId) {
-        return getContext().getString(resourceId);
     }
 
     @Override

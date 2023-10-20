@@ -19,8 +19,6 @@ public interface IAssetDetailContract {
     interface  View {
 
         MyApplication getMyApplication();
-
-        String getStringFromRes(@StringRes int resourceId);
     }
 
     interface Presenter {

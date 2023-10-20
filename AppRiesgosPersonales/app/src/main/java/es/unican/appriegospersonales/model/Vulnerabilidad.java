@@ -39,6 +39,24 @@ public class Vulnerabilidad implements Parcelable {
     public static final String IMPACT_H = "HIGH";
     @Transient
     public static final String IMPACT_C = "COMPLETE";
+    @Transient
+    public static final String ES_SEVERITY_L = "BAJO";
+    @Transient
+    public static final String ES_SEVERITY_M = "MEDIO";
+    @Transient
+    public static final String ES_SEVERITY_H = "ALTO";
+    @Transient
+    public static final String ES_SEVERITY_C = "CRÍTICO";
+    @Transient
+    public static final String ES_IMPACT_N = "NINGUNO";
+    @Transient
+    public static final String ES_IMPACT_L = "BAJO";
+    @Transient
+    public static final String ES_IMPACT_P = "PARCIAL";
+    @Transient
+    public static final String ES_IMPACT_H = "ALTO";
+    @Transient
+    public static final String ES_IMPACT_C = "COMPLETO";
 
     @Id
     private String idCVE;

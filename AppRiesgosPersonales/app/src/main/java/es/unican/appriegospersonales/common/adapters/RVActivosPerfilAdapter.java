@@ -25,8 +25,6 @@ import es.unican.appriegospersonales.model.Vulnerabilidad;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.JoinActivosWithVulnerabilidadesDao;
 import es.unican.appriegospersonales.repository.db.VulnerabilidadDao;
-import es.unican.appriegospersonales.repository.nist.INistRepository;
-import es.unican.appriegospersonales.repository.nist.NistRepository;
 import es.unican.appriesgospersonales.R;
 
 public class RVActivosPerfilAdapter extends RecyclerView.Adapter<RVActivosPerfilAdapter.AssetViewHolder> {

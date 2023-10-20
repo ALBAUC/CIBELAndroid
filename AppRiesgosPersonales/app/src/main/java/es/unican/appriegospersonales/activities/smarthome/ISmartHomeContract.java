@@ -24,6 +24,5 @@ public interface ISmartHomeContract {
 
     interface  View {
         MyApplication getMyApplication();
-        String getStringFromRes(@StringRes int resourceId);
     }
 }

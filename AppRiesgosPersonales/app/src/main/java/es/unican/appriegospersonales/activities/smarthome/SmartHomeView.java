@@ -137,9 +137,4 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
     public MyApplication getMyApplication() {
         return (MyApplication) requireActivity().getApplication();
     }
-
-    @Override
-    public String getStringFromRes(@StringRes int resourceId) {
-        return getContext().getString(resourceId);
-    }
 }

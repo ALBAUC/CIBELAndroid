@@ -59,11 +59,11 @@
         Ejemplo en un dispositivo IoT: Si tienes cerraduras inteligentes en tu casa, es importante que estén siempre disponibles. Imagina que estás llegando a casa y quieres desbloquear la puerta con tu teléfono. La disponibilidad asegura que la cerradura responda rápidamente y sin problemas.<br><br>
 
         Las etiquetas que verás junto a estas características tienen el siguiente significado:<br><br>
-        1. <b>NONE:</b> Esto indica que no hay impacto.<br>
-        2. <b>LOW:</b> Indica un impacto bajo, es decir, el impacto es menor y no representa una amenaza seria.<br>
-        3. <b>PARTIAL:</b> Indica un impacto parcial, esto significa que hay un impacto significativo, pero no es completo.<br>
-        4. <b>HIGH:</b> Indica un impacto alto, esto significa que el impacto es grave y puede tener consecuencias serias.<br>
-        5. <b>COMPLETE:</b> Indica un impacto completo, esto significa que el impacto es total y puede tener consecuencias catastróficas.
+        1. <b>NINGUNO:</b> Esto indica que no hay impacto.<br>
+        2. <b>BAJO:</b> El impacto es menor y no representa una amenaza seria.<br>
+        3. <b>PARCIAL:</b> Esto significa que hay un impacto significativo, pero no es completo.<br>
+        4. <b>ALTO:</b> Esto significa que el impacto es grave y puede tener consecuencias serias.<br>
+        5. <b>COMPLETO:</b> Esto significa que el impacto es total y puede tener consecuencias catastróficas.
     ]]>
     </string>
 

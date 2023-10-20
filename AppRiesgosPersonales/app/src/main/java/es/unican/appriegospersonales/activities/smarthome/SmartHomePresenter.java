@@ -14,16 +14,10 @@ import java.util.List;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Perfil;
 import es.unican.appriegospersonales.model.Vulnerabilidad;
-import es.unican.appriegospersonales.model.nist.CVE;
-import es.unican.appriegospersonales.model.nist.ResultCVES;
-import es.unican.appriegospersonales.model.nist.Vulnerability;
 import es.unican.appriegospersonales.repository.db.ActivoDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
 import es.unican.appriegospersonales.repository.db.VulnerabilidadDao;
-import es.unican.appriegospersonales.repository.nist.INistRepository;
-import es.unican.appriegospersonales.repository.nist.NistRepository;
-import es.unican.appriesgospersonales.R;
 
 public class SmartHomePresenter implements ISmartHomeContract.Presenter {
     private final ISmartHomeContract.View view;
@@ -81,23 +75,23 @@ public class SmartHomePresenter implements ISmartHomeContract.Presenter {
             for (Vulnerabilidad v : assetVulnerabilities) {
                 String baseSeverity = v.getBaseSeverity();
                 if (baseSeverity != null) {
-                    if (baseSeverity.equals(view.getStringFromRes(R.string.severity_critical))) {
+                    if (baseSeverity.equals(Vulnerabilidad.SEVERITY_C)) {
                         numCritical++;
-                    } else if (baseSeverity.equals(view.getStringFromRes(R.string.severity_high))) {
+                    } else if (baseSeverity.equals(Vulnerabilidad.SEVERITY_H)) {
                         numHigh++;
-                    } else if (baseSeverity.equals(view.getStringFromRes(R.string.severity_medium))) {
+                    } else if (baseSeverity.equals(Vulnerabilidad.SEVERITY_M)) {
                         numMedium++;
-                    } else if (baseSeverity.equals(view.getStringFromRes(R.string.severity_low))) {
+                    } else if (baseSeverity.equals(Vulnerabilidad.SEVERITY_L)) {
                         numLow++;
                     }
                 }
             }
         }
         ArrayList pieEntries = new ArrayList();
-        pieEntries.add(new PieEntry(numCritical, view.getStringFromRes(R.string.severity_critical)));
-        pieEntries.add(new PieEntry(numHigh, view.getStringFromRes(R.string.severity_high)));
-        pieEntries.add(new PieEntry(numMedium, view.getStringFromRes(R.string.severity_medium)));
-        pieEntries.add(new PieEntry(numLow, view.getStringFromRes(R.string.severity_low)));
+        pieEntries.add(new PieEntry(numCritical, Vulnerabilidad.ES_SEVERITY_C));
+        pieEntries.add(new PieEntry(numHigh, Vulnerabilidad.ES_SEVERITY_H));
+        pieEntries.add(new PieEntry(numMedium, Vulnerabilidad.ES_SEVERITY_M));
+        pieEntries.add(new PieEntry(numLow, Vulnerabilidad.ES_SEVERITY_L));
         return pieEntries;
     }
 

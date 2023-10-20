@@ -125,25 +125,41 @@ public class CveDetailView extends Fragment implements  ICveDetailContract.View,
             setBaseScoreGraph();
 
             String confidenciality = presenter.getCveConfidenciality();
-            condifencialidadTV.setText(confidenciality);
+            condifencialidadTV.setText(getTranslationForImpact(confidenciality));
             condifencialidadTV.setTextColor(ContextCompat.getColor(getContext(),
                     vulnerabilidad.getColorFromImpact(confidenciality)));
             setGraph(confidencialidadHBC, confidenciality);
 
             String integrity = presenter.getCveIntegrity();
-            integridadTV.setText(integrity);
+            integridadTV.setText(getTranslationForImpact(integrity));
             integridadTV.setTextColor(ContextCompat.getColor(getContext(),
                     vulnerabilidad.getColorFromImpact(integrity)));
             setGraph(integridadHBC, integrity);
 
             String availability = presenter.getCveAvailability();
-            disponibilidadTV.setText(availability);
+            disponibilidadTV.setText(getTranslationForImpact(availability));
             disponibilidadTV.setTextColor(ContextCompat.getColor(getContext(),
                     vulnerabilidad.getColorFromImpact(availability)));
             setGraph(disponibilidadHBC, availability);
         }
 
         return layout;
+    }
+    private String getTranslationForImpact(String impact) {
+        switch (impact) {
+            case Vulnerabilidad.IMPACT_N:
+                return Vulnerabilidad.ES_IMPACT_N;
+            case Vulnerabilidad.IMPACT_L:
+                return Vulnerabilidad.ES_IMPACT_L;
+            case Vulnerabilidad.IMPACT_P:
+                return Vulnerabilidad.ES_IMPACT_P;
+            case Vulnerabilidad.IMPACT_H:
+                return Vulnerabilidad.ES_IMPACT_H;
+            case Vulnerabilidad.IMPACT_C:
+                return Vulnerabilidad.ES_IMPACT_C;
+            default:
+                return impact;
+        }
     }
 
     private void setBaseScoreGraph() {
