@@ -21,6 +21,7 @@ public class Categoria {
 	private Long id;
 	
 	private String nombre;
+	
 	@ManyToMany
 	@JoinTable(name = "categoria_x_control",
 				joinColumns = @JoinColumn(name = "fk_categoria"),

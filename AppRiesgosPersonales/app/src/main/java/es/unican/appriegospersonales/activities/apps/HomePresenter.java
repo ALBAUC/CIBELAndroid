@@ -11,6 +11,7 @@ import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.Perfil;
 import es.unican.appriegospersonales.model.Tipo;
+import es.unican.appriegospersonales.model.Vulnerabilidad;
 import es.unican.appriegospersonales.repository.cibel.CibelRepository;
 import es.unican.appriegospersonales.repository.cibel.ICibelRepository;
 import es.unican.appriegospersonales.repository.db.ActivoDao;
@@ -18,9 +19,6 @@ import es.unican.appriegospersonales.repository.db.CategoriaDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
 import es.unican.appriegospersonales.repository.db.TipoDao;
-import es.unican.appriegospersonales.repository.nist.INistRepository;
-import es.unican.appriegospersonales.repository.nist.NistRepository;
-
 public class HomePresenter implements IHomeContract.Presenter {
 
     private final IHomeContract.View view;
@@ -29,7 +27,6 @@ public class HomePresenter implements IHomeContract.Presenter {
     private TipoDao tipoDao;
     private PerfilDao perfilDao;
     private ICibelRepository cibelRepository;
-    private INistRepository nistRepository;
     private Perfil perfil;
 
     public HomePresenter(IHomeContract.View view) {
@@ -55,11 +52,6 @@ public class HomePresenter implements IHomeContract.Presenter {
         if (cibelRepository.lastDownloadOlderThan(30, CibelRepository.KEY_LAST_SAVED_A)) {
             doSyncInit();
         }
-
-        nistRepository = new NistRepository(view.getMyApplication());
-        for (Activo a : getAllActivos()) {
-            nistRepository.getVulnerabilidades(a.getNombre());
-        }
     }
 
     private void doAsyncInit() {
@@ -75,19 +67,29 @@ public class HomePresenter implements IHomeContract.Presenter {
                                 cibelRepository.requestTipos(new Callback<Tipo[]>() {
                                     @Override
                                     public void onSuccess(Tipo[] data) {
-                                        cibelRepository.requestActivos(new Callback<Activo[]>() {
+
+                                        cibelRepository.requestVulnerabilidades(new Callback<Vulnerabilidad[]>() {
                                             @Override
-                                            public void onSuccess(Activo[] activos) {
-                                                view.showLoadCorrect(activos.length);
+                                            public void onSuccess(Vulnerabilidad[] data) {
+                                                cibelRepository.requestActivos(new Callback<Activo[]>() {
+                                                    @Override
+                                                    public void onSuccess(Activo[] activos) {
+                                                        view.showLoadCorrect(activos.length);
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure() {
+                                                        view.showLoadError();
+                                                    }
+                                                }, null);
                                             }
 
                                             @Override
                                             public void onFailure() {
-                                                view.showLoadError();
-                                            }
-                                        }, null);
-                                    }
 
+                                            }
+                                        });
+                                    }
                                     @Override
                                     public void onFailure() {
 
@@ -119,7 +121,8 @@ public class HomePresenter implements IHomeContract.Presenter {
         if (cibelRepository.getControles() == null ||
                 cibelRepository.getAmenazas() == null ||
                 cibelRepository.getCategorias() == null ||
-                cibelRepository.getTipos() == null||
+                cibelRepository.getTipos() == null ||
+                cibelRepository.getVulnerabilidades() == null ||
                 cibelRepository.getActivos(null) == null) {
             view.showLoadError();
         } else {

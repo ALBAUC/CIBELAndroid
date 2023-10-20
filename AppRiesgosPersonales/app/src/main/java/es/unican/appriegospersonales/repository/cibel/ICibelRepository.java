@@ -6,6 +6,7 @@ import es.unican.appriegospersonales.model.Amenaza;
 import es.unican.appriegospersonales.model.Categoria;
 import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.Tipo;
+import es.unican.appriegospersonales.model.Vulnerabilidad;
 
 /**
  * Un Repository para acceder a los recursos de CIBELService
@@ -90,6 +91,10 @@ public interface ICibelRepository {
     void requestTipos(Callback<Tipo[]> cb);
 
     Tipo[] getTipos();
+
+    void requestVulnerabilidades(Callback<Vulnerabilidad[]> cb);
+
+    Vulnerabilidad[] getVulnerabilidades();
 
     boolean lastDownloadOlderThan(int minutes, String resourceName);
 }

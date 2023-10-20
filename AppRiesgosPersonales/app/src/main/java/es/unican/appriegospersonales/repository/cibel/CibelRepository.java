@@ -14,20 +14,24 @@ import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Amenaza;
 import es.unican.appriegospersonales.model.Categoria;
 import es.unican.appriegospersonales.model.Control;
+import es.unican.appriegospersonales.model.JoinActivosWithVulnerabilidades;
 import es.unican.appriegospersonales.model.JoinCategriasWithControles;
 import es.unican.appriegospersonales.model.JoinAmenazasWithControles;
 import es.unican.appriegospersonales.model.Perfil;
 import es.unican.appriegospersonales.model.Tipo;
+import es.unican.appriegospersonales.model.Vulnerabilidad;
 import es.unican.appriegospersonales.repository.db.ActivoDao;
 import es.unican.appriegospersonales.repository.db.AmenazaDao;
 import es.unican.appriegospersonales.repository.db.CategoriaDao;
 import es.unican.appriegospersonales.repository.db.ControlDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
+import es.unican.appriegospersonales.repository.db.JoinActivosWithVulnerabilidadesDao;
 import es.unican.appriegospersonales.repository.db.JoinAmenazasWithControlesDao;
 import es.unican.appriegospersonales.repository.db.JoinCategriasWithControlesDao;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
 import es.unican.appriegospersonales.repository.cibel.rest.CibelService;
 import es.unican.appriegospersonales.repository.db.TipoDao;
+import es.unican.appriegospersonales.repository.db.VulnerabilidadDao;
 
 /**
  * Implementacion de un repositorio de los recursos de AppWiseService.
@@ -77,6 +81,7 @@ public class CibelRepository implements ICibelRepository {
             ActivoDao activoDao = daoSession.getActivoDao();
             CategoriaDao categoriaDao = daoSession.getCategoriaDao();
             TipoDao tipoDao = daoSession.getTipoDao();
+            JoinActivosWithVulnerabilidadesDao avDao = daoSession.getJoinActivosWithVulnerabilidadesDao();
             for (Activo a : activos) {
                 Activo aBD = activoDao.load(a.getIdActivo());
                 if (aBD == null) {
@@ -85,6 +90,12 @@ public class CibelRepository implements ICibelRepository {
                     a.setFk_categoria(cat.getIdCategoria());
                     Tipo t = tipoDao.load(a.getTipoTrampa().getIdTipo());
                     a.setFk_tipo(t.getIdTipo());
+                    for (Vulnerabilidad v : a.getVulnerabilidades()) {
+                        JoinActivosWithVulnerabilidades av = new JoinActivosWithVulnerabilidades();
+                        av.setActivoId(a.getIdActivo());
+                        av.setVulnerabilidadId(v.getIdCVE());
+                        avDao.insert(av);
+                    }
                     activoDao.insert(a);
                 } else if (!aBD.equals(a)) {
                     // Ya estaba en la bd, se actualiza
@@ -255,6 +266,40 @@ public class CibelRepository implements ICibelRepository {
         Tipo[] response = CibelService.getTipos();
         persistToDBTipos(response);
         return response;
+    }
+
+    @Override
+    public void requestVulnerabilidades(Callback<Vulnerabilidad[]> cb) {
+        CibelService.requestVulnerabilidades(new Callback<Vulnerabilidad[]>() {
+            @Override
+            public void onSuccess(Vulnerabilidad[] data) {
+                persistToDBVulnerabilidades(data);
+                cb.onSuccess(data);
+            }
+
+            @Override
+            public void onFailure() {
+                cb.onFailure();
+            }
+        });
+    }
+
+    @Override
+    public Vulnerabilidad[] getVulnerabilidades() {
+        Vulnerabilidad[] response = CibelService.getVulnerabilidades();
+        persistToDBVulnerabilidades(response);
+        return response;
+    }
+
+    private void persistToDBVulnerabilidades(Vulnerabilidad[] vulnerabilidades) {
+        if (vulnerabilidades != null) {
+            VulnerabilidadDao vulnerabilidadDao = daoSession.getVulnerabilidadDao();
+            for (Vulnerabilidad v : vulnerabilidades) {
+                if (vulnerabilidadDao.load(v.getIdCVE()) == null) {
+                    vulnerabilidadDao.insert(v);
+                }
+            }
+        }
     }
 
     /**

@@ -1,19 +1,21 @@
 package es.unican.CIBEL.domain;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Activo {
 
 	@Id
@@ -33,6 +35,12 @@ public class Activo {
 	@JoinColumn(name ="fk_tipo")
 	private Tipo tipo;
 	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "activo_x_vulnerabilidad",
+				joinColumns = @JoinColumn(name = "fk_activo"),
+				inverseJoinColumns = @JoinColumn(name = "fk_vulnerabilidad"))
+	private List<Vulnerabilidad> vulnerabilidades;
+	
 	public Activo() {}
 	
 	public Activo(String nombre, String icono, Categoria categoria, Tipo tipo) {
@@ -40,6 +48,7 @@ public class Activo {
 		this.icono = icono;
 		this.categoria = categoria;
 		this.tipo = tipo;
+		this.vulnerabilidades = new LinkedList<Vulnerabilidad>();
 	}
 
 	public String getNombre() {
@@ -80,6 +89,14 @@ public class Activo {
 
 	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
+	}
+
+	public List<Vulnerabilidad> getVulnerabilidades() {
+		return vulnerabilidades;
+	}
+
+	public void setVulnerabilidades(List<Vulnerabilidad> vulnerabilidades) {
+		this.vulnerabilidades = vulnerabilidades;
 	}
 
 	@Override

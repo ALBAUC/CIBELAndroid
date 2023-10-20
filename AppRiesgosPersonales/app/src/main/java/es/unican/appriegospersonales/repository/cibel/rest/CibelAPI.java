@@ -5,6 +5,7 @@ import es.unican.appriegospersonales.model.Amenaza;
 import es.unican.appriegospersonales.model.Categoria;
 import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.Tipo;
+import es.unican.appriegospersonales.model.Vulnerabilidad;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -28,4 +29,7 @@ public interface CibelAPI {
 
     @GET("tipos")
     Call<Tipo[]> tipos();
+
+    @GET("vulnerabilidades")
+    Call<Vulnerabilidad[]> vulnerabilidades();
 }

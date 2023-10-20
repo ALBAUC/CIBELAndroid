@@ -10,6 +10,7 @@ import es.unican.appriegospersonales.model.Categoria;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.Tipo;
+import es.unican.appriegospersonales.model.Vulnerabilidad;
 import es.unican.appriegospersonales.repository.common.CallRunnable;
 import es.unican.appriegospersonales.repository.common.CallbackAdapter;
 import retrofit2.Call;
@@ -185,6 +186,27 @@ public class CibelService {
 
         ExecutorService executor = Executors.newFixedThreadPool(1);
         CallRunnable<Tipo[]> runnable = new CallRunnable<>(call);
+        executor.execute(runnable);
+
+        executor.shutdown();
+        try {
+            executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        return runnable.getResponse();
+    }
+
+    public static void requestVulnerabilidades(Callback<Vulnerabilidad[]> cb) {
+        final Call<Vulnerabilidad[]> call = getAPI().vulnerabilidades();
+        call.enqueue(new CallbackAdapter<>(cb));
+    }
+
+    public static Vulnerabilidad[] getVulnerabilidades() {
+        final Call<Vulnerabilidad[]> call = getAPI().vulnerabilidades();
+
+        ExecutorService executor = Executors.newFixedThreadPool(1);
+        CallRunnable<Vulnerabilidad[]> runnable = new CallRunnable<>(call);
         executor.execute(runnable);
 
         executor.shutdown();

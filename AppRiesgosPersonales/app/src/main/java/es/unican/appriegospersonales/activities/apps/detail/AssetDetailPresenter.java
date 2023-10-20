@@ -14,6 +14,7 @@ import es.unican.appriegospersonales.model.Vulnerabilidad;
 import es.unican.appriegospersonales.repository.db.ActivoDao;
 import es.unican.appriegospersonales.repository.db.ControlDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
+import es.unican.appriegospersonales.repository.db.JoinActivosWithVulnerabilidadesDao;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
 import es.unican.appriegospersonales.repository.db.VulnerabilidadDao;
 import es.unican.appriesgospersonales.R;
@@ -25,6 +26,7 @@ public class AssetDetailPresenter implements IAssetDetailContract.Presenter {
     private PerfilDao perfilDao;
     private ControlDao controlDao;
     private VulnerabilidadDao vulnerabilidadDao;
+    private JoinActivosWithVulnerabilidadesDao avDao;
     private Activo activo;
     private Perfil perfil;
 
@@ -40,6 +42,7 @@ public class AssetDetailPresenter implements IAssetDetailContract.Presenter {
         perfilDao = daoSession.getPerfilDao();
         controlDao = daoSession.getControlDao();
         vulnerabilidadDao = daoSession.getVulnerabilidadDao();
+        avDao = daoSession.getJoinActivosWithVulnerabilidadesDao();
         perfil = Perfil.getInstance(perfilDao);
     }
 
