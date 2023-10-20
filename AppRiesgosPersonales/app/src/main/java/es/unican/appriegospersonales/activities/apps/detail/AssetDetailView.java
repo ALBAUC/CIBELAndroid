@@ -78,6 +78,7 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
             RecyclerView assetCves_rv = layout.findViewById(R.id.assetDetail_cves_rv);
             appAdd_bt = layout.findViewById(R.id.appAdd_bt);
             cvePC = layout.findViewById(R.id.cve_pc);
+            TextView assetNumCvesTV = layout.findViewById(R.id.numCves_tv);
 
             // Asignar valores
             Picasso.get().load(presenter.getAssetIcon())
@@ -86,6 +87,7 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
                     .into(assetIcon_iv);
             assetName_tv.setText(presenter.getAssetName());
             assetType_tv.setText(presenter.getAssetType());
+            assetNumCvesTV.setText(presenter.getAssetCves().size() + " vulnerabilidades");
 
             assetCves_rv.setLayoutManager(new LinearLayoutManager(getContext()));
             assetCves_rv.setAdapter(new RVCvesAdapter(getContext(), presenter.getAssetCvesOrdenadorPorFecha()));
