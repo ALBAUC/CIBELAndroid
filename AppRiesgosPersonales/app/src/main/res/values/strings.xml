@@ -7,9 +7,9 @@
     <string name="bottom_nav_perfil">PERFIL</string>
     <string name="bottom_nav_smart_home">SMART HOME</string>
 
-    <string name="search_hint">Buscar aplicaciones o dispositivos</string>
+    <string name="search_hint">Buscar dispositivos</string>
 
-    <string name="loadCorrect">Se han cargado %d elementos</string>
+    <string name="loadCorrect">Se han cargado %d dispositivos</string>
     <string name="loadError">Ha ocurrido un error al acceder a los datos</string>
 
     <string name="dElement_detail_riesgos_title">Buenas prácticas</string>

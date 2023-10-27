@@ -86,8 +86,8 @@ public class CibelRepository implements ICibelRepository {
                 Activo aBD = activoDao.load(a.getIdActivo());
                 if (aBD == null) {
                     // Nuevo activo, se inserta en la bd
-                    Categoria cat = categoriaDao.load(a.getCategoriaTrampa().getIdCategoria());
-                    a.setFk_categoria(cat.getIdCategoria());
+//                    Categoria cat = categoriaDao.load(a.getCategoriaTrampa().getIdCategoria());
+//                    a.setFk_categoria(cat.getIdCategoria());
                     Tipo t = tipoDao.load(a.getTipoTrampa().getIdTipo());
                     a.setFk_tipo(t.getIdTipo());
                     for (Vulnerabilidad v : a.getVulnerabilidades()) {
@@ -101,7 +101,7 @@ public class CibelRepository implements ICibelRepository {
                     // Ya estaba en la bd, se actualiza
                     aBD.setNombre(a.getNombre());
                     aBD.setIcono(a.getIcono());
-                    aBD.setFk_categoria(a.getCategoriaTrampa().getIdCategoria());
+//                    aBD.setFk_categoria(a.getCategoriaTrampa().getIdCategoria());
                     aBD.setFk_tipo(a.getTipoTrampa().getIdTipo());
                     activoDao.update(aBD);
                 }

@@ -43,10 +43,9 @@ public class Activo {
 	
 	public Activo() {}
 	
-	public Activo(String nombre, String icono, Categoria categoria, Tipo tipo) {
+	public Activo(String nombre, String icono, Tipo tipo) {
 		this.nombre = nombre;
 		this.icono = icono;
-		this.categoria = categoria;
 		this.tipo = tipo;
 		this.vulnerabilidades = new LinkedList<Vulnerabilidad>();
 	}
@@ -101,7 +100,7 @@ public class Activo {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(categoria, icono, id, nombre, tipo);
+		return Objects.hash(icono, id, nombre, tipo);
 	}
 
 	@Override
@@ -113,13 +112,13 @@ public class Activo {
 		if (getClass() != obj.getClass())
 			return false;
 		Activo other = (Activo) obj;
-		return Objects.equals(categoria, other.categoria) && Objects.equals(icono, other.icono)
+		return Objects.equals(icono, other.icono)
 				&& Objects.equals(id, other.id) && Objects.equals(nombre, other.nombre)
 				&& Objects.equals(tipo, other.tipo);
 	}
 
 	@Override
 	public String toString() {
-		return "Activo [id=" + id + ", nombre=" + nombre + ", icono=" + icono + ", categoria=" + categoria.getNombre() + "]";
+		return "Activo [id=" + id + ", nombre=" + nombre + ", icono=" + icono + "]";
 	}
 }

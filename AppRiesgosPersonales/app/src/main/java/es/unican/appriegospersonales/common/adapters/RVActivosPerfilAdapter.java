@@ -78,7 +78,10 @@ public class RVActivosPerfilAdapter extends RecyclerView.Adapter<RVActivosPerfil
         // Asignar el color según el índice de riesgo
         holder.riesgoIcon_iv.setColorFilter(getColorFromIndiceRiesgo(activo.calcularIndiceRiesgo()));
 
-        Picasso.get().load(activo.getIcono()).into(holder.assetIcon_iv);
+        Picasso.get().load(activo.getIcono())
+                .resize(600, 600)
+                .centerCrop()
+                .into(holder.assetIcon_iv);
 
         if (perfilActivos != null && perfilActivos.contains(activo)) {
             holder.infoAddedIcon_iv.setVisibility(View.VISIBLE);
