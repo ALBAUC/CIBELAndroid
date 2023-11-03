@@ -42,7 +42,7 @@ public class LoadDatabase {
             String idMotorBusqueda = "41b083a8d7b30426d";
             
             // Cargar tipos y dispositivos del archivo
-	        try (BufferedReader br = new BufferedReader(new FileReader("/Users/alinasolonarubotnari/ALBAUC/CIBEL/Docs/Dispositivos.txt"))) {
+	        try (BufferedReader br = new BufferedReader(new FileReader("/Users/alinasolonarubotnari/ALBAUC/CIBEL/Docs/Datos/Dispositivos.txt"))) {
 	            String line;
 	            Tipo tipoActual = null;
 
@@ -66,7 +66,7 @@ public class LoadDatabase {
 	    	
 	    	
 	    	// Cargar vulnerabiliades del csv
-	    	CSVReader reader = new CSVReader(new FileReader("/Users/alinasolonarubotnari/ALBAUC/CIBEL/Docs/ListaLargaV2.csv"));
+	    	CSVReader reader = new CSVReader(new FileReader("/Users/alinasolonarubotnari/ALBAUC/CIBEL/Docs/Datos/ListaLargaV2.csv"));
 	    	List<String[]> rows = reader.readAll();
 	    	
 	    	for (String[] row : rows) {
