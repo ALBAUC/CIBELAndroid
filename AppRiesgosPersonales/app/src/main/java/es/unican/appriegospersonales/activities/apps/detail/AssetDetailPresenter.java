@@ -26,7 +26,6 @@ public class AssetDetailPresenter implements IAssetDetailContract.Presenter {
     private PerfilDao perfilDao;
     private ControlDao controlDao;
     private VulnerabilidadDao vulnerabilidadDao;
-    private JoinActivosWithVulnerabilidadesDao avDao;
     private Activo activo;
     private Perfil perfil;
 
@@ -42,13 +41,7 @@ public class AssetDetailPresenter implements IAssetDetailContract.Presenter {
         perfilDao = daoSession.getPerfilDao();
         controlDao = daoSession.getControlDao();
         vulnerabilidadDao = daoSession.getVulnerabilidadDao();
-        avDao = daoSession.getJoinActivosWithVulnerabilidadesDao();
         perfil = Perfil.getInstance(perfilDao);
-    }
-
-    @Override
-    public List<Control> getAssetControls() {
-        return activo.getCategoria().getControles();
     }
 
     @Override
@@ -102,61 +95,5 @@ public class AssetDetailPresenter implements IAssetDetailContract.Presenter {
     public List<Vulnerabilidad> getAssetCves() {
         List<Vulnerabilidad> assetCves = vulnerabilidadDao._queryActivo_Vulnerabilidades(activo.getIdActivo());
         return assetCves;
-    }
-
-    @Override
-    public List<Vulnerabilidad> getAssetCvesOrdenadorPorFecha() {
-        List<Vulnerabilidad> assetCves = getAssetCves();
-        Collections.sort(assetCves, new Comparator<Vulnerabilidad>() {
-            @Override
-            public int compare(Vulnerabilidad cve1, Vulnerabilidad cve2) {
-                // Extraer los años y los identificadores
-                String[] parts1 = cve1.getIdCVE().split("-");
-                String[] parts2 = cve2.getIdCVE().split("-");
-
-                int year1 = Integer.parseInt(parts1[1]);
-                int year2 = Integer.parseInt(parts2[1]);
-
-                int id1 = Integer.parseInt(parts1[2]);
-                int id2 = Integer.parseInt(parts2[2]);
-
-                // Comparar primero por año, y luego por identificador dentro del mismo año
-                if (year1 != year2) {
-                    return Integer.compare(year2, year1);
-                } else {
-                    return Integer.compare(id2, id1);
-                }
-            }
-        });
-
-        return assetCves;
-    }
-
-    @Override
-    public List<PieEntry> getEntries() {
-        int numCritical = 0;
-        int numHigh = 0;
-        int numMedium = 0;
-        int numLow = 0;
-            for (Vulnerabilidad v : getAssetCves()) {
-                String baseSeverity = v.getBaseSeverity();
-                if (baseSeverity != null) {
-                    if (baseSeverity.equals(Vulnerabilidad.SEVERITY_C)) {
-                        numCritical++;
-                    } else if (baseSeverity.equals(Vulnerabilidad.SEVERITY_H)) {
-                        numHigh++;
-                    } else if (baseSeverity.equals(Vulnerabilidad.SEVERITY_M)) {
-                        numMedium++;
-                    } else if (baseSeverity.equals(Vulnerabilidad.SEVERITY_L)) {
-                        numLow++;
-                    }
-                }
-            }
-        ArrayList pieEntries = new ArrayList();
-        pieEntries.add(new PieEntry(numCritical, Vulnerabilidad.ES_SEVERITY_C));
-        pieEntries.add(new PieEntry(numHigh, Vulnerabilidad.ES_SEVERITY_H));
-        pieEntries.add(new PieEntry(numMedium, Vulnerabilidad.ES_SEVERITY_M));
-        pieEntries.add(new PieEntry(numLow, Vulnerabilidad.ES_SEVERITY_L));
-        return pieEntries;
     }
 }

@@ -66,5 +66,7 @@
         5. <b>COMPLETO:</b> Esto significa que el impacto es total y puede tener consecuencias catastróficas.
     ]]>
     </string>
+    <string name="assetDetail_tabCves">Vulnerabilidades</string>
+    <string name="assetDetail_tabSostenibilidad">Sostenibilidad</string>
 
 </resources>

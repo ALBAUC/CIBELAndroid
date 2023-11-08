@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import es.unican.appriegospersonales.activities.apps.detail.AssetDetailView;
 import es.unican.appriegospersonales.activities.apps.search.SearchResultView;
 import es.unican.appriegospersonales.activities.main.MainView;

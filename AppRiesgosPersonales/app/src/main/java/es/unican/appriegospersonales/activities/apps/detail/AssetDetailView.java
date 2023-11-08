@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -29,6 +30,8 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.utils.ViewPortHandler;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -43,7 +46,7 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
     public static final String FRAGMENT_APP = "aplicacion";
     private IAssetDetailContract.Presenter presenter;
     private Button appAdd_bt;
-    private PieChart cvePC;
+    private ViewPager2 viewPager;
 
     public static AssetDetailView newInstance(Activo activo) {
         AssetDetailView fragment = new AssetDetailView();
@@ -75,10 +78,10 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
             ImageView assetIcon_iv = layout.findViewById(R.id.appDetailIcon_iv);
             TextView assetName_tv = layout.findViewById(R.id.appDetailName_tv);
             TextView assetType_tv = layout.findViewById(R.id.appDetailCategory_tv);
-            RecyclerView assetCves_rv = layout.findViewById(R.id.assetDetail_cves_rv);
             appAdd_bt = layout.findViewById(R.id.appAdd_bt);
-            cvePC = layout.findViewById(R.id.cve_pc);
             TextView assetNumCvesTV = layout.findViewById(R.id.numCves_tv);
+            viewPager = layout.findViewById(R.id.assetDetailVP);
+            TabLayout tabLayout = layout.findViewById(R.id.assetDetailTL);
 
             // Asignar valores
             Picasso.get().load(presenter.getAssetIcon())
@@ -88,13 +91,6 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
             assetName_tv.setText(presenter.getAssetName());
             assetType_tv.setText(presenter.getAssetType());
             assetNumCvesTV.setText(presenter.getAssetCves().size() + " vulnerabilidades");
-
-            assetCves_rv.setLayoutManager(new LinearLayoutManager(getContext()));
-            assetCves_rv.setAdapter(new RVCvesAdapter(getContext(), presenter.getAssetCvesOrdenadorPorFecha()));
-
-            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(assetCves_rv.getContext(),
-                    DividerItemDecoration.VERTICAL);
-            assetCves_rv.addItemDecoration(dividerItemDecoration);
 
             updateAssetAddButton(presenter.isAssetAdded());
             appAdd_bt.setOnClickListener(new View.OnClickListener() {
@@ -108,59 +104,15 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
 //                    }
                 }
             });
+
+            viewPager.setAdapter(new VPAssetDetailAdapter(getChildFragmentManager(), getLifecycle(), activo));
+
+            new TabLayoutMediator(tabLayout, viewPager,
+                    (tab, position) -> tab.setText(VPAssetDetailAdapter.Tab.byPosition(position).getTitle())
+            ).attach();
         }
 
-        setUpPieChart();
-
         return layout;
-    }
-
-    private void setUpPieChart() {
-        PieDataSet pieDataSet = new PieDataSet(presenter.getEntries(), "");
-        pieDataSet.setValueFormatter(new IValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-                if (value == 0) {
-                    return "";
-                } else {
-                    return String.valueOf((int) value);
-                }
-            }
-        });
-        PieData pieData = new PieData(pieDataSet);
-        cvePC.setData(pieData);
-        pieDataSet.setColors(getColorEntries());
-        pieDataSet.setSliceSpace(4f);
-        pieDataSet.setValueTextColor(Color.WHITE);
-        pieDataSet.setValueTextSize(12f);
-
-        cvePC.getDescription().setEnabled(false);
-        cvePC.setDrawEntryLabels(false);
-        cvePC.setRotationEnabled(false);
-        cvePC.setTouchEnabled(false);
-        cvePC.setDragDecelerationFrictionCoef(0.95f);
-
-        Legend legend = cvePC.getLegend();
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
-        legend.setOrientation(Legend.LegendOrientation.VERTICAL);
-        legend.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);
-        legend.setXEntrySpace(7f);// X axis spacing
-        legend.setYEntrySpace(5f); // Y axis spacing
-        legend.setYOffset(-8f);  // Offset of the legend y
-        legend.setXOffset(28f);  // Offset of legend x
-        legend.setTextSize(12f);
-        legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setEnabled(true);
-    }
-
-    private ArrayList<Integer> getColorEntries() {
-        ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(getResources().getColor(R.color.criticalV));
-        colors.add(getResources().getColor(R.color.highV));
-        colors.add(getResources().getColor(R.color.mediumV));
-        colors.add(getResources().getColor(R.color.lowV));
-        return colors;
     }
 
     private void updateAssetAddButton(boolean isAppAdded) {

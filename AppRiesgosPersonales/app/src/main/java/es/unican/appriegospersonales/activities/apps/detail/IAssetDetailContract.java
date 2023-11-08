@@ -25,8 +25,6 @@ public interface IAssetDetailContract {
 
         void init();
 
-        List<Control> getAssetControls();
-
         String getAssetIcon();
 
         String getAssetName();
@@ -42,9 +40,5 @@ public interface IAssetDetailContract {
         List<Control> getPerfilControls();
 
         List<Vulnerabilidad> getAssetCves();
-
-        List<Vulnerabilidad> getAssetCvesOrdenadorPorFecha();
-
-        List<PieEntry> getEntries();
     }
 }
