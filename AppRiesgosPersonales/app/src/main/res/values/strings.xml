@@ -68,5 +68,13 @@
     </string>
     <string name="assetDetail_tabCves">Vulnerabilidades</string>
     <string name="assetDetail_tabSostenibilidad">Sostenibilidad</string>
+    <string name="eco_ecoRate_title">Puntuación ECO</string>
+    <string name="activo_eco_title">Sostenibilidad ambiental</string>
+    <string name="activo_durabilidad_title">Durabilidad</string>
+    <string name="activo_reparabilidad_title">Reparabilidad</string>
+    <string name="activo_reciclabilidad_title">Reciclabilidad</string>
+    <string name="activo_efClimatica_title">Eficiencia climática</string>
+    <string name="activo_efRecursos_title">Eficiencia en uso de recursos</string>
+    <string name="eco_rating_title">Calificación ecológica</string>
 
 </resources>

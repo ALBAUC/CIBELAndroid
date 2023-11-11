@@ -25,4 +25,11 @@
     <color name="lowV">#A0D267</color>
     <color name="noneI">#C7C4C4</color>
 
+    <color name="ecoPoor">#F86C62</color>
+    <color name="ecoFair">#F6B85D</color>
+    <color name="ecoGood">#B6E055</color>
+    <color name="ecoExcelent">#5BB65F</color>
+
+    <color name="grey">#B4B1B1</color>
+
 </resources>

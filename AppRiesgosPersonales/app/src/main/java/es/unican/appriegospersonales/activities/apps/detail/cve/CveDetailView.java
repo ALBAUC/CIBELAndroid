@@ -197,11 +197,10 @@ public class CveDetailView extends Fragment implements  ICveDetailContract.View,
         BarDataSet barDataSet = new BarDataSet(entries, "Bar Data Set");
         barDataSet.setColor(ContextCompat.getColor(getContext(), vulnerabilidad.getColorFromSeverity()));
         barDataSet.setDrawValues(false);
-
         baseScoreHBC.setDrawBarShadow(true);
         barDataSet.setBarShadowColor(Color.argb(40, 150, 150, 150));
-        BarData data = new BarData(barDataSet);
 
+        BarData data = new BarData(barDataSet);
         data.setBarWidth(1f);
 
         baseScoreHBC.setData(data);

@@ -14,4 +14,34 @@ public class TabSostenibilidadPresenter implements ITabSostenibilidadContract.Pr
     public void init() {
 
     }
+
+    @Override
+    public int getEcoRate() {
+        return 77;
+    }
+
+    @Override
+    public int getDurabilidad() {
+        return 42;
+    }
+
+    @Override
+    public int getReparabilidad() {
+        return 55;
+    }
+
+    @Override
+    public int getReciclabilidad() {
+        return 76;
+    }
+
+    @Override
+    public int getEfClimatica() {
+        return 35;
+    }
+
+    @Override
+    public int getEfRecursos() {
+        return 80;
+    }
 }
