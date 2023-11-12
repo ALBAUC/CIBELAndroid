@@ -1,6 +1,7 @@
 package es.unican.appriegospersonales.common.adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Random;
 
 import es.unican.appriegospersonales.activities.apps.detail.AssetDetailView;
 import es.unican.appriegospersonales.common.MyApplication;
@@ -66,8 +68,11 @@ public class RVActivosPerfilAdapter extends RecyclerView.Adapter<RVActivosPerfil
     public void onBindViewHolder(@NonNull AssetViewHolder holder, int position) {
         Activo activo = activos.get(position);
         holder.activo = activo;
+
+        // Nombre activo
         holder.assetName_tv.setText(activo.getNombre());
 
+        // Numero vulnerabilidades
         List<Vulnerabilidad> activoVuln = vulnerabilidadDao._queryActivo_Vulnerabilidades(activo.getIdActivo());
         if (activoVuln.size() == 1) {
             holder.assetAddedVuln_tv.setText(activoVuln.size() + " vulnerabilidad");
@@ -75,7 +80,7 @@ public class RVActivosPerfilAdapter extends RecyclerView.Adapter<RVActivosPerfil
             holder.assetAddedVuln_tv.setText(activoVuln.size() + " vulnerabilidades");
         }
 
-        // Asignar el color según el índice de riesgo
+        // Color circulo según el índice de riesgo
         holder.riesgoIcon_iv.setColorFilter(getColorFromIndiceRiesgo(activo.calcularIndiceRiesgo()));
 
         Picasso.get().load(activo.getIcono())
@@ -88,6 +93,13 @@ public class RVActivosPerfilAdapter extends RecyclerView.Adapter<RVActivosPerfil
         } else {
             holder.infoAddedIcon_iv.setVisibility(View.GONE);
         }
+
+        // Sostenibilidad
+        Random random = new Random();
+        int calificacionEco = random.nextInt(66) + 30; // numero aleatorio entre 30 y 95
+        holder.assetAddedEcoTV.setText(calificacionEco + "/100 eco");
+        holder.ecoIconIV.setColorFilter(getColorFromEcoRating(calificacionEco));
+
     }
 
     private int getColorFromIndiceRiesgo(int indice) {
@@ -112,6 +124,20 @@ public class RVActivosPerfilAdapter extends RecyclerView.Adapter<RVActivosPerfil
         return ContextCompat.getColor(context, colorResId);
     }
 
+    private int getColorFromEcoRating(int ecoRating) {
+        int colorResId;
+        if (ecoRating < 25) {
+            colorResId = R.color.ecoPoor;
+        } else if (ecoRating < 50) {
+            colorResId = R.color.ecoFair;
+        } else if (ecoRating < 75) {
+            colorResId = R.color.ecoGood;
+        } else {
+            colorResId = R.color.ecoExcelent;
+        }
+        return ContextCompat.getColor(context, colorResId);
+    }
+
     @Override
     public int getItemCount() {
         return activos.size();
@@ -130,6 +156,8 @@ public class RVActivosPerfilAdapter extends RecyclerView.Adapter<RVActivosPerfil
         private final TextView assetAddedVuln_tv;
         private final ImageView infoAddedIcon_iv;
         private final ImageView riesgoIcon_iv;
+        private final ImageView ecoIconIV;
+        private final TextView assetAddedEcoTV;
         private Activo activo;
 
         public AssetViewHolder(@NonNull View itemView) {
@@ -139,6 +167,8 @@ public class RVActivosPerfilAdapter extends RecyclerView.Adapter<RVActivosPerfil
             assetAddedVuln_tv = itemView.findViewById(R.id.assetAddedVuln_tv);
             infoAddedIcon_iv = itemView.findViewById(R.id.infoAddedIcon_iv);
             riesgoIcon_iv = itemView.findViewById(R.id.riesgoIcon_iv);
+            ecoIconIV = itemView.findViewById(R.id.ecoIcon_iv);
+            assetAddedEcoTV = itemView.findViewById(R.id.assetAddedEco_tv);
             itemView.setOnClickListener(this);
         }
 
