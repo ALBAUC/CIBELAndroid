@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -364,5 +365,41 @@ public class Activo implements Parcelable {
             totalRiesgo += factorSeveridad;
         }
         return totalRiesgo;
+    }
+
+    public int getColorFromIndiceRiesgo(int indice) {
+        int colorResId;
+        switch (indice) {
+            case 0:
+                colorResId = R.color.lowV;
+                break;
+            case 1:
+                colorResId = R.color.mediumV;
+                break;
+            case 2:
+                colorResId = R.color.highV;
+                break;
+            case 3:
+                colorResId = R.color.criticalV;
+                break;
+            default:
+                colorResId = R.color.black; // Si el índice no está en el rango, se usa el color por defecto
+                break;
+        }
+        return colorResId;
+    }
+
+    public int getColorFromEcoRating(int ecoRating) {
+        int colorResId;
+        if (ecoRating < 25) {
+            colorResId = R.color.ecoPoor;
+        } else if (ecoRating < 50) {
+            colorResId = R.color.ecoFair;
+        } else if (ecoRating < 75) {
+            colorResId = R.color.ecoGood;
+        } else {
+            colorResId = R.color.ecoExcelent;
+        }
+        return colorResId;
     }
 }

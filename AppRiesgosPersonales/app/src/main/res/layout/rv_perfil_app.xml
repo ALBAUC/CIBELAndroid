@@ -113,7 +113,7 @@
 
                     android:inputType="textMultiLine"
                     android:textSize="15sp"
-                    tools:text="Sostenibilidad" />
+                    tools:text="35/100 eco" />
 
             </LinearLayout>
         </LinearLayout>

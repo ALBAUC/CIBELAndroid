@@ -81,7 +81,7 @@ public class RVActivosPerfilAdapter extends RecyclerView.Adapter<RVActivosPerfil
         }
 
         // Color circulo según el índice de riesgo
-        holder.riesgoIcon_iv.setColorFilter(getColorFromIndiceRiesgo(activo.calcularIndiceRiesgo()));
+        holder.riesgoIcon_iv.setColorFilter(ContextCompat.getColor(context, activo.getColorFromIndiceRiesgo(activo.calcularIndiceRiesgo())));
 
         Picasso.get().load(activo.getIcono())
                 .resize(600, 600)
@@ -98,44 +98,8 @@ public class RVActivosPerfilAdapter extends RecyclerView.Adapter<RVActivosPerfil
         Random random = new Random();
         int calificacionEco = random.nextInt(66) + 30; // numero aleatorio entre 30 y 95
         holder.assetAddedEcoTV.setText(calificacionEco + "/100 eco");
-        holder.ecoIconIV.setColorFilter(getColorFromEcoRating(calificacionEco));
+        holder.ecoIconIV.setColorFilter(ContextCompat.getColor(context, activo.getColorFromEcoRating(calificacionEco)));
 
-    }
-
-    private int getColorFromIndiceRiesgo(int indice) {
-        int colorResId;
-        switch (indice) {
-            case 0:
-                colorResId = R.color.lowV;
-                break;
-            case 1:
-                colorResId = R.color.mediumV;
-                break;
-            case 2:
-                colorResId = R.color.highV;
-                break;
-            case 3:
-                colorResId = R.color.criticalV;
-                break;
-            default:
-                colorResId = R.color.black; // Si el índice no está en el rango, se usa el color por defecto
-                break;
-        }
-        return ContextCompat.getColor(context, colorResId);
-    }
-
-    private int getColorFromEcoRating(int ecoRating) {
-        int colorResId;
-        if (ecoRating < 25) {
-            colorResId = R.color.ecoPoor;
-        } else if (ecoRating < 50) {
-            colorResId = R.color.ecoFair;
-        } else if (ecoRating < 75) {
-            colorResId = R.color.ecoGood;
-        } else {
-            colorResId = R.color.ecoExcelent;
-        }
-        return ContextCompat.getColor(context, colorResId);
     }
 
     @Override

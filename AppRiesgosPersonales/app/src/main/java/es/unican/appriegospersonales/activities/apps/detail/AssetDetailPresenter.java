@@ -96,4 +96,9 @@ public class AssetDetailPresenter implements IAssetDetailContract.Presenter {
         List<Vulnerabilidad> assetCves = vulnerabilidadDao._queryActivo_Vulnerabilidades(activo.getIdActivo());
         return assetCves;
     }
+
+    @Override
+    public int getEcoRating() {
+        return 82;
+    }
 }

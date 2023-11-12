@@ -82,6 +82,9 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
             TextView assetNumCvesTV = layout.findViewById(R.id.numCves_tv);
             viewPager = layout.findViewById(R.id.assetDetailVP);
             TabLayout tabLayout = layout.findViewById(R.id.assetDetailTL);
+            ImageView riesgoIconIV = layout.findViewById(R.id.riesgoIcon_iv);
+            TextView ecoTV = layout.findViewById(R.id.eco_tv);
+            ImageView ecoIV = layout.findViewById(R.id.ecoIcon_iv);
 
             // Asignar valores
             Picasso.get().load(presenter.getAssetIcon())
@@ -90,7 +93,15 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
                     .into(assetIcon_iv);
             assetName_tv.setText(presenter.getAssetName());
             assetType_tv.setText(presenter.getAssetType());
-            assetNumCvesTV.setText(presenter.getAssetCves().size() + " vulnerabilidades");
+            int numCves = presenter.getAssetCves().size();
+            if (numCves == 1) {
+                assetNumCvesTV.setText(numCves + " vulnerabilidad");
+            } else {
+                assetNumCvesTV.setText(numCves + " vulnerabilidades");
+            }
+            riesgoIconIV.setColorFilter(ContextCompat.getColor(getContext(), activo.getColorFromIndiceRiesgo(activo.calcularIndiceRiesgo())));
+            ecoTV.setText(presenter.getEcoRating() + "/100 eco");
+            ecoIV.setColorFilter(ContextCompat.getColor(getContext(), activo.getColorFromEcoRating(presenter.getEcoRating())));
 
             updateAssetAddButton(presenter.isAssetAdded());
             appAdd_bt.setOnClickListener(new View.OnClickListener() {

@@ -40,5 +40,7 @@ public interface IAssetDetailContract {
         List<Control> getPerfilControls();
 
         List<Vulnerabilidad> getAssetCves();
+
+        int getEcoRating();
     }
 }
