@@ -87,7 +87,7 @@ public class TabSostenibilidadView extends Fragment implements ITabSostenibilida
         setGraph(efClimaticaHBC, presenter.getEfClimatica());
         setGraph(efRecursosHBC, presenter.getEfRecursos());
 
-        ecoRatingBar.setProgress(82);
+        ecoRatingBar.setProgress(presenter.getEcoRate());
         ecoRatingBar.setEnabled(false);
         destacaEcoBar();
 

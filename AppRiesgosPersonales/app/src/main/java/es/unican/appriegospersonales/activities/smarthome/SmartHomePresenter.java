@@ -108,4 +108,9 @@ public class SmartHomePresenter implements ISmartHomeContract.Presenter {
         return vulnerabilidadesPerfil;
     }
 
+    @Override
+    public int getEcoRatingHome() {
+        return 62;
+    }
+
 }

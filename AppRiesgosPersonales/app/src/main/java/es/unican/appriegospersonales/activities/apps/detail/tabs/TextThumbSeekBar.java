@@ -36,7 +36,6 @@ public class TextThumbSeekBar extends androidx.appcompat.widget.AppCompatSeekBar
         mTextPaint = new TextPaint();
         mTextPaint.setColor(ContextCompat.getColor(getContext(), R.color.white));
         mTextPaint.setTextSize(getResources().getDimensionPixelSize(R.dimen.thumb_text_size));
-        mTextPaint.setTypeface(Typeface.DEFAULT_BOLD);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
     }
 

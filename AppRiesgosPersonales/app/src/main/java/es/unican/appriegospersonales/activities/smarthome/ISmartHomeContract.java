@@ -20,6 +20,8 @@ public interface ISmartHomeContract {
         ArrayList getEntries();
 
         List<Vulnerabilidad> getVulnerabilidadesPerfil();
+
+        int getEcoRatingHome();
     }
 
     interface  View {
