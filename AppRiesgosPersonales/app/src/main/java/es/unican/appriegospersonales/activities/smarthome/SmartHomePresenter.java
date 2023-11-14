@@ -1,8 +1,5 @@
 package es.unican.appriegospersonales.activities.smarthome;
 
-import android.content.Context;
-import android.util.Log;
-
 import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
@@ -48,16 +45,13 @@ public class SmartHomePresenter implements ISmartHomeContract.Presenter {
     public List<Activo> getActivosPerfilOrdenadosPorRiesgo() {
         List<Activo> perfilAssets = getActivosPerfil();
 
-        // Ordenar la lista por índice de riesgo
+        // Ordenar la lista por gravedad
         Collections.sort(perfilAssets, new Comparator<Activo>() {
             @Override
             public int compare(Activo activo1, Activo activo2) {
-                // Obtener el índice de riesgo para cada activo
-                int riesgo1 = activo1.calcularTotalRiesgo();
-                int riesgo2 = activo2.calcularTotalRiesgo();
-
-                // Comparar los índices de riesgo
-                return Integer.compare(riesgo2, riesgo1);
+                int gravedad1 = (int) Math.round(activo1.calcularTotalGravedad());
+                int gravedad2 = (int) Math.round(activo2.calcularTotalGravedad());
+                return Integer.compare(gravedad2, gravedad1);
             }
         });
 

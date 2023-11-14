@@ -9,12 +9,13 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_appAddedIcon_iv"
-        android:layout_width="34dp"
-        android:layout_height="34dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="3dp"
         android:layout_marginRight="3dp"
         android:layout_marginBottom="3dp"
+        android:layout_centerVertical="true"
         app:cardCornerRadius="6dp">
 
         <ImageView
@@ -52,7 +53,6 @@
                 style="@style/RecyclerIconStyle"
                 android:layout_width="13dp"
                 android:layout_height="13dp"
-                android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="6dp"
                 android:src="@drawable/check_circle" />
@@ -60,13 +60,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -83,7 +83,6 @@
                     android:id="@+id/assetAddedVuln_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:inputType="textMultiLine"
                     android:textSize="15sp"
                     tools:text="x vulnerabilidades" />
@@ -91,9 +90,8 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -110,7 +108,6 @@
                     android:id="@+id/assetAddedEco_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:inputType="textMultiLine"
                     android:textSize="15sp"
                     tools:text="35/100 eco" />

@@ -1,9 +1,7 @@
 package es.unican.appriegospersonales.activities.apps.detail;
 
-import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -15,26 +13,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.formatter.IValueFormatter;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
 
 import es.unican.appriegospersonales.activities.main.MainView;
 import es.unican.appriegospersonales.common.MyApplication;
@@ -99,7 +84,7 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
             } else {
                 assetNumCvesTV.setText(numCves + " vulnerabilidades");
             }
-            riesgoIconIV.setColorFilter(ContextCompat.getColor(getContext(), activo.getColorFromIndiceRiesgo(activo.calcularIndiceRiesgo())));
+            riesgoIconIV.setColorFilter(ContextCompat.getColor(getContext(), activo.getColorFromTramoSeguridad(activo.calcularTramoSeguridad())));
             ecoTV.setText(presenter.getEcoRating() + "/100 eco");
             ecoIV.setColorFilter(ContextCompat.getColor(getContext(), activo.getColorFromEcoRating(presenter.getEcoRating())));
 

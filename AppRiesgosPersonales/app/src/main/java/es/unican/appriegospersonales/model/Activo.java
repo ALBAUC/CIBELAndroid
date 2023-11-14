@@ -3,10 +3,8 @@ package es.unican.appriegospersonales.model;
 import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -328,48 +326,43 @@ public class Activo implements Parcelable {
         vulnerabilidades = null;
     }
 
-    public int calcularIndiceRiesgo() {
-        int totalRiesgo = calcularTotalRiesgo();
-        int indiceRiesgo = 0;
+    public int calcularTramoSeguridad() {
+        int puntuacionSeguridad = calcularPuntuacionSeguridad();
+        int tramo = 3; // critico
 
-        if (totalRiesgo >= 9) {
-            indiceRiesgo = 3;
-        } else if (totalRiesgo >= 5) {
-            indiceRiesgo = 2;
-        } else if (totalRiesgo >= 2) {
-            indiceRiesgo = 1;
+        if (puntuacionSeguridad >= 75) {
+            tramo = 0; // bajo
+        } else if (puntuacionSeguridad >= 50) {
+            tramo = 1; // medio
+        } else if (puntuacionSeguridad >= 25) {
+            tramo = 2; // alto
         }
 
-        return indiceRiesgo;
+        return tramo;
     }
 
-    public int calcularTotalRiesgo() {
+    public int calcularPuntuacionSeguridad() {
+        // Los mayores valores de totalGravedad rondan entre 350-400
+        // Por lo que consideramos 400 como límite de mayor gravedad
+        // Por eso divido entre 4
+        int puntuacionSeguridad = (int) Math.round(100 - (calcularTotalGravedad() / 4));
+        return Math.max(0, Math.min(100, puntuacionSeguridad));
+    }
+
+    public double calcularTotalGravedad() {
         List<Vulnerabilidad> vulnerabilidades = getVulnerabilidades();
-        int totalRiesgo = 0;
+        int totalGravedad = 0;
 
         for (Vulnerabilidad v : vulnerabilidades) {
-            String severidad = v.getBaseSeverity();
-            int factorSeveridad = 0;
-
-            // Asigna un valor a la severidad
-            if (severidad.equals(Vulnerabilidad.SEVERITY_C)) {
-                factorSeveridad = 3;  // Asigna el mayor valor
-            } else if (severidad.equals(Vulnerabilidad.SEVERITY_H)) {
-                factorSeveridad = 2;
-            } else if (severidad.equals(Vulnerabilidad.SEVERITY_M)) {
-                factorSeveridad = 1;
-            } else if (severidad.equals(Vulnerabilidad.SEVERITY_L)) {
-                factorSeveridad = 0;  // Asigna el menor valor
-            }
-
-            totalRiesgo += factorSeveridad;
+            totalGravedad += v.getBaseScore() * 10; // baseScore de 0 a 100
         }
-        return totalRiesgo;
+
+        return totalGravedad;
     }
 
-    public int getColorFromIndiceRiesgo(int indice) {
+    public int getColorFromTramoSeguridad(int tramo) {
         int colorResId;
-        switch (indice) {
+        switch (tramo) {
             case 0:
                 colorResId = R.color.lowV;
                 break;
@@ -383,7 +376,7 @@ public class Activo implements Parcelable {
                 colorResId = R.color.criticalV;
                 break;
             default:
-                colorResId = R.color.black; // Si el índice no está en el rango, se usa el color por defecto
+                colorResId = R.color.black;
                 break;
         }
         return colorResId;

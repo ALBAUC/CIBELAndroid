@@ -135,8 +135,6 @@ public class TabSostenibilidadView extends Fragment implements ITabSostenibilida
         yRight.setEnabled(false);
 
         setGraphData(chart, score);
-
-        chart.animateY(2000);
     }
 
     private void setGraphData(HorizontalBarChart chart, int score) {
@@ -152,9 +150,10 @@ public class TabSostenibilidadView extends Fragment implements ITabSostenibilida
         barDataSet.setBarShadowColor(Color.argb(40, 150, 150, 150));
         BarData data = new BarData(barDataSet);
 
-        data.setBarWidth(0.85f);
+        data.setBarWidth(1f);
 
         chart.setData(data);
         chart.invalidate();
     }
 }
+
