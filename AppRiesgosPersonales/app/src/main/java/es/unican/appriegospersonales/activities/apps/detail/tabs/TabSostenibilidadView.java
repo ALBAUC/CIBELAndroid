@@ -2,6 +2,9 @@ package es.unican.appriegospersonales.activities.apps.detail.tabs;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +26,7 @@ import com.github.mikephil.charting.data.BarEntry;
 
 import java.util.ArrayList;
 
+import es.unican.appriegospersonales.common.TextThumbSeekBar;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriesgospersonales.R;
 
@@ -96,19 +100,33 @@ public class TabSostenibilidadView extends Fragment implements ITabSostenibilida
 
     private void destacaEcoBar() {
         int progress = ecoRatingBar.getProgress();
+
+        Drawable thumbDrawable = ContextCompat.getDrawable(getContext(), R.drawable.shape_seek_bar_text_thumb);
+        LayerDrawable layerDrawable = (LayerDrawable) thumbDrawable;
+        GradientDrawable circleDrawable = (GradientDrawable) layerDrawable.getDrawable(1);
+
         if (progress < 25) {
             pobreTV.setTextColor(ContextCompat.getColor(getContext(), R.color.ecoPoor));
             pobreTV.setTypeface(Typeface.DEFAULT_BOLD);
+            pobreTV.setTextSize(13f);
+            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.ecoPoor));
         } else if (progress < 50) {
             justoTV.setTextColor(ContextCompat.getColor(getContext(), R.color.ecoFair));
             justoTV.setTypeface(Typeface.DEFAULT_BOLD);
+            justoTV.setTextSize(13f);
+            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.ecoFair));
         } else if (progress < 75) {
             buenoTV.setTextColor(ContextCompat.getColor(getContext(), R.color.ecoGood));
             buenoTV.setTypeface(Typeface.DEFAULT_BOLD);
+            buenoTV.setTextSize(13f);
+            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.ecoGood));
         } else {
             excelenteTV.setTextColor(ContextCompat.getColor(getContext(), R.color.ecoExcelent));
             excelenteTV.setTypeface(Typeface.DEFAULT_BOLD);
+            excelenteTV.setTextSize(13f);
+            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.ecoExcelent));
         }
+        ecoRatingBar.setThumb(thumbDrawable);
     }
 
     private void setGraph(HorizontalBarChart chart, int score) {

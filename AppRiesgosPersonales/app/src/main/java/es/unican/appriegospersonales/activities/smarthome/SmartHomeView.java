@@ -1,10 +1,11 @@
 package es.unican.appriegospersonales.activities.smarthome;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -22,21 +22,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.IValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.ArrayList;
 
-import es.unican.appriegospersonales.activities.apps.detail.tabs.TextThumbSeekBar;
+import es.unican.appriegospersonales.common.TextThumbSeekBar;
 import es.unican.appriegospersonales.activities.main.MainView;
-import es.unican.appriegospersonales.activities.perfil.IPerfilContract;
-import es.unican.appriegospersonales.activities.perfil.PerfilView;
 import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.common.adapters.RVActivosPerfilAdapter;
 import es.unican.appriesgospersonales.R;
@@ -96,19 +92,33 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
 
     private void destacaEcoBar() {
         int progress = ecoRatingBar.getProgress();
+
+        Drawable thumbDrawable = ContextCompat.getDrawable(getContext(), R.drawable.shape_seek_bar_text_thumb);
+        LayerDrawable layerDrawable = (LayerDrawable) thumbDrawable;
+        GradientDrawable circleDrawable = (GradientDrawable) layerDrawable.getDrawable(1);
+
         if (progress < 25) {
             pobreTV.setTextColor(ContextCompat.getColor(getContext(), R.color.ecoPoor));
             pobreTV.setTypeface(Typeface.DEFAULT_BOLD);
+            pobreTV.setTextSize(13f);
+            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.ecoPoor));
         } else if (progress < 50) {
             justoTV.setTextColor(ContextCompat.getColor(getContext(), R.color.ecoFair));
             justoTV.setTypeface(Typeface.DEFAULT_BOLD);
+            justoTV.setTextSize(13f);
+            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.ecoFair));
         } else if (progress < 75) {
             buenoTV.setTextColor(ContextCompat.getColor(getContext(), R.color.ecoGood));
             buenoTV.setTypeface(Typeface.DEFAULT_BOLD);
+            buenoTV.setTextSize(13f);
+            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.ecoGood));
         } else {
             excelenteTV.setTextColor(ContextCompat.getColor(getContext(), R.color.ecoExcelent));
             excelenteTV.setTypeface(Typeface.DEFAULT_BOLD);
+            excelenteTV.setTextSize(13f);
+            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.ecoExcelent));
         }
+        ecoRatingBar.setThumb(thumbDrawable);
     }
 
     private void setUpPieChart() {

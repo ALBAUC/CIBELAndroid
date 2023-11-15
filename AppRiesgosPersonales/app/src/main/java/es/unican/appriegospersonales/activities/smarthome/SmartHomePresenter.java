@@ -104,7 +104,7 @@ public class SmartHomePresenter implements ISmartHomeContract.Presenter {
 
     @Override
     public int getEcoRatingHome() {
-        return 62;
+        return 45;
     }
 
 }

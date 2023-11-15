@@ -4,6 +4,6 @@
     <dimen name="divider" tools:ignore="MissingDefaultResource">6dp</dimen>
     <dimen name="text_margin">16dp</dimen>
 
-    <dimen name="thumb_size">24dp</dimen>
-    <dimen name="thumb_text_size">15sp</dimen>
+    <dimen name="thumb_size">20dp</dimen>
+    <dimen name="thumb_text_size">11sp</dimen>
 </resources>

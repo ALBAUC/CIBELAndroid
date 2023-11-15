@@ -1,6 +1,6 @@
 package es.unican.appriegospersonales.activities.apps.detail.tabs;
 
-public class ITabSostenibilidadContract {
+public interface ITabSostenibilidadContract {
     interface View {
 
     }
