@@ -22,6 +22,8 @@ public interface ISmartHomeContract {
         List<Vulnerabilidad> getVulnerabilidadesPerfil();
 
         int getEcoRatingHome();
+
+        int getSecurityRatingHome();
     }
 
     interface  View {

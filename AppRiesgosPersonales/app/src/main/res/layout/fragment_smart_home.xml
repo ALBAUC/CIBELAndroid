@@ -105,27 +105,75 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="8dp"
                 android:orientation="vertical"
-                android:layout_margin="8dp">
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp">
 
                 <TextView
-                    android:id="@+id/severityCvesInfo_tv"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:text="@string/perfil_severity"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="6dp"
+                    android:text="@string/security_title"
+                    android:textAlignment="center"
                     android:textSize="16sp"
-                    android:textStyle="bold"
-                    tools:text="Gravedad de las vulnerabilidades" />
+                    android:textStyle="bold" />
 
-
-                <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/cves_pc"
+                <es.unican.appriegospersonales.common.TextThumbSeekBar
+                    android:id="@+id/security_sb"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="2dp" />
+                    android:layout_height="wrap_content"
+                    android:max="100"
+                    android:thumb="@drawable/shape_seek_bar_text_thumb"
+                    android:thumbOffset="22dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/sInseguro_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="12sp"
+                        android:textColor="@color/grey"
+                        android:text="@string/seguridad_0" />
+
+                    <TextView
+                        android:id="@+id/sMejorable_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="12sp"
+                        android:textColor="@color/grey"
+                        android:text="@string/seguridad_1" />
+
+                    <TextView
+                        android:id="@+id/sBueno_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="12sp"
+                        android:textColor="@color/grey"
+                        android:text="@string/seguridad_2" />
+
+                    <TextView
+                        android:id="@+id/sExcelente_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="12sp"
+                        android:textColor="@color/grey"
+                        android:text="@string/seguridad_3" />
+                </LinearLayout>
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -156,7 +204,7 @@
                     android:textStyle="bold" />
 
                 <es.unican.appriegospersonales.common.TextThumbSeekBar
-                    android:id="@+id/seekBar"
+                    android:id="@+id/eco_sb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:max="100"
@@ -176,7 +224,7 @@
                         android:gravity="center"
                         android:textSize="12sp"
                         android:textColor="@color/grey"
-                        android:text="POBRE" />
+                        android:text="@string/eco_0" />
 
                     <TextView
                         android:id="@+id/justo_tv"
@@ -186,7 +234,7 @@
                         android:gravity="center"
                         android:textSize="12sp"
                         android:textColor="@color/grey"
-                        android:text="JUSTO" />
+                        android:text="@string/eco_1" />
 
                     <TextView
                         android:id="@+id/bueno_tv"
@@ -196,7 +244,7 @@
                         android:gravity="center"
                         android:textSize="12sp"
                         android:textColor="@color/grey"
-                        android:text="BUENO" />
+                        android:text="@string/eco_2" />
 
                     <TextView
                         android:id="@+id/excelente_tv"
@@ -206,7 +254,7 @@
                         android:gravity="center"
                         android:textSize="12sp"
                         android:textColor="@color/grey"
-                        android:text="EXCELENTE" />
+                        android:text="@string/eco_3" />
                 </LinearLayout>
             </LinearLayout>
 

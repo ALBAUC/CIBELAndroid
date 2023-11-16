@@ -107,4 +107,14 @@ public class SmartHomePresenter implements ISmartHomeContract.Presenter {
         return 45;
     }
 
+    @Override
+    public int getSecurityRatingHome() {
+        List<Activo> activos = getActivosPerfil();
+        double s = 0;
+        for (Activo a : activos) {
+            s += a.calcularPuntuacionSeguridad();
+        }
+        return (int) Math.round(s / activos.size());
+    }
+
 }

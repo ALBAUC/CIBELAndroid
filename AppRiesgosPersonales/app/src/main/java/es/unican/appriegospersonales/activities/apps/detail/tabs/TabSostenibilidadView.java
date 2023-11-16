@@ -57,7 +57,7 @@ public class TabSostenibilidadView extends Fragment implements ITabSostenibilida
         View layout = inflater.inflate(R.layout.fragment_asset_detail_eco, container, false);
 
         // Link a los elementos de la vista
-        ecoRatingBar = layout.findViewById(R.id.seekBar);
+        ecoRatingBar = layout.findViewById(R.id.eco_sb);
         pobreTV = layout.findViewById(R.id.pobre_tv);
         justoTV = layout.findViewById(R.id.justo_tv);
         buenoTV = layout.findViewById(R.id.bueno_tv);

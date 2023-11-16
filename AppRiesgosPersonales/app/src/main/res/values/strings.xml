@@ -76,5 +76,14 @@
     <string name="activo_efClimatica_title">Eficiencia climática</string>
     <string name="activo_efRecursos_title">Eficiencia en uso de recursos</string>
     <string name="eco_rating_title">Calificación ecológica</string>
+    <string name="security_title">Puntuación de seguridad</string>
+    <string name="seguridad_0">INSEGURO</string>
+    <string name="seguridad_1">MEJORABLE</string>
+    <string name="seguridad_2">BUENO</string>
+    <string name="seguridad_3">EXCELENTE</string>
+    <string name="eco_0">POBRE</string>
+    <string name="eco_1">JUSTO</string>
+    <string name="eco_2">BUENO</string>
+    <string name="eco_3">EXCELENTE</string>
 
 </resources>
