@@ -20,10 +20,12 @@
             android:padding="20dp">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginRight="20dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginLeft="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
                 android:layout_gravity="center_vertical"
                 app:cardCornerRadius="14dp">
 
@@ -65,20 +67,28 @@
                     <ImageView
                         android:id="@+id/securityIcon_iv"
                         style="@style/RecyclerIconStyle"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="6dp"
+                        android:layout_marginEnd="4dp"
                         android:src="@drawable/security" />
 
                     <TextView
                         android:id="@+id/security_tv"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:layout_marginEnd="6dp"
+                        tools:text="65/100" />
+
+                    <TextView
+                        android:id="@+id/securityTag_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:inputType="textMultiLine"
-                        android:textSize="16sp"
-                        tools:text="65/100 seguro" />
+                        android:textSize="15sp"
+                        tools:text="Suficiente seguro" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -90,20 +100,28 @@
                     <ImageView
                         android:id="@+id/ecoIcon_iv"
                         style="@style/RecyclerIconStyle"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="6dp"
+                        android:layout_marginEnd="4dp"
                         android:src="@drawable/energy_saving" />
 
                     <TextView
                         android:id="@+id/eco_tv"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:layout_marginEnd="6dp"
+                        tools:text="35/100" />
+
+                    <TextView
+                        android:id="@+id/ecoTag_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:inputType="textMultiLine"
-                        android:textSize="16sp"
-                        tools:text="35/100 eco" />
+                        android:textSize="15sp"
+                        tools:text="Poco sostenible" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

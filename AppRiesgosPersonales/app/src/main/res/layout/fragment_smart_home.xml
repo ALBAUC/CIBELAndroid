@@ -13,51 +13,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
-                android:elevation="10dp"
-                app:cardCornerRadius="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="4dp"
-                    android:orientation="vertical"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp">
-
-                    <TextView
-                        android:id="@+id/numDevicesInfo_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_horizontal"
-                        android:text="@string/perfil_numDispositivos"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:text="Nº dispositivos" />
-
-                    <TextView
-                        android:id="@+id/numDevices_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_horizontal"
-                        android:textSize="16sp"
-                        tools:text="12" />
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
             android:elevation="10dp"
@@ -80,7 +40,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <es.unican.appriegospersonales.common.TextThumbSeekBar
+                <es.unican.appriegospersonales.common.TramosSeekBar
                     android:id="@+id/security_sb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -164,7 +124,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <es.unican.appriegospersonales.common.TextThumbSeekBar
+                <es.unican.appriegospersonales.common.TramosSeekBar
                     android:id="@+id/eco_sb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

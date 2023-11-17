@@ -1,7 +1,6 @@
 package es.unican.appriegospersonales.activities.apps.detail.tabs;
 
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
@@ -9,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,7 +26,6 @@ import com.github.mikephil.charting.data.BarEntry;
 
 import java.util.ArrayList;
 
-import es.unican.appriegospersonales.common.TextThumbSeekBar;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriesgospersonales.R;
 
@@ -34,11 +33,6 @@ public class TabSostenibilidadView extends Fragment implements ITabSostenibilida
 
     private TabSostenibilidadPresenter presenter;
     private Activo activo;
-    private TextThumbSeekBar ecoRatingBar;
-    private TextView pobreTV;
-    private TextView justoTV;
-    private TextView buenoTV;
-    private TextView excelenteTV;
 
     public TabSostenibilidadView(Activo activo) {
         this.activo = activo;
@@ -57,26 +51,20 @@ public class TabSostenibilidadView extends Fragment implements ITabSostenibilida
         View layout = inflater.inflate(R.layout.fragment_asset_detail_eco, container, false);
 
         // Link a los elementos de la vista
-        ecoRatingBar = layout.findViewById(R.id.eco_sb);
-        pobreTV = layout.findViewById(R.id.pobre_tv);
-        justoTV = layout.findViewById(R.id.justo_tv);
-        buenoTV = layout.findViewById(R.id.bueno_tv);
-        excelenteTV = layout.findViewById(R.id.excelente_tv);
-
         TextView durabilidadTV = layout.findViewById(R.id.durabilidad_tv);
-        HorizontalBarChart durabilidadHBC = layout.findViewById(R.id.durabilidad_hbc);
+        CustomSeekBar durabilidadSB = layout.findViewById(R.id.durabilidad_hbc);
 
         TextView reparabilidadTV = layout.findViewById(R.id.reparabilidad_tv);
-        HorizontalBarChart reparabilidadHBC = layout.findViewById(R.id.reparabilidad_hbc);
+        CustomSeekBar reparabilidadSB = layout.findViewById(R.id.reparabilidad_hbc);
 
         TextView reciclabilidadTV = layout.findViewById(R.id.reciclabilidad_tv);
-        HorizontalBarChart reciclabilidadHBC = layout.findViewById(R.id.reciclabilidad_hbc);
+        CustomSeekBar reciclabilidadSB = layout.findViewById(R.id.reciclabilidad_hbc);
 
         TextView efClimaticaTV = layout.findViewById(R.id.efClimatica_tv);
-        HorizontalBarChart efClimaticaHBC = layout.findViewById(R.id.efClimatica_hbc);
+        CustomSeekBar efClimaticaSB = layout.findViewById(R.id.efClimatica_hbc);
 
         TextView efRecursosTV = layout.findViewById(R.id.efRecursos_tv);
-        HorizontalBarChart efRecursosHBC = layout.findViewById(R.id.efRecursos_hbc);
+        CustomSeekBar efRecursosSB = layout.findViewById(R.id.efRecursos_hbc);
 
         // Asignar valores
         durabilidadTV.setText(String.valueOf(presenter.getDurabilidad()));
@@ -85,48 +73,18 @@ public class TabSostenibilidadView extends Fragment implements ITabSostenibilida
         efClimaticaTV.setText(String.valueOf(presenter.getEfClimatica()));
         efRecursosTV.setText(String.valueOf(presenter.getEfRecursos()));
 
-        setGraph(durabilidadHBC, presenter.getDurabilidad());
-        setGraph(reparabilidadHBC, presenter.getReparabilidad());
-        setGraph(reciclabilidadHBC, presenter.getReciclabilidad());
-        setGraph(efClimaticaHBC, presenter.getEfClimatica());
-        setGraph(efRecursosHBC, presenter.getEfRecursos());
-
-        ecoRatingBar.setProgress(presenter.getEcoRate());
-        ecoRatingBar.setEnabled(false);
-        destacaEcoBar();
+        configurarSeekBar(durabilidadSB, presenter.getDurabilidad());
+        configurarSeekBar(reparabilidadSB, presenter.getReparabilidad());
+        configurarSeekBar(reciclabilidadSB, presenter.getReciclabilidad());
+        configurarSeekBar(efClimaticaSB, presenter.getEfClimatica());
+        configurarSeekBar(efRecursosSB, presenter.getEfRecursos());
 
         return layout;
     }
 
-    private void destacaEcoBar() {
-        int progress = ecoRatingBar.getProgress();
-
-        Drawable thumbDrawable = ContextCompat.getDrawable(getContext(), R.drawable.shape_seek_bar_text_thumb);
-        LayerDrawable layerDrawable = (LayerDrawable) thumbDrawable;
-        GradientDrawable circleDrawable = (GradientDrawable) layerDrawable.getDrawable(1);
-
-        if (progress < 25) {
-            pobreTV.setTextColor(ContextCompat.getColor(getContext(), R.color.seekBar0));
-            pobreTV.setTypeface(Typeface.DEFAULT_BOLD);
-            pobreTV.setTextSize(13f);
-            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.seekBar0));
-        } else if (progress < 50) {
-            justoTV.setTextColor(ContextCompat.getColor(getContext(), R.color.seekBar1));
-            justoTV.setTypeface(Typeface.DEFAULT_BOLD);
-            justoTV.setTextSize(13f);
-            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.seekBar1));
-        } else if (progress < 75) {
-            buenoTV.setTextColor(ContextCompat.getColor(getContext(), R.color.seekBar2));
-            buenoTV.setTypeface(Typeface.DEFAULT_BOLD);
-            buenoTV.setTextSize(13f);
-            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.seekBar2));
-        } else {
-            excelenteTV.setTextColor(ContextCompat.getColor(getContext(), R.color.seekBar3));
-            excelenteTV.setTypeface(Typeface.DEFAULT_BOLD);
-            excelenteTV.setTextSize(13f);
-            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.seekBar3));
-        }
-        ecoRatingBar.setThumb(thumbDrawable);
+    private void configurarSeekBar(CustomSeekBar seekBar, int progress) {
+        seekBar.setProgress(progress);
+        seekBar.setEnabled(false);
     }
 
     private void setGraph(HorizontalBarChart chart, int score) {

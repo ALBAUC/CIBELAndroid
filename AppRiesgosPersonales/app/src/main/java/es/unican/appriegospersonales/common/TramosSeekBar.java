@@ -11,21 +11,21 @@ import androidx.core.content.ContextCompat;
 
 import es.unican.appriesgospersonales.R;
 
-public class TextThumbSeekBar extends androidx.appcompat.widget.AppCompatSeekBar {
+public class TramosSeekBar extends androidx.appcompat.widget.AppCompatSeekBar {
 
     private int mThumbSize;
     private TextPaint mTextPaint;
     private Paint paint = new Paint();
 
-    public TextThumbSeekBar(Context context) {
+    public TramosSeekBar(Context context) {
         this(context, null);
     }
 
-    public TextThumbSeekBar(Context context, AttributeSet attrs) {
+    public TramosSeekBar(Context context, AttributeSet attrs) {
         this(context, attrs, android.R.attr.seekBarStyle);
     }
 
-    public TextThumbSeekBar(Context context, AttributeSet attrs, int defStyleAttr) {
+    public TramosSeekBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         mThumbSize = getResources().getDimensionPixelSize(R.dimen.thumb_size);

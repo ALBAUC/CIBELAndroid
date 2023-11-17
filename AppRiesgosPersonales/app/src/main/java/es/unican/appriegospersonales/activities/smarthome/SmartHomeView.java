@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import es.unican.appriegospersonales.common.TextThumbSeekBar;
+import es.unican.appriegospersonales.common.TramosSeekBar;
 import es.unican.appriegospersonales.activities.main.MainView;
 import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.common.adapters.RVActivosPerfilAdapter;
@@ -30,8 +30,8 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
 
     private ISmartHomeContract.Presenter presenter;
     private RecyclerView devicesRV;
-    private TextThumbSeekBar ecoRatingBar;
-    private TextThumbSeekBar securityBar;
+    private TramosSeekBar ecoRatingBar;
+    private TramosSeekBar securityBar;
     private TextView eco0TV;
     private TextView eco1TV;
     private TextView eco2TV;
@@ -75,9 +75,6 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
                 DividerItemDecoration.VERTICAL);
         devicesRV.addItemDecoration(dividerItemDecoration);
 
-        TextView numDevicesTV = layout.findViewById(R.id.numDevices_tv);
-        numDevicesTV.setText(String.valueOf(presenter.getActivosPerfil().size()));
-
         ecoRatingBar.setProgress(presenter.getEcoRatingHome());
         ecoRatingBar.setEnabled(false);
         configurarSeekBar(ecoRatingBar, eco0TV, eco1TV, eco2TV, eco3TV);
@@ -89,7 +86,7 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
         return layout;
     }
 
-    private void configurarSeekBar(TextThumbSeekBar seekBar, TextView tv0, TextView tv1, TextView tv2, TextView tv3) {
+    private void configurarSeekBar(TramosSeekBar seekBar, TextView tv0, TextView tv1, TextView tv2, TextView tv3) {
         int progress = seekBar.getProgress();
 
         Drawable thumbDrawable = ContextCompat.getDrawable(getContext(), R.drawable.shape_seek_bar_text_thumb);

@@ -70,6 +70,8 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
             ImageView securityIconIV = layout.findViewById(R.id.securityIcon_iv);
             TextView ecoTV = layout.findViewById(R.id.eco_tv);
             ImageView ecoIV = layout.findViewById(R.id.ecoIcon_iv);
+            TextView securityTagTV = layout.findViewById(R.id.securityTag_tv);
+            TextView ecoTagTV = layout.findViewById(R.id.ecoTag_tv);
 
             // Asignar valores
             Picasso.get().load(presenter.getAssetIcon())
@@ -79,11 +81,13 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
             assetName_tv.setText(presenter.getAssetName());
             assetType_tv.setText(presenter.getAssetType());
 
-            assetSecurityTV.setText(presenter.getSecurityRating() + "/100 seguro");
+            assetSecurityTV.setText(presenter.getSecurityRating() + "/100");
             securityIconIV.setColorFilter(ContextCompat.getColor(getContext(), activo.getColorFromTramo(presenter.getSecurityRating())));
+            securityTagTV.setText(activo.getEtiquetaSecurityFromTramo(presenter.getSecurityRating()));
 
-            ecoTV.setText(presenter.getEcoRating() + "/100 eco");
+            ecoTV.setText(presenter.getEcoRating() + "/100");
             ecoIV.setColorFilter(ContextCompat.getColor(getContext(), activo.getColorFromTramo(presenter.getEcoRating())));
+            ecoTagTV.setText(activo.getEtiquetaEcoFromTramo(presenter.getEcoRating()));
 
             updateAssetAddButton(presenter.isAssetAdded());
             appAdd_bt.setOnClickListener(new View.OnClickListener() {

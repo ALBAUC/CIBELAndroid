@@ -39,6 +39,7 @@
     <string name="severity_medium">MEDIUM</string>
     <string name="severity_high">HIGH</string>
     <string name="severity_critical">CRITICAL</string>
+
     <string name="cve_baseScore_title">Gravedad</string>
     <string name="cve_confidencialidad_title">Confidencialidad</string>
     <string name="cve_integridad_title">Integridad</string>
@@ -66,7 +67,7 @@
         5. <b>COMPLETO:</b> Esto significa que el impacto es total y puede tener consecuencias catastróficas.
     ]]>
     </string>
-    <string name="assetDetail_tabCves">Vulnerabilidades</string>
+    <string name="assetDetail_tabCves">Seguridad</string>
     <string name="assetDetail_tabSostenibilidad">Sostenibilidad</string>
 
     <string name="eco_ecoRate_title">Puntuación ECO</string>
