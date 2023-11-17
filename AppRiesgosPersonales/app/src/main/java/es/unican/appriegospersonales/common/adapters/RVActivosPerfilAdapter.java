@@ -122,7 +122,7 @@ public class RVActivosPerfilAdapter extends RecyclerView.Adapter<RVActivosPerfil
             assetIconIV = itemView.findViewById(R.id.appAddedIcon_iv);
             assetSecurityTV = itemView.findViewById(R.id.assetAddedVuln_tv);
             addedIconIV = itemView.findViewById(R.id.infoAddedIcon_iv);
-            assetSecurityIconIV = itemView.findViewById(R.id.riesgoIcon_iv);
+            assetSecurityIconIV = itemView.findViewById(R.id.securityIcon_iv);
             assetEcoIconIV = itemView.findViewById(R.id.ecoIcon_iv);
             assetEcoTV = itemView.findViewById(R.id.assetAddedEco_tv);
             itemView.setOnClickListener(this);

@@ -64,10 +64,10 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
             TextView assetName_tv = layout.findViewById(R.id.appDetailName_tv);
             TextView assetType_tv = layout.findViewById(R.id.appDetailCategory_tv);
             appAdd_bt = layout.findViewById(R.id.appAdd_bt);
-            TextView assetNumCvesTV = layout.findViewById(R.id.numCves_tv);
+            TextView assetSecurityTV = layout.findViewById(R.id.security_tv);
             viewPager = layout.findViewById(R.id.assetDetailVP);
             TabLayout tabLayout = layout.findViewById(R.id.assetDetailTL);
-            ImageView riesgoIconIV = layout.findViewById(R.id.riesgoIcon_iv);
+            ImageView securityIconIV = layout.findViewById(R.id.securityIcon_iv);
             TextView ecoTV = layout.findViewById(R.id.eco_tv);
             ImageView ecoIV = layout.findViewById(R.id.ecoIcon_iv);
 
@@ -78,13 +78,10 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
                     .into(assetIcon_iv);
             assetName_tv.setText(presenter.getAssetName());
             assetType_tv.setText(presenter.getAssetType());
-            int numCves = presenter.getAssetCves().size();
-            if (numCves == 1) {
-                assetNumCvesTV.setText(numCves + " vulnerabilidad");
-            } else {
-                assetNumCvesTV.setText(numCves + " vulnerabilidades");
-            }
-            riesgoIconIV.setColorFilter(ContextCompat.getColor(getContext(), activo.getColorFromTramo(presenter.getSecurityRating())));
+
+            assetSecurityTV.setText(presenter.getSecurityRating() + "/100 seguro");
+            securityIconIV.setColorFilter(ContextCompat.getColor(getContext(), activo.getColorFromTramo(presenter.getSecurityRating())));
+
             ecoTV.setText(presenter.getEcoRating() + "/100 eco");
             ecoIV.setColorFilter(ContextCompat.getColor(getContext(), activo.getColorFromTramo(presenter.getEcoRating())));
 

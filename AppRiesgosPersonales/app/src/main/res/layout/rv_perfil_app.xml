@@ -70,7 +70,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/riesgoIcon_iv"
+                    android:id="@+id/securityIcon_iv"
                     style="@style/RecyclerIconStyle"
                     android:layout_width="16dp"
                     android:layout_height="16dp"

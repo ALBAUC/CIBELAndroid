@@ -90,7 +90,7 @@ public class RVAmenazasAdapter extends RecyclerView.Adapter<RVAmenazasAdapter.Ri
         public RiesgoViewHolder(@NonNull View itemView) {
             super(itemView);
             riesgoName_tv = itemView.findViewById(R.id.riesgoName_tv);
-            riesgoIcon_iv = itemView.findViewById(R.id.riesgoIcon_iv);
+            riesgoIcon_iv = itemView.findViewById(R.id.securityIcon_iv);
             riesgoControlesP_tv = itemView.findViewById(R.id.riesgoControlesP_tv);
             itemView.setOnClickListener(this);
         }
