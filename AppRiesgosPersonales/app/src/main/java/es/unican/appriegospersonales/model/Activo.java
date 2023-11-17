@@ -326,21 +326,6 @@ public class Activo implements Parcelable {
         vulnerabilidades = null;
     }
 
-    public int calcularTramoSeguridad() {
-        int puntuacionSeguridad = calcularPuntuacionSeguridad();
-        int tramo = 3; // critico
-
-        if (puntuacionSeguridad >= 75) {
-            tramo = 0; // bajo
-        } else if (puntuacionSeguridad >= 50) {
-            tramo = 1; // medio
-        } else if (puntuacionSeguridad >= 25) {
-            tramo = 2; // alto
-        }
-
-        return tramo;
-    }
-
     public int calcularPuntuacionSeguridad() {
         // Los mayores valores de totalGravedad rondan entre 350-400
         // Por lo que consideramos 400 como límite de mayor gravedad
@@ -360,39 +345,45 @@ public class Activo implements Parcelable {
         return totalGravedad;
     }
 
-    public int getColorFromTramoSeguridad(int tramo) {
+    public int getColorFromTramo(int score) {
         int colorResId;
-        switch (tramo) {
-            case 0:
-                colorResId = R.color.lowV;
-                break;
-            case 1:
-                colorResId = R.color.mediumV;
-                break;
-            case 2:
-                colorResId = R.color.highV;
-                break;
-            case 3:
-                colorResId = R.color.criticalV;
-                break;
-            default:
-                colorResId = R.color.black;
-                break;
+        if (score < 25) {
+            colorResId = R.color.seekBar0;
+        } else if (score < 50) {
+            colorResId = R.color.seekBar1;
+        } else if (score < 75) {
+            colorResId = R.color.seekBar2;
+        } else {
+            colorResId = R.color.seekBar3;
         }
         return colorResId;
     }
 
-    public int getColorFromEcoRating(int ecoRating) {
-        int colorResId;
-        if (ecoRating < 25) {
-            colorResId = R.color.ecoPoor;
-        } else if (ecoRating < 50) {
-            colorResId = R.color.ecoFair;
-        } else if (ecoRating < 75) {
-            colorResId = R.color.ecoGood;
+    public int getEtiquetaEcoFromTramo(int score) {
+        int etiqueta;
+        if (score < 25) {
+            etiqueta = R.string.eco_0;
+        } else if (score < 50) {
+            etiqueta = R.string.eco_1;
+        } else if (score < 75) {
+            etiqueta = R.string.eco_2;
         } else {
-            colorResId = R.color.ecoExcelent;
+            etiqueta = R.string.eco_3;
         }
-        return colorResId;
+        return etiqueta;
+    }
+
+    public int getEtiquetaSecurityFromTramo(int score) {
+        int etiqueta;
+        if (score < 25) {
+            etiqueta = R.string.seguridad_0;
+        } else if (score < 50) {
+            etiqueta = R.string.seguridad_1;
+        } else if (score < 75) {
+            etiqueta = R.string.seguridad_2;
+        } else {
+            etiqueta = R.string.seguridad_3;
+        }
+        return etiqueta;
     }
 }

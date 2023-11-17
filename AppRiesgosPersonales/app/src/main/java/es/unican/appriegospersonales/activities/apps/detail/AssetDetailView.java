@@ -84,9 +84,9 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
             } else {
                 assetNumCvesTV.setText(numCves + " vulnerabilidades");
             }
-            riesgoIconIV.setColorFilter(ContextCompat.getColor(getContext(), activo.getColorFromTramoSeguridad(activo.calcularTramoSeguridad())));
+            riesgoIconIV.setColorFilter(ContextCompat.getColor(getContext(), activo.getColorFromTramo(presenter.getSecurityRating())));
             ecoTV.setText(presenter.getEcoRating() + "/100 eco");
-            ecoIV.setColorFilter(ContextCompat.getColor(getContext(), activo.getColorFromEcoRating(presenter.getEcoRating())));
+            ecoIV.setColorFilter(ContextCompat.getColor(getContext(), activo.getColorFromTramo(presenter.getEcoRating())));
 
             updateAssetAddButton(presenter.isAssetAdded());
             appAdd_bt.setOnClickListener(new View.OnClickListener() {

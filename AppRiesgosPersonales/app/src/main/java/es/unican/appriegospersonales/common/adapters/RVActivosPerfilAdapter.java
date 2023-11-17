@@ -21,7 +21,6 @@ import java.util.Random;
 import es.unican.appriegospersonales.activities.apps.detail.AssetDetailView;
 import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.model.Activo;
-import es.unican.appriegospersonales.model.Vulnerabilidad;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.VulnerabilidadDao;
 import es.unican.appriesgospersonales.R;
@@ -71,8 +70,8 @@ public class RVActivosPerfilAdapter extends RecyclerView.Adapter<RVActivosPerfil
 
         // Seguridad
         int puntuacionSeguridad = activo.calcularPuntuacionSeguridad();
-        holder.assetSecurityTV.setText(puntuacionSeguridad + "/100 seguro");
-        holder.assetSecurityIconIV.setColorFilter(ContextCompat.getColor(context, activo.getColorFromTramoSeguridad(activo.calcularTramoSeguridad())));
+        holder.assetSecurityTV.setText(activo.getEtiquetaSecurityFromTramo(puntuacionSeguridad));
+        holder.assetSecurityIconIV.setColorFilter(ContextCompat.getColor(context, activo.getColorFromTramo(puntuacionSeguridad)));
 
         // Foto activo
         Picasso.get().load(activo.getIcono())
@@ -90,8 +89,8 @@ public class RVActivosPerfilAdapter extends RecyclerView.Adapter<RVActivosPerfil
         // Sostenibilidad
         Random random = new Random();
         int calificacionEco = random.nextInt(66) + 30; // numero aleatorio entre 30 y 95
-        holder.assetEcoTV.setText(calificacionEco + "/100 eco");
-        holder.assetEcoIconIV.setColorFilter(ContextCompat.getColor(context, activo.getColorFromEcoRating(calificacionEco)));
+        holder.assetEcoTV.setText(activo.getEtiquetaEcoFromTramo(calificacionEco));
+        holder.assetEcoIconIV.setColorFilter(ContextCompat.getColor(context, activo.getColorFromTramo(calificacionEco)));
 
     }
 

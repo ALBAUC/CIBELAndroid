@@ -25,10 +25,10 @@
     <color name="lowV">#A0D267</color>
     <color name="noneI">#C7C4C4</color>
 
-    <color name="ecoPoor">#F86C62</color>
-    <color name="ecoFair">#F6B85D</color>
-    <color name="ecoGood">#B6E055</color>
-    <color name="ecoExcelent">#5BB65F</color>
+    <color name="seekBar0">#F86C62</color>
+    <color name="seekBar1">#F6B85D</color>
+    <color name="seekBar2">#B6E055</color>
+    <color name="seekBar3">#5BB65F</color>
 
     <color name="grey">#D5D4D4</color>
 

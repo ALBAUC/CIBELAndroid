@@ -106,25 +106,25 @@ public class TabSostenibilidadView extends Fragment implements ITabSostenibilida
         GradientDrawable circleDrawable = (GradientDrawable) layerDrawable.getDrawable(1);
 
         if (progress < 25) {
-            pobreTV.setTextColor(ContextCompat.getColor(getContext(), R.color.ecoPoor));
+            pobreTV.setTextColor(ContextCompat.getColor(getContext(), R.color.seekBar0));
             pobreTV.setTypeface(Typeface.DEFAULT_BOLD);
             pobreTV.setTextSize(13f);
-            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.ecoPoor));
+            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.seekBar0));
         } else if (progress < 50) {
-            justoTV.setTextColor(ContextCompat.getColor(getContext(), R.color.ecoFair));
+            justoTV.setTextColor(ContextCompat.getColor(getContext(), R.color.seekBar1));
             justoTV.setTypeface(Typeface.DEFAULT_BOLD);
             justoTV.setTextSize(13f);
-            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.ecoFair));
+            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.seekBar1));
         } else if (progress < 75) {
-            buenoTV.setTextColor(ContextCompat.getColor(getContext(), R.color.ecoGood));
+            buenoTV.setTextColor(ContextCompat.getColor(getContext(), R.color.seekBar2));
             buenoTV.setTypeface(Typeface.DEFAULT_BOLD);
             buenoTV.setTextSize(13f);
-            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.ecoGood));
+            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.seekBar2));
         } else {
-            excelenteTV.setTextColor(ContextCompat.getColor(getContext(), R.color.ecoExcelent));
+            excelenteTV.setTextColor(ContextCompat.getColor(getContext(), R.color.seekBar3));
             excelenteTV.setTypeface(Typeface.DEFAULT_BOLD);
             excelenteTV.setTextSize(13f);
-            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.ecoExcelent));
+            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.seekBar3));
         }
         ecoRatingBar.setThumb(thumbDrawable);
     }

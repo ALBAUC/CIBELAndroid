@@ -2,13 +2,10 @@ package es.unican.appriegospersonales.common;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.text.TextPaint;
 import android.util.AttributeSet;
-import android.widget.SeekBar;
 
 import androidx.core.content.ContextCompat;
 
@@ -45,16 +42,16 @@ public class TextThumbSeekBar extends androidx.appcompat.widget.AppCompatSeekBar
         int width = getWidth();
         int height = getHeight();
 
-        paint.setColor(ContextCompat.getColor(getContext(), R.color.ecoPoor));
+        paint.setColor(ContextCompat.getColor(getContext(), R.color.seekBar0));
         canvas.drawRect(0, 18, width / 4, height - 18, paint);
 
-        paint.setColor(ContextCompat.getColor(getContext(), R.color.ecoFair));
+        paint.setColor(ContextCompat.getColor(getContext(), R.color.seekBar1));
         canvas.drawRect(width / 4, 18, width / 4 * 2, height - 18, paint);
 
-        paint.setColor(ContextCompat.getColor(getContext(), R.color.ecoGood));
+        paint.setColor(ContextCompat.getColor(getContext(), R.color.seekBar2));
         canvas.drawRect(width / 4 * 2, 18, width / 4 * 3, height - 18, paint);
 
-        paint.setColor(ContextCompat.getColor(getContext(), R.color.ecoExcelent));
+        paint.setColor(ContextCompat.getColor(getContext(), R.color.seekBar3));
         canvas.drawRect(width / 4 * 3, 18, width, height - 18, paint);
 
         super.onDraw(canvas);

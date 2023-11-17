@@ -101,4 +101,9 @@ public class AssetDetailPresenter implements IAssetDetailContract.Presenter {
     public int getEcoRating() {
         return 82;
     }
+
+    @Override
+    public int getSecurityRating() {
+        return activo.calcularPuntuacionSeguridad();
+    }
 }

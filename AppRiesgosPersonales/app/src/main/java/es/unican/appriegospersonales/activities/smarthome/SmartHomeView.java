@@ -32,14 +32,14 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
     private RecyclerView devicesRV;
     private TextThumbSeekBar ecoRatingBar;
     private TextThumbSeekBar securityBar;
-    private TextView pobreTV;
-    private TextView justoTV;
-    private TextView buenoTV;
-    private TextView excelenteTV;
-    private TextView sInseguroTV;
-    private TextView sMejorableTV;
-    private TextView sBuenoTV;
-    private TextView sExcelenteTV;
+    private TextView eco0TV;
+    private TextView eco1TV;
+    private TextView eco2TV;
+    private TextView eco3TV;
+    private TextView seguridad0TV;
+    private TextView seguridad1TV;
+    private TextView seguridad2TV;
+    private TextView seguridad3TV;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,16 +56,16 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
         devicesRV = layout.findViewById(R.id.devicesPerfil_rv);
 
         ecoRatingBar = layout.findViewById(R.id.eco_sb);
-        pobreTV = layout.findViewById(R.id.pobre_tv);
-        justoTV = layout.findViewById(R.id.justo_tv);
-        buenoTV = layout.findViewById(R.id.bueno_tv);
-        excelenteTV = layout.findViewById(R.id.excelente_tv);
+        eco0TV = layout.findViewById(R.id.pobre_tv);
+        eco1TV = layout.findViewById(R.id.justo_tv);
+        eco2TV = layout.findViewById(R.id.bueno_tv);
+        eco3TV = layout.findViewById(R.id.excelente_tv);
 
         securityBar = layout.findViewById(R.id.security_sb);
-        sInseguroTV = layout.findViewById(R.id.sInseguro_tv);
-        sMejorableTV = layout.findViewById(R.id.sMejorable_tv);
-        sBuenoTV = layout.findViewById(R.id.sBueno_tv);
-        sExcelenteTV = layout.findViewById(R.id.sExcelente_tv);
+        seguridad0TV = layout.findViewById(R.id.sInseguro_tv);
+        seguridad1TV = layout.findViewById(R.id.sMejorable_tv);
+        seguridad2TV = layout.findViewById(R.id.sBueno_tv);
+        seguridad3TV = layout.findViewById(R.id.sExcelente_tv);
 
         devicesRV.setLayoutManager(new LinearLayoutManager(getContext()));
         devicesRV.setAdapter(new RVActivosPerfilAdapter(getContext(), presenter.getActivosPerfilOrdenadosPorRiesgo(), getMyApplication()));
@@ -77,16 +77,14 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
 
         TextView numDevicesTV = layout.findViewById(R.id.numDevices_tv);
         numDevicesTV.setText(String.valueOf(presenter.getActivosPerfil().size()));
-        TextView numVulnerabilitiesTV = layout.findViewById(R.id.numVulnerabilities_tv);
-        numVulnerabilitiesTV.setText(String.valueOf(presenter.getVulnerabilidadesPerfil().size()));
 
         ecoRatingBar.setProgress(presenter.getEcoRatingHome());
         ecoRatingBar.setEnabled(false);
-        configurarSeekBar(ecoRatingBar, pobreTV, justoTV, buenoTV, excelenteTV);
+        configurarSeekBar(ecoRatingBar, eco0TV, eco1TV, eco2TV, eco3TV);
 
         securityBar.setProgress(presenter.getSecurityRatingHome());
         securityBar.setEnabled(false);
-        configurarSeekBar(securityBar, sInseguroTV, sMejorableTV, sBuenoTV, sExcelenteTV);
+        configurarSeekBar(securityBar, seguridad0TV, seguridad1TV, seguridad2TV, seguridad3TV);
 
         return layout;
     }
@@ -99,25 +97,25 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
         GradientDrawable circleDrawable = (GradientDrawable) layerDrawable.getDrawable(1);
 
         if (progress < 25) {
-            tv0.setTextColor(ContextCompat.getColor(getContext(), R.color.ecoPoor));
+            tv0.setTextColor(ContextCompat.getColor(getContext(), R.color.seekBar0));
             tv0.setTypeface(Typeface.DEFAULT_BOLD);
             tv0.setTextSize(13f);
-            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.ecoPoor));
+            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.seekBar0));
         } else if (progress < 50) {
-            tv1.setTextColor(ContextCompat.getColor(getContext(), R.color.ecoFair));
+            tv1.setTextColor(ContextCompat.getColor(getContext(), R.color.seekBar1));
             tv1.setTypeface(Typeface.DEFAULT_BOLD);
             tv1.setTextSize(13f);
-            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.ecoFair));
+            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.seekBar1));
         } else if (progress < 75) {
-            tv2.setTextColor(ContextCompat.getColor(getContext(), R.color.ecoGood));
+            tv2.setTextColor(ContextCompat.getColor(getContext(), R.color.seekBar2));
             tv2.setTypeface(Typeface.DEFAULT_BOLD);
             tv2.setTextSize(13f);
-            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.ecoGood));
+            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.seekBar2));
         } else {
-            tv3.setTextColor(ContextCompat.getColor(getContext(), R.color.ecoExcelent));
+            tv3.setTextColor(ContextCompat.getColor(getContext(), R.color.seekBar3));
             tv3.setTypeface(Typeface.DEFAULT_BOLD);
             tv3.setTextSize(13f);
-            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.ecoExcelent));
+            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.seekBar3));
         }
         seekBar.setThumb(thumbDrawable);
     }

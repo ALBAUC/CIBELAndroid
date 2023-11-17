@@ -72,12 +72,12 @@
                 <ImageView
                     android:id="@+id/riesgoIcon_iv"
                     style="@style/RecyclerIconStyle"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="6dp"
-                    android:src="@drawable/circle" />
+                    android:src="@drawable/security" />
 
                 <TextView
                     android:id="@+id/assetAddedVuln_tv"
@@ -85,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
                     android:textSize="15sp"
-                    tools:text="x vulnerabilidades" />
+                    tools:text="JUSTO" />
 
             </LinearLayout>
 
@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
                     android:textSize="15sp"
-                    tools:text="35/100 eco" />
+                    tools:text="EXCELENTE" />
 
             </LinearLayout>
         </LinearLayout>

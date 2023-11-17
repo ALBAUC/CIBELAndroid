@@ -13,26 +13,23 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
             <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginBottom="10dp"
-                android:layout_weight="1"
                 android:elevation="10dp"
                 app:cardCornerRadius="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_margin="4dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
 
                     <TextView
                         android:id="@+id/numDevicesInfo_tv"
@@ -55,42 +52,6 @@
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1"
-                android:elevation="10dp"
-                app:cardCornerRadius="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/numVulnerabilitiesInfo_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_horizontal"
-                        android:text="@string/perfil_numVulnerabilidades"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:text="Nº vulnerabilidades" />
-
-                    <TextView
-                        android:id="@+id/numVulnerabilities_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_horizontal"
-                        android:textSize="16sp"
-                        tools:text="23" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
