@@ -42,23 +42,6 @@ public class SmartHomePresenter implements ISmartHomeContract.Presenter {
     }
 
     @Override
-    public List<Activo> getActivosPerfilOrdenadosPorRiesgo() {
-        List<Activo> perfilAssets = getActivosPerfil();
-
-        // Ordenar la lista por gravedad
-        Collections.sort(perfilAssets, new Comparator<Activo>() {
-            @Override
-            public int compare(Activo activo1, Activo activo2) {
-                int gravedad1 = (int) Math.round(activo1.calcularTotalGravedad());
-                int gravedad2 = (int) Math.round(activo2.calcularTotalGravedad());
-                return Integer.compare(gravedad2, gravedad1);
-            }
-        });
-
-        return perfilAssets;
-    }
-
-    @Override
     public ArrayList getEntries() {
         int numCritical = 0;
         int numHigh = 0;
@@ -115,6 +98,68 @@ public class SmartHomePresenter implements ISmartHomeContract.Presenter {
             s += a.calcularPuntuacionSeguridad();
         }
         return (int) Math.round(s / activos.size());
+    }
+
+    @Override
+    public List<Activo> getActivosPerfilOrdenadosPorSeguridadAsc() {
+        List<Activo> perfilAssets = getActivosPerfil();
+        Collections.sort(perfilAssets, new Comparator<Activo>() {
+            @Override
+            public int compare(Activo activo1, Activo activo2) {
+                int gravedad1 = (int) Math.round(activo1.calcularTotalGravedad());
+                int gravedad2 = (int) Math.round(activo2.calcularTotalGravedad());
+                return Integer.compare(gravedad2, gravedad1);
+            }
+        });
+
+        return perfilAssets;
+    }
+
+    @Override
+    public List<Activo> getActivosPerfilOrdenadosPorSeguridadDesc() {
+        List<Activo> perfilAssets = getActivosPerfil();
+        Collections.sort(perfilAssets, new Comparator<Activo>() {
+            @Override
+            public int compare(Activo activo1, Activo activo2) {
+                int gravedad1 = (int) Math.round(activo1.calcularTotalGravedad());
+                int gravedad2 = (int) Math.round(activo2.calcularTotalGravedad());
+                return Integer.compare(gravedad1, gravedad2);
+            }
+        });
+
+        return perfilAssets;
+    }
+
+    @Override
+    public List<Activo> getActivosPerfilOrdenadosPorSostAsc() {
+        // TEMPORAL: hasta que haya datos de sostenibilidad se ordenan por seguridad ascendente
+        List<Activo> perfilAssets = getActivosPerfil();
+        Collections.sort(perfilAssets, new Comparator<Activo>() {
+            @Override
+            public int compare(Activo activo1, Activo activo2) {
+                int gravedad1 = (int) Math.round(activo1.calcularTotalGravedad());
+                int gravedad2 = (int) Math.round(activo2.calcularTotalGravedad());
+                return Integer.compare(gravedad2, gravedad1);
+            }
+        });
+
+        return perfilAssets;
+    }
+
+    @Override
+    public List<Activo> getActivosPerfilOrdenadosPorSostDesc() {
+        // TEMPORAL: hasta que haya datos de sostenibilidad se ordenan por seguridad ascendente
+        List<Activo> perfilAssets = getActivosPerfil();
+        Collections.sort(perfilAssets, new Comparator<Activo>() {
+            @Override
+            public int compare(Activo activo1, Activo activo2) {
+                int gravedad1 = (int) Math.round(activo1.calcularTotalGravedad());
+                int gravedad2 = (int) Math.round(activo2.calcularTotalGravedad());
+                return Integer.compare(gravedad2, gravedad1);
+            }
+        });
+
+        return perfilAssets;
     }
 
 }

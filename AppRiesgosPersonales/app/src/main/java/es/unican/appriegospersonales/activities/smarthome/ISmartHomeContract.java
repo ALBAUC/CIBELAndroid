@@ -1,7 +1,5 @@
 package es.unican.appriegospersonales.activities.smarthome;
 
-import androidx.annotation.StringRes;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +13,7 @@ public interface ISmartHomeContract {
 
         List<Activo> getActivosPerfil();
 
-        List<Activo> getActivosPerfilOrdenadosPorRiesgo();
+        List<Activo> getActivosPerfilOrdenadosPorSeguridadAsc();
 
         ArrayList getEntries();
 
@@ -24,6 +22,12 @@ public interface ISmartHomeContract {
         int getEcoRatingHome();
 
         int getSecurityRatingHome();
+
+        List<Activo> getActivosPerfilOrdenadosPorSeguridadDesc();
+
+        List<Activo> getActivosPerfilOrdenadosPorSostAsc();
+
+        List<Activo> getActivosPerfilOrdenadosPorSostDesc();
     }
 
     interface  View {

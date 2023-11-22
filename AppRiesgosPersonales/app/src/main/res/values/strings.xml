@@ -92,9 +92,10 @@
     <string name="eco_2">Suficiente sostenible</string>
     <string name="eco_3">Bastante sostenible</string>
 
-    <string name="tramo_0">POBRE</string>
-    <string name="tramo_1">JUSTO</string>
-    <string name="tramo_2">BUENO</string>
-    <string name="tramo_3">EXCELENTE</string>
+    <string name="ordenarSeguridad_Desc">Mayor a menor seguridad</string>
+    <string name="ordenarSeguridad_Asc">Menor a mayor seguridad</string>
+    <string name="ordenarSost_Desc">Mayor a menor sostenibilidad</string>
+    <string name="ordenarSost_Asc">Menor a mayor sostenibilidad</string>
+    <string name="ordenar_por">Ordenar por</string>
 
 </resources>
