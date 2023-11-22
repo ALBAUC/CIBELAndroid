@@ -79,7 +79,7 @@
     <string name="activo_efClimatica_title">Eficiencia climática</string>
     <string name="activo_efRecursos_title">Eficiencia en uso de recursos</string>
 
-    <string name="eco_rating_title">Calificación ecológica</string>
+    <string name="eco_rating_title">Puntuación de sostenibilidad</string>
     <string name="security_title">Puntuación de seguridad</string>
 
     <string name="seguridad_0">Muy poco seguro</string>
@@ -97,5 +97,6 @@
     <string name="ordenarSost_Desc">Mayor a menor sostenibilidad</string>
     <string name="ordenarSost_Asc">Menor a mayor sostenibilidad</string>
     <string name="ordenar_por">Ordenar por</string>
+    <string name="tus_dispositivos">Tus dispositivos</string>
 
 </resources>
