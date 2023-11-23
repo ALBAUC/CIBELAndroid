@@ -8,7 +8,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +34,7 @@ import es.unican.appriesgospersonales.R;
 
 public class SmartHomeView extends Fragment implements ISmartHomeContract.View, MainView.RefreshableFragment {
 
-    private static final String PREF_SORT_ORDER = "sort_order";
+    private static final String PREF_ASSETS_PERFIL_SORT_ORDER = "assets_perfil_sort_order";
     private ISmartHomeContract.Presenter presenter;
     private TextView sortInfoTV;
     private View overlayView;
@@ -82,7 +81,7 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
 
         // Ordenar dispositivos
         prefs = requireContext().getSharedPreferences("SortAssetsPrefs", Context.MODE_PRIVATE);
-        String sortOrder = prefs.getString(PREF_SORT_ORDER, getResources().getString(R.string.ordenarSeguridad_Asc));
+        String sortOrder = prefs.getString(PREF_ASSETS_PERFIL_SORT_ORDER, getResources().getString(R.string.ordenarSeguridad_Asc));
         sortInfoTV.setText(sortOrder);
         updateRecyclerView(sortOrder);
 
@@ -182,7 +181,7 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
 
     private void setUpSortingOptionsClickListener(View popupView, PopupWindow popupWindow) {
         // Configurar OnClickListener para cada opción
-        LinearLayout linearLayout = popupView.findViewById(R.id.smartHome_ll);
+        LinearLayout linearLayout = popupView.findViewById(R.id.ordenar_activos_perfil_ll);
         for (int i = 0; i < linearLayout.getChildCount(); i++) {
             View childView = linearLayout.getChildAt(i);
             if (childView instanceof LinearLayout) {
@@ -202,7 +201,7 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
         // Actualizar la opción de ordenación
         String sortOrder = getSortOrderFromCheckedId(checkedId);
         sortInfoTV.setText(sortOrder);
-        prefs.edit().putString(PREF_SORT_ORDER, sortOrder).apply();
+        prefs.edit().putString(PREF_ASSETS_PERFIL_SORT_ORDER, sortOrder).apply();
 
         // Actualizar el RecyclerView según la opción de ordenación
         updateRecyclerView(sortOrder);

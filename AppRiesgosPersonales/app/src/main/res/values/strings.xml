@@ -25,7 +25,7 @@
     <string name="perfil_tabControles">Buenas prácticas</string>
     <string name="perfil_numDispositivos">Nº dispositivos</string>
     <string name="perfil_numVulnerabilidades">Nº vulnerabilidades</string>
-    <string name="perfil_severity">Gravedad de las vulnerabilidades</string>
+    <string name="perfil_severity">Gravedad de los fallos de seguridad</string>
 
     <string name="nivelRiesgoAlto">Riesgo alto</string>
     <string name="nivelRiesgoMedio">Riesgo medio</string>
@@ -96,7 +96,15 @@
     <string name="ordenarSeguridad_Asc">Menor a mayor seguridad</string>
     <string name="ordenarSost_Desc">Mayor a menor sostenibilidad</string>
     <string name="ordenarSost_Asc">Menor a mayor sostenibilidad</string>
+
     <string name="ordenar_por">Ordenar por</string>
     <string name="tus_dispositivos">Tus dispositivos</string>
+    <string name="fallos_de_seguridad">Fallos de seguridad</string>
+
+    <string name="ordenarFecha_Rec">Más recientes</string>
+    <string name="ordenarFecha_Ant">Más antiguos</string>
+    <string name="ordenarGravedad_Asc">Menor a mayor gravedad</string>
+    <string name="ordenarGravedad_Desc">Mayor a menor gravedad</string>
+
 
 </resources>

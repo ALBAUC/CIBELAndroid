@@ -19,8 +19,14 @@ public interface ITabCvesContract {
 
         List<Vulnerabilidad> getAssetCves();
 
-        List<Vulnerabilidad> getAssetCvesOrdenadorPorFecha();
+        List<Vulnerabilidad> getAssetCvesOrdenadorPorFechaRec();
 
         List<PieEntry> getEntries();
+
+        List<Vulnerabilidad> getAssetCvesOrdenadorPorFechaAnt();
+
+        List<Vulnerabilidad> getAssetCvesOrdenadorPorGravedadAsc();
+
+        List<Vulnerabilidad> getAssetCvesOrdenadorPorGravedadDesc();
     }
 }
