@@ -41,9 +41,6 @@ public class CveDetailView extends Fragment implements  ICveDetailContract.View,
     public static final String FRAGMENT_CVE = "cve";
     private ICveDetailContract.Presenter presenter;
     private HorizontalBarChart baseScoreHBC;
-    private HorizontalBarChart confidencialidadHBC;
-    private HorizontalBarChart integridadHBC;
-    private HorizontalBarChart disponibilidadHBC;
     private Vulnerabilidad vulnerabilidad;
 
     public static CveDetailView newInstance(Vulnerabilidad vulnerabilidad) {
@@ -82,13 +79,13 @@ public class CveDetailView extends Fragment implements  ICveDetailContract.View,
             baseScoreHBC = layout.findViewById(R.id.baseScore_hbc);
 
             TextView condifencialidadTV = layout.findViewById(R.id.confidencialidad_tv);
-            confidencialidadHBC = layout.findViewById(R.id.confidencialidad_hbc);
+            HorizontalBarChart confidencialidadHBC = layout.findViewById(R.id.confidencialidad_hbc);
 
             TextView integridadTV = layout.findViewById(R.id.integridad_tv);
-            integridadHBC = layout.findViewById(R.id.integridad_hbc);
+            HorizontalBarChart integridadHBC = layout.findViewById(R.id.integridad_hbc);
 
             TextView disponibilidadTV = layout.findViewById(R.id.disponibilidad_tv);
-            disponibilidadHBC = layout.findViewById(R.id.disponibilidad_hbc);
+            HorizontalBarChart disponibilidadHBC = layout.findViewById(R.id.disponibilidad_hbc);
 
             // Asignar valores
             severityIconIV.setColorFilter(ContextCompat.getColor(getContext(), vulnerabilidad.getColorFromSeverity()));

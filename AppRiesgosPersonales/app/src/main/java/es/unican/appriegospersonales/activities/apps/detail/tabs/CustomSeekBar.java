@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
@@ -31,15 +32,25 @@ public class CustomSeekBar extends androidx.appcompat.widget.AppCompatSeekBar {
     protected synchronized void onDraw(Canvas canvas) {
         int width = getWidth();
         int height = getHeight();
-        int progress = (int) (width * getProgress() / getMax());
+        float progress = width * getProgress() / (float) getMax(); // Usar float para mayor precisión
         int borde = 14;
 
-        paint.setColor(ContextCompat.getColor(getContext(), R.color.black));
-        canvas.drawRect(0, borde, progress, height - borde, paint);
+        if (progress > 0.75 * width) {
+            paint.setColor(ContextCompat.getColor(getContext(), R.color.seekBar3));
+        } else if (progress > 0.5 * width) {
+            paint.setColor(ContextCompat.getColor(getContext(), R.color.seekBar2));
+        } else if (progress > 0.25 * width) {
+            paint.setColor(ContextCompat.getColor(getContext(), R.color.seekBar1));
+        } else {
+            paint.setColor(ContextCompat.getColor(getContext(), R.color.seekBar0));
+        }
+
+        canvas.drawRect(0, borde, progress - 17, height - borde, paint);
 
         paint.setColor(Color.argb(40, 150, 150, 150));
-        canvas.drawRect(progress, borde, width, height - borde, paint);
+        canvas.drawRect(progress - 17, borde, width, height - borde, paint);
 
         super.onDraw(canvas);
     }
+
 }

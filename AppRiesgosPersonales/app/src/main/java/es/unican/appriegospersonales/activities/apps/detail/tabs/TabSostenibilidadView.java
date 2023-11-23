@@ -1,6 +1,9 @@
 package es.unican.appriegospersonales.activities.apps.detail.tabs;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,69 +66,41 @@ public class TabSostenibilidadView extends Fragment implements ITabSostenibilida
         CustomSeekBar efRecursosSB = layout.findViewById(R.id.efRecursos_hbc);
 
         // Asignar valores
-        durabilidadTV.setText(String.valueOf(presenter.getDurabilidad()));
-        reparabilidadTV.setText(String.valueOf(presenter.getReparabilidad()));
-        reciclabilidadTV.setText(String.valueOf(presenter.getReciclabilidad()));
-        efClimaticaTV.setText(String.valueOf(presenter.getEfClimatica()));
-        efRecursosTV.setText(String.valueOf(presenter.getEfRecursos()));
-
-        configurarSeekBar(durabilidadSB, presenter.getDurabilidad());
-        configurarSeekBar(reparabilidadSB, presenter.getReparabilidad());
-        configurarSeekBar(reciclabilidadSB, presenter.getReciclabilidad());
-        configurarSeekBar(efClimaticaSB, presenter.getEfClimatica());
-        configurarSeekBar(efRecursosSB, presenter.getEfRecursos());
+        asignaScore(durabilidadTV, presenter.getDurabilidad(), durabilidadSB);
+        asignaScore(reciclabilidadTV, presenter.getReciclabilidad(), reciclabilidadSB);
+        asignaScore(reparabilidadTV, presenter.getReparabilidad(), reparabilidadSB);
+        asignaScore(efClimaticaTV, presenter.getEfClimatica(), efClimaticaSB);
+        asignaScore(efRecursosTV, presenter.getEfRecursos(), efRecursosSB);
 
         return layout;
     }
 
-    private void configurarSeekBar(CustomSeekBar seekBar, int progress) {
-        seekBar.setProgress(progress);
+    private void asignaScore(TextView scoreTV, int score, CustomSeekBar seekBar) {
+        scoreTV.setText(String.valueOf(score));
+        seekBar.setProgress(score);
         seekBar.setEnabled(false);
-    }
 
-    private void setGraph(HorizontalBarChart chart, int score) {
-        chart.setDrawBarShadow(false);
-        Description description = new Description();
-        description.setText("");
-        chart.setDescription(description);
-        chart.getLegend().setEnabled(false);
-        chart.setPinchZoom(false);
-        chart.setDrawValueAboveBar(false);
-        chart.setTouchEnabled(false);
-        chart.setDragEnabled(false);
-        chart.setScaleEnabled(false);
+        Drawable thumbDrawable = ContextCompat.getDrawable(getContext(), R.drawable.shape_custom_seek_bar);
+        LayerDrawable layerDrawable = (LayerDrawable) thumbDrawable;
+        GradientDrawable circleDrawable = (GradientDrawable) layerDrawable.getDrawable(1);
+        //circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.transparent));
+        //circleDrawable.setStroke(1, ContextCompat.getColor(getContext(), R.color.transparent));
 
-        XAxis xAxis = chart.getXAxis();
-        xAxis.setEnabled(false);
+        if (score > 75) {
+            scoreTV.setTextColor(ContextCompat.getColor(getContext(), R.color.seekBar3));
+            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.seekBar3));
+        } else if (score > 50) {
+            scoreTV.setTextColor(ContextCompat.getColor(getContext(), R.color.seekBar2));
+            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.seekBar2));
+        } else if (score > 25) {
+            scoreTV.setTextColor(ContextCompat.getColor(getContext(), R.color.seekBar1));
+            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.seekBar1));
+        } else {
+            scoreTV.setTextColor(ContextCompat.getColor(getContext(), R.color.seekBar0));
+            circleDrawable.setColor(ContextCompat.getColor(getContext(), R.color.seekBar0));
+        }
 
-        YAxis yLeft = chart.getAxisLeft();
-        yLeft.setAxisMaximum(100f);
-        yLeft.setAxisMinimum(0f);
-        yLeft.setEnabled(false);
-
-        YAxis yRight = chart.getAxisRight();
-        yRight.setEnabled(false);
-
-        setGraphData(chart, score);
-    }
-
-    private void setGraphData(HorizontalBarChart chart, int score) {
-        ArrayList<BarEntry> entries = new ArrayList<>();
-
-        entries.add(new BarEntry(0f, score));
-
-        BarDataSet barDataSet = new BarDataSet(entries, "Bar Data Set");
-        barDataSet.setColor(ContextCompat.getColor(getContext(), R.color.black));
-        barDataSet.setDrawValues(false);
-
-        chart.setDrawBarShadow(true);
-        barDataSet.setBarShadowColor(Color.argb(40, 150, 150, 150));
-        BarData data = new BarData(barDataSet);
-
-        data.setBarWidth(1f);
-
-        chart.setData(data);
-        chart.invalidate();
+        seekBar.setThumb(thumbDrawable);
     }
 }
 
