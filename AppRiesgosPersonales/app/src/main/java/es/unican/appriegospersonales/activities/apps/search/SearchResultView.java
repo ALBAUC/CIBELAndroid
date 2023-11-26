@@ -79,8 +79,10 @@ public class SearchResultView extends Fragment implements ISearchResultContract.
             LinearLayout sortLL = layout.findViewById(R.id.sort_ll);
             sortInfoTV = layout.findViewById(R.id.sortInfo_tv);
 
-            // Configurar lista de dispositivos
             query = args.getString(QUERY);
+            requireActivity().setTitle(query);
+
+            // Configurar lista de dispositivos
             assetsRV.setLayoutManager(new LinearLayoutManager(getContext()));
             DividerItemDecoration dividerA = new DividerItemDecoration(
                     assetsRV.getContext(),
@@ -247,7 +249,7 @@ public class SearchResultView extends Fragment implements ISearchResultContract.
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-        searchView.setIconifiedByDefault(false);
+        searchView.setIconifiedByDefault(true);
 
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -257,6 +259,7 @@ public class SearchResultView extends Fragment implements ISearchResultContract.
         switch (item.getItemId()) {
             case android.R.id.home:
                 requireActivity().getSupportFragmentManager().popBackStack();
+                requireActivity().setTitle(R.string.bottom_nav_home);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -277,8 +280,8 @@ public class SearchResultView extends Fragment implements ISearchResultContract.
         if (data != null) {
             String intentData = data.toString();
             if (intentData.startsWith("app://")) {
-                String dElementName = intentData.substring(6);
-                Activo activo = presenter.getAssetByName(dElementName);
+                String assetName = intentData.substring(6);
+                Activo activo = presenter.getAssetByName(assetName);
                 if (activo != null) {
                     FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                     fragmentManager.beginTransaction()
@@ -286,7 +289,6 @@ public class SearchResultView extends Fragment implements ISearchResultContract.
                             .setReorderingAllowed(true)
                             .addToBackStack("apps")
                             .commit();
-
                     InputMethodManager inputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     View rootView = requireView();
                     if (rootView != null) {

@@ -23,16 +23,17 @@ import java.util.List;
 import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Categoria;
+import es.unican.appriegospersonales.model.Tipo;
 import es.unican.appriegospersonales.repository.db.ActivoDao;
-import es.unican.appriegospersonales.repository.db.CategoriaDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
+import es.unican.appriegospersonales.repository.db.TipoDao;
 
 public class AppSuggestionProvider extends SearchRecentSuggestionsProvider {
     public static final String AUTHORITY = "es.unican.appriegospersonales.activities.apps.search.AppSuggestionProvider";
     public static final int MODE = DATABASE_MODE_QUERIES;
 
     private ActivoDao activoDao;
-    private CategoriaDao categoriaDao;
+    private TipoDao tipoDao;
 
     public AppSuggestionProvider() {
         setupSuggestions(AUTHORITY, MODE);
@@ -52,51 +53,51 @@ public class AppSuggestionProvider extends SearchRecentSuggestionsProvider {
 
         DaoSession daoSession = ((MyApplication) getContext().getApplicationContext()).getDaoSession();
         activoDao = daoSession.getActivoDao();
-        categoriaDao = daoSession.getCategoriaDao();
+        tipoDao = daoSession.getTipoDao();
 
-        List<Activo> dElementsSuggestions = new ArrayList<>();
+        List<Activo> assetsSuggestions = new ArrayList<>();
         if (query != null){
-            dElementsSuggestions = getdElementsSuggestions(query);
+            assetsSuggestions = getassetsSuggestions(query);
         }
 
         // Agregar las sugerencias al cursor
         int id = 0;
-        for (Activo a : dElementsSuggestions) {
-            String dElementName = a.getNombre();
-            String categoryName = a.getCategoria().getNombre();
-            String intentData = "app://" + dElementName;
+        for (Activo a : assetsSuggestions) {
+            String assetName = a.getNombre();
+            String tipoName = a.getTipo().getNombre();
+            String intentData = "app://" + assetName;
             Bitmap iconBitmap = downloadIconBitmap(a.getIcono());
             cursor.addRow(new Object[]{
                     id++,
-                    dElementName,
-                    categoryName,
+                    assetName,
+                    tipoName,
                     intentData,
-                    getBitmapUri(getContext(), iconBitmap, dElementName)
+                    getBitmapUri(getContext(), iconBitmap, assetName)
             });
         }
 
         return cursor;
     }
 
-    private List<Activo> getdElementsSuggestions(String query) {
+    private List<Activo> getassetsSuggestions(String query) {
         String modifiedQuery = removeAccents(query.trim().toLowerCase());
 
-        List<Categoria> categorias = categoriaDao.loadAll();
-        List<Long> categoriaIds = new ArrayList<>();
-        for (Categoria c : categorias) {
+        List<Tipo> tipos = tipoDao.loadAll();
+        List<Long> tipoIds = new ArrayList<>();
+        for (Tipo c : tipos) {
             String nombre = removeAccents(c.getNombre().trim().toLowerCase());
             if (nombre.contains(modifiedQuery)) {
-                categoriaIds.add(c.getIdCategoria());
+                tipoIds.add(c.getIdTipo());
             }
         }
 
-        List<Activo> dElements = activoDao.queryBuilder()
+        List<Activo> activos = activoDao.queryBuilder()
                 .whereOr(
                         ActivoDao.Properties.Nombre.like("%" + modifiedQuery + "%"),
-                        ActivoDao.Properties.Fk_categoria.in(categoriaIds)
+                        ActivoDao.Properties.Fk_tipo.in(tipoIds)
                 ).list();
 
-        return dElements;
+        return activos;
     }
 
     private String removeAccents(String input) {
@@ -106,7 +107,10 @@ public class AppSuggestionProvider extends SearchRecentSuggestionsProvider {
 
     private Bitmap downloadIconBitmap(String imageUrl) {
         try {
-            return Picasso.get().load(imageUrl).get();
+            return Picasso.get().load(imageUrl)
+                    .resize(600, 600)
+                    .centerCrop()
+                    .get();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -9,16 +9,17 @@ import java.util.List;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Categoria;
 import es.unican.appriegospersonales.model.Perfil;
+import es.unican.appriegospersonales.model.Tipo;
 import es.unican.appriegospersonales.repository.db.ActivoDao;
-import es.unican.appriegospersonales.repository.db.CategoriaDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
+import es.unican.appriegospersonales.repository.db.TipoDao;
 
 public class SearchResultPresenter implements ISearchResultContract.Presenter {
 
     private final ISearchResultContract.View view;
     private ActivoDao activoDao;
-    private CategoriaDao categoriaDao;
+    private TipoDao tipoDao;
     private PerfilDao perfilDao;
 
     public SearchResultPresenter(ISearchResultContract.View view) {
@@ -29,7 +30,7 @@ public class SearchResultPresenter implements ISearchResultContract.Presenter {
     public void init() {
         DaoSession daoSession = view.getMyApplication().getDaoSession();
         activoDao = daoSession.getActivoDao();
-        categoriaDao = daoSession.getCategoriaDao();
+        tipoDao = daoSession.getTipoDao();
         perfilDao = daoSession.getPerfilDao();
     }
 
@@ -37,19 +38,19 @@ public class SearchResultPresenter implements ISearchResultContract.Presenter {
     public List<Activo> doSearch(String query) {
         String modifiedQuery = "%" + removeAccents(query.trim().toLowerCase()) + "%";
 
-        List<Categoria> categorias = categoriaDao.loadAll();
-        List<Long> categoriaIds = new ArrayList<>();
-        for (Categoria c : categorias) {
+        List<Tipo> tipos = tipoDao.loadAll();
+        List<Long> tipoIds = new ArrayList<>();
+        for (Tipo c : tipos) {
             String nombre = removeAccents(c.getNombre().trim().toLowerCase());
             if (nombre.contains(removeAccents(query.trim().toLowerCase()))) {
-                categoriaIds.add(c.getIdCategoria());
+                tipoIds.add(c.getIdTipo());
             }
         }
 
         return activoDao.queryBuilder()
                 .whereOr(
                         ActivoDao.Properties.Nombre.like(modifiedQuery),
-                        ActivoDao.Properties.Fk_categoria.in(categoriaIds)
+                        ActivoDao.Properties.Fk_tipo.in(tipoIds)
                 ).list();
     }
 
