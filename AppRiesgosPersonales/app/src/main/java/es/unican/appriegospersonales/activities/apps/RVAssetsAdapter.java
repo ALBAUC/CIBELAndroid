@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -61,6 +62,8 @@ public class RVAssetsAdapter extends RecyclerView.Adapter<RVAssetsAdapter.AssetV
             holder.assetAddedIcon_iv.setVisibility(View.GONE);
             holder.assetAddedInfo_tv.setVisibility(View.GONE);
         }
+        holder.assetSecurityIV.setColorFilter(ContextCompat.getColor(context, activo.getColorFromTramo(activo.calcularPuntuacionSeguridad())));
+        holder.assetEcoIV.setColorFilter(ContextCompat.getColor(context, activo.getColorFromTramo(82)));
     }
 
     public class AssetViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -69,6 +72,8 @@ public class RVAssetsAdapter extends RecyclerView.Adapter<RVAssetsAdapter.AssetV
         private final TextView assetName_tv;
         private final ImageView assetAddedIcon_iv;
         private final TextView assetAddedInfo_tv;
+        private final ImageView assetSecurityIV;
+        private final ImageView assetEcoIV;
         private Activo activo;
 
         public AssetViewHolder(View itemView) {
@@ -77,6 +82,8 @@ public class RVAssetsAdapter extends RecyclerView.Adapter<RVAssetsAdapter.AssetV
             assetIcon_iv = itemView.findViewById(R.id.appIcon_iv);
             assetAddedIcon_iv = itemView.findViewById(R.id.appAddedIcon_iv);
             assetAddedInfo_tv = itemView.findViewById(R.id.appAddedInfo_tv);
+            assetSecurityIV = itemView.findViewById(R.id.securityIcon_iv);
+            assetEcoIV = itemView.findViewById(R.id.ecoIcon_iv);
             itemView.setOnClickListener(this);
         }
 

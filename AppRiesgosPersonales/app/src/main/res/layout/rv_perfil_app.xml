@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
                     android:textSize="15sp"
-                    tools:text="JUSTO" />
+                    tools:text="Muy poco seguro" />
 
             </LinearLayout>
 
@@ -109,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
                     android:textSize="15sp"
-                    tools:text="EXCELENTE" />
+                    tools:text="Bastante sostenible" />
 
             </LinearLayout>
         </LinearLayout>
