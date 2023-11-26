@@ -119,7 +119,7 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
 
     private void showSortingOptionsPopup() {
         // Mostrar opciones de ordenacion
-        View popupView = LayoutInflater.from(getContext()).inflate(R.layout.sorting_options_smart_home, null);
+        View popupView = LayoutInflater.from(getContext()).inflate(R.layout.sorting_options_assets, null);
         PopupWindow popupWindow = new PopupWindow(
                 popupView,
                 ViewGroup.LayoutParams.MATCH_PARENT, // Ancho completo
@@ -181,7 +181,7 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
 
     private void setUpSortingOptionsClickListener(View popupView, PopupWindow popupWindow) {
         // Configurar OnClickListener para cada opción
-        LinearLayout linearLayout = popupView.findViewById(R.id.ordenar_activos_perfil_ll);
+        LinearLayout linearLayout = popupView.findViewById(R.id.ordenar_activos_ll);
         for (int i = 0; i < linearLayout.getChildCount(); i++) {
             View childView = linearLayout.getChildAt(i);
             if (childView instanceof LinearLayout) {

@@ -106,5 +106,7 @@
     <string name="ordenarGravedad_Asc">Menor a mayor gravedad</string>
     <string name="ordenarGravedad_Desc">Mayor a menor gravedad</string>
 
+    <string name="vacio"></string>
+
 
 </resources>

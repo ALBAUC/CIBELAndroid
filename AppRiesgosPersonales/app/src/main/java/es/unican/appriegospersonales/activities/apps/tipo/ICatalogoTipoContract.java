@@ -16,5 +16,15 @@ public interface ICatalogoTipoContract {
         String getTipoName();
 
         List<Activo> getActivosDeTipo();
+
+        List<Activo> getActivosTipoOrdenadosPorSeguridadDesc();
+
+        List<Activo> getActivosTipoOrdenadosPorSostAsc();
+
+        List<Activo> getActivosTipoOrdenadosPorSostDesc();
+
+        List<Activo> getActivosTipoOrdenadosPorSeguridadAsc();
+
+        List<Activo> getActivosPerfil();
     }
 }

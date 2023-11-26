@@ -37,7 +37,7 @@ public class MainPresenter implements IMainContract.Presenter {
 
     @Override
     public void onNavSmartHomeClicked() {
-        view.showFragment(new SmartHomeView(), R.string.bottom_nav_smart_home);
+        view.showFragment(new SmartHomeView(), R.string.bottom_nav_perfil);
     }
 
 }
