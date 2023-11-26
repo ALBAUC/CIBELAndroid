@@ -3,8 +3,11 @@ package es.unican.appriegospersonales.activities.apps.search;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,7 +18,14 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.SearchView;
+import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -32,9 +42,14 @@ import es.unican.appriesgospersonales.R;
 
 public class SearchResultView extends Fragment implements ISearchResultContract.View, MainView.RefreshableFragment {
 
+    private static final String PREF_ASSETS_BUSCADOR_SORT_ORDER = "assets_buscador_sort_order";
     public static final String QUERY = "query";
     private ISearchResultContract.Presenter presenter;
-    private RecyclerView apps_rv;
+    private TextView sortInfoTV;
+    private View overlayView;
+    private RecyclerView assetsRV;
+    private SharedPreferences prefs;
+    private String query;
 
     public static SearchResultView newInstance(String query) {
         SearchResultView fragment = new SearchResultView();
@@ -56,18 +71,157 @@ public class SearchResultView extends Fragment implements ISearchResultContract.
     public View onCreateView(LayoutInflater inflater, @androidx.annotation.Nullable ViewGroup container, @androidx.annotation.Nullable
             Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_search, container, false);
-        apps_rv = layout.findViewById(R.id.appsResultSearch_rv);
 
-        apps_rv.setLayoutManager(new LinearLayoutManager(getContext()));
         Bundle args = getArguments();
-        apps_rv.setAdapter(new RVActivosPerfilAdapter(getContext(), presenter.doSearch(args.getString(QUERY)), presenter.getPerfilAssets(), getMyApplication()));
+        if (args != null) {
+            // Link a los elemntos de la vista
+            assetsRV = layout.findViewById(R.id.appsResultSearch_rv);
+            LinearLayout sortLL = layout.findViewById(R.id.sort_ll);
+            sortInfoTV = layout.findViewById(R.id.sortInfo_tv);
 
-        DividerItemDecoration dividerA = new DividerItemDecoration(
-                apps_rv.getContext(),
-                DividerItemDecoration.VERTICAL);
-        apps_rv.addItemDecoration(dividerA);
+            // Configurar lista de dispositivos
+            query = args.getString(QUERY);
+            assetsRV.setLayoutManager(new LinearLayoutManager(getContext()));
+            DividerItemDecoration dividerA = new DividerItemDecoration(
+                    assetsRV.getContext(),
+                    DividerItemDecoration.VERTICAL);
+            assetsRV.addItemDecoration(dividerA);
 
+            // Ordenar dispositivos
+            prefs = requireContext().getSharedPreferences("SortAssetsPrefs", Context.MODE_PRIVATE);
+            String sortOrder = prefs.getString(PREF_ASSETS_BUSCADOR_SORT_ORDER, getResources().getString(R.string.ordenarSeguridad_Asc));
+            sortInfoTV.setText(sortOrder);
+            updateRecyclerView(sortOrder);
+
+            sortLL.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showSortingOptionsPopup();
+                }
+            });
+        }
         return layout;
+    }
+
+    private void updateRecyclerView(String sortOrder) {
+        if (sortOrder.equals(getResources().getString(R.string.ordenarSeguridad_Desc))) {
+            assetsRV.setAdapter(new RVActivosPerfilAdapter(getContext(), presenter.getActivosOrdenadosPorSeguridadDesc(query), presenter.getPerfilAssets(), getMyApplication()));
+        } else if (sortOrder.equals(getResources().getString(R.string.ordenarSost_Asc))) {
+            assetsRV.setAdapter(new RVActivosPerfilAdapter(getContext(), presenter.getActivosOrdenadosPorSostAsc(query), presenter.getPerfilAssets(), getMyApplication()));
+        } else if (sortOrder.equals(getResources().getString(R.string.ordenarSost_Desc))) {
+            assetsRV.setAdapter(new RVActivosPerfilAdapter(getContext(), presenter.getActivosOrdenadosPorSostDesc(query), presenter.getPerfilAssets(), getMyApplication()));
+        } else {
+            assetsRV.setAdapter(new RVActivosPerfilAdapter(getContext(), presenter.getActivosOrdenadosPorSeguridadAsc(query), presenter.getPerfilAssets(), getMyApplication()));
+        }
+    }
+
+    private void showSortingOptionsPopup() {
+        // Mostrar opciones de ordenacion
+        View popupView = LayoutInflater.from(getContext()).inflate(R.layout.sorting_options_assets, null);
+        PopupWindow popupWindow = new PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.MATCH_PARENT, // Ancho completo
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                true
+        );
+
+        setUpSortingOptionsClickListener(popupView, popupWindow);
+
+        View rootView = getActivity().getWindow().getDecorView().findViewById(android.R.id.content);
+        popupWindow.showAtLocation(rootView, Gravity.BOTTOM, 0, 0);
+
+        // Destacar opcion de ordenacion actual
+        ImageView seguridadAscIV = popupView.findViewById(R.id.seguridadAsc_iv);
+        ImageView seguridadDescIV = popupView.findViewById(R.id.seguridadDesc_iv);
+        ImageView sostAscIV = popupView.findViewById(R.id.sostAsc_iv);
+        ImageView sostDescIV = popupView.findViewById(R.id.sostDesc_iv);
+        TextView seguridadAscTV = popupView.findViewById(R.id.seguridadAsc_tv);
+        TextView seguridadDescTV = popupView.findViewById(R.id.seguridadDesc_tv);
+        TextView sostAscTV = popupView.findViewById(R.id.sostAsc_tv);
+        TextView sostDescTV = popupView.findViewById(R.id.sostDesc_tv);
+
+        if (sortInfoTV.getText().equals(getResources().getString(R.string.ordenarSeguridad_Asc))) {
+            seguridadAscIV.setVisibility(View.VISIBLE);
+            seguridadAscTV.setTypeface(Typeface.DEFAULT_BOLD);
+            seguridadAscTV.setTextColor(ContextCompat.getColor(getContext(), R.color.primary));
+        } else if (sortInfoTV.getText().equals(getResources().getString(R.string.ordenarSeguridad_Desc))) {
+            seguridadDescIV.setVisibility(View.VISIBLE);
+            seguridadDescTV.setTypeface(Typeface.DEFAULT_BOLD);
+            seguridadDescTV.setTextColor(ContextCompat.getColor(getContext(), R.color.primary));
+        } else if (sortInfoTV.getText().equals(getResources().getString(R.string.ordenarSost_Asc))) {
+            sostAscIV.setVisibility(View.VISIBLE);
+            sostAscTV.setTypeface(Typeface.DEFAULT_BOLD);
+            sostAscTV.setTextColor(ContextCompat.getColor(getContext(), R.color.primary));
+        } else if (sortInfoTV.getText().equals(getResources().getString(R.string.ordenarSost_Desc))) {
+            sostDescIV.setVisibility(View.VISIBLE);
+            sostDescTV.setTypeface(Typeface.DEFAULT_BOLD);
+            sostDescTV.setTextColor(ContextCompat.getColor(getContext(), R.color.primary));
+        }
+
+        // Difuminar resto de la interfaz
+        overlayView = new View(getContext());
+        overlayView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.dark_background));
+        int overlayAlpha = 150; // Valor entre 0 (transparente) y 255 (opaco)
+        overlayView.getBackground().setAlpha(overlayAlpha);
+        ViewGroup mainLayout = getActivity().findViewById(android.R.id.content);
+        mainLayout.addView(overlayView, new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                if (overlayView != null) {
+                    mainLayout.removeView(overlayView);
+                    overlayView = null;
+                }
+            }
+        });
+    }
+
+    private void setUpSortingOptionsClickListener(View popupView, PopupWindow popupWindow) {
+        // Configurar OnClickListener para cada opción
+        LinearLayout linearLayout = popupView.findViewById(R.id.ordenar_activos_ll);
+        for (int i = 0; i < linearLayout.getChildCount(); i++) {
+            View childView = linearLayout.getChildAt(i);
+            if (childView instanceof LinearLayout) {
+                childView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int checkedId = view.getId();
+                        sortAssets(checkedId);
+                        popupWindow.dismiss();
+                    }
+                });
+            }
+        }
+    }
+
+    private void sortAssets(int checkedId) {
+        // Actualizar la opción de ordenación
+        String sortOrder = getSortOrderFromCheckedId(checkedId);
+        sortInfoTV.setText(sortOrder);
+        prefs.edit().putString(PREF_ASSETS_BUSCADOR_SORT_ORDER, sortOrder).apply();
+
+        // Actualizar el RecyclerView según la opción de ordenación
+        updateRecyclerView(sortOrder);
+    }
+
+    private String getSortOrderFromCheckedId(int checkedId) {
+        String sortOrder = getResources().getString(R.string.ordenarSeguridad_Asc);
+        switch (checkedId) {
+            case R.id.seguridadAsc_ll:
+                sortOrder = getResources().getString(R.string.ordenarSeguridad_Asc);
+                break;
+            case R.id.seguridadDesc_ll:
+                sortOrder = getResources().getString(R.string.ordenarSeguridad_Desc);
+                break;
+            case R.id.sostAsc_ll:
+                sortOrder = getResources().getString(R.string.ordenarSost_Asc);
+                break;
+            case R.id.sostDesc_ll:
+                sortOrder = getResources().getString(R.string.ordenarSost_Desc);
+                break;
+        }
+        return sortOrder;
     }
 
     @Override

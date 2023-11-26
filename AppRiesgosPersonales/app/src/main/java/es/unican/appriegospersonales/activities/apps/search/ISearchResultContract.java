@@ -20,5 +20,13 @@ public interface ISearchResultContract {
         Activo getAssetByName(String appName);
 
         List<Activo> getPerfilAssets();
+
+        List<Activo> getActivosOrdenadosPorSeguridadDesc(String query);
+
+        List<Activo> getActivosOrdenadosPorSostAsc(String query);
+
+        List<Activo> getActivosOrdenadosPorSostDesc(String query);
+
+        List<Activo> getActivosOrdenadosPorSeguridadAsc(String query);
     }
 }
