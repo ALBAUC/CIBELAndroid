@@ -23,37 +23,56 @@
 
     </androidx.cardview.widget.CardView>
 
+    <TextView
+        android:id="@+id/appName_tv"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="11sp"
+        tools:text="Samsung Galaxy S5"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/securityIcon_iv"
             style="@style/RecyclerIconStyle"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
             android:layout_gravity="center_vertical"
             android:src="@drawable/security" />
+
+        <TextView
+            android:id="@+id/security_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="70"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="1dp"
+            android:textSize="11sp" />
 
         <ImageView
             android:id="@+id/ecoIcon_iv"
             style="@style/RecyclerIconStyle"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="2dp"
             android:src="@drawable/energy_saving" />
 
         <TextView
-            android:id="@+id/appName_tv"
-            android:layout_width="match_parent"
+            android:id="@+id/eco_tv"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:singleLine="true"
-            tools:text="Aplicacion"/>
+            tools:text="82"
+            android:layout_marginLeft="1dp"
+            android:textSize="11sp" />
 
     </LinearLayout>
 
@@ -64,12 +83,13 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="2dp">
+        android:layout_marginTop="5dp">
 
         <ImageView
             android:id="@+id/appAddedIcon_iv"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/check_circle"
             style="@style/RecyclerIconStyle"/>
 
@@ -77,12 +97,13 @@
             android:id="@+id/appAddedInfo_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="3dp"
             android:ellipsize="end"
             android:singleLine="true"
             android:text="@string/dElementAdded"
-            android:textSize="12dp"
-            tools:text="Añadida"/>
+            android:textSize="11sp"
+            tools:text="Añadido"/>
     </LinearLayout>
 
 

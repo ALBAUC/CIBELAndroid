@@ -48,7 +48,7 @@
                     android:inputType="textMultiLine"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    tools:text="Aplicacion" />
+                    tools:text="Dispositivo" />
 
                 <TextView
                     android:id="@+id/appDetailCategory_tv"

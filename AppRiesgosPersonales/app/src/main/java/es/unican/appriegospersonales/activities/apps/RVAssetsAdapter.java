@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Random;
 
 import es.unican.appriegospersonales.activities.apps.detail.AssetDetailView;
 import es.unican.appriegospersonales.model.Activo;
@@ -62,8 +63,14 @@ public class RVAssetsAdapter extends RecyclerView.Adapter<RVAssetsAdapter.AssetV
             holder.assetAddedIcon_iv.setVisibility(View.GONE);
             holder.assetAddedInfo_tv.setVisibility(View.GONE);
         }
+
         holder.assetSecurityIV.setColorFilter(ContextCompat.getColor(context, activo.getColorFromTramo(activo.calcularPuntuacionSeguridad())));
-        holder.assetEcoIV.setColorFilter(ContextCompat.getColor(context, activo.getColorFromTramo(82)));
+        holder.assetSecurityTV.setText(String.valueOf(activo.calcularPuntuacionSeguridad()));
+
+        Random random = new Random();
+        int calificacionEco = random.nextInt(66) + 30; // numero aleatorio entre 30 y 95
+        holder.assetEcoIV.setColorFilter(ContextCompat.getColor(context, activo.getColorFromTramo(calificacionEco)));
+        holder.assetEcoTV.setText(String.valueOf(calificacionEco));
     }
 
     public class AssetViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -73,7 +80,9 @@ public class RVAssetsAdapter extends RecyclerView.Adapter<RVAssetsAdapter.AssetV
         private final ImageView assetAddedIcon_iv;
         private final TextView assetAddedInfo_tv;
         private final ImageView assetSecurityIV;
+        private final TextView assetSecurityTV;
         private final ImageView assetEcoIV;
+        private final TextView assetEcoTV;
         private Activo activo;
 
         public AssetViewHolder(View itemView) {
@@ -84,6 +93,8 @@ public class RVAssetsAdapter extends RecyclerView.Adapter<RVAssetsAdapter.AssetV
             assetAddedInfo_tv = itemView.findViewById(R.id.appAddedInfo_tv);
             assetSecurityIV = itemView.findViewById(R.id.securityIcon_iv);
             assetEcoIV = itemView.findViewById(R.id.ecoIcon_iv);
+            assetSecurityTV = itemView.findViewById(R.id.security_tv);
+            assetEcoTV = itemView.findViewById(R.id.eco_tv);
             itemView.setOnClickListener(this);
         }
 
