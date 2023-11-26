@@ -1,5 +1,9 @@
 package es.unican.appriegospersonales.model;
 
+import android.annotation.SuppressLint;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
@@ -8,8 +12,9 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
 
+@SuppressLint("ParcelCreator")
 @Entity
-public class Tipo {
+public class Tipo implements Parcelable {
 
     @SerializedName("id")
     @NonNull
@@ -50,5 +55,15 @@ public class Tipo {
                 "idTipo=" + idTipo +
                 ", nombre='" + nombre + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(nombre);
     }
 }

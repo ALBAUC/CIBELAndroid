@@ -4,15 +4,19 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import es.unican.appriegospersonales.activities.apps.tipo.CatalogoTipoView;
 import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Tipo;
@@ -42,7 +46,7 @@ public class RVTiposAdapter extends RecyclerView.Adapter<RVTiposAdapter.TipoView
     @NonNull
     @Override
     public TipoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.rv_apps_categoria, parent, false);
+        View view = inflater.inflate(R.layout.rv_assets_categoria, parent, false);
         return new TipoViewHolder(view);
     }
 
@@ -53,29 +57,38 @@ public class RVTiposAdapter extends RecyclerView.Adapter<RVTiposAdapter.TipoView
 
     @Override
     public void onBindViewHolder(TipoViewHolder holder, int position) {
+        holder.tipo = tipos.get(position);
         List<Activo> activos = activoDao.queryBuilder().where(ActivoDao.Properties.Fk_tipo
                 .like(tipos.get(position).getIdTipo().toString())).list();
-        holder.rvActivos.setAdapter(new RVAssetsAdapter(context, activos, perfilActivos));
-        holder.rvActivos.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        holder.rvActivos.setHasFixedSize(true);
-        holder.tipoName_tv.setText(tipos.get(position).getNombre());
+        holder.activosRV.setAdapter(new RVAssetsAdapter(context, activos, perfilActivos));
+        holder.activosRV.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        holder.activosRV.setHasFixedSize(true);
+        holder.tipoNameTV.setText(tipos.get(position).getNombre());
     }
 
     public class TipoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final TextView tipoName_tv;
-        private final RecyclerView rvActivos;
+        private final TextView tipoNameTV;
+        private final RecyclerView activosRV;
+        private Tipo tipo;
 
         public TipoViewHolder(View itemView) {
             super(itemView);
-            tipoName_tv = itemView.findViewById(R.id.categoriaName_tv);
-            rvActivos = itemView.findViewById(R.id.apps_rv);
+            tipoNameTV = itemView.findViewById(R.id.categoriaName_tv);
+            activosRV = itemView.findViewById(R.id.apps_rv);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(view.getContext(), tipoName_tv.getText(), Toast.LENGTH_SHORT).show();
+            AppCompatActivity activity = (AppCompatActivity) context;
+            FragmentManager fragmentManager = activity.getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .hide(fragmentManager.findFragmentById(R.id.container))
+                    .add(R.id.container, CatalogoTipoView.newInstance(tipo))
+                    .setReorderingAllowed(true)
+                    .addToBackStack("tipos")
+                    .commit();
         }
     }
 }

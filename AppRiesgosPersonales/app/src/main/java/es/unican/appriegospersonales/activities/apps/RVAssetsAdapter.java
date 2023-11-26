@@ -38,7 +38,7 @@ public class RVAssetsAdapter extends RecyclerView.Adapter<RVAssetsAdapter.AssetV
     @NonNull
     @Override
     public AssetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.rv_apps_app, parent, false);
+        View view = inflater.inflate(R.layout.rv_assets_asset, parent, false);
         return new AssetViewHolder(view);
     }
 

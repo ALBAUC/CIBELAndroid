@@ -45,7 +45,7 @@
                 android:inputType="textMultiLine"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                tools:text="Aplicacion" />
+                tools:text="Dispositivo" />
 
             <ImageView
                 android:id="@+id/infoAddedIcon_iv"

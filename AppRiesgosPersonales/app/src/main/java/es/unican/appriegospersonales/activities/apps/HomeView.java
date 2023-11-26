@@ -34,8 +34,6 @@ import es.unican.appriesgospersonales.R;
 public class HomeView extends Fragment implements IHomeContract.View, MainView.RefreshableFragment {
 
     private IHomeContract.Presenter presenter;
-    private RecyclerView categoriasDevicesRV;
-    private SearchView searchView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,7 +48,7 @@ public class HomeView extends Fragment implements IHomeContract.View, MainView.R
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_home, container, false);
-        categoriasDevicesRV = layout.findViewById(R.id.categoriasDevices_rv);
+        RecyclerView categoriasDevicesRV = layout.findViewById(R.id.categoriasDevices_rv);
 
         categoriasDevicesRV.setLayoutManager(new LinearLayoutManager(getContext()));
         categoriasDevicesRV.setAdapter(new RVTiposAdapter(getContext(), presenter.getTipos(), presenter.getPerfilAssets(), getMyApplication()));
@@ -85,7 +83,7 @@ public class HomeView extends Fragment implements IHomeContract.View, MainView.R
         inflater.inflate(R.menu.search_menu, menu);
 
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         searchView.setIconifiedByDefault(false);
 

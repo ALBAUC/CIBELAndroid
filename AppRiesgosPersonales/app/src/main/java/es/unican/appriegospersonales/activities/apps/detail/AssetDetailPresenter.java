@@ -26,7 +26,7 @@ public class AssetDetailPresenter implements IAssetDetailContract.Presenter {
     private PerfilDao perfilDao;
     private ControlDao controlDao;
     private VulnerabilidadDao vulnerabilidadDao;
-    private Activo activo;
+    private final Activo activo;
     private Perfil perfil;
 
     public AssetDetailPresenter(Activo activo, IAssetDetailContract.View view) {
