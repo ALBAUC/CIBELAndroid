@@ -26,5 +26,7 @@ public interface ICatalogoTipoContract {
         List<Activo> getActivosTipoOrdenadosPorSeguridadAsc();
 
         List<Activo> getActivosPerfil();
+
+        Activo getAssetByName(String appName);
     }
 }

@@ -111,4 +111,9 @@ public class CatalogoTipoPresenter implements ICatalogoTipoContract.Presenter {
         List<Activo> perfilAssets = activoDao._queryPerfil_ActivosAnhadidos(perfil.getId());
         return perfilAssets;
     }
+
+    @Override
+    public Activo getAssetByName(String appName) {
+        return activoDao.queryBuilder().where(ActivoDao.Properties.Nombre.like(appName)).unique();
+    }
 }

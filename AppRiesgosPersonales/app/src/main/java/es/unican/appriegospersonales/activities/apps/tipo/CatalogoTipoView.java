@@ -1,30 +1,41 @@
 package es.unican.appriegospersonales.activities.apps.tipo;
 
+import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import es.unican.appriegospersonales.activities.apps.detail.AssetDetailView;
+import es.unican.appriegospersonales.activities.apps.search.SearchResultView;
 import es.unican.appriegospersonales.activities.main.MainView;
 import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.common.adapters.RVActivosPerfilAdapter;
+import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.model.Tipo;
 import es.unican.appriesgospersonales.R;
 
@@ -50,6 +61,71 @@ public class CatalogoTipoView extends Fragment implements ICatalogoTipoContract.
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.search_menu, menu);
+
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        searchView.setIconifiedByDefault(true);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        Intent intent = requireActivity().getIntent();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            // Manejar el resultado de la búsqueda según tus necesidades
+            showSearchResultView(query);
+        } else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+            // Manejar el clic en una sugerencia
+            Uri data = intent.getData();
+            showAppDetailViewSuggestion(data);
+        }
+    }
+
+    private void showSearchResultView(String query) {
+        requireActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, SearchResultView.newInstance(query))
+                .setReorderingAllowed(true)
+                .addToBackStack("categoria")
+                .commit();
+        // Eliminar los intent anteriores
+        requireActivity().setIntent(new Intent());
+    }
+
+    private void showAppDetailViewSuggestion(Uri data) {
+        if (data != null) {
+            String intentData = data.toString();
+            if (intentData.startsWith("app://")) {
+                String appName = intentData.substring(6);
+                Activo activo = presenter.getAssetByName(appName);
+                if (activo != null) {
+                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container, AssetDetailView.newInstance(activo))
+                            .setReorderingAllowed(true)
+                            .addToBackStack("categoria")
+                            .commit();
+
+                    InputMethodManager inputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    View rootView = requireView();
+                    if (rootView != null) {
+                        inputMethodManager.hideSoftInputFromWindow(rootView.getWindowToken(), 0);
+                    }
+
+                    // Eliminar los intent anteriores
+                    requireActivity().setIntent(new Intent());
+                }
+            }
+        }
     }
 
     @Nullable
