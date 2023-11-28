@@ -58,10 +58,8 @@ public class RVAssetsAdapter extends RecyclerView.Adapter<RVAssetsAdapter.AssetV
                 .into(holder.assetIcon_iv);
         if (perfilActivos.contains(activo)) {
             holder.assetAddedIcon_iv.setVisibility(View.VISIBLE);
-            holder.assetAddedInfo_tv.setVisibility(View.VISIBLE);
         } else {
             holder.assetAddedIcon_iv.setVisibility(View.GONE);
-            holder.assetAddedInfo_tv.setVisibility(View.GONE);
         }
 
         holder.assetSecurityIV.setColorFilter(ContextCompat.getColor(context, activo.getColorFromTramo(activo.calcularPuntuacionSeguridad())));
@@ -78,7 +76,6 @@ public class RVAssetsAdapter extends RecyclerView.Adapter<RVAssetsAdapter.AssetV
         private final ImageView assetIcon_iv;
         private final TextView assetName_tv;
         private final ImageView assetAddedIcon_iv;
-        private final TextView assetAddedInfo_tv;
         private final ImageView assetSecurityIV;
         private final TextView assetSecurityTV;
         private final ImageView assetEcoIV;
@@ -90,7 +87,6 @@ public class RVAssetsAdapter extends RecyclerView.Adapter<RVAssetsAdapter.AssetV
             assetName_tv = itemView.findViewById(R.id.appName_tv);
             assetIcon_iv = itemView.findViewById(R.id.appIcon_iv);
             assetAddedIcon_iv = itemView.findViewById(R.id.appAddedIcon_iv);
-            assetAddedInfo_tv = itemView.findViewById(R.id.appAddedInfo_tv);
             assetSecurityIV = itemView.findViewById(R.id.securityIcon_iv);
             assetEcoIV = itemView.findViewById(R.id.ecoIcon_iv);
             assetSecurityTV = itemView.findViewById(R.id.security_tv);

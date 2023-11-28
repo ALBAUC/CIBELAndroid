@@ -1,25 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
         card_view:cardCornerRadius="14dp">
 
         <ImageView
+            android:id="@+id/appIcon_iv"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:id="@+id/appIcon_iv"
-            tools:srcCompat="@tools:sample/avatars"/>
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            card_view:cardBackgroundColor="@android:color/white"
+            card_view:cardCornerRadius="12dp"
+            card_view:cardElevation="2dp">
+
+            <ImageView
+                android:id="@+id/appAddedIcon_iv"
+                style="@style/RecyclerIconStyle"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/check_circle"
+                card_view:tint="@color/primary" />
+
+        </androidx.cardview.widget.CardView>
 
     </androidx.cardview.widget.CardView>
 
@@ -30,14 +49,15 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:textSize="11sp"
-        tools:text="Samsung Galaxy S5"/>
+        tools:text="Samsung Galaxy S5" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -52,10 +72,10 @@
             android:id="@+id/security_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="70"
-            android:layout_marginRight="5dp"
             android:layout_marginLeft="1dp"
-            android:textSize="11sp" />
+            android:layout_marginRight="5dp"
+            android:textSize="11sp"
+            tools:text="70" />
 
         <ImageView
             android:id="@+id/ecoIcon_iv"
@@ -70,41 +90,10 @@
             android:id="@+id/eco_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="82"
             android:layout_marginLeft="1dp"
-            android:textSize="11sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp">
-
-        <ImageView
-            android:id="@+id/appAddedIcon_iv"
-            android:layout_width="13dp"
-            android:layout_height="13dp"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/check_circle"
-            style="@style/RecyclerIconStyle"/>
-
-        <TextView
-            android:id="@+id/appAddedInfo_tv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="3dp"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:text="@string/dElementAdded"
             android:textSize="11sp"
-            tools:text="Añadido"/>
-    </LinearLayout>
+            tools:text="82" />
 
+    </LinearLayout>
 
 </LinearLayout>
