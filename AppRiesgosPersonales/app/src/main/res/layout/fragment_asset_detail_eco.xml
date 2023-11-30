@@ -55,7 +55,7 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp">
 
-                    <es.unican.appriegospersonales.activities.apps.detail.tabs.CustomSeekBar
+                    <es.unican.appriegospersonales.activities.activos.detail.tabs.CustomSeekBar
                         android:id="@+id/durabilidad_hbc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp">
 
-                    <es.unican.appriegospersonales.activities.apps.detail.tabs.CustomSeekBar
+                    <es.unican.appriegospersonales.activities.activos.detail.tabs.CustomSeekBar
                         android:id="@+id/reparabilidad_hbc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -146,7 +146,7 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp">
 
-                    <es.unican.appriegospersonales.activities.apps.detail.tabs.CustomSeekBar
+                    <es.unican.appriegospersonales.activities.activos.detail.tabs.CustomSeekBar
                         android:id="@+id/reciclabilidad_hbc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -191,7 +191,7 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp">
 
-                    <es.unican.appriegospersonales.activities.apps.detail.tabs.CustomSeekBar
+                    <es.unican.appriegospersonales.activities.activos.detail.tabs.CustomSeekBar
                         android:id="@+id/efClimatica_hbc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -237,7 +237,7 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp">
 
-                    <es.unican.appriegospersonales.activities.apps.detail.tabs.CustomSeekBar
+                    <es.unican.appriegospersonales.activities.activos.detail.tabs.CustomSeekBar
                         android:id="@+id/efRecursos_hbc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

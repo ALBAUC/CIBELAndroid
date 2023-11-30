@@ -1,17 +1,11 @@
 package es.unican.CIBEL.domain;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-
-import javax.persistence.JoinColumn;
 
 @Entity
 public class Categoria {
@@ -22,17 +16,10 @@ public class Categoria {
 	
 	private String nombre;
 	
-	@ManyToMany
-	@JoinTable(name = "categoria_x_control",
-				joinColumns = @JoinColumn(name = "fk_categoria"),
-				inverseJoinColumns = @JoinColumn(name = "fk_control"))
-	private List<Control> controles;
-	
 	public Categoria() {}
 	
 	public Categoria(String nombre) {
 		this.nombre = nombre;
-		this.controles = new LinkedList<Control>();
 	}
 
 	public String getNombre() {
@@ -41,14 +28,6 @@ public class Categoria {
 	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public List<Control> getControles() {
-		return controles;
-	}
-
-	public void setControles(List<Control> controles) {
-		this.controles = controles;
 	}
 
 	public Long getId() {
@@ -60,7 +39,7 @@ public class Categoria {
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(controles, id, nombre);
+		return Objects.hash(id, nombre);
 	}
 
 	@Override
@@ -72,7 +51,7 @@ public class Categoria {
 		if (getClass() != obj.getClass())
 			return false;
 		Categoria other = (Categoria) obj;
-		return Objects.equals(controles, other.controles) && Objects.equals(id, other.id)
+		return Objects.equals(id, other.id)
 				&& Objects.equals(nombre, other.nombre);
 	}
 }

@@ -23,8 +23,8 @@
         android:usesCleartextTraffic="true">
 
         <provider
-            android:name="es.unican.appriegospersonales.activities.apps.search.AppSuggestionProvider"
-            android:authorities="es.unican.appriegospersonales.activities.apps.search.AppSuggestionProvider" />
+            android:name="es.unican.appriegospersonales.activities.activos.search.AppSuggestionProvider"
+            android:authorities="es.unican.appriegospersonales.activities.activos.search.AppSuggestionProvider" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

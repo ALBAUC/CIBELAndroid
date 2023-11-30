@@ -9,7 +9,6 @@ import java.util.List;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
 import es.unican.appriegospersonales.repository.db.DaoSession;
-import es.unican.appriegospersonales.repository.db.ControlDao;
 import es.unican.appriegospersonales.repository.db.ActivoDao;
 import es.unican.appriegospersonales.repository.db.PerfilDao;
 
@@ -21,9 +20,6 @@ public class Perfil {
 
     @ToMany(referencedJoinProperty = "fk_perfil")
     private List<Activo> activosAnhadidos = new ArrayList<>();
-
-    @ToMany(referencedJoinProperty = "fk_perfil")
-    private List<Control> controlesAnhadidos = new ArrayList<>();
 
     /** Used to resolve relations */
     @Generated(hash = 2040040024)
@@ -50,10 +46,6 @@ public class Perfil {
             result = instancia;
         }
         return result;
-    }
-
-    public void setControlesAnhadidos(List<Control> controlesAnhadidos) {
-        this.controlesAnhadidos = controlesAnhadidos;
     }
 
     public void setActivosAnhadidos(List<Activo> activosAnhadidos) {
@@ -95,35 +87,6 @@ public class Perfil {
     @Generated(hash = 1355837221)
     public synchronized void resetActivosAnhadidos() {
         activosAnhadidos = null;
-    }
-
-    /**
-     * To-many relationship, resolved on first access (and after reset).
-     * Changes to to-many relations are not persisted, make changes to the target entity.
-     */
-    @Generated(hash = 18301824)
-    public List<Control> getControlesAnhadidos() {
-        if (controlesAnhadidos == null) {
-            final DaoSession daoSession = this.daoSession;
-            if (daoSession == null) {
-                throw new DaoException("Entity is detached from DAO context");
-            }
-            ControlDao targetDao = daoSession.getControlDao();
-            List<Control> controlesAnhadidosNew = targetDao
-                    ._queryPerfil_ControlesAnhadidos(id);
-            synchronized (this) {
-                if (controlesAnhadidos == null) {
-                    controlesAnhadidos = controlesAnhadidosNew;
-                }
-            }
-        }
-        return controlesAnhadidos;
-    }
-
-    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
-    @Generated(hash = 1568778147)
-    public synchronized void resetControlesAnhadidos() {
-        controlesAnhadidos = null;
     }
 
     /**

@@ -11,32 +11,21 @@ import es.unican.appriegospersonales.common.Callback;
 import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.common.prefs.Prefs;
 import es.unican.appriegospersonales.model.Activo;
-import es.unican.appriegospersonales.model.Amenaza;
 import es.unican.appriegospersonales.model.Categoria;
-import es.unican.appriegospersonales.model.Control;
 import es.unican.appriegospersonales.model.JoinActivosWithVulnerabilidades;
-import es.unican.appriegospersonales.model.JoinCategriasWithControles;
-import es.unican.appriegospersonales.model.JoinAmenazasWithControles;
-import es.unican.appriegospersonales.model.Perfil;
 import es.unican.appriegospersonales.model.Tipo;
 import es.unican.appriegospersonales.model.Vulnerabilidad;
 import es.unican.appriegospersonales.repository.db.ActivoDao;
-import es.unican.appriegospersonales.repository.db.AmenazaDao;
 import es.unican.appriegospersonales.repository.db.CategoriaDao;
-import es.unican.appriegospersonales.repository.db.ControlDao;
 import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriegospersonales.repository.db.JoinActivosWithVulnerabilidadesDao;
-import es.unican.appriegospersonales.repository.db.JoinAmenazasWithControlesDao;
-import es.unican.appriegospersonales.repository.db.JoinCategriasWithControlesDao;
-import es.unican.appriegospersonales.repository.db.PerfilDao;
 import es.unican.appriegospersonales.repository.cibel.rest.CibelService;
 import es.unican.appriegospersonales.repository.db.TipoDao;
 import es.unican.appriegospersonales.repository.db.VulnerabilidadDao;
 
 /**
- * Implementacion de un repositorio de los recursos de AppWiseService.
- * El repositorio tambien persiste en una base de datos local las listas de
- * aplicaciones, riesgos y controles recuperados.
+ * Implementacion de un repositorio de los recursos de CibelService.
+ * El repositorio tambien persiste en una base de datos local los datos.
  */
 public class CibelRepository implements ICibelRepository {
 
@@ -111,86 +100,6 @@ public class CibelRepository implements ICibelRepository {
     }
 
     @Override
-    public void requestAmenazas(Callback<Amenaza[]> cb) {
-        CibelService.requestAmenazas(new Callback<Amenaza[]>() {
-            @Override
-            public void onSuccess(Amenaza[] data) {
-                persistToDBAmenazas(data);
-                cb.onSuccess(data);
-            }
-
-            @Override
-            public void onFailure() {
-                cb.onFailure();
-            }
-        });
-    }
-
-    @Override
-    public Amenaza[] getAmenazas() {
-        Amenaza[] response = CibelService.getAmenazas();
-        persistToDBAmenazas(response);
-        return response;
-    }
-
-    private void persistToDBAmenazas(Amenaza[] amenazas) {
-        if (amenazas != null) {
-            AmenazaDao amenazaDao = daoSession.getAmenazaDao();
-            JoinAmenazasWithControlesDao rcDao = daoSession.getJoinAmenazasWithControlesDao();
-            for (Amenaza a : amenazas) {
-                if (amenazaDao.load(a.getIdAmenaza()) == null) {
-                    // Nueva amenaza, se inserta en la BBDD
-                    List<Control> controles = a.getControles();
-                    for (Control c : controles) {
-                        JoinAmenazasWithControles rc = new JoinAmenazasWithControles();
-                        rc.setIdAmenaza(a.getIdAmenaza());
-                        rc.setIdControl(c.getIdControl());
-                        rcDao.insert(rc);
-                    }
-                    amenazaDao.insert(a);
-                }
-            }
-            Prefs.from(application).putInstant(KEY_LAST_SAVED_T, Instant.now());
-        }
-    }
-
-    @Override
-    public void requestControles(Callback<Control[]> cb) {
-        CibelService.requestControles(new Callback<Control[]>() {
-            @Override
-            public void onSuccess(Control[] data) {
-                persistToDBControles(data);
-                cb.onSuccess(data);
-            }
-
-            @Override
-            public void onFailure() {
-                Log.d(ContentValues.TAG, "Falla aqui x2");
-                cb.onFailure();
-            }
-        });
-    }
-
-    @Override
-    public Control[] getControles() {
-        Control[] response = CibelService.getControles();
-        persistToDBControles(response);
-        return response;
-    }
-
-    private void persistToDBControles(Control[] controles) {
-        if (controles != null) {
-            ControlDao controlDao = daoSession.getControlDao();
-            for (Control c : controles) {
-                if (controlDao.load(c.getIdControl()) == null) {
-                    controlDao.insert(c);
-                }
-            }
-            Prefs.from(application).putInstant(KEY_LAST_SAVED_C, Instant.now());
-        }
-    }
-
-    @Override
     public void requestCategorias(Callback<Categoria[]> cb) {
         CibelService.requestCategorias(new Callback<Categoria[]>() {
             @Override
@@ -216,18 +125,10 @@ public class CibelRepository implements ICibelRepository {
     private void persistToDBCategorias(Categoria[] categorias) {
         if (categorias != null) {
             CategoriaDao categoriaDao = daoSession.getCategoriaDao();
-            JoinCategriasWithControlesDao crDao = daoSession.getJoinCategriasWithControlesDao();
             for (Categoria c : categorias) {
                 if (categoriaDao.load(c.getIdCategoria()) == null) {
                     // Nueva categoria, se inserta en la BBDD
-                    List<Control> controles = c.getControles();
                     categoriaDao.insert(c);
-                    for (Control r : controles) {
-                        JoinCategriasWithControles cr = new JoinCategriasWithControles();
-                        cr.setIdCategoria(c.getIdCategoria());
-                        cr.setIdControl(r.getIdControl());
-                        crDao.insert(cr);
-                    }
                 }
             }
             Prefs.from(application).putInstant(KEY_LAST_SAVED_CA, Instant.now());

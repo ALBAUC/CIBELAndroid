@@ -18,7 +18,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 import java.util.Random;
 
-import es.unican.appriegospersonales.activities.apps.detail.AssetDetailView;
+import es.unican.appriegospersonales.activities.activos.detail.AssetDetailView;
 import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.model.Activo;
 import es.unican.appriegospersonales.repository.db.DaoSession;

@@ -18,27 +18,6 @@ public interface IMainContract {
          */
         void onNavHomeClicked();
 
-        /**
-         * Debe ser usado por la vista cuando se pulse el icono de "Riesgos" en el boton de
-         * navegacion inferior.
-         * Muestra el fragmento correspondiente a la pestaña "Riesgos".
-         */
-        void onNavRiesgosClicked();
-
-        /**
-         * Debe ser usado por la vista cuando se pulse el icono de "Controles" en el boton de
-         * navegacion inferior.
-         * Muestra el fragmento correspondiente a la pestaña "Controles".
-         */
-        void onNavControlesClicked();
-
-        /**
-         * Debe ser usado por la vista cuando se pulse el icono de "Perfil" en el boton de
-         * navegacion inferior.
-         * Muestra el fragmento correspondiente a la pestaña "Perfil".
-         */
-        void onNavPerfilClicked();
-
         void onNavSmartHomeClicked();
     }
 

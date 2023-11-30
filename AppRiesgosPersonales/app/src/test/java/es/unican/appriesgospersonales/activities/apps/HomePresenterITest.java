@@ -11,23 +11,23 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import es.unican.appriegospersonales.activities.apps.HomePresenter;
-import es.unican.appriegospersonales.activities.apps.IHomeContract;
+import es.unican.appriegospersonales.activities.activos.CatalogoPresenter;
+import es.unican.appriegospersonales.activities.activos.ICatalogoContract;
 import es.unican.appriegospersonales.common.MyApplication;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = {Build.VERSION_CODES.O_MR1}, application = MyApplication.class)
 public class HomePresenterITest {
 
-    private HomePresenter sut;
+    private CatalogoPresenter sut;
 
     @Mock
-    private IHomeContract.View viewMock;
+    private ICatalogoContract.View viewMock;
 
     @Before
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        sut = new HomePresenter(viewMock);
+        sut = new CatalogoPresenter(viewMock);
     }
 
 //    @Test
