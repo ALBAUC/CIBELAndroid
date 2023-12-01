@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -40,6 +41,9 @@ public class Activo {
 				joinColumns = @JoinColumn(name = "fk_activo"),
 				inverseJoinColumns = @JoinColumn(name = "fk_vulnerabilidad"))
 	private List<Vulnerabilidad> vulnerabilidades;
+	
+	@Embedded
+	private EcoDatos ecoDatos;
 	
 	public Activo() {}
 	
@@ -96,6 +100,14 @@ public class Activo {
 
 	public void setVulnerabilidades(List<Vulnerabilidad> vulnerabilidades) {
 		this.vulnerabilidades = vulnerabilidades;
+	}
+
+	public EcoDatos getEcoDatos() {
+		return ecoDatos;
+	}
+
+	public void setEcoDatos(EcoDatos ecoDatos) {
+		this.ecoDatos = ecoDatos;
 	}
 
 	@Override

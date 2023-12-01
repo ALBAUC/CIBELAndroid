@@ -25,6 +25,7 @@ import es.unican.appriegospersonales.repository.db.ActivoDao;
 import es.unican.appriegospersonales.repository.db.TipoDao;
 import es.unican.appriegospersonales.repository.db.VulnerabilidadDao;
 import es.unican.appriesgospersonales.R;
+import es.unican.appriegospersonales.repository.db.EcoDatosDao;
 
 @SuppressLint("ParcelCreator")
 @Entity
@@ -58,6 +59,10 @@ public class Activo implements Parcelable {
     )
     private List<Vulnerabilidad> vulnerabilidades;
 
+    private long ecoDatosId;
+    @ToOne(joinProperty = "ecoDatosId")
+    private EcoDatos ecoDatos;
+
     /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
@@ -66,14 +71,15 @@ public class Activo implements Parcelable {
     @Generated(hash = 1317875841)
     private transient ActivoDao myDao;
 
-    @Generated(hash = 446666093)
-    public Activo(@NonNull Long idActivo, String nombre, String icono, long fk_categoria, Long fk_perfil, long fk_tipo) {
+    @Generated(hash = 84743676)
+    public Activo(@NonNull Long idActivo, String nombre, String icono, long fk_categoria, Long fk_perfil, long fk_tipo, long ecoDatosId) {
         this.idActivo = idActivo;
         this.nombre = nombre;
         this.icono = icono;
         this.fk_categoria = fk_categoria;
         this.fk_perfil = fk_perfil;
         this.fk_tipo = fk_tipo;
+        this.ecoDatosId = ecoDatosId;
     }
 
     @Generated(hash = 315079783)
@@ -85,6 +91,9 @@ public class Activo implements Parcelable {
 
     @Generated(hash = 606252662)
     private transient Long tipo__resolvedKey;
+
+    @Generated(hash = 1961953733)
+    private transient Long ecoDatos__resolvedKey;
 
     public String getNombre() {
         return nombre;
@@ -130,14 +139,12 @@ public class Activo implements Parcelable {
     @Override
     public String toString() {
         return "Activo{" +
-                "idActivo=" + idActivo +
-                ", nombre='" + nombre + '\'' +
+                "nombre='" + nombre + '\'' +
                 ", icono='" + icono + '\'' +
-                ", categoria=" + categoria +
-                ", fk_categoria=" + fk_categoria +
                 ", fk_perfil=" + fk_perfil +
                 ", tipo=" + tipo +
                 ", vulnerabilidades=" + vulnerabilidades +
+                ", ecoDatos=" + ecoDatos +
                 '}';
     }
 
@@ -385,5 +392,45 @@ public class Activo implements Parcelable {
             etiqueta = R.string.seguridad_3;
         }
         return etiqueta;
+    }
+
+    public long getEcoDatosId() {
+        return this.ecoDatosId;
+    }
+
+    public void setEcoDatosId(long ecoDatosId) {
+        this.ecoDatosId = ecoDatosId;
+    }
+
+    /** To-one relationship, resolved on first access. */
+    @Generated(hash = 600896966)
+    public EcoDatos getEcoDatos() {
+        long __key = this.ecoDatosId;
+        if (ecoDatos__resolvedKey == null || !ecoDatos__resolvedKey.equals(__key)) {
+            final DaoSession daoSession = this.daoSession;
+            if (daoSession == null) {
+                throw new DaoException("Entity is detached from DAO context");
+            }
+            EcoDatosDao targetDao = daoSession.getEcoDatosDao();
+            EcoDatos ecoDatosNew = targetDao.load(__key);
+            synchronized (this) {
+                ecoDatos = ecoDatosNew;
+                ecoDatos__resolvedKey = __key;
+            }
+        }
+        return ecoDatos;
+    }
+
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 1411785834)
+    public void setEcoDatos(@NonNull EcoDatos ecoDatos) {
+        if (ecoDatos == null) {
+            throw new DaoException("To-one property 'ecoDatosId' has not-null constraint; cannot set to-one to null");
+        }
+        synchronized (this) {
+            this.ecoDatos = ecoDatos;
+            ecoDatosId = ecoDatos.getId();
+            ecoDatos__resolvedKey = ecoDatosId;
+        }
     }
 }
