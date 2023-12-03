@@ -9,7 +9,7 @@ public interface ITabSostenibilidadContract {
 
         void init();
 
-        int getEcoRating();
+        int getEcoPuntuacion();
 
         int getDurabilidad();
 

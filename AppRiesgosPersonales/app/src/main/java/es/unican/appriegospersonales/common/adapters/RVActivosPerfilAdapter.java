@@ -86,9 +86,7 @@ public class RVActivosPerfilAdapter extends RecyclerView.Adapter<RVActivosPerfil
             holder.addedIconIV.setVisibility(View.GONE);
         }
 
-        // Sostenibilidad
-        Random random = new Random();
-        int calificacionEco = random.nextInt(66) + 30; // numero aleatorio entre 30 y 95
+        int calificacionEco = activo.getEcoPuntuacion();
         holder.assetEcoTV.setText(activo.getEtiquetaEcoFromTramo(calificacionEco));
         holder.assetEcoIconIV.setColorFilter(ContextCompat.getColor(context, activo.getColorFromTramo(calificacionEco)));
 

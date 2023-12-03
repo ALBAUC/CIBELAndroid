@@ -25,7 +25,6 @@ import es.unican.appriegospersonales.repository.db.ActivoDao;
 import es.unican.appriegospersonales.repository.db.TipoDao;
 import es.unican.appriegospersonales.repository.db.VulnerabilidadDao;
 import es.unican.appriesgospersonales.R;
-import es.unican.appriegospersonales.repository.db.EcoDatosDao;
 
 @SuppressLint("ParcelCreator")
 @Entity
@@ -59,9 +58,23 @@ public class Activo implements Parcelable {
     )
     private List<Vulnerabilidad> vulnerabilidades;
 
-    private long ecoDatosId;
-    @ToOne(joinProperty = "ecoDatosId")
-    private EcoDatos ecoDatos;
+    @SerializedName("durabilidad")
+    private int durabilidad;
+
+    @SerializedName("reparabilidad")
+    private int reparabilidad;
+
+    @SerializedName("reciclabilidad")
+    private int reciclabilidad;
+
+    @SerializedName("efClimatica")
+    private int efClimatica;
+
+    @SerializedName("efRecursos")
+    private int efRecursos;
+
+    @SerializedName("ecoPuntuacion")
+    private int ecoPuntuacion;
 
     /** Used to resolve relations */
     @Generated(hash = 2040040024)
@@ -71,15 +84,21 @@ public class Activo implements Parcelable {
     @Generated(hash = 1317875841)
     private transient ActivoDao myDao;
 
-    @Generated(hash = 84743676)
-    public Activo(@NonNull Long idActivo, String nombre, String icono, long fk_categoria, Long fk_perfil, long fk_tipo, long ecoDatosId) {
+    @Generated(hash = 1730626772)
+    public Activo(@NonNull Long idActivo, String nombre, String icono, long fk_categoria, Long fk_perfil, long fk_tipo, int durabilidad, int reparabilidad, int reciclabilidad, int efClimatica, int efRecursos,
+            int ecoPuntuacion) {
         this.idActivo = idActivo;
         this.nombre = nombre;
         this.icono = icono;
         this.fk_categoria = fk_categoria;
         this.fk_perfil = fk_perfil;
         this.fk_tipo = fk_tipo;
-        this.ecoDatosId = ecoDatosId;
+        this.durabilidad = durabilidad;
+        this.reparabilidad = reparabilidad;
+        this.reciclabilidad = reciclabilidad;
+        this.efClimatica = efClimatica;
+        this.efRecursos = efRecursos;
+        this.ecoPuntuacion = ecoPuntuacion;
     }
 
     @Generated(hash = 315079783)
@@ -91,9 +110,6 @@ public class Activo implements Parcelable {
 
     @Generated(hash = 606252662)
     private transient Long tipo__resolvedKey;
-
-    @Generated(hash = 1961953733)
-    private transient Long ecoDatos__resolvedKey;
 
     public String getNombre() {
         return nombre;
@@ -139,12 +155,17 @@ public class Activo implements Parcelable {
     @Override
     public String toString() {
         return "Activo{" +
-                "nombre='" + nombre + '\'' +
+                "idActivo=" + idActivo +
+                ", nombre='" + nombre + '\'' +
                 ", icono='" + icono + '\'' +
-                ", fk_perfil=" + fk_perfil +
                 ", tipo=" + tipo +
                 ", vulnerabilidades=" + vulnerabilidades +
-                ", ecoDatos=" + ecoDatos +
+                ", durabilidad=" + durabilidad +
+                ", reparabilidad=" + reparabilidad +
+                ", reciclabilidad=" + reciclabilidad +
+                ", efClimatica=" + efClimatica +
+                ", efRecursos=" + efRecursos +
+                ", ecoPuntuacion=" + ecoPuntuacion +
                 '}';
     }
 
@@ -394,43 +415,51 @@ public class Activo implements Parcelable {
         return etiqueta;
     }
 
-    public long getEcoDatosId() {
-        return this.ecoDatosId;
+    public int getDurabilidad() {
+        return this.durabilidad;
     }
 
-    public void setEcoDatosId(long ecoDatosId) {
-        this.ecoDatosId = ecoDatosId;
+    public void setDurabilidad(int durabilidad) {
+        this.durabilidad = durabilidad;
     }
 
-    /** To-one relationship, resolved on first access. */
-    @Generated(hash = 600896966)
-    public EcoDatos getEcoDatos() {
-        long __key = this.ecoDatosId;
-        if (ecoDatos__resolvedKey == null || !ecoDatos__resolvedKey.equals(__key)) {
-            final DaoSession daoSession = this.daoSession;
-            if (daoSession == null) {
-                throw new DaoException("Entity is detached from DAO context");
-            }
-            EcoDatosDao targetDao = daoSession.getEcoDatosDao();
-            EcoDatos ecoDatosNew = targetDao.load(__key);
-            synchronized (this) {
-                ecoDatos = ecoDatosNew;
-                ecoDatos__resolvedKey = __key;
-            }
-        }
-        return ecoDatos;
+    public int getReparabilidad() {
+        return this.reparabilidad;
     }
 
-    /** called by internal mechanisms, do not call yourself. */
-    @Generated(hash = 1411785834)
-    public void setEcoDatos(@NonNull EcoDatos ecoDatos) {
-        if (ecoDatos == null) {
-            throw new DaoException("To-one property 'ecoDatosId' has not-null constraint; cannot set to-one to null");
-        }
-        synchronized (this) {
-            this.ecoDatos = ecoDatos;
-            ecoDatosId = ecoDatos.getId();
-            ecoDatos__resolvedKey = ecoDatosId;
-        }
+    public void setReparabilidad(int reparabilidad) {
+        this.reparabilidad = reparabilidad;
+    }
+
+    public int getReciclabilidad() {
+        return this.reciclabilidad;
+    }
+
+    public void setReciclabilidad(int reciclabilidad) {
+        this.reciclabilidad = reciclabilidad;
+    }
+
+    public int getEfClimatica() {
+        return this.efClimatica;
+    }
+
+    public void setEfClimatica(int efClimatica) {
+        this.efClimatica = efClimatica;
+    }
+
+    public int getEfRecursos() {
+        return this.efRecursos;
+    }
+
+    public void setEfRecursos(int efRecursos) {
+        this.efRecursos = efRecursos;
+    }
+
+    public int getEcoPuntuacion() {
+        return this.ecoPuntuacion;
+    }
+
+    public void setEcoPuntuacion(int ecoPuntuacion) {
+        this.ecoPuntuacion = ecoPuntuacion;
     }
 }

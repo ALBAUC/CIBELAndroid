@@ -132,14 +132,13 @@ public class SmartHomePresenter implements ISmartHomeContract.Presenter {
 
     @Override
     public List<Activo> getActivosPerfilOrdenadosPorSostAsc() {
-        // TEMPORAL: hasta que haya datos de sostenibilidad se ordenan por seguridad ascendente
         List<Activo> perfilAssets = getActivosPerfil();
         Collections.sort(perfilAssets, new Comparator<Activo>() {
             @Override
             public int compare(Activo activo1, Activo activo2) {
-                int gravedad1 = (int) Math.round(activo1.calcularTotalGravedad());
-                int gravedad2 = (int) Math.round(activo2.calcularTotalGravedad());
-                return Integer.compare(gravedad2, gravedad1);
+                int s1 = (int) Math.round(activo1.getEcoPuntuacion());
+                int s2 = (int) Math.round(activo2.getEcoPuntuacion());
+                return Integer.compare(s2, s1);
             }
         });
 
@@ -148,14 +147,13 @@ public class SmartHomePresenter implements ISmartHomeContract.Presenter {
 
     @Override
     public List<Activo> getActivosPerfilOrdenadosPorSostDesc() {
-        // TEMPORAL: hasta que haya datos de sostenibilidad se ordenan por seguridad ascendente
         List<Activo> perfilAssets = getActivosPerfil();
         Collections.sort(perfilAssets, new Comparator<Activo>() {
             @Override
             public int compare(Activo activo1, Activo activo2) {
-                int gravedad1 = (int) Math.round(activo1.calcularTotalGravedad());
-                int gravedad2 = (int) Math.round(activo2.calcularTotalGravedad());
-                return Integer.compare(gravedad2, gravedad1);
+                int s1 = (int) Math.round(activo1.getEcoPuntuacion());
+                int s2 = (int) Math.round(activo2.getEcoPuntuacion());
+                return Integer.compare(s1, s2);
             }
         });
 

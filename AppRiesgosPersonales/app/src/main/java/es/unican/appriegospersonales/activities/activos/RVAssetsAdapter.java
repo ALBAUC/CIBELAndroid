@@ -1,6 +1,7 @@
 package es.unican.appriegospersonales.activities.activos;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.Random;
 
 import es.unican.appriegospersonales.activities.activos.detail.AssetDetailView;
+import es.unican.appriegospersonales.common.MyApplication;
 import es.unican.appriegospersonales.model.Activo;
+import es.unican.appriegospersonales.repository.db.ActivoDao;
+import es.unican.appriegospersonales.repository.db.DaoSession;
 import es.unican.appriesgospersonales.R;
 
 public class RVAssetsAdapter extends RecyclerView.Adapter<RVAssetsAdapter.AssetViewHolder> {
@@ -27,12 +30,16 @@ public class RVAssetsAdapter extends RecyclerView.Adapter<RVAssetsAdapter.AssetV
     private final List<Activo> activos;
     private final List<Activo> perfilActivos;
     private final LayoutInflater inflater;
+    private ActivoDao activoDao;
 
-    public RVAssetsAdapter(Context context, List<Activo> data, List<Activo> perfilActivos) {
+    public RVAssetsAdapter(Context context, List<Activo> data, List<Activo> perfilActivos, MyApplication myApplication) {
         this.context = context;
         this.activos = data;
         this.perfilActivos = perfilActivos;
         this.inflater = LayoutInflater.from(context);
+
+        DaoSession daoSession = myApplication.getDaoSession();
+        activoDao = daoSession.getActivoDao();
     }
 
     @NonNull
@@ -50,6 +57,7 @@ public class RVAssetsAdapter extends RecyclerView.Adapter<RVAssetsAdapter.AssetV
     @Override
     public void onBindViewHolder(AssetViewHolder holder, int position) {
         Activo activo = activos.get(position);
+        //Log.d("RVAssetsAdapter", activo.toString());
         holder.activo = activo;
         holder.assetName_tv.setText(activo.getNombre());
         Picasso.get().load(activo.getIcono())
@@ -65,8 +73,7 @@ public class RVAssetsAdapter extends RecyclerView.Adapter<RVAssetsAdapter.AssetV
         holder.assetSecurityIV.setColorFilter(ContextCompat.getColor(context, activo.getColorFromTramo(activo.calcularPuntuacionSeguridad())));
         holder.assetSecurityTV.setText(String.valueOf(activo.calcularPuntuacionSeguridad()));
 
-        Random random = new Random();
-        int calificacionEco = random.nextInt(66) + 30; // numero aleatorio entre 30 y 95
+        int calificacionEco = activo.getEcoPuntuacion();
         holder.assetEcoIV.setColorFilter(ContextCompat.getColor(context, activo.getColorFromTramo(calificacionEco)));
         holder.assetEcoTV.setText(String.valueOf(calificacionEco));
     }

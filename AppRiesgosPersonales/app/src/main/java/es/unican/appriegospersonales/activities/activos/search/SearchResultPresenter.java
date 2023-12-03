@@ -86,9 +86,9 @@ public class SearchResultPresenter implements ISearchResultContract.Presenter {
         Collections.sort(activos, new Comparator<Activo>() {
             @Override
             public int compare(Activo activo1, Activo activo2) {
-                int gravedad1 = (int) Math.round(activo1.calcularTotalGravedad());
-                int gravedad2 = (int) Math.round(activo2.calcularTotalGravedad());
-                return Integer.compare(gravedad2, gravedad1);
+                int s1 = (int) Math.round(activo1.getEcoPuntuacion());
+                int s2 = (int) Math.round(activo2.getEcoPuntuacion());
+                return Integer.compare(s2, s1);
             }
         });
 
@@ -101,9 +101,9 @@ public class SearchResultPresenter implements ISearchResultContract.Presenter {
         Collections.sort(activos, new Comparator<Activo>() {
             @Override
             public int compare(Activo activo1, Activo activo2) {
-                int gravedad1 = (int) Math.round(activo1.calcularTotalGravedad());
-                int gravedad2 = (int) Math.round(activo2.calcularTotalGravedad());
-                return Integer.compare(gravedad2, gravedad1);
+                int s1 = (int) Math.round(activo1.getEcoPuntuacion());
+                int s2 = (int) Math.round(activo2.getEcoPuntuacion());
+                return Integer.compare(s1, s2);
             }
         });
 

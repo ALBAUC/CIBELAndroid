@@ -31,6 +31,7 @@ public class RVTiposAdapter extends RecyclerView.Adapter<RVTiposAdapter.TipoView
     private final List<Activo> perfilActivos;
     private final LayoutInflater inflater;
     private ActivoDao activoDao;
+    private MyApplication myApplication;
 
     public RVTiposAdapter(Context context, List<Tipo> tipos, List<Activo> perfilActivos, MyApplication myApplication) {
         this.tipos = tipos;
@@ -39,6 +40,7 @@ public class RVTiposAdapter extends RecyclerView.Adapter<RVTiposAdapter.TipoView
         this.perfilActivos = perfilActivos;
         DaoSession daoSession = myApplication.getDaoSession();
         activoDao = daoSession.getActivoDao();
+        this.myApplication = myApplication;
     }
 
     @NonNull
@@ -58,7 +60,7 @@ public class RVTiposAdapter extends RecyclerView.Adapter<RVTiposAdapter.TipoView
         holder.tipo = tipos.get(position);
         List<Activo> activos = activoDao.queryBuilder().where(ActivoDao.Properties.Fk_tipo
                 .like(tipos.get(position).getIdTipo().toString())).list();
-        holder.activosRV.setAdapter(new RVAssetsAdapter(context, activos, perfilActivos));
+        holder.activosRV.setAdapter(new RVAssetsAdapter(context, activos, perfilActivos, myApplication));
         holder.activosRV.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         holder.activosRV.setHasFixedSize(true);
         holder.tipoNameTV.setText(tipos.get(position).getNombre());

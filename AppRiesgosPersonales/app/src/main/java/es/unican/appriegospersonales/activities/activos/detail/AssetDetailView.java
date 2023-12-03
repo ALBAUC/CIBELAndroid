@@ -85,9 +85,9 @@ public class AssetDetailView extends Fragment implements IAssetDetailContract.Vi
             securityIconIV.setColorFilter(ContextCompat.getColor(getContext(), activo.getColorFromTramo(presenter.getSecurityRating())));
             securityTagTV.setText(activo.getEtiquetaSecurityFromTramo(presenter.getSecurityRating()));
 
-            ecoTV.setText(presenter.getEcoRating() + "/100");
-            ecoIV.setColorFilter(ContextCompat.getColor(getContext(), activo.getColorFromTramo(presenter.getEcoRating())));
-            ecoTagTV.setText(activo.getEtiquetaEcoFromTramo(presenter.getEcoRating()));
+            ecoTV.setText(presenter.getEcoPuntuacion() + "/100");
+            ecoIV.setColorFilter(ContextCompat.getColor(getContext(), activo.getColorFromTramo(presenter.getEcoPuntuacion())));
+            ecoTagTV.setText(activo.getEtiquetaEcoFromTramo(presenter.getEcoPuntuacion()));
 
             updateAssetAddButton(presenter.isAssetAdded());
             appAdd_bt.setOnClickListener(new View.OnClickListener() {

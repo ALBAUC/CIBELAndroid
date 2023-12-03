@@ -94,6 +94,7 @@ public class CibelRepository implements ICibelRepository {
                     aBD.setFk_tipo(a.getTipoTrampa().getIdTipo());
                     activoDao.update(aBD);
                 }
+                Log.d("CibelRepo", a.toString());
             }
             Prefs.from(application).putInstant(KEY_LAST_SAVED_A, Instant.now());
         }

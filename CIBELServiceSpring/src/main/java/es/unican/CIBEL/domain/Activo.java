@@ -42,8 +42,12 @@ public class Activo {
 				inverseJoinColumns = @JoinColumn(name = "fk_vulnerabilidad"))
 	private List<Vulnerabilidad> vulnerabilidades;
 	
-	@Embedded
-	private EcoDatos ecoDatos;
+	private int durabilidad;
+	private int reparabilidad;
+	private int reciclabilidad;
+	private int efClimatica;
+	private int efRecursos;
+	private int ecoPuntuacion;
 	
 	public Activo() {}
 	
@@ -102,12 +106,52 @@ public class Activo {
 		this.vulnerabilidades = vulnerabilidades;
 	}
 
-	public EcoDatos getEcoDatos() {
-		return ecoDatos;
+	public int getDurabilidad() {
+		return durabilidad;
 	}
 
-	public void setEcoDatos(EcoDatos ecoDatos) {
-		this.ecoDatos = ecoDatos;
+	public void setDurabilidad(int durabilidad) {
+		this.durabilidad = durabilidad;
+	}
+
+	public int getReparabilidad() {
+		return reparabilidad;
+	}
+
+	public void setReparabilidad(int reparabilidad) {
+		this.reparabilidad = reparabilidad;
+	}
+
+	public int getReciclabilidad() {
+		return reciclabilidad;
+	}
+
+	public void setReciclabilidad(int reciclabilidad) {
+		this.reciclabilidad = reciclabilidad;
+	}
+
+	public int getEfClimatica() {
+		return efClimatica;
+	}
+
+	public void setEfClimatica(int efClimatica) {
+		this.efClimatica = efClimatica;
+	}
+
+	public int getEfRecursos() {
+		return efRecursos;
+	}
+
+	public void setEfRecursos(int efRecursos) {
+		this.efRecursos = efRecursos;
+	}
+
+	public int getEcoPuntuacion() {
+		return ecoPuntuacion;
+	}
+
+	public void setEcoPuntuacion(int ecoPuntuacion) {
+		this.ecoPuntuacion = ecoPuntuacion;
 	}
 
 	@Override

@@ -16,32 +16,32 @@ public class TabSostenibilidadPresenter implements ITabSostenibilidadContract.Pr
     }
 
     @Override
-    public int getEcoRating() {
-        return 84;
+    public int getEcoPuntuacion() {
+        return activo.getEcoPuntuacion();
     }
 
     @Override
     public int getDurabilidad() {
-        return 74;
+        return activo.getDurabilidad();
     }
 
     @Override
     public int getReparabilidad() {
-        return 67;
+        return activo.getReparabilidad();
     }
 
     @Override
     public int getReciclabilidad() {
-        return 87;
+        return activo.getReciclabilidad();
     }
 
     @Override
     public int getEfClimatica() {
-        return 76;
+        return activo.getEfClimatica();
     }
 
     @Override
     public int getEfRecursos() {
-        return 85;
+        return activo.getEfRecursos();
     }
 }
