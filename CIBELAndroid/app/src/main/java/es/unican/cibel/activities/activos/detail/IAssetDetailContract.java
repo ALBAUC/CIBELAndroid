@@ -1,5 +1,7 @@
 package es.unican.cibel.activities.activos.detail;
 
+import com.github.mikephil.charting.data.PieEntry;
+
 import java.util.List;
 
 import es.unican.cibel.common.MyApplication;
@@ -34,8 +36,16 @@ public interface IAssetDetailContract {
 
         List<Vulnerabilidad> getAssetCves();
 
-        int getEcoPuntuacion();
-
         int getSecurityRating();
+
+        List<Vulnerabilidad> getAssetCvesOrdenadorPorFechaRec();
+
+        List<PieEntry> getEntries();
+
+        List<Vulnerabilidad> getAssetCvesOrdenadorPorFechaAnt();
+
+        List<Vulnerabilidad> getAssetCvesOrdenadorPorGravedadAsc();
+
+        List<Vulnerabilidad> getAssetCvesOrdenadorPorGravedadDesc();
     }
 }

@@ -84,11 +84,6 @@ public class RVActivosPerfilAdapter extends RecyclerView.Adapter<RVActivosPerfil
         } else {
             holder.addedIconIV.setVisibility(View.GONE);
         }
-
-        int calificacionEco = activo.getEcoPuntuacion();
-        holder.assetEcoTV.setText(activo.getEtiquetaEcoFromTramo(calificacionEco));
-        holder.assetEcoIconIV.setColorFilter(ContextCompat.getColor(context, activo.getColorFromTramo(calificacionEco)));
-
     }
 
     @Override
@@ -109,8 +104,6 @@ public class RVActivosPerfilAdapter extends RecyclerView.Adapter<RVActivosPerfil
         private final TextView assetSecurityTV;
         private final ImageView addedIconIV;
         private final ImageView assetSecurityIconIV;
-        private final ImageView assetEcoIconIV;
-        private final TextView assetEcoTV;
         private Activo activo;
 
         public AssetViewHolder(@NonNull View itemView) {
@@ -120,8 +113,6 @@ public class RVActivosPerfilAdapter extends RecyclerView.Adapter<RVActivosPerfil
             assetSecurityTV = itemView.findViewById(R.id.assetAddedVuln_tv);
             addedIconIV = itemView.findViewById(R.id.infoAddedIcon_iv);
             assetSecurityIconIV = itemView.findViewById(R.id.securityIcon_iv);
-            assetEcoIconIV = itemView.findViewById(R.id.ecoIcon_iv);
-            assetEcoTV = itemView.findViewById(R.id.assetAddedEco_tv);
             itemView.setOnClickListener(this);
         }
 

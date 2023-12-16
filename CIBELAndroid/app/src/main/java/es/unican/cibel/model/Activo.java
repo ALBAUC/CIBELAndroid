@@ -21,7 +21,6 @@ import org.greenrobot.greendao.DaoException;
 
 import es.unican.cibel.R;
 import es.unican.cibel.repository.db.DaoSession;
-import es.unican.cibel.repository.db.CategoriaDao;
 import es.unican.cibel.repository.db.ActivoDao;
 import es.unican.cibel.repository.db.TipoDao;
 import es.unican.cibel.repository.db.VulnerabilidadDao;
@@ -39,11 +38,6 @@ public class Activo implements Parcelable {
 
     private String icono;
 
-    @ToOne(joinProperty = "fk_categoria")
-    private Categoria categoria;
-
-    private long fk_categoria;
-
     private Long fk_perfil;
 
     @ToOne(joinProperty = "fk_tipo")
@@ -58,24 +52,6 @@ public class Activo implements Parcelable {
     )
     private List<Vulnerabilidad> vulnerabilidades;
 
-    @SerializedName("durabilidad")
-    private int durabilidad;
-
-    @SerializedName("reparabilidad")
-    private int reparabilidad;
-
-    @SerializedName("reciclabilidad")
-    private int reciclabilidad;
-
-    @SerializedName("efClimatica")
-    private int efClimatica;
-
-    @SerializedName("efRecursos")
-    private int efRecursos;
-
-    @SerializedName("ecoPuntuacion")
-    private int ecoPuntuacion;
-
     /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
@@ -84,29 +60,18 @@ public class Activo implements Parcelable {
     @Generated(hash = 1317875841)
     private transient ActivoDao myDao;
 
-    @Generated(hash = 1730626772)
-    public Activo(@NonNull Long idActivo, String nombre, String icono, long fk_categoria, Long fk_perfil, long fk_tipo, int durabilidad, int reparabilidad, int reciclabilidad, int efClimatica, int efRecursos,
-            int ecoPuntuacion) {
+    @Generated(hash = 879194533)
+    public Activo(@NonNull Long idActivo, String nombre, String icono, Long fk_perfil, long fk_tipo) {
         this.idActivo = idActivo;
         this.nombre = nombre;
         this.icono = icono;
-        this.fk_categoria = fk_categoria;
         this.fk_perfil = fk_perfil;
         this.fk_tipo = fk_tipo;
-        this.durabilidad = durabilidad;
-        this.reparabilidad = reparabilidad;
-        this.reciclabilidad = reciclabilidad;
-        this.efClimatica = efClimatica;
-        this.efRecursos = efRecursos;
-        this.ecoPuntuacion = ecoPuntuacion;
     }
 
     @Generated(hash = 315079783)
     public Activo() {
     }
-
-    @Generated(hash = 1426606615)
-    private transient Long categoria__resolvedKey;
 
     @Generated(hash = 606252662)
     private transient Long tipo__resolvedKey;
@@ -127,14 +92,6 @@ public class Activo implements Parcelable {
         this.icono = icono;
     }
 
-    public Long getFk_categoria() {
-        return fk_categoria;
-    }
-
-    public void setFk_categoria(Long fk_categoria) {
-        this.fk_categoria = fk_categoria;
-    }
-
     @NonNull
     public Long getIdActivo() {
         return idActivo;
@@ -142,10 +99,6 @@ public class Activo implements Parcelable {
 
     public void setIdActivo(@NonNull Long idActivo) {
         this.idActivo = idActivo;
-    }
-
-    public Categoria getCategoriaTrampa() {
-        return categoria;
     }
 
     public Tipo getTipoTrampa() {
@@ -160,12 +113,6 @@ public class Activo implements Parcelable {
                 ", icono='" + icono + '\'' +
                 ", tipo=" + tipo +
                 ", vulnerabilidades=" + vulnerabilidades +
-                ", durabilidad=" + durabilidad +
-                ", reparabilidad=" + reparabilidad +
-                ", reciclabilidad=" + reciclabilidad +
-                ", efClimatica=" + efClimatica +
-                ", efRecursos=" + efRecursos +
-                ", ecoPuntuacion=" + ecoPuntuacion +
                 '}';
     }
 
@@ -179,7 +126,6 @@ public class Activo implements Parcelable {
         parcel.writeLong(idActivo);
         parcel.writeString(nombre);
         parcel.writeString(icono);
-        parcel.writeValue(categoria);
     }
 
     public Long getFk_perfil() {
@@ -195,44 +141,12 @@ public class Activo implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Activo activo = (Activo) o;
-        return idActivo.equals(activo.idActivo) && Objects.equals(nombre, activo.nombre) && Objects.equals(icono, activo.icono) && Objects.equals(categoria, activo.categoria) && Objects.equals(tipo, activo.tipo);
+        return idActivo.equals(activo.idActivo) && Objects.equals(nombre, activo.nombre) && Objects.equals(icono, activo.icono) && Objects.equals(tipo, activo.tipo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idActivo, nombre, icono, categoria, tipo);
-    }
-
-    /** To-one relationship, resolved on first access. */
-    @Generated(hash = 1256633020)
-    public Categoria getCategoria() {
-        long __key = this.fk_categoria;
-        if (categoria__resolvedKey == null || !categoria__resolvedKey.equals(__key)) {
-            final DaoSession daoSession = this.daoSession;
-            if (daoSession == null) {
-                throw new DaoException("Entity is detached from DAO context");
-            }
-            CategoriaDao targetDao = daoSession.getCategoriaDao();
-            Categoria categoriaNew = targetDao.load(__key);
-            synchronized (this) {
-                categoria = categoriaNew;
-                categoria__resolvedKey = __key;
-            }
-        }
-        return categoria;
-    }
-
-    /** called by internal mechanisms, do not call yourself. */
-    @Generated(hash = 1862388064)
-    public void setCategoria(@NonNull Categoria categoria) {
-        if (categoria == null) {
-            throw new DaoException("To-one property 'fk_categoria' has not-null constraint; cannot set to-one to null");
-        }
-        synchronized (this) {
-            this.categoria = categoria;
-            fk_categoria = categoria.getIdCategoria();
-            categoria__resolvedKey = fk_categoria;
-        }
+        return Objects.hash(idActivo, nombre, icono, tipo);
     }
 
     /**
@@ -269,10 +183,6 @@ public class Activo implements Parcelable {
             throw new DaoException("Entity is detached from DAO context");
         }
         myDao.update(this);
-    }
-
-    public void setFk_categoria(long fk_categoria) {
-        this.fk_categoria = fk_categoria;
     }
 
     public void setFk_perfil(long fk_perfil) {
@@ -380,20 +290,6 @@ public class Activo implements Parcelable {
         return colorResId;
     }
 
-    public int getEtiquetaEcoFromTramo(int score) {
-        int etiqueta;
-        if (score < 25) {
-            etiqueta = R.string.eco_0;
-        } else if (score < 50) {
-            etiqueta = R.string.eco_1;
-        } else if (score < 75) {
-            etiqueta = R.string.eco_2;
-        } else {
-            etiqueta = R.string.eco_3;
-        }
-        return etiqueta;
-    }
-
     public int getEtiquetaSecurityFromTramo(int score) {
         int etiqueta;
         if (score < 25) {
@@ -406,54 +302,6 @@ public class Activo implements Parcelable {
             etiqueta = R.string.seguridad_3;
         }
         return etiqueta;
-    }
-
-    public int getDurabilidad() {
-        return this.durabilidad;
-    }
-
-    public void setDurabilidad(int durabilidad) {
-        this.durabilidad = durabilidad;
-    }
-
-    public int getReparabilidad() {
-        return this.reparabilidad;
-    }
-
-    public void setReparabilidad(int reparabilidad) {
-        this.reparabilidad = reparabilidad;
-    }
-
-    public int getReciclabilidad() {
-        return this.reciclabilidad;
-    }
-
-    public void setReciclabilidad(int reciclabilidad) {
-        this.reciclabilidad = reciclabilidad;
-    }
-
-    public int getEfClimatica() {
-        return this.efClimatica;
-    }
-
-    public void setEfClimatica(int efClimatica) {
-        this.efClimatica = efClimatica;
-    }
-
-    public int getEfRecursos() {
-        return this.efRecursos;
-    }
-
-    public void setEfRecursos(int efRecursos) {
-        this.efRecursos = efRecursos;
-    }
-
-    public int getEcoPuntuacion() {
-        return this.ecoPuntuacion;
-    }
-
-    public void setEcoPuntuacion(int ecoPuntuacion) {
-        this.ecoPuntuacion = ecoPuntuacion;
     }
 
     /** called by internal mechanisms, do not call yourself. */

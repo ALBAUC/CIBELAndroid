@@ -47,7 +47,7 @@ public class CatalogoView extends Fragment implements ICatalogoContract.View, Ma
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.fragment_home, container, false);
+        View layout = inflater.inflate(R.layout.fragment_catalogo, container, false);
         RecyclerView categoriasDevicesRV = layout.findViewById(R.id.categoriasDevices_rv);
 
         categoriasDevicesRV.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -19,10 +19,6 @@ public interface ICatalogoTipoContract {
 
         List<Activo> getActivosTipoOrdenadosPorSeguridadDesc();
 
-        List<Activo> getActivosTipoOrdenadosPorSostAsc();
-
-        List<Activo> getActivosTipoOrdenadosPorSostDesc();
-
         List<Activo> getActivosTipoOrdenadosPorSeguridadAsc();
 
         List<Activo> getActivosPerfil();

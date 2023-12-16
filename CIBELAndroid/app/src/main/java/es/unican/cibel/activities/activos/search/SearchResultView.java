@@ -108,10 +108,6 @@ public class SearchResultView extends Fragment implements ISearchResultContract.
     private void updateRecyclerView(String sortOrder) {
         if (sortOrder.equals(getResources().getString(R.string.ordenarSeguridad_Desc))) {
             assetsRV.setAdapter(new RVActivosPerfilAdapter(getContext(), presenter.getActivosOrdenadosPorSeguridadDesc(query), presenter.getPerfilAssets(), getMyApplication()));
-        } else if (sortOrder.equals(getResources().getString(R.string.ordenarSost_Asc))) {
-            assetsRV.setAdapter(new RVActivosPerfilAdapter(getContext(), presenter.getActivosOrdenadosPorSostAsc(query), presenter.getPerfilAssets(), getMyApplication()));
-        } else if (sortOrder.equals(getResources().getString(R.string.ordenarSost_Desc))) {
-            assetsRV.setAdapter(new RVActivosPerfilAdapter(getContext(), presenter.getActivosOrdenadosPorSostDesc(query), presenter.getPerfilAssets(), getMyApplication()));
         } else {
             assetsRV.setAdapter(new RVActivosPerfilAdapter(getContext(), presenter.getActivosOrdenadosPorSeguridadAsc(query), presenter.getPerfilAssets(), getMyApplication()));
         }
@@ -135,12 +131,8 @@ public class SearchResultView extends Fragment implements ISearchResultContract.
         // Destacar opcion de ordenacion actual
         ImageView seguridadAscIV = popupView.findViewById(R.id.seguridadAsc_iv);
         ImageView seguridadDescIV = popupView.findViewById(R.id.seguridadDesc_iv);
-        ImageView sostAscIV = popupView.findViewById(R.id.sostAsc_iv);
-        ImageView sostDescIV = popupView.findViewById(R.id.sostDesc_iv);
         TextView seguridadAscTV = popupView.findViewById(R.id.seguridadAsc_tv);
         TextView seguridadDescTV = popupView.findViewById(R.id.seguridadDesc_tv);
-        TextView sostAscTV = popupView.findViewById(R.id.sostAsc_tv);
-        TextView sostDescTV = popupView.findViewById(R.id.sostDesc_tv);
 
         if (sortInfoTV.getText().equals(getResources().getString(R.string.ordenarSeguridad_Asc))) {
             seguridadAscIV.setVisibility(View.VISIBLE);
@@ -150,14 +142,6 @@ public class SearchResultView extends Fragment implements ISearchResultContract.
             seguridadDescIV.setVisibility(View.VISIBLE);
             seguridadDescTV.setTypeface(Typeface.DEFAULT_BOLD);
             seguridadDescTV.setTextColor(ContextCompat.getColor(getContext(), R.color.primary));
-        } else if (sortInfoTV.getText().equals(getResources().getString(R.string.ordenarSost_Asc))) {
-            sostAscIV.setVisibility(View.VISIBLE);
-            sostAscTV.setTypeface(Typeface.DEFAULT_BOLD);
-            sostAscTV.setTextColor(ContextCompat.getColor(getContext(), R.color.primary));
-        } else if (sortInfoTV.getText().equals(getResources().getString(R.string.ordenarSost_Desc))) {
-            sostDescIV.setVisibility(View.VISIBLE);
-            sostDescTV.setTypeface(Typeface.DEFAULT_BOLD);
-            sostDescTV.setTextColor(ContextCompat.getColor(getContext(), R.color.primary));
         }
 
         // Difuminar resto de la interfaz
@@ -215,12 +199,6 @@ public class SearchResultView extends Fragment implements ISearchResultContract.
                 break;
             case R.id.seguridadDesc_ll:
                 sortOrder = getResources().getString(R.string.ordenarSeguridad_Desc);
-                break;
-            case R.id.sostAsc_ll:
-                sortOrder = getResources().getString(R.string.ordenarSost_Asc);
-                break;
-            case R.id.sostDesc_ll:
-                sortOrder = getResources().getString(R.string.ordenarSost_Desc);
                 break;
         }
         return sortOrder;

@@ -4,7 +4,6 @@ import java.util.List;
 
 import es.unican.cibel.common.MyApplication;
 import es.unican.cibel.model.Activo;
-import es.unican.cibel.model.Categoria;
 import es.unican.cibel.model.Tipo;
 
 /**
@@ -38,13 +37,6 @@ public interface ICatalogoContract {
          * Inicializa las DAO y los datos de la base de datos.
          */
         void init();
-
-        /**
-         * Devuelve los datos con todas las categorias que se encuentran
-         * la base de datos.
-         * @return Todas las categorias.
-         */
-        List<Categoria> getCategorias();
 
         List<Activo> getPerfilAssets();
 

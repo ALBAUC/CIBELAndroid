@@ -57,12 +57,6 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
         // Link a los elementos de la vista
         devicesRV = layout.findViewById(R.id.devicesPerfil_rv);
 
-        TramosSeekBar ecoRatingBar = layout.findViewById(R.id.eco_sb);
-        TextView eco0TV = layout.findViewById(R.id.pobre_tv);
-        TextView eco1TV = layout.findViewById(R.id.justo_tv);
-        TextView eco2TV = layout.findViewById(R.id.bueno_tv);
-        TextView eco3TV = layout.findViewById(R.id.excelente_tv);
-
         TramosSeekBar securityBar = layout.findViewById(R.id.security_sb);
         TextView seguridad0TV = layout.findViewById(R.id.sInseguro_tv);
         TextView seguridad1TV = layout.findViewById(R.id.sMejorable_tv);
@@ -92,11 +86,6 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
             }
         });
 
-        // Configurar barra de sostenibilidad
-        ecoRatingBar.setProgress(presenter.getEcoPuntuacionHome());
-        ecoRatingBar.setEnabled(false);
-        configurarSeekBar(ecoRatingBar, eco0TV, eco1TV, eco2TV, eco3TV);
-
         // Configurar barra de seguridad
         securityBar.setProgress(presenter.getSecurityRatingHome());
         securityBar.setEnabled(false);
@@ -108,10 +97,6 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
     private void updateRecyclerView(String sortOrder) {
         if (sortOrder.equals(getResources().getString(R.string.ordenarSeguridad_Desc))) {
             devicesRV.setAdapter(new RVActivosPerfilAdapter(getContext(), presenter.getActivosPerfilOrdenadosPorSeguridadDesc(), getMyApplication()));
-        } else if (sortOrder.equals(getResources().getString(R.string.ordenarSost_Asc))) {
-            devicesRV.setAdapter(new RVActivosPerfilAdapter(getContext(), presenter.getActivosPerfilOrdenadosPorSostAsc(), getMyApplication()));
-        } else if (sortOrder.equals(getResources().getString(R.string.ordenarSost_Desc))) {
-            devicesRV.setAdapter(new RVActivosPerfilAdapter(getContext(), presenter.getActivosPerfilOrdenadosPorSostDesc(), getMyApplication()));
         } else {
             devicesRV.setAdapter(new RVActivosPerfilAdapter(getContext(), presenter.getActivosPerfilOrdenadosPorSeguridadAsc(), getMyApplication()));
         }
@@ -135,12 +120,8 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
         // Destacar opcion de ordenacion actual
         ImageView seguridadAscIV = popupView.findViewById(R.id.seguridadAsc_iv);
         ImageView seguridadDescIV = popupView.findViewById(R.id.seguridadDesc_iv);
-        ImageView sostAscIV = popupView.findViewById(R.id.sostAsc_iv);
-        ImageView sostDescIV = popupView.findViewById(R.id.sostDesc_iv);
         TextView seguridadAscTV = popupView.findViewById(R.id.seguridadAsc_tv);
         TextView seguridadDescTV = popupView.findViewById(R.id.seguridadDesc_tv);
-        TextView sostAscTV = popupView.findViewById(R.id.sostAsc_tv);
-        TextView sostDescTV = popupView.findViewById(R.id.sostDesc_tv);
 
         if (sortInfoTV.getText().equals(getResources().getString(R.string.ordenarSeguridad_Asc))) {
             seguridadAscIV.setVisibility(View.VISIBLE);
@@ -150,14 +131,6 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
             seguridadDescIV.setVisibility(View.VISIBLE);
             seguridadDescTV.setTypeface(Typeface.DEFAULT_BOLD);
             seguridadDescTV.setTextColor(ContextCompat.getColor(getContext(), R.color.primary));
-        } else if (sortInfoTV.getText().equals(getResources().getString(R.string.ordenarSost_Asc))) {
-            sostAscIV.setVisibility(View.VISIBLE);
-            sostAscTV.setTypeface(Typeface.DEFAULT_BOLD);
-            sostAscTV.setTextColor(ContextCompat.getColor(getContext(), R.color.primary));
-        } else if (sortInfoTV.getText().equals(getResources().getString(R.string.ordenarSost_Desc))) {
-            sostDescIV.setVisibility(View.VISIBLE);
-            sostDescTV.setTypeface(Typeface.DEFAULT_BOLD);
-            sostDescTV.setTextColor(ContextCompat.getColor(getContext(), R.color.primary));
         }
 
         // Difuminar resto de la interfaz
@@ -215,12 +188,6 @@ public class SmartHomeView extends Fragment implements ISmartHomeContract.View, 
                 break;
             case R.id.seguridadDesc_ll:
                 sortOrder = getResources().getString(R.string.ordenarSeguridad_Desc);
-                break;
-            case R.id.sostAsc_ll:
-                sortOrder = getResources().getString(R.string.ordenarSost_Asc);
-                break;
-            case R.id.sostDesc_ll:
-                sortOrder = getResources().getString(R.string.ordenarSost_Desc);
                 break;
         }
         return sortOrder;

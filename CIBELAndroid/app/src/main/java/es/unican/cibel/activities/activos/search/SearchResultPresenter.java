@@ -81,36 +81,6 @@ public class SearchResultPresenter implements ISearchResultContract.Presenter {
     }
 
     @Override
-    public List<Activo> getActivosOrdenadosPorSostAsc(String query) {
-        List<Activo> activos = doSearch(query);
-        Collections.sort(activos, new Comparator<Activo>() {
-            @Override
-            public int compare(Activo activo1, Activo activo2) {
-                int s1 = (int) Math.round(activo1.getEcoPuntuacion());
-                int s2 = (int) Math.round(activo2.getEcoPuntuacion());
-                return Integer.compare(s2, s1);
-            }
-        });
-
-        return activos;
-    }
-
-    @Override
-    public List<Activo> getActivosOrdenadosPorSostDesc(String query) {
-        List<Activo> activos = doSearch(query);
-        Collections.sort(activos, new Comparator<Activo>() {
-            @Override
-            public int compare(Activo activo1, Activo activo2) {
-                int s1 = (int) Math.round(activo1.getEcoPuntuacion());
-                int s2 = (int) Math.round(activo2.getEcoPuntuacion());
-                return Integer.compare(s1, s2);
-            }
-        });
-
-        return activos;
-    }
-
-    @Override
     public List<Activo> getActivosOrdenadosPorSeguridadAsc(String query) {
         List<Activo> activos = doSearch(query);
         Collections.sort(activos, new Comparator<Activo>() {

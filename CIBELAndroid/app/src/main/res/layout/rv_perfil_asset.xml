@@ -8,8 +8,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_appAddedIcon_iv"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="3dp"
         android:layout_marginRight="3dp"
@@ -85,31 +85,6 @@
                     android:inputType="textMultiLine"
                     android:textSize="15sp"
                     tools:text="Muy poco seguro" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/ecoIcon_iv"
-                    style="@style/RecyclerIconStyle"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="6dp"
-                    android:src="@drawable/energy_saving" />
-
-                <TextView
-                    android:id="@+id/assetAddedEco_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:textSize="15sp"
-                    tools:text="Bastante sostenible" />
 
             </LinearLayout>
         </LinearLayout>
