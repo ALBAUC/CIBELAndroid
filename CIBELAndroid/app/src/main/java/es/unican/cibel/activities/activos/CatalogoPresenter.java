@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteException;
 import java.util.List;
 
 import es.unican.cibel.common.Callback;
+import es.unican.cibel.model.Categoria;
 import es.unican.cibel.model.Activo;
 import es.unican.cibel.model.Perfil;
 import es.unican.cibel.model.Tipo;
@@ -12,6 +13,7 @@ import es.unican.cibel.model.Vulnerabilidad;
 import es.unican.cibel.repository.cibel.CibelRepository;
 import es.unican.cibel.repository.cibel.ICibelRepository;
 import es.unican.cibel.repository.db.ActivoDao;
+import es.unican.cibel.repository.db.CategoriaDao;
 import es.unican.cibel.repository.db.DaoSession;
 import es.unican.cibel.repository.db.PerfilDao;
 import es.unican.cibel.repository.db.TipoDao;
@@ -20,6 +22,7 @@ public class CatalogoPresenter implements ICatalogoContract.Presenter {
 
     private final ICatalogoContract.View view;
     private ActivoDao activoDao;
+    private CategoriaDao categoriaDao;
     private TipoDao tipoDao;
     private PerfilDao perfilDao;
     private ICibelRepository cibelRepository;
@@ -39,6 +42,7 @@ public class CatalogoPresenter implements ICatalogoContract.Presenter {
     public void init() {
         DaoSession daoSession = view.getMyApplication().getDaoSession();
         activoDao = daoSession.getActivoDao();
+        categoriaDao = daoSession.getCategoriaDao();
         tipoDao = daoSession.getTipoDao();
         perfilDao = daoSession.getPerfilDao();
         perfil = Perfil.getInstance(perfilDao);
@@ -50,24 +54,34 @@ public class CatalogoPresenter implements ICatalogoContract.Presenter {
     }
 
     private void doAsyncInit() {
-        cibelRepository.requestTipos(new Callback<Tipo[]>() {
+        cibelRepository.requestCategorias(new Callback<Categoria[]>() {
             @Override
-            public void onSuccess(Tipo[] data) {
-
-                cibelRepository.requestVulnerabilidades(new Callback<Vulnerabilidad[]>() {
+            public void onSuccess(Categoria[] categorias) {
+                cibelRepository.requestTipos(new Callback<Tipo[]>() {
                     @Override
-                    public void onSuccess(Vulnerabilidad[] data) {
-                        cibelRepository.requestActivos(new Callback<Activo[]>() {
+                    public void onSuccess(Tipo[] data) {
+
+                        cibelRepository.requestVulnerabilidades(new Callback<Vulnerabilidad[]>() {
                             @Override
-                            public void onSuccess(Activo[] activos) {
-                                view.showLoadCorrect(activos.length);
+                            public void onSuccess(Vulnerabilidad[] data) {
+                                cibelRepository.requestActivos(new Callback<Activo[]>() {
+                                    @Override
+                                    public void onSuccess(Activo[] activos) {
+                                        view.showLoadCorrect(activos.length);
+                                    }
+
+                                    @Override
+                                    public void onFailure() {
+                                        view.showLoadError();
+                                    }
+                                }, null);
                             }
 
                             @Override
                             public void onFailure() {
-                                view.showLoadError();
+
                             }
-                        }, null);
+                        });
                     }
 
                     @Override
@@ -79,20 +93,25 @@ public class CatalogoPresenter implements ICatalogoContract.Presenter {
 
             @Override
             public void onFailure() {
-
+                view.showLoadError();
             }
         });
-
     }
 
     private void doSyncInit() {
-        if (cibelRepository.getTipos() == null ||
+        if (cibelRepository.getCategorias() == null ||
+                cibelRepository.getTipos() == null ||
                 cibelRepository.getVulnerabilidades() == null ||
                 cibelRepository.getActivos(null) == null) {
             view.showLoadError();
         } else {
             view.showLoadCorrect((int) activoDao.count());
         }
+    }
+
+    @Override
+    public List<Categoria> getCategorias() {
+        return categoriaDao.loadAll();
     }
 
     @Override

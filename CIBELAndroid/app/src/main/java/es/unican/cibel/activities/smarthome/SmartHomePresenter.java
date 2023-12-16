@@ -86,6 +86,21 @@ public class SmartHomePresenter implements ISmartHomeContract.Presenter {
     }
 
     @Override
+    public int getEcoPuntuacionHome() {
+        List<Activo> activos = getActivosPerfil();
+        int result = 100;
+        if (activos.size() != 0) {
+            double s = 0;
+            for (Activo a : activos) {
+                s += a.getEcoPuntuacion();
+            }
+            result = (int) Math.round(s / activos.size());
+        }
+
+        return result;
+    }
+
+    @Override
     public int getSecurityRatingHome() {
         List<Activo> activos = getActivosPerfil();
         int result = 100;
@@ -128,4 +143,35 @@ public class SmartHomePresenter implements ISmartHomeContract.Presenter {
 
         return perfilAssets;
     }
+
+    @Override
+    public List<Activo> getActivosPerfilOrdenadosPorSostAsc() {
+        List<Activo> perfilAssets = getActivosPerfil();
+        Collections.sort(perfilAssets, new Comparator<Activo>() {
+            @Override
+            public int compare(Activo activo1, Activo activo2) {
+                int s1 = (int) Math.round(activo1.getEcoPuntuacion());
+                int s2 = (int) Math.round(activo2.getEcoPuntuacion());
+                return Integer.compare(s2, s1);
+            }
+        });
+
+        return perfilAssets;
+    }
+
+    @Override
+    public List<Activo> getActivosPerfilOrdenadosPorSostDesc() {
+        List<Activo> perfilAssets = getActivosPerfil();
+        Collections.sort(perfilAssets, new Comparator<Activo>() {
+            @Override
+            public int compare(Activo activo1, Activo activo2) {
+                int s1 = (int) Math.round(activo1.getEcoPuntuacion());
+                int s2 = (int) Math.round(activo2.getEcoPuntuacion());
+                return Integer.compare(s1, s2);
+            }
+        });
+
+        return perfilAssets;
+    }
+
 }

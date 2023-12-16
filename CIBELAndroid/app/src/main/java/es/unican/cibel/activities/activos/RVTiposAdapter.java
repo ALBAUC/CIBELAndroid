@@ -46,7 +46,7 @@ public class RVTiposAdapter extends RecyclerView.Adapter<RVTiposAdapter.TipoView
     @NonNull
     @Override
     public TipoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.rv_catalogo_categoria, parent, false);
+        View view = inflater.inflate(R.layout.rv_assets_categoria, parent, false);
         return new TipoViewHolder(view);
     }
 

@@ -5,6 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import es.unican.cibel.common.Callback;
+import es.unican.cibel.model.Categoria;
 import es.unican.cibel.model.Activo;
 import es.unican.cibel.model.Tipo;
 import es.unican.cibel.model.Vulnerabilidad;
@@ -75,6 +76,38 @@ public class CibelService {
 
         // Si hubo algun problema, response es null
         return  runnable.getResponse();
+    }
+
+    /**
+     * Descarga las categorias de la API REST de forma sincrona.
+     * Ejecuta la llamada en un hilo en segundo plano y notifica el resultado a
+     * través del Callback proporcionado.
+     * @param cb el callback que procesa la respuesta de forma asincrona
+     */
+    public static void requestCategorias(Callback<Categoria[]> cb) {
+        final Call<Categoria[]> call = getAPI().categorias();
+        call.enqueue(new CallbackAdapter<>(cb));
+    }
+
+    /**
+     * Descarga las categorias de la API REST de forma sincrona.
+     * Bloquea el hilo actual hasta que se complete la llamada y se obtenga la respuesta.
+     * @return el objeto response que contiene las aplicaciones
+     */
+    public static Categoria[] getCategorias() {
+        final Call<Categoria[]> call = getAPI().categorias();
+
+        ExecutorService executor = Executors.newFixedThreadPool(1);
+        CallRunnable<Categoria[]> runnable = new CallRunnable<>(call);
+        executor.execute(runnable);
+
+        executor.shutdown();
+        try {
+            executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        return runnable.getResponse();
     }
 
     public static void requestTipos(Callback<Tipo[]> cb) {

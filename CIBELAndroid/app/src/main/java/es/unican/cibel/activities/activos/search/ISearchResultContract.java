@@ -23,6 +23,10 @@ public interface ISearchResultContract {
 
         List<Activo> getActivosOrdenadosPorSeguridadDesc(String query);
 
+        List<Activo> getActivosOrdenadosPorSostAsc(String query);
+
+        List<Activo> getActivosOrdenadosPorSostDesc(String query);
+
         List<Activo> getActivosOrdenadosPorSeguridadAsc(String query);
     }
 }

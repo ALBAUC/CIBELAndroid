@@ -1,6 +1,7 @@
 package es.unican.cibel.repository.cibel.rest;
 
 import es.unican.cibel.model.Activo;
+import es.unican.cibel.model.Categoria;
 import es.unican.cibel.model.Tipo;
 import es.unican.cibel.model.Vulnerabilidad;
 import retrofit2.Call;
@@ -14,6 +15,9 @@ public interface CibelAPI {
 
     @GET("activos")
     Call<Activo[]> activos(@Query("categoria") String categoria);
+
+    @GET("categorias")
+    Call<Categoria[]> categorias();
 
     @GET("tipos")
     Call<Tipo[]> tipos();

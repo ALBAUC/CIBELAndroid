@@ -67,4 +67,56 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/sostAsc_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/sostAsc_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="15sp"
+            android:text="@string/ordenarSost_Asc" />
+
+        <ImageView
+            android:id="@+id/sostAsc_iv"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="end"
+            android:src="@drawable/check"
+            android:visibility="gone"
+            app:tint="@color/primary"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sostDesc_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/sostDesc_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="15sp"
+            android:text="@string/ordenarSost_Desc" />
+
+        <ImageView
+            android:id="@+id/sostDesc_iv"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="end"
+            android:src="@drawable/check"
+            android:visibility="gone"
+            app:tint="@color/primary"/>
+
+    </LinearLayout>
+
 </LinearLayout>

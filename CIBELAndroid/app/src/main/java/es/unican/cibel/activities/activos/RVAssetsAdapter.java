@@ -44,7 +44,7 @@ public class RVAssetsAdapter extends RecyclerView.Adapter<RVAssetsAdapter.AssetV
     @NonNull
     @Override
     public AssetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.rv_catalogo_asset, parent, false);
+        View view = inflater.inflate(R.layout.rv_assets_asset, parent, false);
         return new AssetViewHolder(view);
     }
 
@@ -71,6 +71,10 @@ public class RVAssetsAdapter extends RecyclerView.Adapter<RVAssetsAdapter.AssetV
 
         holder.assetSecurityIV.setColorFilter(ContextCompat.getColor(context, activo.getColorFromTramo(activo.calcularPuntuacionSeguridad())));
         holder.assetSecurityTV.setText(String.valueOf(activo.calcularPuntuacionSeguridad()));
+
+        int calificacionEco = activo.getEcoPuntuacion();
+        holder.assetEcoIV.setColorFilter(ContextCompat.getColor(context, activo.getColorFromTramo(calificacionEco)));
+        holder.assetEcoTV.setText(String.valueOf(calificacionEco));
     }
 
     public class AssetViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -80,6 +84,8 @@ public class RVAssetsAdapter extends RecyclerView.Adapter<RVAssetsAdapter.AssetV
         private final ImageView assetAddedIcon_iv;
         private final ImageView assetSecurityIV;
         private final TextView assetSecurityTV;
+        private final ImageView assetEcoIV;
+        private final TextView assetEcoTV;
         private Activo activo;
 
         public AssetViewHolder(View itemView) {
@@ -88,7 +94,9 @@ public class RVAssetsAdapter extends RecyclerView.Adapter<RVAssetsAdapter.AssetV
             assetIcon_iv = itemView.findViewById(R.id.appIcon_iv);
             assetAddedIcon_iv = itemView.findViewById(R.id.appAddedIcon_iv);
             assetSecurityIV = itemView.findViewById(R.id.securityIcon_iv);
+            assetEcoIV = itemView.findViewById(R.id.ecoIcon_iv);
             assetSecurityTV = itemView.findViewById(R.id.security_tv);
+            assetEcoTV = itemView.findViewById(R.id.eco_tv);
             itemView.setOnClickListener(this);
         }
 

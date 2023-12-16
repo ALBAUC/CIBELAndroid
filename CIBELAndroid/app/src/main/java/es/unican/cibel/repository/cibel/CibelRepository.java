@@ -9,10 +9,12 @@ import es.unican.cibel.common.Callback;
 import es.unican.cibel.common.MyApplication;
 import es.unican.cibel.common.prefs.Prefs;
 import es.unican.cibel.model.Activo;
+import es.unican.cibel.model.Categoria;
 import es.unican.cibel.model.JoinActivosWithVulnerabilidades;
 import es.unican.cibel.model.Tipo;
 import es.unican.cibel.model.Vulnerabilidad;
 import es.unican.cibel.repository.db.ActivoDao;
+import es.unican.cibel.repository.db.CategoriaDao;
 import es.unican.cibel.repository.db.DaoSession;
 import es.unican.cibel.repository.db.JoinActivosWithVulnerabilidadesDao;
 import es.unican.cibel.repository.cibel.rest.CibelService;
@@ -64,12 +66,15 @@ public class CibelRepository implements ICibelRepository {
     private void persistToDBActivos(Activo[] activos) {
         if (activos != null) {
             ActivoDao activoDao = daoSession.getActivoDao();
+            CategoriaDao categoriaDao = daoSession.getCategoriaDao();
             TipoDao tipoDao = daoSession.getTipoDao();
             JoinActivosWithVulnerabilidadesDao avDao = daoSession.getJoinActivosWithVulnerabilidadesDao();
             for (Activo a : activos) {
                 Activo aBD = activoDao.load(a.getIdActivo());
                 if (aBD == null) {
                     // Nuevo activo, se inserta en la bd
+//                    Categoria cat = categoriaDao.load(a.getCategoriaTrampa().getIdCategoria());
+//                    a.setFk_categoria(cat.getIdCategoria());
                     Tipo t = tipoDao.load(a.getTipoTrampa().getIdTipo());
                     a.setFk_tipo(t.getIdTipo());
                     for (Vulnerabilidad v : a.getVulnerabilidades()) {
@@ -83,12 +88,49 @@ public class CibelRepository implements ICibelRepository {
                     // Ya estaba en la bd, se actualiza
                     aBD.setNombre(a.getNombre());
                     aBD.setIcono(a.getIcono());
+//                    aBD.setFk_categoria(a.getCategoriaTrampa().getIdCategoria());
                     aBD.setFk_tipo(a.getTipoTrampa().getIdTipo());
                     activoDao.update(aBD);
                 }
                 Log.d("CibelRepo", a.toString());
             }
             Prefs.from(application).putInstant(KEY_LAST_SAVED_A, Instant.now());
+        }
+    }
+
+    @Override
+    public void requestCategorias(Callback<Categoria[]> cb) {
+        CibelService.requestCategorias(new Callback<Categoria[]>() {
+            @Override
+            public void onSuccess(Categoria[] data) {
+                persistToDBCategorias(data);
+                cb.onSuccess(data);
+            }
+
+            @Override
+            public void onFailure() {
+                cb.onFailure();
+            }
+        });
+    }
+
+    @Override
+    public Categoria[] getCategorias() {
+        Categoria[] response = CibelService.getCategorias();
+        persistToDBCategorias(response);
+        return response;
+    }
+
+    private void persistToDBCategorias(Categoria[] categorias) {
+        if (categorias != null) {
+            CategoriaDao categoriaDao = daoSession.getCategoriaDao();
+            for (Categoria c : categorias) {
+                if (categoriaDao.load(c.getIdCategoria()) == null) {
+                    // Nueva categoria, se inserta en la BBDD
+                    categoriaDao.insert(c);
+                }
+            }
+            Prefs.from(application).putInstant(KEY_LAST_SAVED_CA, Instant.now());
         }
     }
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CIBELApps</string>
+    <string name="app_name">CIBEL</string>
 
     <string name="bottom_nav_home">HOME</string>
     <string name="bottom_nav_riesgos">AMENAZAS</string>
@@ -68,15 +68,34 @@
     ]]>
     </string>
     <string name="assetDetail_tabCves">Seguridad</string>
+    <string name="assetDetail_tabSostenibilidad">Sostenibilidad</string>
 
+    <string name="eco_ecoRate_title">Puntuación ECO</string>
+    <string name="activo_eco_title">Sostenibilidad ambiental</string>
+
+    <string name="activo_durabilidad_title">Durabilidad</string>
+    <string name="activo_reparabilidad_title">Reparabilidad</string>
+    <string name="activo_reciclabilidad_title">Reciclabilidad</string>
+    <string name="activo_efClimatica_title">Eficiencia climática</string>
+    <string name="activo_efRecursos_title">Eficiencia en uso de recursos</string>
+
+    <string name="eco_rating_title">Puntuación de sostenibilidad</string>
     <string name="security_title">Puntuación de seguridad</string>
 
     <string name="seguridad_0">Muy poco seguro</string>
     <string name="seguridad_1">Poco seguro</string>
     <string name="seguridad_2">Suficiente seguro</string>
     <string name="seguridad_3">Bastante seguro</string>
+
+    <string name="eco_0">Muy poco sostenible</string>
+    <string name="eco_1">Poco sostenible</string>
+    <string name="eco_2">Suficiente sostenible</string>
+    <string name="eco_3">Bastante sostenible</string>
+
     <string name="ordenarSeguridad_Desc">Mayor a menor seguridad</string>
     <string name="ordenarSeguridad_Asc">Menor a mayor seguridad</string>
+    <string name="ordenarSost_Desc">Mayor a menor sostenibilidad</string>
+    <string name="ordenarSost_Asc">Menor a mayor sostenibilidad</string>
 
     <string name="ordenar_por">Ordenar por</string>
     <string name="tus_dispositivos">Tus dispositivos</string>
