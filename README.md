@@ -9,7 +9,7 @@ La aplicación se divide en do spestañas principales: Home y Perfil.
 ### Pestaña Home
 En la pestaña Home, los usuarios tienen acceso a un catálogo de dispositivos organizadas por categorías, permitiéndoles explorar información detallada sobre cada uno. A simple vista, pueden visualizar una imagen, el nombre y la puntuación de seguridad y de sostenibilidad de los dispositivos IoT.
 
-<img src="images/pestaña_home.jpg" alt="Pestaña Home de CIBEL" width="800" height="360" />
+<img src="images/pestaña_home.jpg" alt="Pestaña Home de CIBEL" width="360" height="800" />
 
 Al seleccionar una categoría, el usuario puede explorar una lista vertical más cómoda de dispositivos en dicha categoría, con la posibilidad de ordenarla según su puntuación de seguridad o sostenibilidad, ya sea de forma ascendente o descendente.
 
