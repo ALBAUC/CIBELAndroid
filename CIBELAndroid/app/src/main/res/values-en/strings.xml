@@ -1,0 +1,94 @@
+<resources>
+    <string name="app_name">CIBEL</string>
+
+    <string name="bottom_nav_home">HOME</string>
+    <string name="bottom_nav_perfil">PROFILE</string>
+
+    <string name="search_hint">Search devices</string>
+
+    <string name="loadCorrect">%d devices loaded</string>
+    <string name="loadError">An error occurred while accessing data</string>
+
+    <string name="dElement_detail_add">Add</string>
+    <string name="dElement_detail_remove">Remove</string>
+
+    <string name="perfil_severity">Severity of security flaws</string>
+
+    <string name="severity_low">LOW</string>
+    <string name="severity_medium">MEDIUM</string>
+    <string name="severity_high">HIGH</string>
+    <string name="severity_critical">CRITICAL</string>
+
+    <string name="cve_baseScore_title">Severity</string>
+    <string name="cve_confidencialidad_title">Confidentiality</string>
+    <string name="cve_integridad_title">Integrity</string>
+    <string name="cve_disponibilidad_title">Availability</string>
+    <string name="cve_impacto_title">Impact</string>
+
+    <string name="cve_impact_n">NONE</string>
+    <string name="cve_impact_l">LOW</string>
+    <string name="cve_impact_p">PARTIAL</string>
+    <string name="cve_impact_h">HIGH</string>
+    <string name="cve_impact_c">COMPLETE</string>
+
+    <string name="cve_info_impacto">
+    <![CDATA[
+        <b>1. Confidentiality:</b><br>
+        What does it mean? Confidentiality refers to the ability to keep information protected and accessible only to authorized people or systems. If a device or system is confidential, it means that the information it contains cannot be viewed or used by unauthorized individuals.<br><br>
+        Example in an IoT device: Imagine you have a security camera in your home. If this camera has high confidentiality, it means that the images and videos it captures can only be viewed by you and authorized individuals, and cannot be accessed by strangers.<br><br>
+
+        <b>2. Integrity:</b><br>
+        What does it mean? Integrity refers to the accuracy and correctness of information stored or transmitted by a device or system. If a device has high integrity, it means that the information has not been altered or modified unauthorizedly.<br><br>
+        Example in an IoT device: If you have a smart thermostat that controls the temperature of your home, integrity ensures that the commands you send to the thermostat are not altered along the way. This means that the temperature you set is the one that is actually set.<br><br>
+
+        <b>3. Availability:</b><br>
+        What does it mean? Availability refers to the ability of a device or system to be operational and accessible when needed. If a device has high availability, it means that it is ready and working when you need it, without interruptions.<br><br>
+        Example in an IoT device: If you have smart locks in your home, it is important that they are always available. Imagine you are coming home and want to unlock the door with your phone. Availability ensures that the lock responds quickly and smoothly.<br><br>
+
+        The labels you will see next to these characteristics have the following meaning:<br><br>
+        1. <b>NONE:</b> This indicates that there is no impact.<br>
+        2. <b>LOW:</b> The impact is minor and does not pose a serious threat.<br>
+        3. <b>PARTIAL:</b> This means there is significant impact, but it is not complete.<br>
+        4. <b>HIGH:</b> This means the impact is severe and may have serious consequences.<br>
+        5. <b>COMPLETE:</b> This means the impact is total and may have catastrophic consequences.
+    ]]>
+    </string>
+    <string name="assetDetail_tabCves">Security</string>
+    <string name="assetDetail_tabSostenibilidad">Sustainability</string>
+
+    <string name="activo_durabilidad_title">Durability</string>
+    <string name="activo_reparabilidad_title">Repairability</string>
+    <string name="activo_reciclabilidad_title">Recyclability</string>
+    <string name="activo_efClimatica_title">Climate Efficiency</string>
+    <string name="activo_efRecursos_title">Resource Use Efficiency</string>
+
+    <string name="eco_rating_title">Sustainability score</string>
+    <string name="security_title">Security score</string>
+
+    <string name="seguridad_0">Very insecure</string>
+    <string name="seguridad_1">Insecure</string>
+    <string name="seguridad_2">Sufficiently secure</string>
+    <string name="seguridad_3">Quite secure</string>
+
+    <string name="eco_0">Very unsustainable</string>
+    <string name="eco_1">Unsustainable</string>
+    <string name="eco_2">Sufficiently sustainable</string>
+    <string name="eco_3">Quite sustainable</string>
+
+    <string name="ordenarSeguridad_Desc">High to low security</string>
+    <string name="ordenarSeguridad_Asc">Low to high security</string>
+    <string name="ordenarSost_Desc">High to low sustainability</string>
+    <string name="ordenarSost_Asc">Low to high sustainability</string>
+
+    <string name="ordenar_por">Order by</string>
+    <string name="tus_dispositivos">Your devices</string>
+    <string name="fallos_de_seguridad">Security flaws</string>
+
+    <string name="ordenarFecha_Rec">Most recent</string>
+    <string name="ordenarFecha_Ant">Oldest</string>
+    <string name="ordenarGravedad_Asc">Low to high severity</string>
+    <string name="ordenarGravedad_Desc">High to low severity</string>
+
+    <string name="vacio"></string>
+
+</resources>

@@ -17,12 +17,4 @@ public class CategoriaService {
 	public List<Categoria> categorias() {
 		return repository.findAll();
 	}
-	
-	public Categoria buscaCategoria(Long id) {
-		return repository.findById(id).orElse(null);
-	}
-	
-	public Categoria buscaCategoriaPorNombre(String nombre) {
-		return repository.findByNombre(nombre);
-	}
 }
