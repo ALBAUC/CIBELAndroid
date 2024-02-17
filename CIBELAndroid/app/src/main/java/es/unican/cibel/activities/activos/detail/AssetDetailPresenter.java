@@ -1,6 +1,7 @@
 package es.unican.cibel.activities.activos.detail;
 
 import java.util.List;
+import java.util.Locale;
 
 import es.unican.cibel.model.Activo;
 import es.unican.cibel.model.Perfil;
@@ -45,7 +46,15 @@ public class AssetDetailPresenter implements IAssetDetailContract.Presenter {
 
     @Override
     public String getAssetType() {
-        return activo.getTipo().getNombre();
+        String result = "";
+        Locale locale = view.getMyApplication().getResources().getConfiguration().getLocales().get(0);
+        String language = locale.getLanguage();
+        if (language.equals("es")) {
+            result = activo.getTipo().getNombre();
+        } else if (language.equals("en")) {
+            result = activo.getTipo().getNombre_en();
+        }
+        return result;
     }
 
     @Override
