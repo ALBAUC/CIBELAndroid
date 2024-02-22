@@ -92,13 +92,13 @@ public class CveDetailView extends Fragment implements  ICveDetailContract.View,
                 @Override
                 public void onClick(View v) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle("Información sobre Impacto");
+                    builder.setTitle(R.string.cve_impact_info);
 
                     // Añade el mensaje informativo
                     builder.setMessage(Html.fromHtml(getResources().getString(R.string.cve_info_impacto)));
 
                     // Añade un botón de cierre
-                    builder.setPositiveButton("Entendido", new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton(R.string.entendido, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             // Cierra el diálogo

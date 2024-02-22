@@ -90,5 +90,7 @@
     <string name="ordenarGravedad_Desc">High to low severity</string>
 
     <string name="vacio"></string>
+    <string name="cve_impact_info">Impact Information</string>
+    <string name="entendido">Understood</string>
 
 </resources>

@@ -90,5 +90,7 @@
     <string name="ordenarGravedad_Desc">Mayor a menor gravedad</string>
 
     <string name="vacio"></string>
+    <string name="cve_impact_info">Información sobre Impacto</string>
+    <string name="entendido">Entendido</string>
 
 </resources>
