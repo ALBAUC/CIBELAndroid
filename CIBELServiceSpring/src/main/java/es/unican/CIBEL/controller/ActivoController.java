@@ -39,10 +39,23 @@ public class ActivoController {
 		return activos;
 	}
 	
-	@GetMapping("/{nombre}")
-	public ResponseEntity<Activo> getActivo(@PathVariable String nombre) {
+//	@GetMapping("/{nombre}")
+//	public ResponseEntity<Activo> getActivoByNombre(@PathVariable String nombre) {
+//		ResponseEntity<Activo> result;
+//		Activo activo = activosService.buscaActivoPorNombre(nombre);
+//		
+//		if (activo == null) {
+//			result = ResponseEntity.notFound().build();
+//		} else {
+//			result = ResponseEntity.ok(activo);
+//		}
+//		return result;
+//	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Activo> getActivoById(@PathVariable Long id) {
 		ResponseEntity<Activo> result;
-		Activo activo = activosService.buscaActivo(nombre);
+		Activo activo = activosService.buscaActivoPorId(id);
 		
 		if (activo == null) {
 			result = ResponseEntity.notFound().build();
