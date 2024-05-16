@@ -31,4 +31,8 @@ public class ActivoService {
 	public Activo buscaActivo(String nombre) {
 		return repository.findByNombre(nombre);
 	}
+
+	public Activo buscaActivoPorId(Long id) {
+		return repository.findById(id).orElse(null);
+	}
 }
