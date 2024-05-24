@@ -5,7 +5,7 @@ public class CibelServiceConstants {
     private CibelServiceConstants() {
     }
 
-    private static final String API_URL = "http://192.168.4.36:8080/";
+    private static final String API_URL = "https://e7be493eb86a3c656d19b122e81881fe.serveo.net";
 
     public static String getAPIURL() {
         return API_URL;
