@@ -5,7 +5,7 @@ public class CibelServiceConstants {
     private CibelServiceConstants() {
     }
 
-    private static final String API_URL = "https://e7be493eb86a3c656d19b122e81881fe.serveo.net";
+    private static final String API_URL = "https://thorough-healthy-escargot.ngrok-free.app";
 
     public static String getAPIURL() {
         return API_URL;
