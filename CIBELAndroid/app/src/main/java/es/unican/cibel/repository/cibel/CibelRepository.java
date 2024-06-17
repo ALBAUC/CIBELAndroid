@@ -98,42 +98,6 @@ public class CibelRepository implements ICibelRepository {
         }
     }
 
-    @Override
-    public void requestCategorias(Callback<Categoria[]> cb) {
-        CibelService.requestCategorias(new Callback<Categoria[]>() {
-            @Override
-            public void onSuccess(Categoria[] data) {
-                persistToDBCategorias(data);
-                cb.onSuccess(data);
-            }
-
-            @Override
-            public void onFailure() {
-                cb.onFailure();
-            }
-        });
-    }
-
-    @Override
-    public Categoria[] getCategorias() {
-        Categoria[] response = CibelService.getCategorias();
-        persistToDBCategorias(response);
-        return response;
-    }
-
-    private void persistToDBCategorias(Categoria[] categorias) {
-        if (categorias != null) {
-            CategoriaDao categoriaDao = daoSession.getCategoriaDao();
-            for (Categoria c : categorias) {
-                if (categoriaDao.load(c.getIdCategoria()) == null) {
-                    // Nueva categoria, se inserta en la BBDD
-                    categoriaDao.insert(c);
-                }
-            }
-            Prefs.from(application).putInstant(KEY_LAST_SAVED_CA, Instant.now());
-        }
-    }
-
     private void persistToDBTipos(Tipo[] tipos) {
         if (tipos != null) {
             TipoDao tipoDao = daoSession.getTipoDao();

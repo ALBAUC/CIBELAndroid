@@ -32,24 +32,6 @@ public interface ICibelRepository {
      */
     Activo[] getActivos(String tipo);
 
-    /**
-     * Solicita categorias de forma asincrona.
-     * Una vez que las categorias han sido recuperadas de la fuente,
-     * el callback indicado es llamado. Persiste las categorias
-     * en la base de datos local.
-     * @param cb callback que procesa la respuesta de forma asíncrona
-     */
-    void requestCategorias(Callback<Categoria[]> cb);
-
-    /**
-     * Solicita categorias de forma sincrona.
-     * Este metodo retorna una lista de categorias directamente. Persiste las categorias
-     * en la base de datos local.
-     * @return la lista de categorias
-     *          null si ocurre un error
-     */
-    Categoria[] getCategorias();
-
     void requestTipos(Callback<Tipo[]> cb);
 
     Tipo[] getTipos();

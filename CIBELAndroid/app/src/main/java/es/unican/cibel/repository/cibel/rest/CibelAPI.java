@@ -13,15 +13,12 @@ import retrofit2.http.Query;
  */
 public interface CibelAPI {
 
-    @GET("activos")
+    @GET("dispositivos")
     Call<Activo[]> activos(@Query("categoria") String categoria);
 
-    @GET("categorias")
-    Call<Categoria[]> categorias();
-
-    @GET("tipos")
+    @GET("dispositivos/tipos")
     Call<Tipo[]> tipos();
 
-    @GET("vulnerabilidades")
+    @GET("dispositivos/vulnerabilidades")
     Call<Vulnerabilidad[]> vulnerabilidades();
 }

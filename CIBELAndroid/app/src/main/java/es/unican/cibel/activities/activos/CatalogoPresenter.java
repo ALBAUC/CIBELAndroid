@@ -54,9 +54,6 @@ public class CatalogoPresenter implements ICatalogoContract.Presenter {
     }
 
     private void doAsyncInit() {
-        cibelRepository.requestCategorias(new Callback<Categoria[]>() {
-            @Override
-            public void onSuccess(Categoria[] categorias) {
                 cibelRepository.requestTipos(new Callback<Tipo[]>() {
                     @Override
                     public void onSuccess(Tipo[] data) {
@@ -89,18 +86,10 @@ public class CatalogoPresenter implements ICatalogoContract.Presenter {
 
                     }
                 });
-            }
-
-            @Override
-            public void onFailure() {
-                view.showLoadError();
-            }
-        });
     }
 
     private void doSyncInit() {
-        if (cibelRepository.getCategorias() == null ||
-                cibelRepository.getTipos() == null ||
+        if (cibelRepository.getTipos() == null ||
                 cibelRepository.getVulnerabilidades() == null ||
                 cibelRepository.getActivos(null) == null) {
             view.showLoadError();
