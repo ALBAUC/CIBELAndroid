@@ -93,4 +93,7 @@
     <string name="cve_impact_info">Impact Information</string>
     <string name="entendido">Understood</string>
 
+    <string name="info_predictedEco">The sustainability score shown is an estimate based on internal models and generic data. It does not represent a measurement based on actual device-specific data.</string>
+
+
 </resources>

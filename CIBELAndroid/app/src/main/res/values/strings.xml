@@ -93,4 +93,6 @@
     <string name="cve_impact_info">Información sobre Impacto</string>
     <string name="entendido">Entendido</string>
 
+    <string name="info_predictedEco">La nota de sostenibilidad mostrada es una estimación realizada en base a modelos internos y datos genéricos. No representa una medición basada en datos reales específicos del dispositivo.</string>
+
 </resources>

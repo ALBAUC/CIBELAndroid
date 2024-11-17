@@ -54,12 +54,20 @@ public class TabSostenibilidadView extends Fragment implements ITabSostenibilida
         TextView efRecursosTV = layout.findViewById(R.id.efRecursos_tv);
         CustomSeekBar efRecursosSB = layout.findViewById(R.id.efRecursos_hbc);
 
+        TextView infoEcoPredictedTV = layout.findViewById(R.id.info_eco_predicted_tv);
+
         // Asignar valores
         asignaScore(durabilidadTV, presenter.getDurabilidad(), durabilidadSB);
         asignaScore(reciclabilidadTV, presenter.getReciclabilidad(), reciclabilidadSB);
         asignaScore(reparabilidadTV, presenter.getReparabilidad(), reparabilidadSB);
         asignaScore(efClimaticaTV, presenter.getEfClimatica(), efClimaticaSB);
         asignaScore(efRecursosTV, presenter.getEfRecursos(), efRecursosSB);
+
+        if (activo.getEcoPredicted()) {
+            infoEcoPredictedTV.setVisibility(View.VISIBLE);
+        } else {
+            infoEcoPredictedTV.setVisibility(View.GONE);
+        }
 
         return layout;
     }
