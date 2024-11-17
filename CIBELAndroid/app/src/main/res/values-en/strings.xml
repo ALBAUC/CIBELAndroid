@@ -94,6 +94,8 @@
     <string name="entendido">Understood</string>
 
     <string name="info_predictedEco">The sustainability score shown is an estimate based on internal models and generic data. It does not represent a measurement based on actual device-specific data.</string>
-
+    <string name="info_cwe_title">This security flaw is related to the following known weaknesses:</string>
+    <string name="info_ms_cwe_title">Information about CWEs</string>
+    <string name="info_ms_cve_description">These weaknesses (also known as CWEs) are categories that describe the origin or common cause of this security flaw. Understanding them helps you better comprehend how it might have occurred and how to avoid similar issues in the future.</string>
 
 </resources>

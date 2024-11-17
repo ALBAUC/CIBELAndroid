@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import es.unican.cibel.common.Callback;
 import es.unican.cibel.model.Categoria;
 import es.unican.cibel.model.Activo;
+import es.unican.cibel.model.Debilidad;
 import es.unican.cibel.model.Tipo;
 import es.unican.cibel.model.Vulnerabilidad;
 import es.unican.cibel.repository.common.CallRunnable;
@@ -119,4 +120,28 @@ public class CibelService {
         }
         return runnable.getResponse();
     }
+
+    public static void requestDebilidades(Callback<Debilidad[]> cb) {
+        // Solicitud asíncrona para obtener las debilidades
+        final Call<Debilidad[]> call = getAPI().debilidades();
+        call.enqueue(new CallbackAdapter<>(cb));
+    }
+
+    public static Debilidad[] getDebilidades() {
+        // Solicitud síncrona para obtener las debilidades
+        final Call<Debilidad[]> call = getAPI().debilidades();
+
+        ExecutorService executor = Executors.newFixedThreadPool(1);
+        CallRunnable<Debilidad[]> runnable = new CallRunnable<>(call);
+        executor.execute(runnable);
+
+        executor.shutdown();
+        try {
+            executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        return runnable.getResponse();
+    }
+
 }

@@ -5,11 +5,13 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,6 +32,7 @@ import java.util.ArrayList;
 import es.unican.cibel.R;
 import es.unican.cibel.activities.main.MainView;
 import es.unican.cibel.common.MyApplication;
+import es.unican.cibel.model.Debilidad;
 import es.unican.cibel.model.Vulnerabilidad;
 
 public class CveDetailView extends Fragment implements  ICveDetailContract.View, MainView.RefreshableFragment {
@@ -59,6 +62,7 @@ public class CveDetailView extends Fragment implements  ICveDetailContract.View,
         View layout = inflater.inflate(R.layout.fragment_cve_detail, container, false);
 
         Bundle args = getArguments();
+        ImageView cweInfoIV = null;
         if (args != null) {
             // Obtener la vulnerabilidad del fragmento que lanzo este frgamento
             vulnerabilidad = args.getParcelable(FRAGMENT_CVE);
@@ -82,6 +86,9 @@ public class CveDetailView extends Fragment implements  ICveDetailContract.View,
 
             TextView disponibilidadTV = layout.findViewById(R.id.disponibilidad_tv);
             HorizontalBarChart disponibilidadHBC = layout.findViewById(R.id.disponibilidad_hbc);
+
+            cweInfoIV = layout.findViewById(R.id.cweInfoIcon_iv);
+            LinearLayout cweLL = layout.findViewById(R.id.cweList_ll);
 
             // Asignar valores
             severityIconIV.setColorFilter(ContextCompat.getColor(getContext(), vulnerabilidad.getColorFromSeverity()));
@@ -134,8 +141,28 @@ public class CveDetailView extends Fragment implements  ICveDetailContract.View,
             disponibilidadTV.setTextColor(ContextCompat.getColor(getContext(),
                     vulnerabilidad.getColorFromImpact(availability)));
             setGraph(disponibilidadHBC, availability);
-        }
 
+
+            cweInfoIV.setOnClickListener(v -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle(getResources().getString(R.string.info_ms_cwe_title))
+                        .setMessage(getResources().getString(R.string.info_ms_cve_description))
+                        .setPositiveButton(getResources().getString(R.string.entendido), (dialog, which) -> dialog.dismiss())
+                        .show();
+            });
+
+            for (Debilidad cwe : presenter.getCwes()) {
+                View cweCard = inflater.inflate(R.layout.cwe_card_item, cweLL, false);
+
+                TextView cweTitle = cweCard.findViewById(R.id.cweTitle_tv);
+                TextView cweDescription = cweCard.findViewById(R.id.cweDescription_tv);
+
+                cweTitle.setText(String.format("%s: %s", presenter.getIdCWE(cwe), presenter.getNombre(cwe)));
+                cweDescription.setText(presenter.getDescripcion(cwe));
+
+                cweLL.addView(cweCard);
+            }
+        }
         return layout;
     }
     private String getTranslationForImpact(String impact) {

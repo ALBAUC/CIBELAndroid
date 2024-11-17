@@ -3,6 +3,7 @@ package es.unican.cibel.repository.cibel;
 import es.unican.cibel.common.Callback;
 import es.unican.cibel.model.Activo;
 import es.unican.cibel.model.Categoria;
+import es.unican.cibel.model.Debilidad;
 import es.unican.cibel.model.Tipo;
 import es.unican.cibel.model.Vulnerabilidad;
 
@@ -39,6 +40,8 @@ public interface ICibelRepository {
     void requestVulnerabilidades(Callback<Vulnerabilidad[]> cb);
 
     Vulnerabilidad[] getVulnerabilidades();
+    void requestDebilidades(Callback<Debilidad[]> cb);
+    Debilidad[] getDebilidades();
 
     boolean lastDownloadOlderThan(int minutes, String resourceName);
 }

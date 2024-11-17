@@ -10,14 +10,18 @@ import es.unican.cibel.common.MyApplication;
 import es.unican.cibel.common.prefs.Prefs;
 import es.unican.cibel.model.Activo;
 import es.unican.cibel.model.Categoria;
+import es.unican.cibel.model.Debilidad;
 import es.unican.cibel.model.JoinActivosWithVulnerabilidades;
+import es.unican.cibel.model.JoinVulnerabilidadesWithDebilidades;
 import es.unican.cibel.model.Tipo;
 import es.unican.cibel.model.Vulnerabilidad;
 import es.unican.cibel.repository.db.ActivoDao;
 import es.unican.cibel.repository.db.CategoriaDao;
 import es.unican.cibel.repository.db.DaoSession;
+import es.unican.cibel.repository.db.DebilidadDao;
 import es.unican.cibel.repository.db.JoinActivosWithVulnerabilidadesDao;
 import es.unican.cibel.repository.cibel.rest.CibelService;
+import es.unican.cibel.repository.db.JoinVulnerabilidadesWithDebilidadesDao;
 import es.unican.cibel.repository.db.TipoDao;
 import es.unican.cibel.repository.db.VulnerabilidadDao;
 
@@ -92,7 +96,7 @@ public class CibelRepository implements ICibelRepository {
                     aBD.setFk_tipo(a.getTipoTrampa().getIdTipo());
                     activoDao.update(aBD);
                 }
-                Log.d("CibelRepo", a.toString());
+                //Log.d("CibelRepo", a.toString());
             }
             Prefs.from(application).putInstant(KEY_LAST_SAVED_A, Instant.now());
         }
@@ -158,9 +162,54 @@ public class CibelRepository implements ICibelRepository {
     private void persistToDBVulnerabilidades(Vulnerabilidad[] vulnerabilidades) {
         if (vulnerabilidades != null) {
             VulnerabilidadDao vulnerabilidadDao = daoSession.getVulnerabilidadDao();
+            JoinVulnerabilidadesWithDebilidadesDao vdDao = daoSession.getJoinVulnerabilidadesWithDebilidadesDao();
             for (Vulnerabilidad v : vulnerabilidades) {
-                if (vulnerabilidadDao.load(v.getIdCVE()) == null) {
+                Vulnerabilidad vBD = vulnerabilidadDao.load(v.getIdCVE());
+                if (vBD == null) {
+                    // Guardar debilidades asociadas
+                    if (v.getCwes() != null) {
+                        for (Debilidad d : v.getCwes()) {
+                            JoinVulnerabilidadesWithDebilidades vd = new JoinVulnerabilidadesWithDebilidades();
+                            vd.setCveId(v.getIdCVE());
+                            vd.setCweId(d.getIdCWE());
+                            vdDao.insert(vd);
+                        }
+                    }
                     vulnerabilidadDao.insert(v);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void requestDebilidades(Callback<Debilidad[]> cb) {
+        CibelService.requestDebilidades(new Callback<Debilidad[]>() {
+            @Override
+            public void onSuccess(Debilidad[] data) {
+                persistToDBDebilidades(data);
+                cb.onSuccess(data);
+            }
+
+            @Override
+            public void onFailure() {
+                cb.onFailure();
+            }
+        });
+    }
+
+    @Override
+    public Debilidad[] getDebilidades() {
+        Debilidad[] response = CibelService.getDebilidades();
+        persistToDBDebilidades(response);
+        return response;
+    }
+
+    private void persistToDBDebilidades(Debilidad[] debilidades) {
+        if (debilidades != null) {
+            DebilidadDao debilidadDao = daoSession.getDebilidadDao();
+            for (Debilidad d : debilidades) {
+                if (debilidadDao.load(d.getIdCWE()) == null) {
+                    debilidadDao.insert(d);
                 }
             }
         }
@@ -169,6 +218,7 @@ public class CibelRepository implements ICibelRepository {
     /**
      * Retorna true si los recursos guardados en la BD son antiguos a la
      * cantidad específicada de minutos.
+     *
      * @param minutes
      * @return true si los recursos guardados en la BD son antiguos a la
      * cantidad específicada de minutos
