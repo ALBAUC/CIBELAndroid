@@ -68,7 +68,7 @@ public class RVActivosPerfilAdapter extends RecyclerView.Adapter<RVActivosPerfil
         holder.assetNameTV.setText(activo.getNombre());
 
         // Seguridad
-        int puntuacionSeguridad = activo.calcularPuntuacionSeguridad();
+        int puntuacionSeguridad = activo.getSecurityScore();
         holder.assetSecurityTV.setText(activo.getEtiquetaSecurityFromTramo(puntuacionSeguridad));
         holder.assetSecurityIconIV.setColorFilter(ContextCompat.getColor(context, activo.getColorFromTramo(puntuacionSeguridad)));
 

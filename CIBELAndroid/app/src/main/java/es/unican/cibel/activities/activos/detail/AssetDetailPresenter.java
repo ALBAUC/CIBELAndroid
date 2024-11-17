@@ -96,6 +96,6 @@ public class AssetDetailPresenter implements IAssetDetailContract.Presenter {
 
     @Override
     public int getSecurityRating() {
-        return activo.calcularPuntuacionSeguridad();
+        return activo.getSecurityScore();
     }
 }

@@ -69,8 +69,8 @@ public class RVAssetsAdapter extends RecyclerView.Adapter<RVAssetsAdapter.AssetV
             holder.assetAddedIcon_iv.setVisibility(View.GONE);
         }
 
-        holder.assetSecurityIV.setColorFilter(ContextCompat.getColor(context, activo.getColorFromTramo(activo.calcularPuntuacionSeguridad())));
-        holder.assetSecurityTV.setText(String.valueOf(activo.calcularPuntuacionSeguridad()));
+        holder.assetSecurityIV.setColorFilter(ContextCompat.getColor(context, activo.getColorFromTramo(activo.getSecurityScore())));
+        holder.assetSecurityTV.setText(String.valueOf(activo.getSecurityScore()));
 
         int calificacionEco = activo.getEcoPuntuacion();
         holder.assetEcoIV.setColorFilter(ContextCompat.getColor(context, activo.getColorFromTramo(calificacionEco)));

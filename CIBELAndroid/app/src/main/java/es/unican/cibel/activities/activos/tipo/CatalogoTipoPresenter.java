@@ -48,9 +48,7 @@ public class CatalogoTipoPresenter implements ICatalogoTipoContract.Presenter {
         Collections.sort(activosDeTipo, new Comparator<Activo>() {
             @Override
             public int compare(Activo activo1, Activo activo2) {
-                int gravedad1 = (int) Math.round(activo1.calcularTotalGravedad());
-                int gravedad2 = (int) Math.round(activo2.calcularTotalGravedad());
-                return Integer.compare(gravedad1, gravedad2);
+                return Integer.compare(activo2.getSecurityScore(), activo1.getSecurityScore());
             }
         });
 
@@ -63,9 +61,7 @@ public class CatalogoTipoPresenter implements ICatalogoTipoContract.Presenter {
         Collections.sort(activosDeTipo, new Comparator<Activo>() {
             @Override
             public int compare(Activo activo1, Activo activo2) {
-                int s1 = (int) Math.round(activo1.getEcoPuntuacion());
-                int s2 = (int) Math.round(activo2.getEcoPuntuacion());
-                return Integer.compare(s2, s1);
+                return Integer.compare(activo1.getEcoPuntuacion(), activo2.getEcoPuntuacion());
             }
         });
 
@@ -78,9 +74,7 @@ public class CatalogoTipoPresenter implements ICatalogoTipoContract.Presenter {
         Collections.sort(activosDeTipo, new Comparator<Activo>() {
             @Override
             public int compare(Activo activo1, Activo activo2) {
-                int s1 = (int) Math.round(activo1.getEcoPuntuacion());
-                int s2 = (int) Math.round(activo2.getEcoPuntuacion());
-                return Integer.compare(s1, s2);
+                return Integer.compare(activo2.getEcoPuntuacion(), activo1.getEcoPuntuacion());
             }
         });
 
@@ -93,9 +87,7 @@ public class CatalogoTipoPresenter implements ICatalogoTipoContract.Presenter {
         Collections.sort(activosDeTipo, new Comparator<Activo>() {
             @Override
             public int compare(Activo activo1, Activo activo2) {
-                int gravedad1 = (int) Math.round(activo1.calcularTotalGravedad());
-                int gravedad2 = (int) Math.round(activo2.calcularTotalGravedad());
-                return Integer.compare(gravedad2, gravedad1);
+                return Integer.compare(activo1.getSecurityScore(), activo2.getSecurityScore());
             }
         });
 
