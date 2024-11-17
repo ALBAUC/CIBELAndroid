@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: es.unican.CIBEL.CIBELApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.783 s - in es.unican.CIBEL.CIBELApplicationTests
