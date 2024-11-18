@@ -62,7 +62,6 @@ public class CveDetailView extends Fragment implements  ICveDetailContract.View,
         View layout = inflater.inflate(R.layout.fragment_cve_detail, container, false);
 
         Bundle args = getArguments();
-        ImageView cweInfoIV = null;
         if (args != null) {
             // Obtener la vulnerabilidad del fragmento que lanzo este frgamento
             vulnerabilidad = args.getParcelable(FRAGMENT_CVE);
@@ -87,8 +86,10 @@ public class CveDetailView extends Fragment implements  ICveDetailContract.View,
             TextView disponibilidadTV = layout.findViewById(R.id.disponibilidad_tv);
             HorizontalBarChart disponibilidadHBC = layout.findViewById(R.id.disponibilidad_hbc);
 
-            cweInfoIV = layout.findViewById(R.id.cweInfoIcon_iv);
+            ImageView cweInfoIV = layout.findViewById(R.id.cweInfoIcon_iv);
             LinearLayout cweLL = layout.findViewById(R.id.cweList_ll);
+            LinearLayout cweSection = layout.findViewById(R.id.cweSection_ll);
+            View cweSectionLineVW = layout.findViewById(R.id.cweSectionLine_vw);
 
             // Asignar valores
             severityIconIV.setColorFilter(ContextCompat.getColor(getContext(), vulnerabilidad.getColorFromSeverity()));
@@ -142,25 +143,29 @@ public class CveDetailView extends Fragment implements  ICveDetailContract.View,
                     vulnerabilidad.getColorFromImpact(availability)));
             setGraph(disponibilidadHBC, availability);
 
+            if (!presenter.getCwes().isEmpty()) {
+                cweInfoIV.setOnClickListener(v -> {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle(getResources().getString(R.string.info_ms_cwe_title))
+                            .setMessage(getResources().getString(R.string.info_ms_cve_description))
+                            .setPositiveButton(getResources().getString(R.string.entendido), (dialog, which) -> dialog.dismiss())
+                            .show();
+                });
 
-            cweInfoIV.setOnClickListener(v -> {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle(getResources().getString(R.string.info_ms_cwe_title))
-                        .setMessage(getResources().getString(R.string.info_ms_cve_description))
-                        .setPositiveButton(getResources().getString(R.string.entendido), (dialog, which) -> dialog.dismiss())
-                        .show();
-            });
+                for (Debilidad cwe : presenter.getCwes()) {
+                    View cweCard = inflater.inflate(R.layout.cwe_card_item, cweLL, false);
 
-            for (Debilidad cwe : presenter.getCwes()) {
-                View cweCard = inflater.inflate(R.layout.cwe_card_item, cweLL, false);
+                    TextView cweTitle = cweCard.findViewById(R.id.cweTitle_tv);
+                    TextView cweDescription = cweCard.findViewById(R.id.cweDescription_tv);
 
-                TextView cweTitle = cweCard.findViewById(R.id.cweTitle_tv);
-                TextView cweDescription = cweCard.findViewById(R.id.cweDescription_tv);
+                    cweTitle.setText(String.format("%s: %s", presenter.getIdCWE(cwe), presenter.getNombre(cwe)));
+                    cweDescription.setText(presenter.getDescripcion(cwe));
 
-                cweTitle.setText(String.format("%s: %s", presenter.getIdCWE(cwe), presenter.getNombre(cwe)));
-                cweDescription.setText(presenter.getDescripcion(cwe));
-
-                cweLL.addView(cweCard);
+                    cweLL.addView(cweCard);
+                }
+            } else {
+                cweSection.setVisibility(View.GONE);
+                cweSectionLineVW.setVisibility(View.GONE);
             }
         }
         return layout;

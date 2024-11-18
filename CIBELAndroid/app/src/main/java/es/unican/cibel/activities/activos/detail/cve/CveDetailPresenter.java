@@ -106,4 +106,5 @@ public class CveDetailPresenter implements ICveDetailContract.Presenter {
         }
         return result;
     }
+
 }

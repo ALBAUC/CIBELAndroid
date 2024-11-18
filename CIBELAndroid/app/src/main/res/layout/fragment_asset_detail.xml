@@ -86,8 +86,10 @@
                         android:id="@+id/securityTag_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:inputType="textMultiLine"
                         android:textSize="15sp"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:maxLines="1"
                         tools:text="Suficiente seguro" />
                 </LinearLayout>
 
@@ -119,8 +121,10 @@
                         android:id="@+id/ecoTag_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:inputType="textMultiLine"
                         android:textSize="15sp"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:maxLines="1"
                         tools:text="Poco sostenible" />
                 </LinearLayout>
             </LinearLayout>

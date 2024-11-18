@@ -227,12 +227,20 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <View
+            android:id="@+id/cweSectionLine_vw"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_background"
+            android:layout_marginTop="8dp"/>
+
         <!-- Sección de información sobre CWEs -->
         <LinearLayout
+            android:id="@+id/cweSection_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:padding="8dp">
 
             <TextView
@@ -255,12 +263,6 @@
                 android:contentDescription="Info"
                 android:layout_marginStart="4dp" />
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/light_background"
-            android:layout_marginBottom="8dp" />
 
         <!-- Lista de CWEs -->
         <LinearLayout
