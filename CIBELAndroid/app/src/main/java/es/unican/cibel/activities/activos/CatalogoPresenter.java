@@ -7,6 +7,7 @@ import java.util.List;
 import es.unican.cibel.common.Callback;
 import es.unican.cibel.model.Categoria;
 import es.unican.cibel.model.Activo;
+import es.unican.cibel.model.Debilidad;
 import es.unican.cibel.model.Perfil;
 import es.unican.cibel.model.Tipo;
 import es.unican.cibel.model.Vulnerabilidad;
@@ -54,9 +55,14 @@ public class CatalogoPresenter implements ICatalogoContract.Presenter {
     }
 
     private void doAsyncInit() {
-                cibelRepository.requestTipos(new Callback<Tipo[]>() {
+        cibelRepository.requestTipos(new Callback<Tipo[]>() {
+            @Override
+            public void onSuccess(Tipo[] data) {
+
+                // Solicitar las debilidades antes que las vulnerabilidades
+                cibelRepository.requestDebilidades(new Callback<Debilidad[]>() {
                     @Override
-                    public void onSuccess(Tipo[] data) {
+                    public void onSuccess(Debilidad[] data) {
 
                         cibelRepository.requestVulnerabilidades(new Callback<Vulnerabilidad[]>() {
                             @Override
@@ -76,21 +82,30 @@ public class CatalogoPresenter implements ICatalogoContract.Presenter {
 
                             @Override
                             public void onFailure() {
-
+                                view.showLoadError();
                             }
                         });
                     }
 
                     @Override
                     public void onFailure() {
-
+                        view.showLoadError();
                     }
                 });
+            }
+
+            @Override
+            public void onFailure() {
+                view.showLoadError();
+            }
+        });
     }
+
 
     private void doSyncInit() {
         if (cibelRepository.getTipos() == null ||
                 cibelRepository.getVulnerabilidades() == null ||
+                cibelRepository.getDebilidades() == null ||
                 cibelRepository.getActivos(null) == null) {
             view.showLoadError();
         } else {

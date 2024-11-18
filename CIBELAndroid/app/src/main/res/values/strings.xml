@@ -93,4 +93,8 @@
     <string name="cve_impact_info">Información sobre Impacto</string>
     <string name="entendido">Entendido</string>
 
+    <string name="info_predictedEco">La nota de sostenibilidad mostrada es una estimación realizada en base a modelos internos y datos genéricos. No representa una medición basada en datos reales específicos del dispositivo.</string>
+    <string name="info_cwe_title">Este fallo de seguridad se relaciona con las siguientes debilidades conocidas:</string>
+    <string name="info_ms_cwe_title">Información sobre CWEs</string>
+    <string name="info_ms_cve_description">Estas debilidades (también conocidas como CWEs) son categorías que describen el origen o la causa común de este fallo de seguridad. Conocerlas te ayuda a entender mejor cómo podría haberse generado y cómo evitar problemas similares.</string>
 </resources>

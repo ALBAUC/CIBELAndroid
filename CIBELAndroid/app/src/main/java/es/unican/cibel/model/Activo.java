@@ -76,6 +76,12 @@ public class Activo implements Parcelable {
     @SerializedName("ecoPuntuacion")
     private int ecoPuntuacion;
 
+    @SerializedName("securityScore")
+    private int securityScore;
+
+    @SerializedName("ecoPredicted")
+    private boolean ecoPredicted;
+
     /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
@@ -84,9 +90,9 @@ public class Activo implements Parcelable {
     @Generated(hash = 1317875841)
     private transient ActivoDao myDao;
 
-    @Generated(hash = 1730626772)
+    @Generated(hash = 351304967)
     public Activo(@NonNull Long idActivo, String nombre, String icono, long fk_categoria, Long fk_perfil, long fk_tipo, int durabilidad, int reparabilidad, int reciclabilidad, int efClimatica, int efRecursos,
-            int ecoPuntuacion) {
+            int ecoPuntuacion, int securityScore, boolean ecoPredicted) {
         this.idActivo = idActivo;
         this.nombre = nombre;
         this.icono = icono;
@@ -99,6 +105,8 @@ public class Activo implements Parcelable {
         this.efClimatica = efClimatica;
         this.efRecursos = efRecursos;
         this.ecoPuntuacion = ecoPuntuacion;
+        this.securityScore = securityScore;
+        this.ecoPredicted = ecoPredicted;
     }
 
     @Generated(hash = 315079783)
@@ -347,25 +355,6 @@ public class Activo implements Parcelable {
         vulnerabilidades = null;
     }
 
-    public int calcularPuntuacionSeguridad() {
-        // Los mayores valores de totalGravedad rondan entre 350-400
-        // Por lo que consideramos 400 como límite de mayor gravedad
-        // Por eso divido entre 4
-        int puntuacionSeguridad = (int) Math.round(100 - (calcularTotalGravedad() / 4));
-        return Math.max(0, Math.min(100, puntuacionSeguridad));
-    }
-
-    public double calcularTotalGravedad() {
-        List<Vulnerabilidad> vulnerabilidades = getVulnerabilidades();
-        int totalGravedad = 0;
-
-        for (Vulnerabilidad v : vulnerabilidades) {
-            totalGravedad += v.getBaseScore() * 10; // baseScore de 0 a 100
-        }
-
-        return totalGravedad;
-    }
-
     public int getColorFromTramo(int score) {
         int colorResId;
         if (score < 25) {
@@ -461,5 +450,21 @@ public class Activo implements Parcelable {
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getActivoDao() : null;
+    }
+
+    public int getSecurityScore() {
+        return this.securityScore;
+    }
+
+    public void setSecurityScore(int securityScore) {
+        this.securityScore = securityScore;
+    }
+
+    public boolean getEcoPredicted() {
+        return this.ecoPredicted;
+    }
+
+    public void setEcoPredicted(boolean ecoPredicted) {
+        this.ecoPredicted = ecoPredicted;
     }
 }

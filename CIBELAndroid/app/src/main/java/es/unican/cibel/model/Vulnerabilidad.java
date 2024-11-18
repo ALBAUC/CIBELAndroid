@@ -9,11 +9,19 @@ import androidx.annotation.NonNull;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.JoinEntity;
+import org.greenrobot.greendao.annotation.ToMany;
 import org.greenrobot.greendao.annotation.Transient;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import es.unican.cibel.R;
+import org.greenrobot.greendao.DaoException;
+import es.unican.cibel.repository.db.DaoSession;
+import es.unican.cibel.repository.db.DebilidadDao;
+import es.unican.cibel.repository.db.VulnerabilidadDao;
 
 @SuppressLint("ParcelCreator")
 @Entity
@@ -47,6 +55,20 @@ public class Vulnerabilidad implements Parcelable {
     private String availabilityImpact;
     private double baseScore;
     private String baseSeverity;
+
+    @ToMany
+    @JoinEntity(
+            entity = JoinVulnerabilidadesWithDebilidades.class,
+            sourceProperty = "cveId",
+            targetProperty = "cweId"
+    )
+    private List<Debilidad> cwes;
+    /** Used to resolve relations */
+    @Generated(hash = 2040040024)
+    private transient DaoSession daoSession;
+    /** Used for active entity operations. */
+    @Generated(hash = 1241301053)
+    private transient VulnerabilidadDao myDao;
 
     @Generated(hash = 1431243871)
     public Vulnerabilidad(String idCVE, String descripcion, String descripcion_en, String confidentialityImpact,
@@ -123,13 +145,15 @@ public class Vulnerabilidad implements Parcelable {
     @Override
     public String toString() {
         return "Vulnerabilidad{" +
-                ", idCVE='" + idCVE + '\'' +
+                "idCVE='" + idCVE + '\'' +
                 ", descripcion='" + descripcion + '\'' +
+                ", descripcion_en='" + descripcion_en + '\'' +
                 ", confidentialityImpact='" + confidentialityImpact + '\'' +
                 ", integrityImpact='" + integrityImpact + '\'' +
                 ", availabilityImpact='" + availabilityImpact + '\'' +
                 ", baseScore=" + baseScore +
                 ", baseSeverity='" + baseSeverity + '\'' +
+                ", cwes=" + cwes +
                 '}';
     }
 
@@ -226,5 +250,70 @@ public class Vulnerabilidad implements Parcelable {
     }
     public void setDescripcion_en(String descripcion_en) {
         this.descripcion_en = descripcion_en;
+    }
+    /**
+     * To-many relationship, resolved on first access (and after reset).
+     * Changes to to-many relations are not persisted, make changes to the target entity.
+     */
+    @Generated(hash = 2026971047)
+    public List<Debilidad> getCwes() {
+        if (cwes == null) {
+            final DaoSession daoSession = this.daoSession;
+            if (daoSession == null) {
+                throw new DaoException("Entity is detached from DAO context");
+            }
+            DebilidadDao targetDao = daoSession.getDebilidadDao();
+            List<Debilidad> cwesNew = targetDao._queryVulnerabilidad_Cwes(idCVE);
+            synchronized (this) {
+                if (cwes == null) {
+                    cwes = cwesNew;
+                }
+            }
+        }
+        return cwes;
+    }
+    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
+    @Generated(hash = 1393916814)
+    public synchronized void resetCwes() {
+        cwes = null;
+    }
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 128553479)
+    public void delete() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.delete(this);
+    }
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 1942392019)
+    public void refresh() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.refresh(this);
+    }
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#update(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 713229351)
+    public void update() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.update(this);
+    }
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 887784710)
+    public void __setDaoSession(DaoSession daoSession) {
+        this.daoSession = daoSession;
+        myDao = daoSession != null ? daoSession.getVulnerabilidadDao() : null;
     }
 }

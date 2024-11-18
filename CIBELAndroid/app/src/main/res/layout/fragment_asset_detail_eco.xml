@@ -7,6 +7,19 @@
     android:padding="12dp"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/info_eco_predicted_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/infoBannerBackground"
+        android:padding="10dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/info_predictedEco"
+        android:textColor="@color/infoBannerTextColor"
+        android:textSize="14sp"
+        android:textAlignment="center"
+        android:fontFamily="@font/roboto_regular" />
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

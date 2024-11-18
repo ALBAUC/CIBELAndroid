@@ -2,6 +2,7 @@ package es.unican.cibel.repository.cibel.rest;
 
 import es.unican.cibel.model.Activo;
 import es.unican.cibel.model.Categoria;
+import es.unican.cibel.model.Debilidad;
 import es.unican.cibel.model.Tipo;
 import es.unican.cibel.model.Vulnerabilidad;
 import retrofit2.Call;
@@ -21,4 +22,8 @@ public interface CibelAPI {
 
     @GET("dispositivos/vulnerabilidades")
     Call<Vulnerabilidad[]> vulnerabilidades();
+
+    @GET("dispositivos/debilidades")
+    Call<Debilidad[]> debilidades();
+
 }

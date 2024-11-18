@@ -32,4 +32,7 @@
 
     <color name="grey">#D5D4D4</color>
 
+    <color name="infoBannerBackground">#FFFBEA</color> <!-- Fondo amarillo claro -->
+    <color name="infoBannerTextColor">#856404</color> <!-- Texto marrón -->
+
 </resources>
