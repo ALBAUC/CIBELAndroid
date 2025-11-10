@@ -35,3 +35,5 @@ Al seleccionar un fallo de seguridad o CVE (Common Vulnerabilities and Exposures
 En la pestaña de Perfil, se exhibe un gráfico que refleja la puntuación de seguridad y sostenibilidad global del usuario, basada en los dispositivos agregados al perfil. La lista de dispositivos incluidos se presenta para un control más detallado, permitiendo ordenarla por seguridad o sostenibilidad, ya sea de forma ascendente o descendente.
 
 <img src="images/pestaña_perfil.jpg" alt="Pestaña Perfil" width="360" height="800" />
+
+
